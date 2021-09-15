@@ -1,5 +1,3 @@
-# Group gr2117 repository 
- 
-Welcome to IT1901 Fall 2021 course 
- 
-Good luck! 
+# Group gr2117 repository
+
+Code an modules can be found under modules-exciter
