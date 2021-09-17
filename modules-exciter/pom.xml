@@ -62,5 +62,6 @@
     <modules>
         <module>core</module>
         <module>ui</module>
+        <module>json</module>
     </modules>
 </project>
