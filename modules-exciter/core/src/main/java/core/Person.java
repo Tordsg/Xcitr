@@ -10,6 +10,13 @@ public class Person {
     private List<String> interests = new ArrayList<>();
     private String bio;
 
+    public Person(String name, int age, List<String> interests, String bio){
+        setName(name);
+        setAge(age);
+        setInterests(interests);
+        setBio(bio);
+    }
+
     public String getName() {
         return this.name;
     }
@@ -56,5 +63,5 @@ public class Person {
         }
         interests.remove(index);
     }
-    
+
 }
