@@ -11,6 +11,7 @@ public class User implements MatchListener {
 
     /**
      * Constructor
+     *
      * @param name
      * @param age
      * @param userInformation
@@ -20,8 +21,8 @@ public class User implements MatchListener {
         this.age = age;
         this.userInformation = userInformation;
     }
-    public User(String name, int age)
-    {
+
+    public User(String name, int age) {
         this.name = name;
         this.age = age;
     }
@@ -52,24 +53,37 @@ public class User implements MatchListener {
         }
         this.age = age;
     }
-    public HashMap<User,Integer> getAlreadyMatched() {
+
+    public HashMap<User, Integer> getAlreadyMatched() {
         return new HashMap<>(likedByCounter);
     }
 
     @Override
     public void fireOnLike(User match) {
-        if (match.likedByCounter.containsKey(this)) {
-            match.likedByCounter.put(this, match.likedByCounter.get(this) + 1);
+        match.addUserOnMatch(this);
+    }
+
+    public boolean containsPreviousMatch(User match) {
+        return likedByCounter.containsKey(match);
+    }
+
+    public void addUserOnMatch(User match) {
+        if (!likedByCounter.containsKey(match)) {
+            likedByCounter.put(match, 1);
         } else {
-            match.likedByCounter.put(this, 1);
+            likedByCounter.put(match, likedByCounter.get(match) + 1);
         }
     }
+
     @Override
-    public boolean checkIfMatch(User user){
+    public boolean checkIfMatch(User user) {
         return haveLikedUser(user) && user.haveLikedUser(this);
     }
 
     public boolean haveLikedUser(User user) {
+        if (!likedByCounter.containsKey(user)) {
+            return false;
+        }
         return likedByCounter.get(user) >= 3;
     }
 }

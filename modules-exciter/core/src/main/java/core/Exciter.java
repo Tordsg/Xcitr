@@ -2,17 +2,19 @@ package core;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Random;
 
-import json.FileHandler;
 
 public class Exciter {
 
-   private FileHandler fileHandler;
-
-   // TODO: add backend logic and connect to controller
+   // TODO: connect to controller
    private ArrayList<User> allUsers = new ArrayList<>();
    private User onScreenUser1;
    private User onScreenUser2;
+
+   public Exciter(){
+      addSomePlaceholderUsers();
+   }
 
    public void addSomePlaceholderUsers() {
       allUsers.add(new User("John", 22));
@@ -26,16 +28,14 @@ public class Exciter {
    // Current user placeholder before logging in is implemented
    private User currentUser = new User("Ulf Reidar", 25, "Camping, guitar, professional speed knitter");
 
-   public User getNextUsers() {
-      for(User user:allUsers){
-         if(!currentUser.getAlreadyMatched().containsKey(user)){
-            //TODO: create algorithm to select two random people
-            setOnScreenUser(user,user);
-            return user;
-         }
-      }
-      //TODO: handle no more users
-      return null;
+   public User getCurrentUser() {
+      return currentUser;
+   }
+
+   public ArrayList<User> getNextUsers() {
+      int[] randomUsers = new Random().ints(0, allUsers.size() - 1).distinct().limit(2).toArray();
+      setOnScreenUser(allUsers.get(randomUsers[0]), allUsers.get(randomUsers[1]));
+      return new ArrayList<>(Arrays.asList(allUsers.get(randomUsers[0]),allUsers.get(randomUsers[1])));
    }
 
    public void setOnScreenUser(User user, User user2) {
@@ -56,9 +56,4 @@ public class Exciter {
       currentUser.fireOnLike(onScreenUser2);
       return currentUser.checkIfMatch(onScreenUser2);
    }
-
-   public void saveUserData() {
-      fileHandler.saveUser(currentUser.getName(), currentUser.getAge(), currentUser.getUserInformation().toCharArray());
-   }
-
 }

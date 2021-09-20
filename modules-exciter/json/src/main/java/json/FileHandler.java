@@ -9,24 +9,19 @@ import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 
-import Exciter.core;
+import core.User;
 
 public class FileHandler {
-
-   private User user;
 
    private JSONParser parser = new JSONParser();
    private URL url = this.getClass().getResource("/tempSaveFile.json");
 
-   public void saveUser(String name, int age, char... c) {
+   public void saveUser(User user) {
       JSONObject userData = new JSONObject();
-      userData.put("name", name); // Type safety can't be avoided with simple-json
-      userData.put("age", age);
-      JSONArray userInformationArray = new JSONArray();
-      for (char userInformationString : c) {
-         userInformationArray.add(userInformationString);
-      }
-      userData.put("userInformation", userInformationArray);
+      userData.put("name", user.getName()); // Type safety can't be avoided with simple-json
+      userData.put("age", user.getAge());
+      userData.put("matches", user.getAlreadyMatched());
+      userData.put("userInformation", user.getUserInformation());
       try {
          FileWriter fileWriter = new FileWriter(url.getFile());
          fileWriter.write(userData.toJSONString());
