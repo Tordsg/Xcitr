@@ -9,11 +9,11 @@
 <?import javafx.scene.text.Font?>
 
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ui.PrimaryController">
    <children>
       <Pane layoutX="22.0" layoutY="46.0" prefHeight="297.0" prefWidth="270.0" style="-fx-background-color: lightgreen;">
          <children>
-            <Button fx:id="Like1" layoutX="94.0" layoutY="225.0" mnemonicParsing="false" textOverrun="CLIP">
+            <Button fx:id="Like1" layoutX="94.0" layoutY="225.0" mnemonicParsing="false" onAction="#onLike1" textOverrun="CLIP">
                <graphic>
                   <ImageView fitHeight="48.0" fitWidth="58.0" pickOnBounds="true" preserveRatio="true">
                      <image>
@@ -33,7 +33,7 @@
       </Pane>
       <Pane layoutX="300.0" layoutY="46.0" prefHeight="297.0" prefWidth="270.0" style="-fx-background-color: lightgreen;">
          <children>
-            <Button fx:id="Like2" layoutX="95.0" layoutY="228.0" mnemonicParsing="false" prefHeight="52.0" prefWidth="58.0">
+            <Button fx:id="Like2" layoutX="95.0" layoutY="228.0" mnemonicParsing="false" onAction="#onLike2" prefHeight="52.0" prefWidth="58.0">
                <graphic>
                   <ImageView fitHeight="45.0" fitWidth="46.0" pickOnBounds="true" preserveRatio="true">
                      <image>
@@ -51,6 +51,6 @@
             <Label fx:id="Bio2" layoutX="40.0" layoutY="167.0" prefHeight="63.0" prefWidth="174.0" />
          </children>
       </Pane>
-      <Button fx:id="Profile" layoutX="527.0" layoutY="14.0" mnemonicParsing="false" text="Profile" />
+      <Button fx:id="Profile" layoutX="527.0" layoutY="14.0" mnemonicParsing="false" onAction="#switchToSecondary" text="Profile" />
    </children>
 </AnchorPane>
