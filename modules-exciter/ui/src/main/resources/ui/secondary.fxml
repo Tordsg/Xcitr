@@ -24,5 +24,7 @@
       <TextField fx:id="mail" layoutX="44.0" layoutY="244.0" />
       <Label layoutX="45.0" layoutY="227.0" text="E-mail" />
       <Button layoutX="44.0" layoutY="346.0" mnemonicParsing="false" onAction="#updateSite" text="Update" />
+      <TextField fx:id="age" layoutX="44.0" layoutY="295.0" />
+      <Label layoutX="45.0" layoutY="276.0" prefHeight="17.0" prefWidth="36.0" text="Age" />
    </children>
 </AnchorPane>
