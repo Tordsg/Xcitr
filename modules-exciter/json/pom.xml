@@ -11,6 +11,11 @@
     </parent>
 
     <dependencies>
+        <dependency>
+            <groupId>GR2117</groupId>
+            <artifactId>modules-core</artifactId>
+            <version>0.0.1-SNAPSHOT</version>
+        </dependency>
 
         <dependency>
             <groupId>com.googlecode.json-simple</groupId>

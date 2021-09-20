@@ -9,7 +9,11 @@ import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 
+import Exciter.core;
+
 public class FileHandler {
+
+   private User user;
 
    private JSONParser parser = new JSONParser();
    private URL url = this.getClass().getResource("/tempSaveFile.json");

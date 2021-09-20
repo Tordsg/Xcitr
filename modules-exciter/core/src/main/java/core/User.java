@@ -70,6 +70,6 @@ public class User implements MatchListener {
     }
 
     public boolean haveLikedUser(User user) {
-        return likedByCounter.containsKey(user);
+        return likedByCounter.get(user) >= 3;
     }
 }
