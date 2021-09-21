@@ -4,7 +4,6 @@ import core.Exciter;
 
 import java.io.IOException;
 
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextArea;
@@ -33,19 +32,16 @@ public class SecondaryController {
     @FXML
     private TextField Age;
 
-@FXML
-void updateSite(ActionEvent event){
 
-}
 
 
 public void initData(){
-   /* User user = excite.getCurrentUser();
+   User user = excite.getCurrentUser();
     Name.setText(user.getName());
     Age.setText(user.getAge());
     Bio.setText(user.getUserInformation());
 
-*/
+
     
 
 
