@@ -11,14 +11,14 @@ public class Exciter {
    private ArrayList<User> allUsers = new ArrayList<>();
    private User onScreenUser1;
    private User onScreenUser2;
-   private User currentUser;
+ 
    
 
    public Exciter(){
       addSomePlaceholderUsers();
       ArrayList<User> onscreenUsers = getNextUsers();
       setOnScreenUser(onscreenUsers.get(0), onscreenUsers.get(1));
-      setCurrentUser(new User("Ulf Reidar", 25, "Camping, guitar, professional speed knitter"));
+      
 
 
    }
@@ -33,11 +33,9 @@ public class Exciter {
    }
 
    // Current user placeholder before logging in is implemented
-   //private User currentUser = new User("Ulf Reidar", 25, "Camping, guitar, professional speed knitter");
+   private User currentUser = new User("Ulf Reidar", 25, "Camping, guitar, professional speed knitter");
 
-   public void setCurrentUser(User user){
-      this.currentUser = user;
-   }
+
    public User getCurrentUser() {
       return currentUser;
    }
