@@ -18,13 +18,13 @@ public class User implements MatchListener {
      */
     public User(String name, int age, String userInformation) {
         this.name = name;
-        this.age = age;
+        setAge(age);
         this.userInformation = userInformation;
     }
 
     public User(String name, int age) {
         this.name = name;
-        this.age = age;
+        setAge(age);
     }
 
     public String getName() {
