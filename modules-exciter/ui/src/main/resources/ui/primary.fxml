@@ -21,13 +21,13 @@
                   </ImageView>
                </graphic>
             </Button>
-            <ImageView fx:id="Image1" fitHeight="150.0" fitWidth="200.0" layoutX="40.0" pickOnBounds="true" preserveRatio="true" />
-            <Label fx:id="Name1" layoutX="66.0" layoutY="150.0" prefHeight="17.0" prefWidth="119.0">
+            <Label fx:id="Name1" layoutX="61.0" layoutY="78.0" prefHeight="17.0" prefWidth="119.0">
                <font>
                   <Font size="18.0" />
                </font>
             </Label>
             <Label fx:id="Bio1" layoutX="40.0" layoutY="164.0" prefHeight="63.0" prefWidth="174.0" />
+            <Label fx:id="Image1" layoutX="94.0" layoutY="132.0" prefHeight="17.0" prefWidth="91.0" />
          </children>
       </Pane>
       <Pane layoutX="300.0" layoutY="46.0" prefHeight="297.0" prefWidth="270.0" style="-fx-background-color: lightblue;">
@@ -41,13 +41,13 @@
                   </ImageView>
                </graphic>
             </Button>
-            <ImageView fx:id="Image2" fitHeight="126.0" fitWidth="163.0" layoutX="60.0" pickOnBounds="true" preserveRatio="true" />
-            <Label fx:id="Name2" layoutX="68.0" layoutY="149.0" prefHeight="17.0" prefWidth="119.0">
+            <Label fx:id="Name2" layoutX="76.0" layoutY="69.0" prefHeight="17.0" prefWidth="119.0">
                <font>
                   <Font size="18.0" />
                </font>
             </Label>
             <Label fx:id="Bio2" layoutX="40.0" layoutY="167.0" prefHeight="63.0" prefWidth="174.0" />
+            <Label fx:id="Age2" layoutX="90.0" layoutY="121.0" prefHeight="17.0" prefWidth="72.0" />
          </children>
       </Pane>
       <Button fx:id="Profile" layoutX="527.0" layoutY="14.0" mnemonicParsing="false" onAction="#switchToSecondary" text="Profile" />
