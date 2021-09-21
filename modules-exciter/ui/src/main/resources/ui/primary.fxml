@@ -8,9 +8,9 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ui.PrimaryController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="480.0" prefWidth="640.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ui.PrimaryController">
    <children>
-      <Pane layoutX="22.0" layoutY="46.0" prefHeight="297.0" prefWidth="270.0" style="-fx-background-color: lightblue;">
+      <Pane layoutX="20.0" layoutY="100.0" prefHeight="324.0" prefWidth="268.0" style="-fx-background-color: lightblue;">
          <children>
             <Button fx:id="Like1" layoutX="94.0" layoutY="225.0" mnemonicParsing="false" onAction="#onLike1" textOverrun="CLIP">
                <graphic>
@@ -30,7 +30,7 @@
             <Label fx:id="Age1" layoutX="94.0" layoutY="132.0" prefHeight="17.0" prefWidth="91.0" />
          </children>
       </Pane>
-      <Pane layoutX="300.0" layoutY="46.0" prefHeight="297.0" prefWidth="270.0" style="-fx-background-color: lightblue;">
+      <Pane layoutX="347.0" layoutY="100.0" prefHeight="324.0" prefWidth="268.0" style="-fx-background-color: lightblue;">
          <children>
             <Button fx:id="Like2" layoutX="95.0" layoutY="228.0" mnemonicParsing="false" onAction="#onLike2" prefHeight="52.0" prefWidth="58.0">
                <graphic>
@@ -41,7 +41,7 @@
                   </ImageView>
                </graphic>
             </Button>
-            <Label fx:id="Name2" layoutX="76.0" layoutY="69.0" prefHeight="17.0" prefWidth="119.0">
+            <Label fx:id="Name2" layoutX="84.0" layoutY="68.0" prefHeight="17.0" prefWidth="119.0">
                <font>
                   <Font size="18.0" />
                </font>
@@ -50,6 +50,6 @@
             <Label fx:id="Age2" layoutX="90.0" layoutY="121.0" prefHeight="17.0" prefWidth="72.0" />
          </children>
       </Pane>
-      <Button fx:id="Profile" layoutX="527.0" layoutY="14.0" mnemonicParsing="false" onAction="#switchToSecondary" text="Profile" />
+      <Button fx:id="Profile" layoutX="569.0" layoutY="14.0" mnemonicParsing="false" onAction="#switchToSecondary" text="Profile" />
    </children>
 </AnchorPane>
