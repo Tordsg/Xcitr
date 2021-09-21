@@ -53,6 +53,7 @@ public class PrimaryController {
     @FXML
     void onLike1(ActionEvent event) {
        /*excite.pressedLikeFirst();
+       setUsers();
        */
 
     }
@@ -60,6 +61,7 @@ public class PrimaryController {
     @FXML
     void onLike2(ActionEvent event) {
         /*excite.pressedLikeSecond();
+        setUsers();
         */
 
 
