@@ -27,7 +27,7 @@
                </font>
             </Label>
             <Label fx:id="Bio1" layoutX="40.0" layoutY="164.0" prefHeight="63.0" prefWidth="174.0" />
-            <Label fx:id="Image1" layoutX="94.0" layoutY="132.0" prefHeight="17.0" prefWidth="91.0" />
+            <Label fx:id="Age1" layoutX="94.0" layoutY="132.0" prefHeight="17.0" prefWidth="91.0" />
          </children>
       </Pane>
       <Pane layoutX="300.0" layoutY="46.0" prefHeight="297.0" prefWidth="270.0" style="-fx-background-color: lightblue;">
