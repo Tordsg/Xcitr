@@ -40,8 +40,6 @@ void updateSite(ActionEvent event){
 
 }
 
-@FXML
-private TextField Name;
 
 public void initData(){
    /* User user = excite.getCurrentUser();
