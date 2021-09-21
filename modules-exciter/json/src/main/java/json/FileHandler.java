@@ -5,11 +5,10 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.net.URL;
-import java.nio.file.Path;
-import java.nio.file.Paths;
+import java.util.ArrayList;
+import java.util.Iterator;
 
-import org.json.simple.JSONArray;
+
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
@@ -22,7 +21,7 @@ public class FileHandler {
    }
 
    private JSONParser parser = new JSONParser();
-   String path = "src/main/resources/tempSaveFile.JSON";
+   String path = "../json/src/main/resources/tempSaveFile.JSON";
 
    @SuppressWarnings("unchecked") // Type safety can't be avoided with simple-json
    public void saveUser(User user) {
@@ -58,10 +57,16 @@ public class FileHandler {
    public User readUser() {
 
       try (FileReader fileReader = new FileReader(path)) {
-         Object obj = parser.parse(fileReader);
-         JSONArray userArray = (JSONArray) obj;
-         return new User(userArray.get(0).toString(), Integer.parseInt(userArray.get(1).toString()),
-               userArray.get(2).toString());
+         JSONObject obj =(JSONObject) parser.parse(fileReader);
+         Iterator<Object> it = obj.keySet().iterator();
+         ArrayList<String> userArray = new ArrayList<>();
+         while(it.hasNext()){
+            String key = (String) it.next();
+            userArray.add(obj.get(key).toString());
+         }
+         System.out.println(userArray);
+         return new User(userArray.get(0), Integer.parseInt(userArray.get(1)),
+               userArray.get(2));
 
       } catch (FileNotFoundException e) {
          // TODO Handle this exception
