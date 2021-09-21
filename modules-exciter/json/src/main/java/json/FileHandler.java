@@ -5,6 +5,7 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.net.URL;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
@@ -21,17 +22,17 @@ public class FileHandler {
    }
 
    private JSONParser parser = new JSONParser();
-   private Path source = Paths.get(this.getClass().getResource("/").getPath());
-   private Path jsonFile = Paths.get(source.toAbsolutePath() + "tempSaveFile.JSON");
+   String path = "src/main/resources/tempSaveFile.JSON";
 
+   @SuppressWarnings("unchecked") // Type safety can't be avoided with simple-json
    public void saveUser(User user) {
       JSONObject userData = new JSONObject();
-      userData.put("name", user.getName()); // Type safety can't be avoided with simple-json
+      userData.put("name", user.getName());
       userData.put("age", user.getAge());
       userData.put("matches", user.getAlreadyMatched());
       userData.put("userInformation", user.getUserInformation());
       try {
-         FileWriter fileWriter = new FileWriter(jsonFile.toFile());
+         FileWriter fileWriter = new FileWriter(path);
          fileWriter.write(userData.toJSONString());
          fileWriter.close();
       } catch (FileNotFoundException e) {
@@ -44,7 +45,7 @@ public class FileHandler {
 
    public void createFile() {
       try {
-         File file = new File(this.getClass().getResource("tempSaveFile.JSON").getPath());
+         File file = new File(path);
          if(file.createNewFile()) {
             System.out.println("File created");
          }
@@ -56,7 +57,7 @@ public class FileHandler {
 
    public User readUser() {
 
-      try (FileReader fileReader = new FileReader(jsonFile.toString())) {
+      try (FileReader fileReader = new FileReader(path)) {
          Object obj = parser.parse(fileReader);
          JSONArray userArray = (JSONArray) obj;
          return new User(userArray.get(0).toString(), Integer.parseInt(userArray.get(1).toString()),

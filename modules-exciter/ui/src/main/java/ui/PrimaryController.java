@@ -27,6 +27,11 @@ public class PrimaryController implements Initializable{
 
     }
     @FXML
+    public void saveUserData(){
+        fileHandler.createFile();
+        fileHandler.saveUser(excite.getCurrentUser());
+    }
+    @FXML
     private Button Like1;
 
     @FXML
