@@ -13,28 +13,46 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
 
 public class SecondaryController {
+    private Exciter excite;
 
     @FXML
     private void switchToPrimary() throws IOException {
         App.setRoot("primary");
     }
 
-@FXML
-private Button back;
+    @FXML
+    private Button Back;
 
-@FXML
-private ImageView picture;
+    @FXML
+    private TextField Name;
 
-@FXML
-private TextArea Bio;
+    @FXML
+    private TextArea Bio;
 
+    @FXML
+    private TextField Mail;
 
-@FXML
-private TextField mail;
+    @FXML
+    private TextField Age;
 
 @FXML
 void updateSite(ActionEvent event){
+
+}
+
+@FXML
+private TextField Name;
+
+public void initData(){
+   /* User user = excite.getCurrentUser();
+    Name.setText(user.getName());
+    Age.setText(user.getAge());
+    Bio.setText(user.getUserInformation());
+
+*/
     
+
+
 }
 
 
