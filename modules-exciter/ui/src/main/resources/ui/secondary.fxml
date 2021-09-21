@@ -20,9 +20,7 @@
       <TextArea fx:id="Bio" layoutX="366.0" layoutY="184.0" prefHeight="200.0" prefWidth="200.0" />
       <Label layoutX="366.0" layoutY="158.0" text="Bio" />
       <Label layoutX="44.0" layoutY="167.0" text="Name" />
-      <TextField fx:id="Mail" layoutX="44.0" layoutY="244.0" />
-      <Label layoutX="45.0" layoutY="227.0" text="E-mail" />
-      <TextField fx:id="Age" layoutX="44.0" layoutY="295.0" />
-      <Label layoutX="45.0" layoutY="276.0" prefHeight="17.0" prefWidth="36.0" text="Age" />
+      <TextField fx:id="Age" layoutX="44.0" layoutY="250.0" />
+      <Label layoutX="44.0" layoutY="225.0" prefHeight="17.0" prefWidth="36.0" text="Age" />
    </children>
 </AnchorPane>

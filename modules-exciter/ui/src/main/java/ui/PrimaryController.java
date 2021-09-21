@@ -3,16 +3,20 @@ package ui;
 import core.*;
 
 import java.io.IOException;
+import java.net.URL;
 import java.util.ArrayList;
+import java.util.ResourceBundle;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
 import javafx.scene.control.Button;
 
-public class PrimaryController {
+public class PrimaryController implements Initializable{
 
     private Exciter excite = new Exciter();
+
 
 
     @FXML
@@ -61,11 +65,7 @@ public class PrimaryController {
 
 
     }
-    @FXML
-    void start(ActionEvent event) {
-        setUsers();
-
-    }
+    
 
     public void setUsers(){
         ArrayList<User> displayUsers = excite.getNextUsers();
@@ -77,6 +77,12 @@ public class PrimaryController {
         Name2.setText(user2.getName());
         Age2.setText(String.valueOf(user2.getAge()));
 
+    }
+
+    @Override
+    public void initialize(URL location, ResourceBundle resources) {
+        setUsers();
+        
     }
 
 

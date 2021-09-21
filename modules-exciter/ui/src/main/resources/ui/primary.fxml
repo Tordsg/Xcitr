@@ -27,7 +27,7 @@
                </font>
             </Label>
             <Label fx:id="Bio1" layoutX="40.0" layoutY="164.0" prefHeight="63.0" prefWidth="174.0" />
-            <Label fx:id="Age1" layoutX="94.0" layoutY="132.0" prefHeight="17.0" prefWidth="91.0" />
+            <Label fx:id="Age1" contentDisplay="CENTER" layoutX="89.0" layoutY="135.0" prefHeight="17.0" prefWidth="91.0" />
          </children>
       </Pane>
       <Pane layoutX="349.0" layoutY="53.0" prefHeight="324.0" prefWidth="268.0" style="-fx-background-color: lightblue;">
@@ -47,10 +47,9 @@
                </font>
             </Label>
             <Label fx:id="Bio2" layoutX="40.0" layoutY="167.0" prefHeight="63.0" prefWidth="174.0" />
-            <Label fx:id="Age2" layoutX="90.0" layoutY="121.0" prefHeight="17.0" prefWidth="72.0" />
+            <Label fx:id="Age2" contentDisplay="CENTER" layoutX="90.0" layoutY="134.0" prefHeight="17.0" prefWidth="72.0" />
          </children>
       </Pane>
       <Button layoutX="569.0" layoutY="14.0" mnemonicParsing="false" onAction="#switchToSecondary" text="Profile" />
-      <Button layoutX="259.0" layoutY="390.0" mnemonicParsing="false" onAction="#start" text="Let's get started!" />
    </children>
 </AnchorPane>
