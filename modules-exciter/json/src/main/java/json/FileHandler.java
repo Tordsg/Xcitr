@@ -5,7 +5,6 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.net.URL;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
@@ -17,6 +16,9 @@ import org.json.simple.parser.ParseException;
 import core.User;
 
 public class FileHandler {
+
+   public FileHandler() {
+   }
 
    private JSONParser parser = new JSONParser();
    private Path source = Paths.get(this.getClass().getResource("/").getPath());
