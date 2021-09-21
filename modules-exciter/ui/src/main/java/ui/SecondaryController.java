@@ -1,7 +1,6 @@
 package ui;
 
 import core.*;
-import json.*;
 
 import java.io.IOException;
 
@@ -11,12 +10,18 @@ import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 
 public class SecondaryController {
-    private Exciter excite;
+    private Exciter excite = new Exciter();
+
+    public SecondaryController(){
+        initData();
+
+    }
 
     @FXML
     private void switchToPrimary() throws IOException {
         App.setRoot("primary");
     }
+    
 
     @FXML
     private Button Back;
@@ -37,16 +42,23 @@ public class SecondaryController {
 
 
 public void initData(){
-   User user = excite.getCurrentUser();
-    Name.setText(user.getName());
-    Age.setText(user.getAge());
-    Bio.setText(user.getUserInformation());
+    User currentUser = excite.getCurrentUser();
+    Name.setText(currentUser.getName());
+    Age.setText(String.valueOf(currentUser.getAge()));
+    Bio.setText(currentUser.getUserInformation());
+
+
 
 
     
 
 
 }
+
+
+
+
+
 
 
 }

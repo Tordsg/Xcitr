@@ -17,7 +17,7 @@ public class User implements MatchListener {
      * @param userInformation
      */
     public User(String name, int age, String userInformation) {
-        this.name = name;
+        setName(name);
         this.age = age;
         this.userInformation = userInformation;
     }

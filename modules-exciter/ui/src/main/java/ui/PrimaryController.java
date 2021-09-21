@@ -1,9 +1,10 @@
 package ui;
 
 import core.*;
-import json.*;
 
 import java.io.IOException;
+import java.util.ArrayList;
+
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
@@ -11,12 +12,13 @@ import javafx.scene.control.Button;
 
 public class PrimaryController {
 
-    private Exciter excite;
+    private Exciter excite = new Exciter();
 
 
     @FXML
     private void switchToSecondary() throws IOException {
         App.setRoot("secondary");
+
     }
     @FXML
     private Button Like1;
@@ -59,17 +61,26 @@ public class PrimaryController {
 
 
     }
+    @FXML
+    void start(ActionEvent event) {
+        setUsers();
+
+    }
 
     public void setUsers(){
         ArrayList<User> displayUsers = excite.getNextUsers();
         User user1 = displayUsers.get(0);
         User user2 = displayUsers.get(1);
+        excite.setOnScreenUser(user1, user2);
         Name1.setText(user1.getName());
-        Age1.setText(user1.getAge());
+        Age1.setText(String.valueOf(user1.getAge()));
         Name2.setText(user2.getName());
-        Age2.setText(user2.getAge());
+        Age2.setText(String.valueOf(user2.getAge()));
 
     }
 
 
+    
 }
+
+

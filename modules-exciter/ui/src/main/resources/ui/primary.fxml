@@ -10,7 +10,7 @@
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="430.0" prefWidth="640.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ui.PrimaryController">
    <children>
-      <Pane layoutX="20.0" layoutY="100.0" prefHeight="324.0" prefWidth="268.0" style="-fx-background-color: lightblue;">
+      <Pane layoutX="14.0" layoutY="53.0" prefHeight="324.0" prefWidth="268.0" style="-fx-background-color: lightblue;">
          <children>
             <Button fx:id="Like1" layoutX="94.0" layoutY="225.0" mnemonicParsing="false" onAction="#onLike1" textOverrun="CLIP">
                <graphic>
@@ -30,7 +30,7 @@
             <Label fx:id="Age1" layoutX="94.0" layoutY="132.0" prefHeight="17.0" prefWidth="91.0" />
          </children>
       </Pane>
-      <Pane layoutX="347.0" layoutY="100.0" prefHeight="324.0" prefWidth="268.0" style="-fx-background-color: lightblue;">
+      <Pane layoutX="349.0" layoutY="53.0" prefHeight="324.0" prefWidth="268.0" style="-fx-background-color: lightblue;">
          <children>
             <Button fx:id="Like2" layoutX="95.0" layoutY="228.0" mnemonicParsing="false" onAction="#onLike2" prefHeight="52.0" prefWidth="58.0">
                <graphic>
@@ -51,5 +51,6 @@
          </children>
       </Pane>
       <Button layoutX="569.0" layoutY="14.0" mnemonicParsing="false" onAction="#switchToSecondary" text="Profile" />
+      <Button layoutX="259.0" layoutY="390.0" mnemonicParsing="false" onAction="#start" text="Let's get started!" />
    </children>
 </AnchorPane>
