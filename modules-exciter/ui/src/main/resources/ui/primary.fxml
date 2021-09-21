@@ -1,16 +1,55 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.layout.VBox?>
-<?import javafx.scene.control.Label?>
 <?import javafx.scene.control.Button?>
-<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
 
-<VBox alignment="CENTER" spacing="20.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ui.PrimaryController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="430.0" prefWidth="640.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ui.PrimaryController">
    <children>
-      <Label text="Primary View" />
-      <Button fx:id="primaryButton" text="Switch to Secondary View" onAction="#switchToSecondary"/>
+      <Pane layoutX="14.0" layoutY="53.0" prefHeight="324.0" prefWidth="268.0" style="-fx-background-color: lightblue;">
+         <children>
+            <Button fx:id="Like1" layoutX="94.0" layoutY="225.0" mnemonicParsing="false" onAction="#onLike1" textOverrun="CLIP">
+               <graphic>
+                  <ImageView fitHeight="48.0" fitWidth="58.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@Images/blue-heart.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+            </Button>
+            <Label fx:id="Name1" layoutX="61.0" layoutY="78.0" prefHeight="17.0" prefWidth="119.0">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Label>
+            <Label fx:id="Bio1" layoutX="40.0" layoutY="164.0" prefHeight="63.0" prefWidth="174.0" />
+            <Label fx:id="Age1" contentDisplay="CENTER" layoutX="89.0" layoutY="135.0" prefHeight="17.0" prefWidth="91.0" />
+         </children>
+      </Pane>
+      <Pane layoutX="349.0" layoutY="53.0" prefHeight="324.0" prefWidth="268.0" style="-fx-background-color: lightblue;">
+         <children>
+            <Button fx:id="Like2" layoutX="95.0" layoutY="228.0" mnemonicParsing="false" onAction="#onLike2" prefHeight="52.0" prefWidth="58.0">
+               <graphic>
+                  <ImageView fitHeight="45.0" fitWidth="46.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@Images/blue-heart.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+            </Button>
+            <Label fx:id="Name2" layoutX="84.0" layoutY="68.0" prefHeight="17.0" prefWidth="119.0">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Label>
+            <Label fx:id="Bio2" layoutX="40.0" layoutY="167.0" prefHeight="63.0" prefWidth="174.0" />
+            <Label fx:id="Age2" contentDisplay="CENTER" layoutX="90.0" layoutY="134.0" prefHeight="17.0" prefWidth="72.0" />
+         </children>
+      </Pane>
+      <Button layoutX="569.0" layoutY="14.0" mnemonicParsing="false" onAction="#switchToSecondary" text="Profile" />
    </children>
-   <padding>
-      <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
-   </padding>
-</VBox>
+</AnchorPane>
