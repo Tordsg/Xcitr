@@ -1,9 +1,9 @@
 package json;
 
+
 import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.BeforeEach;
 
 import core.User;
 
@@ -12,7 +12,7 @@ public class JsonTest {
     FileHandler fileHandler = new FileHandler();
     private User user;
 
-    @BeforeEach
+    @Before
     public void setUp() {
         fileHandler.createFile();
     }
