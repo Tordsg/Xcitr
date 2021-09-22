@@ -57,16 +57,9 @@ public class FileHandler {
    public User readUser() {
 
       try (FileReader fileReader = new FileReader(path)) {
-         JSONObject obj =(JSONObject) parser.parse(fileReader);
-         Iterator<Object> it = obj.keySet().iterator();
-         ArrayList<String> userArray = new ArrayList<>();
-         while(it.hasNext()){
-            String key = (String) it.next();
-            userArray.add(obj.get(key).toString());
-         }
-         System.out.println(userArray);
-         return new User(userArray.get(0), Integer.parseInt(userArray.get(1)),
-               userArray.get(2));
+         JSONObject userData =(JSONObject) parser.parse(fileReader);
+         return new User(userData.get("name").toString(), Integer.parseInt(userData.get("age").toString()),
+               userData.get("userInformation").toString());
 
       } catch (FileNotFoundException e) {
          // TODO Handle this exception
