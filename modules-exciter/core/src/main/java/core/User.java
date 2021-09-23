@@ -17,14 +17,14 @@ public class User implements MatchListener {
      * @param userInformation
      */
     public User(String name, int age, String userInformation) {
-        setName(name);
-        this.age = age;
+        this.name = name;
+        setAge(age);
         this.userInformation = userInformation;
     }
 
     public User(String name, int age) {
         this.name = name;
-        this.age = age;
+        setAge(age);
     }
 
     public String getName() {

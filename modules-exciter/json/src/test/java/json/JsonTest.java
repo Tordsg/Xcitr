@@ -1,8 +1,31 @@
 package json;
 
+
+import org.junit.Before;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.Assertions;
+
+import core.User;
+
 public class JsonTest {
-    public static void main(String[] args) {
-        System.out.println("Hello World!");
+
+    FileHandler fileHandler = new FileHandler();
+    private User user;
+
+    @Before
+    public void setUp() {
+        fileHandler.createFile();
     }
+
+    @Test
+    public void readFromFile(){
+        user = new User("Ola Nordmann", 26, "Fiskesprett på søndager");
+        fileHandler.saveUser(user);
+        User userReadFromFile = fileHandler.readUser();
+        Assertions.assertEquals("Ola Nordmann", userReadFromFile.getName());
+        Assertions.assertEquals(26, userReadFromFile.getAge());
+        Assertions.assertEquals("Fiskesprett på søndager", userReadFromFile.getUserInformation());
+    }
+
 }
 

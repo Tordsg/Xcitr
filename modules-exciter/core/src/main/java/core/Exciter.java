@@ -40,6 +40,10 @@ public class Exciter {
       return currentUser;
    }
 
+   public void setCurrentUser(User user) {
+      currentUser = user;
+   }
+
    public ArrayList<User> getNextUsers() {
       int[] randomUsers = new Random().ints(0, allUsers.size() - 1).distinct().limit(2).toArray();
       setOnScreenUser(allUsers.get(randomUsers[0]), allUsers.get(randomUsers[1]));

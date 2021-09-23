@@ -1,6 +1,7 @@
 package ui;
 
 import core.*;
+import json.*;
 
 import java.io.IOException;
 import java.net.URL;
@@ -16,6 +17,7 @@ import javafx.scene.control.Button;
 public class PrimaryController implements Initializable{
 
     private Exciter excite = new Exciter();
+    private FileHandler fileHandler = new FileHandler();
 
 
 
@@ -23,6 +25,11 @@ public class PrimaryController implements Initializable{
     private void switchToSecondary() throws IOException {
         App.setRoot("secondary");
 
+    }
+    @FXML
+    public void saveUserData(){
+        fileHandler.createFile();
+        fileHandler.saveUser(excite.getCurrentUser());
     }
     @FXML
     private Button Like1;
@@ -53,7 +60,7 @@ public class PrimaryController implements Initializable{
     void onLike1(ActionEvent event) {
        excite.pressedLikeFirst();
        setUsers();
-       
+
 
     }
 
@@ -61,11 +68,11 @@ public class PrimaryController implements Initializable{
     void onLike2(ActionEvent event) {
         excite.pressedLikeSecond();
         setUsers();
-        
+
 
 
     }
-    
+
 
     public void setUsers(){
         ArrayList<User> displayUsers = excite.getNextUsers();
@@ -82,11 +89,11 @@ public class PrimaryController implements Initializable{
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         setUsers();
-        
+
     }
 
 
-    
+
 }
 
 
