@@ -20,6 +20,7 @@ import core.User;
 public class FileHandler {
 
    public FileHandler() {
+      createFile();
    }
 
    private JSONParser parser = new JSONParser();
