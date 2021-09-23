@@ -72,6 +72,9 @@ public class PrimaryController implements Initializable{
 
 
     }
+    public Exciter getCore(){
+        return excite;
+    }
 
 
     public void setUsers(){
