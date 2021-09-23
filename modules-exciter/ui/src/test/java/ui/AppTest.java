@@ -43,12 +43,12 @@ public class AppTest extends ApplicationTest {
         }
     }
 
-    @ParameterizedTest
+    /*@ParameterizedTest
     @MethodSource
     public static void likeRightPerson() {
         users = controller.getCore().getOnScreenUsers();
         click("Like2");
         Assertions.assertFalse(users.equals(controller.getCore().getOnScreenUsers()));
-    }
+    }*/
 
 }

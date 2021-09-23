@@ -1,10 +1,12 @@
 package json;
 
-import java.io.File;
+import java.io.*;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.Iterator;
 
@@ -31,7 +33,8 @@ public class FileHandler {
       userData.put("matches", user.getAlreadyMatched());
       userData.put("userInformation", user.getUserInformation());
       try {
-         FileWriter fileWriter = new FileWriter(path);
+         BufferedWriter fileWriter = new BufferedWriter
+         (new OutputStreamWriter(new FileOutputStream(path), StandardCharsets.UTF_8));
          fileWriter.write(userData.toJSONString());
          fileWriter.close();
       } catch (FileNotFoundException e) {
@@ -56,8 +59,8 @@ public class FileHandler {
 
    public User readUser() {
 
-      try (FileReader fileReader = new FileReader(path)) {
-         JSONObject userData =(JSONObject) parser.parse(fileReader);
+      try (BufferedReader fileReader = new BufferedReader(new InputStreamReader(new FileInputStream(path), "UTF-8"))) {
+         JSONObject userData =(JSONObject) parser.parse(fileReader.readLine());
          return new User(userData.get("name").toString(), Integer.parseInt(userData.get("age").toString()),
                userData.get("userInformation").toString());
 
