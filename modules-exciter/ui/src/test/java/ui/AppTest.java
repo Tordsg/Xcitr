@@ -32,23 +32,6 @@ public class AppTest extends ApplicationTest {
         stage.setScene(new Scene(root));
         stage.show();
     }
-
-    public Parent getRootNode() {
-        return root;
-    }
-
-    private void click(String... labels) {
-        for (var label : labels) {
-            clickOn(LabeledMatchers.hasText(label));
-        }
-    }
-
-    /*@ParameterizedTest
-    @MethodSource
-    public static void likeRightPerson() {
-        users = controller.getCore().getOnScreenUsers();
-        click("Like2");
-        Assertions.assertFalse(users.equals(controller.getCore().getOnScreenUsers()));
-    }*/
+    //TODO: Add more tests
 
 }
