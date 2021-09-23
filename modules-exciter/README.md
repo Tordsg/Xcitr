@@ -18,10 +18,13 @@ After a year and a half living in a global pandemic, Ulf Reidar has recognized a
 Below are three figma frames roughly describing how the application is going to look like after it is finished. 
 
 1. First the user is presented with two profile cards, where only the profile picture, the name and the age is displayed. In the top left corner is a small profile picture of the user. If this is pressed the user will be directed to their profile where they can edit their information, pictures, preferences, etc. The xcitr-icon in the bottom left corner can be pressed to get an overview of all the people the user has matched with. 
+
 ![docs/release1/images](pic1.png)
 
 2. When the user likes one of the profiles more than the other, she swipes the card upwards. Here you can see that there is a counter 1/3 describing how many times the user has liked this persons profile. When this ever reaches 3/3 there will be a match.
+
 ![docs/release1/images](pic2.png)
 
 3. After swiping to tell the application which profile is the preferred one, this card will fall back onto the screen together with a new profile. The user can now compare the person they have already liked to a new profile and see if this person is the most likable. If the user is unsure on which profile she prefers, then she can press the profile card and view the profiles bio.
+
 ![docs/release1/images](pic3.png)
