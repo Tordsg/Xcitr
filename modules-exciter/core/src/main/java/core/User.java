@@ -15,7 +15,14 @@ public class User implements MatchListener {
      * @param name
      * @param age
      * @param userInformation
+     * @param likedByCounter HashMap<User, Integer> of users and their likes
      */
+    public User(String name, int age, String userInformation, HashMap<User, Integer> likedByCounter) {
+        this.userInformation = userInformation;
+        this.likedByCounter = likedByCounter;
+        this.name = name;
+        setAge(age);
+    }
     public User(String name, int age, String userInformation) {
         this.name = name;
         setAge(age);

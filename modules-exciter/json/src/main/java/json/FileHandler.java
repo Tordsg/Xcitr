@@ -35,6 +35,7 @@ public class FileHandler {
       userData.put("userInformation", user.getUserInformation());
       try {
          BufferedWriter fileWriter = new BufferedWriter
+         //OutputStreamWriter is used to force UTF-8 encoding since fileWriter is using wrong encoding on older mac
          (new OutputStreamWriter(new FileOutputStream(path), StandardCharsets.UTF_8));
          fileWriter.write(userData.toJSONString());
          fileWriter.close();
