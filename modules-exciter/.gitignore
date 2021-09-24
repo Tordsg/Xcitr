@@ -5,3 +5,7 @@ target/
 .project
 .classpath
 org.eclipse.*.prefs
+
+.vscode/settings.json
+modules-template/
+.DS_Store
