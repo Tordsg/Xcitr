@@ -7,6 +7,7 @@ public class User implements MatchListener {
     private String name;
     private int age;
     private String userInformation;
+    private String email;
     private HashMap<User, Integer> likedByCounter = new HashMap<>();
 
     /**
@@ -17,10 +18,11 @@ public class User implements MatchListener {
      * @param userInformation
      * @param likedByCounter HashMap<User, Integer> of users and their likes
      */
-    public User(String name, int age, String userInformation, HashMap<User, Integer> likedByCounter) {
+    public User(String name, int age, String userInformation, HashMap<User, Integer> likedByCounter,String email) {
         this.userInformation = userInformation;
         this.likedByCounter = likedByCounter;
         this.name = name;
+        this.email = email;
         setAge(age);
     }
     public User(String name, int age, String userInformation) {
@@ -44,6 +46,14 @@ public class User implements MatchListener {
 
     public int getAge() {
         return age;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getEmail() {
+        return this.email;
     }
 
     public void setUserInformation(String userInformation) {
