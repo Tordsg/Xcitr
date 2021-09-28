@@ -7,8 +7,11 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
-
+import javafx.scene.shape.Circle;
+import javafx.scene.shape.Rectangle;
 import javafx.event.ActionEvent;
+import javafx.scene.paint.ImagePattern;
+import javafx.scene.image.Image;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
@@ -31,6 +34,10 @@ public class PrimaryController implements Initializable{
         fileHandler.createFile();
         fileHandler.saveUser(excite.getCurrentUser());
     }
+    @FXML
+    private Rectangle leftPicture, rightPicture;
+    @FXML 
+    private Circle profile;
     @FXML
     private Button Like1;
 
@@ -88,6 +95,7 @@ public class PrimaryController implements Initializable{
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        //leftPicture.setFill(new ImagePattern(new Image("../ui/src/main/resources/ui/Images/defaultPicture.png")));
         setUsers();
 
     }
