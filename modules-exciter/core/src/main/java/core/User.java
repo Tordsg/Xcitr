@@ -80,7 +80,7 @@ public class User implements MatchListener {
 
     @Override
     public void fireOnLike(User match) {
-        match.addUserOnMatch(this);
+        this.addUserOnMatch(match);
     }
 
     public boolean containsPreviousMatch(User match) {
