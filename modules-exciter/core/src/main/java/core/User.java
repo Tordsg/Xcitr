@@ -8,7 +8,7 @@ public class User implements MatchListener {
     private int age;
     private String userInformation;
     private String email;
-    private HashMap<User, Integer> likedByCounter = new HashMap<>();
+    private HashMap<String, Integer> likedByCounter = new HashMap<>();
 
     /**
      * Constructor
@@ -16,24 +16,27 @@ public class User implements MatchListener {
      * @param name
      * @param age
      * @param userInformation
-     * @param likedByCounter HashMap<User, Integer> of users and their likes
+     * @param likedByCounter  HashMap<User, Integer> of users and their likes
      */
-    public User(String name, int age, String userInformation, HashMap<User, Integer> likedByCounter,String email) {
+    public User(String name, int age, String userInformation, HashMap<String, Integer> likedByCounter, String email) {
         this.userInformation = userInformation;
         this.likedByCounter = likedByCounter;
         this.name = name;
         this.email = email;
         setAge(age);
     }
-    public User(String name, int age, String userInformation) {
-        this.name = name;
-        setAge(age);
+
+    public User(String name, int age, String userInformation, String email) {
         this.userInformation = userInformation;
+        this.name = name;
+        this.email = email;
+        setAge(age);
     }
 
-    public User(String name, int age) {
+    public User(String name, int age, String email) {
         this.name = name;
         setAge(age);
+        this.email = email;
     }
 
     public String getName() {
@@ -71,7 +74,7 @@ public class User implements MatchListener {
         this.age = age;
     }
 
-    public HashMap<User, Integer> getAlreadyMatched() {
+    public HashMap<String, Integer> getAlreadyMatched() {
         return new HashMap<>(likedByCounter);
     }
 
@@ -81,14 +84,14 @@ public class User implements MatchListener {
     }
 
     public boolean containsPreviousMatch(User match) {
-        return likedByCounter.containsKey(match);
+        return likedByCounter.containsKey(match.getEmail());
     }
 
     public void addUserOnMatch(User match) {
-        if (!likedByCounter.containsKey(match)) {
-            likedByCounter.put(match, 1);
+        if (!likedByCounter.containsKey(match.getEmail())) {
+            likedByCounter.put(match.getEmail(), 1);
         } else {
-            likedByCounter.put(match, likedByCounter.get(match) + 1);
+            likedByCounter.put(match.getEmail(), likedByCounter.get(match.getEmail()) + 1);
         }
     }
 
@@ -98,9 +101,9 @@ public class User implements MatchListener {
     }
 
     public boolean haveLikedUser(User user) {
-        if (!likedByCounter.containsKey(user)) {
+        if (!likedByCounter.containsKey(user.getEmail())) {
             return false;
         }
-        return likedByCounter.get(user) >= 3;
+        return likedByCounter.get(user.getEmail()) >= 3;
     }
 }

@@ -66,7 +66,7 @@ public class FileHandler {
       try (BufferedReader fileReader = new BufferedReader(new InputStreamReader(new FileInputStream(path), "UTF-8"))) {
          JSONObject userData =(JSONObject) parser.parse(fileReader.readLine());
          return new User(userData.get("name").toString(), Integer.parseInt(userData.get("age").toString()),
-               userData.get("userInformation").toString());
+               userData.get("email").toString());
 
       } catch (FileNotFoundException e) {
          // TODO Handle this exception
@@ -80,8 +80,8 @@ public class FileHandler {
       return null;
    }
 
-   public HashMap<User,Integer> parseUserFromJSON(JSONObject obj){
-      HashMap<User,Integer> matchedUsers = new HashMap<>();
+   public HashMap<String,Integer> parseUserFromJSON(JSONObject obj){
+      HashMap<String,Integer> matchedUsers = new HashMap<>();
       Iterator<?> keys = obj.keySet().iterator();
       while(keys.hasNext())
       {

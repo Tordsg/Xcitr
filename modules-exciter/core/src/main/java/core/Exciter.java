@@ -6,34 +6,34 @@ import java.util.Random;
 
 
 public class Exciter {
-    
+
    // TODO: connect to controller
    private ArrayList<User> allUsers = new ArrayList<>();
    private User onScreenUser1;
    private User onScreenUser2;
- 
-   
+
+
 
    public Exciter(){
       addSomePlaceholderUsers();
       ArrayList<User> onscreenUsers = getNextUsers();
       setOnScreenUser(onscreenUsers.get(0), onscreenUsers.get(1));
-      
+
 
 
    }
 
    public void addSomePlaceholderUsers() {
-      allUsers.add(new User("John", 22));
-      allUsers.add(new User("Jane", 31));
-      allUsers.add(new User("Joe", 19));
-      allUsers.add(new User("Derik", 27));
-      allUsers.add(new User("Diana", 23));
-      allUsers.add(new User("Dani", 25));
+      allUsers.add(new User("John", 22, "John@mail"));
+      allUsers.add(new User("Jane", 31, "Jane@mail"));
+      allUsers.add(new User("Joe", 19, "Joe@mail"));
+      allUsers.add(new User("Derik", 27, "Derik@mail"));
+      allUsers.add(new User("Diana", 23, "Diana@mail"));
+      allUsers.add(new User("Dani", 25, "Dani@mail"));
    }
 
    // Current user placeholder before logging in is implemented
-   private User currentUser = new User("Ulf Reidar", 25, "Camping, guitar, professional speed knitter");
+   private User currentUser = new User("Ulf Reidar", 25, "Camping, guitar, professional speed knitter", "Ulf@mail");
 
 
    public User getCurrentUser() {
@@ -68,5 +68,5 @@ public class Exciter {
       currentUser.fireOnLike(onScreenUser2);
       return currentUser.checkIfMatch(onScreenUser2);
    }
-  
+
 }
