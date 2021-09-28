@@ -8,6 +8,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Iterator;
 
 
@@ -33,6 +34,7 @@ public class FileHandler {
       userData.put("age", user.getAge());
       userData.put("matches", user.getAlreadyMatched());
       userData.put("userInformation", user.getUserInformation());
+      userData.put("email", user.getEmail());
       try {
          BufferedWriter fileWriter = new BufferedWriter
          //OutputStreamWriter is used to force UTF-8 encoding since fileWriter is using wrong encoding on older mac
@@ -64,7 +66,7 @@ public class FileHandler {
       try (BufferedReader fileReader = new BufferedReader(new InputStreamReader(new FileInputStream(path), "UTF-8"))) {
          JSONObject userData =(JSONObject) parser.parse(fileReader.readLine());
          return new User(userData.get("name").toString(), Integer.parseInt(userData.get("age").toString()),
-               userData.get("userInformation").toString());
+               userData.get("email").toString());
 
       } catch (FileNotFoundException e) {
          // TODO Handle this exception
@@ -74,6 +76,16 @@ public class FileHandler {
       } catch (ParseException e) {
          // TODO Auto-generated catch block
          e.printStackTrace();
+      }
+      return null;
+   }
+
+   public HashMap<String,Integer> parseUserFromJSON(JSONObject obj){
+      HashMap<String,Integer> matchedUsers = new HashMap<>();
+      Iterator<?> keys = obj.keySet().iterator();
+      while(keys.hasNext())
+      {
+         //TODO
       }
       return null;
    }
