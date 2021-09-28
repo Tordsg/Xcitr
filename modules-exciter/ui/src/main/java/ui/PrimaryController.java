@@ -95,8 +95,12 @@ public class PrimaryController implements Initializable{
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        //leftPicture.setFill(new ImagePattern(new Image("../ui/src/main/resources/ui/Images/defaultPicture.png")));
+        leftPicture.setFill(new ImagePattern(new Image(this.getClass().getResourceAsStream("Images/defaultPicture.png"))));
+        rightPicture.setFill(new ImagePattern(new Image(this.getClass().getResourceAsStream("Images/defaultPicture.png"))));
+        profile.setFill(new ImagePattern(new Image(this.getClass().getResourceAsStream("Images/defaultPicture.png")),30.5,62,60,95,false));
+
         setUsers();
+
 
     }
 
