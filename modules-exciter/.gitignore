@@ -1,0 +1,11 @@
+# ignore maven build folder
+target/
+
+# pom-derived eclipse jdt files
+.project
+.classpath
+org.eclipse.*.prefs
+
+.vscode/settings.json
+modules-template/
+.DS_Store
