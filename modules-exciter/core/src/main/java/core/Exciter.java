@@ -24,12 +24,12 @@ public class Exciter {
    }
 
    public void addSomePlaceholderUsers() {
-      allUsers.add(new User("John", 22, "John@mail"));
-      allUsers.add(new User("Jane", 31, "Jane@mail"));
-      allUsers.add(new User("Joe", 19, "Joe@mail"));
-      allUsers.add(new User("Derik", 27, "Derik@mail"));
-      allUsers.add(new User("Diana", 23, "Diana@mail"));
-      allUsers.add(new User("Dani", 25, "Dani@mail"));
+      allUsers.add(new BotUser("John", 22, "John@mail"));
+      allUsers.add(new BotUser("Jane", 31, "Jane@mail"));
+      allUsers.add(new BotUser("Joe", 19, "Joe@mail"));
+      allUsers.add(new BotUser("Derik", 27, "Derik@mail"));
+      allUsers.add(new BotUser("Diana", 23, "Diana@mail"));
+      allUsers.add(new BotUser("Dani", 25, "Dani@mail"));
    }
 
    // Current user placeholder before logging in is implemented
@@ -60,13 +60,13 @@ public class Exciter {
    }
 
    public boolean pressedLikeFirst(){
-      currentUser.fireOnLike(onScreenUser1);
-      return currentUser.checkIfMatch(onScreenUser1);
+      onScreenUser1.fireOnLike(currentUser);
+      return onScreenUser1.checkIfMatch(currentUser);
    }
 
    public boolean pressedLikeSecond(){
-      currentUser.fireOnLike(onScreenUser2);
-      return currentUser.checkIfMatch(onScreenUser2);
+      onScreenUser2.fireOnLike(currentUser);
+      return onScreenUser2.checkIfMatch(currentUser);
    }
 
 }

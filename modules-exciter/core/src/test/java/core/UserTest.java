@@ -10,14 +10,14 @@ public class UserTest {
 
     @BeforeEach
     public void setUp() {
-        user = new User("Roger",22,"Rytmisk sportsgymnastikk");
+        user = new User("Roger",22,"roger@mail");
     }
 
     @Test
     public void testUser() {
         Assertions.assertEquals("Roger", user.getName());
         Assertions.assertEquals(22, user.getAge());
-        Assertions.assertEquals("Rytmisk sportsgymnastikk", user.getUserInformation());
+        Assertions.assertEquals("roger@mail", user.getEmail());
     }
 
     @Test

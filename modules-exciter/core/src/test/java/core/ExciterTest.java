@@ -17,19 +17,17 @@ public class ExciterTest {
     public void likeFirst(){
         exciter.getNextUsers();
         exciter.pressedLikeFirst();
-        Assertions.assertTrue(exciter.getOnScreenUsers().get(0).getAlreadyMatched().containsKey(exciter.getCurrentUser()));
+        Assertions.assertTrue(exciter.getCurrentUser().getAlreadyMatched().containsKey(exciter.getOnScreenUsers().get(0).getEmail()));
+        //Assertions.assertTrue(exciter.getOnScreenUsers().get(0).getAlreadyMatched().containsKey(exciter.getCurrentUser().getEmail()));
     }
 
     @Test
     public void testMatch(){
         exciter.getNextUsers();
         for(int i = 0; i <3;i++){
-            exciter.getOnScreenUsers().get(1).fireOnLike(exciter.getCurrentUser());
             exciter.pressedLikeSecond();
         }
         Assertions.assertTrue(exciter.pressedLikeSecond());
-        Assertions.assertFalse(exciter.pressedLikeFirst());
     }
-
 }
 
