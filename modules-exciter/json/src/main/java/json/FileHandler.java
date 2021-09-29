@@ -1,11 +1,14 @@
 package json;
 
-import java.io.File;
+import java.io.*;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Iterator;
 
 
@@ -18,6 +21,7 @@ import core.User;
 public class FileHandler {
 
    public FileHandler() {
+      createFile();
    }
 
    private JSONParser parser = new JSONParser();
@@ -30,8 +34,11 @@ public class FileHandler {
       userData.put("age", user.getAge());
       userData.put("matches", user.getAlreadyMatched());
       userData.put("userInformation", user.getUserInformation());
+      userData.put("email", user.getEmail());
       try {
-         FileWriter fileWriter = new FileWriter(path);
+         BufferedWriter fileWriter = new BufferedWriter
+         //OutputStreamWriter is used to force UTF-8 encoding since fileWriter is using wrong encoding on older mac
+         (new OutputStreamWriter(new FileOutputStream(path), StandardCharsets.UTF_8));
          fileWriter.write(userData.toJSONString());
          fileWriter.close();
       } catch (FileNotFoundException e) {
@@ -56,10 +63,10 @@ public class FileHandler {
 
    public User readUser() {
 
-      try (FileReader fileReader = new FileReader(path)) {
-         JSONObject userData =(JSONObject) parser.parse(fileReader);
+      try (BufferedReader fileReader = new BufferedReader(new InputStreamReader(new FileInputStream(path), "UTF-8"))) {
+         JSONObject userData =(JSONObject) parser.parse(fileReader.readLine());
          return new User(userData.get("name").toString(), Integer.parseInt(userData.get("age").toString()),
-               userData.get("userInformation").toString());
+               userData.get("email").toString());
 
       } catch (FileNotFoundException e) {
          // TODO Handle this exception
@@ -69,6 +76,16 @@ public class FileHandler {
       } catch (ParseException e) {
          // TODO Auto-generated catch block
          e.printStackTrace();
+      }
+      return null;
+   }
+
+   public HashMap<String,Integer> parseUserFromJSON(JSONObject obj){
+      HashMap<String,Integer> matchedUsers = new HashMap<>();
+      Iterator<?> keys = obj.keySet().iterator();
+      while(keys.hasNext())
+      {
+         //TODO
       }
       return null;
    }

@@ -19,12 +19,12 @@ public class JsonTest {
 
     @Test
     public void readFromFile(){
-        user = new User("Ola Nordmann", 26, "Fiskesprett på søndager");
+        user = new User("Ola Nordmann", 26, "Fiskesprett på søndager","ola@mail");
         fileHandler.saveUser(user);
         User userReadFromFile = fileHandler.readUser();
         Assertions.assertEquals("Ola Nordmann", userReadFromFile.getName());
         Assertions.assertEquals(26, userReadFromFile.getAge());
-        Assertions.assertEquals("Fiskesprett på søndager", userReadFromFile.getUserInformation());
+        Assertions.assertEquals("ola@mail", userReadFromFile.getEmail());
     }
 
 }
