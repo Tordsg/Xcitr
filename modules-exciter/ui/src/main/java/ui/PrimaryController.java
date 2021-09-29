@@ -9,6 +9,9 @@ import java.util.ArrayList;
 import java.util.ResourceBundle;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Rectangle;
+import javafx.scene.shape.Shape;
+import javafx.util.Duration;
+import javafx.animation.RotateTransition;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.paint.ImagePattern;
@@ -21,6 +24,8 @@ import javafx.scene.layout.Pane;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
+import javafx.scene.effect.DropShadow;
+import javafx.scene.effect.Effect;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 
@@ -69,7 +74,7 @@ public class PrimaryController implements Initializable{
     @FXML
     private Label Age2;
     @FXML
-    private Pane leftCard, rightCard;
+    private Pane leftCard, rightCard, refresh;
 
     @FXML
     void onLike1() {
@@ -85,9 +90,16 @@ public class PrimaryController implements Initializable{
         setUsers();
 
 
-
+    
     }
-
+    @FXML
+    void refresh(){
+        RotateTransition rt = new RotateTransition(Duration.millis(500),refresh);
+        rt.setFromAngle(0);
+        rt.setToAngle(360);
+        rt.play();
+        setUsers();
+    }
 
     public void setUsers(){
         ArrayList<User> displayUsers = excite.getNextUsers();
