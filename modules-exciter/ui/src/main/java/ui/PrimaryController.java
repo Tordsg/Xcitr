@@ -7,11 +7,26 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
-
+import javafx.scene.shape.Circle;
+import javafx.scene.shape.Rectangle;
+import javafx.scene.shape.Shape;
+import javafx.util.Duration;
+import javafx.animation.RotateTransition;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
+import javafx.scene.paint.ImagePattern;
+import javafx.scene.image.Image;
+import javafx.scene.input.DragEvent;
+import javafx.scene.input.Dragboard;
+import javafx.scene.input.MouseEvent;
+import javafx.scene.input.TransferMode;
+import javafx.scene.layout.Pane;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
+import javafx.scene.effect.DropShadow;
+import javafx.scene.effect.Effect;
+import javafx.scene.Node;
 import javafx.scene.control.Button;
 
 public class PrimaryController implements Initializable{
@@ -31,6 +46,10 @@ public class PrimaryController implements Initializable{
         fileHandler.createFile();
         fileHandler.saveUser(excite.getCurrentUser());
     }
+    @FXML
+    private Rectangle leftPicture, rightPicture;
+    @FXML 
+    private Circle profile;
     @FXML
     private Button Like1;
 
@@ -54,10 +73,11 @@ public class PrimaryController implements Initializable{
 
     @FXML
     private Label Age2;
-
+    @FXML
+    private Pane leftCard, rightCard, refresh;
 
     @FXML
-    void onLike1(ActionEvent event) {
+    void onLike1() {
        excite.pressedLikeFirst();
        setUsers();
 
@@ -65,17 +85,21 @@ public class PrimaryController implements Initializable{
     }
 
     @FXML
-    void onLike2(ActionEvent event) {
+    void onLike2() {
         excite.pressedLikeSecond();
         setUsers();
 
 
-
+    
     }
-    public Exciter getCore(){
-        return excite;
+    @FXML
+    void refresh(){
+        RotateTransition rt = new RotateTransition(Duration.millis(500),refresh);
+        rt.setFromAngle(0);
+        rt.setToAngle(360);
+        rt.play();
+        setUsers();
     }
-
 
     public void setUsers(){
         ArrayList<User> displayUsers = excite.getNextUsers();
@@ -88,11 +112,61 @@ public class PrimaryController implements Initializable{
         Age2.setText(String.valueOf(user2.getAge()));
 
     }
-
+    double dY = 0;
+    double initialY = 0;
+    Boolean dragged = false;
+    double y = 0;
+    double lastY = 0;
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        leftPicture.setFill(new ImagePattern(new Image(this.getClass().getResourceAsStream("Images/defaultPicture.png"))));
+        rightPicture.setFill(new ImagePattern(new Image(this.getClass().getResourceAsStream("Images/defaultPicture.png"))));
+        profile.setFill(new ImagePattern(new Image(this.getClass().getResourceAsStream("Images/defaultPicture.png")),30.5,62,60,95,false));
+        dragY(leftCard);
+        dragY(rightCard);
         setUsers();
-
+    }
+    private void dragY(Node e){
+        e.setOnMousePressed(new EventHandler<MouseEvent>(){
+            @Override
+            public void handle(MouseEvent event){
+                initialY = event.getSceneY();
+                lastY = initialY;
+            }
+        });
+        e.setOnMouseDragged(new EventHandler<MouseEvent>(){
+            @Override
+            public void handle(MouseEvent event){
+                y = event.getSceneY();
+                dY = y - lastY;
+                lastY = y;
+                double cardPosition = dY + e.getLayoutY();
+                dragged = true;
+                if (cardPosition>55&&dY>0){
+                    double posY = e.getLayoutY()-55;
+                    dY = dY*(1/(1+posY*posY));
+                    e.setLayoutY(e.getLayoutY() + dY);
+                } else {
+                    e.setLayoutY(cardPosition);
+                }
+            }
+        });
+        e.setOnMouseReleased(new EventHandler<MouseEvent>(){
+            @Override
+            public void handle(MouseEvent event){
+                if(dragged){
+                    if(e.getLayoutY()<0){
+                        if(e.getId().equals("leftCard")){
+                            onLike1();
+                        }else{
+                            onLike2();
+                        }
+                    }
+                    e.setLayoutY(55);
+                    dragged = false;
+                }
+            }
+        });
     }
 
 

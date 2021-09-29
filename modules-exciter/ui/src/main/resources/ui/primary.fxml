@@ -1,56 +1,155 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.Button?>
+<?import javafx.scene.Group?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.image.Image?>
-<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.effect.DropShadow?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.Pane?>
+<?import javafx.scene.paint.Color?>
+<?import javafx.scene.paint.LinearGradient?>
+<?import javafx.scene.paint.Stop?>
+<?import javafx.scene.shape.Circle?>
+<?import javafx.scene.shape.Rectangle?>
+<?import javafx.scene.shape.SVGPath?>
 <?import javafx.scene.text.Font?>
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="430.0" prefWidth="640.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ui.PrimaryController">
    <children>
-      <Pane layoutX="14.0" layoutY="53.0" prefHeight="324.0" prefWidth="268.0" style="-fx-background-color: lightblue;">
+      <Rectangle height="430.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="640.0">
+         <fill>
+            <LinearGradient endX="1.0" endY="1.0">
+               <stops>
+                  <Stop>
+                     <color>
+                        <Color red="0.3843137323856354" green="0.9137254953384399" blue="0.9450980424880981" />
+                     </color>
+                  </Stop>
+                  <Stop offset="0.007532956685499058">
+                     <color>
+                        <Color red="0.3843137323856354" green="0.9137254953384399" blue="0.9450980424880981" />
+                     </color>
+                  </Stop>
+                  <Stop offset="1.0">
+                     <color>
+                        <Color red="0.2666666805744171" green="0.7333333492279053" blue="0.8784313797950745" />
+                     </color>
+                  </Stop>
+               </stops>
+            </LinearGradient>
+         </fill>
+      </Rectangle>
+      <Pane fx:id="leftCard" layoutX="40.0" layoutY="55.0" prefHeight="338.0" prefWidth="225.0" style="-fx-background-color: lightblue; -fx-background-radius: 21 21 21 21; -fx-border-radius: 20 20 20 20; -fx-border-width: 2; -fx-border-color: black;">
          <children>
-            <Button fx:id="Like1" layoutX="94.0" layoutY="225.0" mnemonicParsing="false" onAction="#onLike1" textOverrun="CLIP">
-               <graphic>
-                  <ImageView fitHeight="48.0" fitWidth="58.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@Images/blue-heart.png" />
-                     </image>
-                  </ImageView>
-               </graphic>
-            </Button>
-            <Label fx:id="Name1" layoutX="61.0" layoutY="78.0" prefHeight="17.0" prefWidth="119.0">
+            <Rectangle fx:id="leftPicture" arcHeight="45.0" arcWidth="45.0" fill="DODGERBLUE" height="338.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="2.0" width="225.0" />
+            <Pane cacheShape="false" layoutY="286.0" opacity="0.39" prefHeight="52.0" prefWidth="225.0" style="-fx-background-color: white; -fx-background-radius: 0 0 22 22; -fx-border-radius: 0 0 21 21; -fx-border-width: 0 2 2 2; -fx-border-color: black;" />
+            <Label fx:id="Name1" focusTraversable="false" layoutX="13.0" layoutY="296.0" prefHeight="17.0" prefWidth="119.0">
                <font>
-                  <Font size="18.0" />
+                  <Font size="26.0" />
                </font>
             </Label>
-            <Label fx:id="Bio1" layoutX="40.0" layoutY="164.0" prefHeight="63.0" prefWidth="174.0" />
-            <Label fx:id="Age1" contentDisplay="CENTER" layoutX="89.0" layoutY="135.0" prefHeight="17.0" prefWidth="91.0" />
-         </children>
-      </Pane>
-      <Pane layoutX="349.0" layoutY="53.0" prefHeight="324.0" prefWidth="268.0" style="-fx-background-color: lightblue;">
-         <children>
-            <Button fx:id="Like2" layoutX="95.0" layoutY="228.0" mnemonicParsing="false" onAction="#onLike2" prefHeight="52.0" prefWidth="58.0">
-               <graphic>
-                  <ImageView fitHeight="45.0" fitWidth="46.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@Images/blue-heart.png" />
-                     </image>
-                  </ImageView>
-               </graphic>
-            </Button>
-            <Label fx:id="Name2" layoutX="84.0" layoutY="68.0" prefHeight="17.0" prefWidth="119.0">
+            <Label fx:id="Age1" contentDisplay="CENTER" focusTraversable="false" layoutX="175.0" layoutY="293.0" prefHeight="24.0" prefWidth="51.0">
                <font>
-                  <Font size="18.0" />
+                  <Font size="30.0" />
                </font>
             </Label>
-            <Label fx:id="Bio2" layoutX="40.0" layoutY="167.0" prefHeight="63.0" prefWidth="174.0" />
-            <Label fx:id="Age2" contentDisplay="CENTER" layoutX="90.0" layoutY="134.0" prefHeight="17.0" prefWidth="72.0" />
+         </children>
+         <effect>
+            <DropShadow blurType="TWO_PASS_BOX" offsetX="2.0" offsetY="2.0">
+               <color>
+                  <Color opacity="0.5" />
+               </color>
+            </DropShadow>
+         </effect>
+      </Pane>
+      <Pane fx:id="rightCard" layoutX="310.0" layoutY="55.0" prefHeight="338.0" prefWidth="225.0">
+         <children>
+            <Rectangle fx:id="rightPicture" arcHeight="45.0" arcWidth="45.0" fill="DODGERBLUE" height="338.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="2.0" width="225.0" />
+            <Pane cacheShape="false" layoutY="286.0" opacity="0.39" prefHeight="52.0" prefWidth="225.0" style="-fx-background-color: white; -fx-background-radius: 0 0 22 22; -fx-border-radius: 0 0 21 21; -fx-border-width: 0 2 2 2; -fx-border-color: black;" />
+            <Label fx:id="Age2" contentDisplay="CENTER" layoutX="175.0" layoutY="293.0" prefHeight="24.0" prefWidth="51.0">
+               <font>
+                  <Font size="30.0" />
+               </font>
+            </Label>
+            <Label fx:id="Name2" layoutX="13.0" layoutY="296.0" prefHeight="17.0" prefWidth="119.0">
+               <font>
+                  <Font size="26.0" />
+               </font>
+            </Label>
+         </children>
+         <effect>
+            <DropShadow blurType="TWO_PASS_BOX" offsetX="2.0" offsetY="2.0">
+               <color>
+                  <Color opacity="0.5" />
+               </color>
+            </DropShadow>
+         </effect>
+      </Pane>
+      <Group layoutX="560.0" layoutY="186.0">
+         <children>
+            
+                                    <SVGPath content="M27 54.2898C41.9117 54.2898 54 42.1366 54 27.1449C54 12.1532 41.9117 0 27 0C12.0883 0 0 12.1532 0 27.1449C0 42.1366 12.0883 54.2898 27 54.2898Z">
+               <fill>
+                  <LinearGradient endX="1.0" endY="0.7601918465227817" startX="0.27098321342925663" startY="0.15827338129496402">
+                     <stops>
+                        <Stop>
+                           <color>
+                              <Color red="0.3843137323856354" green="0.9137254953384399" blue="0.9450980424880981" />
+                           </color>
+                        </Stop>
+                        <Stop offset="0.011299435028248588">
+                           <color>
+                              <Color red="0.3843137323856354" green="0.9137254953384399" blue="0.9450980424880981" />
+                           </color>
+                        </Stop>
+                        <Stop offset="1.0">
+                           <color>
+                              <Color green="0.6666666865348816" blue="0.8313725590705872" />
+                           </color>
+                        </Stop>
+                     </stops>
+                  </LinearGradient>
+               </fill>
+               <effect>
+                  <DropShadow blurType="TWO_PASS_BOX" height="22.63" offsetX="2.0" offsetY="2.0" radius="11.192499999999999" width="24.14">
+                     <color>
+                        <Color opacity="0.4099999964237213" />
+                     </color>
+                  </DropShadow>
+               </effect>
+            </SVGPath>
+            <SVGPath content="M12.0865, 13.6603L28.0042, 33.3303L13.4411, 50.6161C15.6878, 51.9242, 18.1103, 52.8998, 20.634, 53.5126L33.0308, 38.6948L42.1587, 49.6052C44.1889, 48.2138, 46.0206, 46.5504, 47.6033, 44.6608L38.0575, 33.3303L51.7812, 16.3714C51.3819, 15.4431, 50.9312, 14.538, 50.4314, 13.6603H44.3408L33.0308, 27.9658L21.7209, 13.6603H12.0865Z" fill="#D5F6FF" />
+         </children>
+      </Group>
+      <Circle fx:id="profile" fill="#1f93ff" layoutX="588.0" layoutY="50.0" onMouseClicked="#switchToSecondary" radius="28.0" stroke="BLACK" strokeType="INSIDE">
+         <effect>
+            <DropShadow blurType="TWO_PASS_BOX" offsetX="2.0" offsetY="2.0">
+               <color>
+                  <Color opacity="0.5" />
+               </color>
+            </DropShadow>
+         </effect>
+      </Circle>
+      <Pane fx:id="refresh" layoutX="352.0" layoutY="96.0" onMouseClicked="#refresh" scaleX="0.06" scaleY="0.06">
+         <children>
+            <SVGPath content="M55.323,203.641c15.664,0,29.813-9.405,35.872-23.854c25.017-59.604,83.842-101.61,152.42-101.61c37.797,0,72.449,12.955,100.23,34.442l-21.775,3.371c-7.438,1.153-13.224,7.054-14.232,14.512c-1.01,7.454,3.008,14.686,9.867,17.768l119.746,53.872c5.249,2.357,11.33,1.904,16.168-1.205c4.83-3.114,7.764-8.458,7.796-14.208l0.621-131.943c0.042-7.506-4.851-14.144-12.024-16.332c-7.185-2.188-14.947,0.589-19.104,6.837l-16.505,24.805C370.398,26.778,310.1,0,243.615,0C142.806,0,56.133,61.562,19.167,149.06c-5.134,12.128-3.84,26.015,3.429,36.987C29.865,197.023,42.152,203.641,55.323,203.641zM55.323,203.641c15.664,0,29.813-9.405,35.872-23.854c25.017-59.604,83.842-101.61,152.42-101.61c37.797,0,72.449,12.955,100.23,34.442l-21.775,3.371c-7.438,1.153-13.224,7.054-14.232,14.512c-1.01,7.454,3.008,14.686,9.867,17.768l119.746,53.872c5.249,2.357,11.33,1.904,16.168-1.205c4.83-3.114,7.764-8.458,7.796-14.208l0.621-131.943c0.042-7.506-4.851-14.144-12.024-16.332c-7.185-2.188-14.947,0.589-19.104,6.837l-16.505,24.805C370.398,26.778,310.1,0,243.615,0C142.806,0,56.133,61.562,19.167,149.06c-5.134,12.128-3.84,26.015,3.429,36.987C29.865,197.023,42.152,203.641,55.323,203.641z" fill="WHITE">
+               <effect>
+                  <DropShadow height="50.0" offsetX="0.2" offsetY="0.2" radius="24.5" width="50.0">
+                     <color>
+                        <Color opacity="0.5" />
+                     </color>
+                  </DropShadow>
+               </effect>
+            </SVGPath>
+            <SVGPath content="M464.635,301.184c-7.27-10.977-19.558-17.594-32.728-17.594c-15.664,0-29.813,9.405-35.872,23.854c-25.018,59.604-83.843,101.61-152.42,101.61c-37.798,0-72.45-12.955-100.232-34.442l21.776-3.369c7.437-1.153,13.223-7.055,14.233-14.514c1.009-7.453-3.008-14.686-9.867-17.768L49.779,285.089c-5.25-2.356-11.33-1.905-16.169,1.205c-4.829,3.114-7.764,8.458-7.795,14.207l-0.622,131.943c-0.042,7.506,4.85,14.144,12.024,16.332c7.185,2.188,14.948-0.59,19.104-6.839l16.505-24.805c44.004,43.32,104.303,70.098,170.788,70.098c100.811,0,187.481-61.561,224.446-149.059C473.197,326.043,471.903,312.157,464.635,301.184zM464.635,301.184c-7.27-10.977-19.558-17.594-32.728-17.594c-15.664,0-29.813,9.405-35.872,23.854c-25.018,59.604-83.843,101.61-152.42,101.61c-37.798,0-72.45-12.955-100.232-34.442l21.776-3.369c7.437-1.153,13.223-7.055,14.233-14.514c1.009-7.453-3.008-14.686-9.867-17.768L49.779,285.089c-5.25-2.356-11.33-1.905-16.169,1.205c-4.829,3.114-7.764,8.458-7.795,14.207l-0.622,131.943c-0.042,7.506,4.85,14.144,12.024,16.332c7.185,2.188,14.948-0.59,19.104-6.839l16.505-24.805c44.004,43.32,104.303,70.098,170.788,70.098c100.811,0,187.481-61.561,224.446-149.059C473.197,326.043,471.903,312.157,464.635,301.184z" fill="WHITE">
+               <effect>
+                  <DropShadow height="50.0" offsetX="0.2" offsetY="0.2" radius="24.5" width="50.0">
+                     <color>
+                        <Color opacity="0.5" />
+                     </color>
+                  </DropShadow>
+               </effect>
+            </SVGPath>
          </children>
       </Pane>
-      <Button layoutX="569.0" layoutY="14.0" mnemonicParsing="false" onAction="#switchToSecondary" text="Profile" />
-      <Button layoutX="509.0" layoutY="14.0" mnemonicParsing="false" onAction="#saveUserData" text="Save" />
    </children>
 </AnchorPane>
