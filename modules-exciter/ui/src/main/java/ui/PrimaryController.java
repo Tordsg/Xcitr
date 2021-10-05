@@ -37,6 +37,7 @@ public class PrimaryController implements Initializable{
     private Pane leftCard, rightCard, refresh,scorePane;
     private Exciter excite = new Exciter();
     private FileHandler fileHandler = new FileHandler();
+    private ImageController imageController = new ImageController();
     private ArrayList<User> displayUsers;;
     @FXML
     private void switchToSecondary() throws IOException {
@@ -146,8 +147,8 @@ public class PrimaryController implements Initializable{
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        leftPicture.setFill(new ImagePattern(new Image(this.getClass().getResourceAsStream("Images/defaultPicture.png"))));
-        rightPicture.setFill(new ImagePattern(new Image(this.getClass().getResourceAsStream("Images/defaultPicture.png"))));
+        leftPicture.setFill(new ImagePattern(imageController.getImage(excite.getOnScreenUser1())));
+        rightPicture.setFill(new ImagePattern(imageController.getImage(excite.getOnScreenUser2())));
         profile.setFill(new ImagePattern(new Image(this.getClass().getResourceAsStream("Images/defaultPicture.png")),30.5,62,60,95,false));
         dragY(leftCard);
         dragY(rightCard);
