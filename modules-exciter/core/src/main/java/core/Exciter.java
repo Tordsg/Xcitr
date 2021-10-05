@@ -3,7 +3,7 @@ package core;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Random;
-
+import java.util.stream.Collectors;
 
 public class Exciter {
 
@@ -50,6 +50,29 @@ public class Exciter {
       return new ArrayList<>(Arrays.asList(allUsers.get(randomUsers[0]),allUsers.get(randomUsers[1])));
    }
 
+   public User getNextRandomUser() {
+      ArrayList<User> tempUser = allUsers.stream().filter(a -> a != onScreenUser1 && a != onScreenUser2).collect(Collectors.toCollection(ArrayList::new));
+      int randomUser = new Random().nextInt(tempUser.size());
+      return tempUser.get(randomUser);
+   }
+
+
+   public User getOnScreenUser1() {
+      return onScreenUser1;
+   }
+
+   public User getOnScreenUser2() {
+      return onScreenUser2;
+   }
+
+   public ArrayList<User> getAllUsers() {
+      return allUsers;
+   }
+
+   public void setAllUsers(ArrayList<User> allUsers) {
+      this.allUsers = allUsers;
+   }
+
    public void setOnScreenUser(User user, User user2) {
       onScreenUser1 = user;
       onScreenUser2 = user2;
@@ -61,11 +84,13 @@ public class Exciter {
 
    public boolean pressedLikeFirst(){
       onScreenUser1.fireOnLike(currentUser);
+      onScreenUser2 = getNextRandomUser();
       return onScreenUser1.checkIfMatch(currentUser);
    }
 
    public boolean pressedLikeSecond(){
       onScreenUser2.fireOnLike(currentUser);
+      onScreenUser1 = getNextRandomUser();
       return onScreenUser2.checkIfMatch(currentUser);
    }
 
