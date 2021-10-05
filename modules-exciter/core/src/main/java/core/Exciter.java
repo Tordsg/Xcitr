@@ -7,20 +7,16 @@ import java.util.stream.Collectors;
 
 public class Exciter {
 
-   // TODO: connect to controller
    private ArrayList<User> allUsers = new ArrayList<>();
    private User onScreenUser1;
    private User onScreenUser2;
 
+   // Current user placeholder before logging in is implemented
+   private User currentUser = new User("Ulf Reidar", 25, "Camping, guitar, professional speed knitter", "Ulf@mail");
 
-
-   public Exciter(){
+   public Exciter() {
       addSomePlaceholderUsers();
-      ArrayList<User> onscreenUsers = getNextUsers();
-      setOnScreenUser(onscreenUsers.get(0), onscreenUsers.get(1));
-
-
-
+      getNextUsers();
    }
 
    public void addSomePlaceholderUsers() {
@@ -31,10 +27,6 @@ public class Exciter {
       allUsers.add(new BotUser("Diana", 23, "Diana@mail"));
       allUsers.add(new BotUser("Dani", 25, "Dani@mail"));
    }
-
-   // Current user placeholder before logging in is implemented
-   private User currentUser = new User("Ulf Reidar", 25, "Camping, guitar, professional speed knitter", "Ulf@mail");
-
 
    public User getCurrentUser() {
       return currentUser;
@@ -47,15 +39,31 @@ public class Exciter {
    public ArrayList<User> getNextUsers() {
       int[] randomUsers = new Random().ints(0, allUsers.size() - 1).distinct().limit(2).toArray();
       setOnScreenUser(allUsers.get(randomUsers[0]), allUsers.get(randomUsers[1]));
-      return new ArrayList<>(Arrays.asList(allUsers.get(randomUsers[0]),allUsers.get(randomUsers[1])));
+      return new ArrayList<>(Arrays.asList(allUsers.get(randomUsers[0]), allUsers.get(randomUsers[1])));
+   }
+
+   public ArrayList<User> refreshUsers(){
+      ArrayList<User> tempUserList = allUsers.stream().filter(a -> a != onScreenUser1 && a != onScreenUser2)
+            .collect(Collectors.toCollection(ArrayList::new));
+      int[] randomUsers = new Random().ints(0, tempUserList.size() - 1).distinct().limit(2).toArray();
+      setOnScreenUser(tempUserList.get(randomUsers[0]), tempUserList.get(randomUsers[1]));
+      return new ArrayList<>(Arrays.asList(tempUserList.get(randomUsers[0]), tempUserList.get(randomUsers[1])));
    }
 
    public User getNextRandomUser() {
-      ArrayList<User> tempUser = allUsers.stream().filter(a -> a != onScreenUser1 && a != onScreenUser2).collect(Collectors.toCollection(ArrayList::new));
-      int randomUser = new Random().nextInt(tempUser.size());
-      return tempUser.get(randomUser);
+      ArrayList<User> tempUserList = allUsers.stream().filter(a -> a != onScreenUser1 && a != onScreenUser2)
+            .collect(Collectors.toCollection(ArrayList::new));
+      int randomUser = new Random().nextInt(tempUserList.size());
+      return tempUserList.get(randomUser);
    }
 
+   public void setOnScreenUser1(User user) {
+      onScreenUser1 = user;
+   }
+
+   public void setOnScreenUser2(User user) {
+      onScreenUser2 = user;
+   }
 
    public User getOnScreenUser1() {
       return onScreenUser1;
@@ -79,16 +87,16 @@ public class Exciter {
    }
 
    public ArrayList<User> getOnScreenUsers() {
-      return new ArrayList<>(Arrays.asList(onScreenUser1,onScreenUser2));
+      return new ArrayList<>(Arrays.asList(onScreenUser1, onScreenUser2));
    }
 
-   public boolean pressedLikeFirst(){
+   public boolean pressedLikeFirst() {
       onScreenUser1.fireOnLike(currentUser);
       onScreenUser2 = getNextRandomUser();
       return onScreenUser1.checkIfMatch(currentUser);
    }
 
-   public boolean pressedLikeSecond(){
+   public boolean pressedLikeSecond() {
       onScreenUser2.fireOnLike(currentUser);
       onScreenUser1 = getNextRandomUser();
       return onScreenUser2.checkIfMatch(currentUser);
