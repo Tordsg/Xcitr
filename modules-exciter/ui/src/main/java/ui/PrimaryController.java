@@ -48,33 +48,38 @@ public class PrimaryController implements Initializable{
 
     void onLike1() {
         excite.pressedLikeSecond();
-        animateCard(leftCard,leftCard.getLayoutY()-55, -400,false);
+        animateCard(leftCard,leftCard.getLayoutY()-55, -400,false,false);
     }
     void onLike2() {
         excite.pressedLikeFirst();
-        animateCard(rightCard,rightCard.getLayoutY()-55, -400,false);
+        animateCard(rightCard,rightCard.getLayoutY()-55, -400,false,false);
     }
-    void animateCard(Pane pane,double startPosition,double endPosition, boolean lastAnimation){
+    void animateCard(Pane pane,double startPosition,double endPosition, boolean lastAnimation, boolean isRefresh){
         rightCard.setDisable(true);
         leftCard.setDisable(true);
         refresh.setDisable(true);
-        double duration = Math.abs(endPosition-startPosition);
+        double duration = Math.abs(endPosition-startPosition)*1.4;
         TranslateTransition tt = new TranslateTransition(Duration.millis(duration), pane);
         tt.setFromY(startPosition);
         tt.setToY(endPosition);
         tt.setCycleCount(1);
         tt.setAutoReverse(true);
         if(!lastAnimation){
-            if(pane.getId().equals("leftCard")) animateScore(true,true);
-            else animateScore(false,true);
+            if(!isRefresh){
+                if(pane.getId().equals("leftCard")) animateScore(true,true);
+                else animateScore(false,true);
+            }
             tt.setOnFinished(e -> {
-                animateCard(pane,430,0,true);
+                if(!isRefresh)animateCard(pane,430,0,true,false);
+                else animateCard(pane,430,0,true,true);
                 setNextUsers();
         });
         }
         else tt.setOnFinished(e -> {
-            if(pane.getId().equals("leftCard")) animateScore(true,false);
-            else animateScore(false,false);
+            if(!isRefresh){
+                if(pane.getId().equals("leftCard")) animateScore(true,false);
+                else animateScore(false,false);
+            }
             refresh.setDisable(false);
             rightCard.setDisable(false);
             leftCard.setDisable(false);
@@ -112,8 +117,8 @@ public class PrimaryController implements Initializable{
     void refresh(){
         excite.refreshUsers();
         scorePane.setDisable(true);
-        animateCard(leftCard, 0, -385, false);
-        animateCard(rightCard, 0, -385, false);
+        animateCard(leftCard, 0, -385, false,true);
+        animateCard(rightCard, 0, -385, false,true);
         RotateTransition rt = new RotateTransition(Duration.millis(500),refresh);
         rt.setFromAngle(0);
         rt.setToAngle(360);
@@ -181,7 +186,7 @@ public class PrimaryController implements Initializable{
                             onLike2();
                         }
                     }else{
-                        animateCard(e, e.getLayoutY()-55, 0, true);
+                        animateCard(e, e.getLayoutY()-55, 0, true,true);
                     }
                     e.setLayoutY(55);
                     dragged = false;
