@@ -42,6 +42,14 @@ public class Exciter {
       return new ArrayList<>(Arrays.asList(allUsers.get(randomUsers[0]), allUsers.get(randomUsers[1])));
    }
 
+   public ArrayList<User> refreshUsers(){
+      ArrayList<User> tempUserList = allUsers.stream().filter(a -> a != onScreenUser1 && a != onScreenUser2)
+            .collect(Collectors.toCollection(ArrayList::new));
+      int[] randomUsers = new Random().ints(0, tempUserList.size() - 1).distinct().limit(2).toArray();
+      setOnScreenUser(tempUserList.get(randomUsers[0]), tempUserList.get(randomUsers[1]));
+      return new ArrayList<>(Arrays.asList(tempUserList.get(randomUsers[0]), tempUserList.get(randomUsers[1])));
+   }
+
    public User getNextRandomUser() {
       ArrayList<User> tempUserList = allUsers.stream().filter(a -> a != onScreenUser1 && a != onScreenUser2)
             .collect(Collectors.toCollection(ArrayList::new));
