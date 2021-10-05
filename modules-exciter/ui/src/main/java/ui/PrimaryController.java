@@ -52,6 +52,8 @@ public class PrimaryController implements Initializable{
         animateCard(rightCard,rightCard.getLayoutY()-55, -400,false);
     }
     void animateCard(Pane pane,double startPosition,double endPosition, boolean lastAnimation){
+        rightCard.setDisable(true);
+        leftCard.setDisable(true);
         refresh.setDisable(true);
         double duration = Math.abs(endPosition-startPosition);
         TranslateTransition tt = new TranslateTransition(Duration.millis(duration), pane);
@@ -63,7 +65,11 @@ public class PrimaryController implements Initializable{
             animateCard(pane,430,0,true);
             setNextUsers();
         });
-        else tt.setOnFinished(e -> refresh.setDisable(false));
+        else tt.setOnFinished(e -> {
+            refresh.setDisable(false);
+            rightCard.setDisable(false);
+            leftCard.setDisable(false);
+        });
         tt.play();
     }
     @FXML
