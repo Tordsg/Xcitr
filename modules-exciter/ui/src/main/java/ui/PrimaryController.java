@@ -8,7 +8,9 @@ import java.util.ArrayList;
 import java.util.ResourceBundle;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Rectangle;
+import javafx.scene.text.Text;
 import javafx.util.Duration;
+import javafx.animation.FadeTransition;
 import javafx.animation.RotateTransition;
 import javafx.animation.TranslateTransition;
 import javafx.event.EventHandler;
@@ -19,7 +21,6 @@ import javafx.scene.layout.Pane;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
-import javafx.scene.Node;
 
 public class PrimaryController implements Initializable{
     @FXML
@@ -29,7 +30,9 @@ public class PrimaryController implements Initializable{
     @FXML
     private Label Name1,Age1,Name2,Age2;
     @FXML
-    private Pane leftCard, rightCard, refresh;
+    private Text scoreText;
+    @FXML
+    private Pane leftCard, rightCard, refresh,scorePane;
     private Exciter excite = new Exciter();
     private FileHandler fileHandler = new FileHandler();
 
@@ -61,20 +64,42 @@ public class PrimaryController implements Initializable{
         tt.setToY(endPosition);
         tt.setCycleCount(1);
         tt.setAutoReverse(true);
-        if(!lastAnimation) tt.setOnFinished(e -> {
-            animateCard(pane,430,0,true);
-            setNextUsers();
+        if(!lastAnimation){
+            if(pane.getId().equals("leftCard")) animateScore(true,true);
+            else animateScore(false,true);
+            tt.setOnFinished(e -> {
+                animateCard(pane,430,0,true);
+                setNextUsers();
         });
+        }
         else tt.setOnFinished(e -> {
+            if(pane.getId().equals("leftCard")) animateScore(true,false);
+            else animateScore(false,false);
             refresh.setDisable(false);
             rightCard.setDisable(false);
             leftCard.setDisable(false);
         });
         tt.play();
     }
+    public void animateScore(boolean isLeftCard, boolean begin){
+        if(!isLeftCard)scorePane.setLayoutX(82.5);
+        else scorePane.setLayoutX(352.5);
+        FadeTransition ft = new FadeTransition(Duration.millis(100),scorePane);
+        if(begin){
+            ft.setFromValue(0);
+            ft.setToValue(1);
+        } else {
+            ft.setFromValue(1);
+            ft.setToValue(0);
+            ft.setOnFinished(e -> scorePane.setLayoutX(-200));
+        }
+        ft.setCycleCount(1);
+        ft.setAutoReverse(true);
+        ft.play();
+    }
     @FXML
     void refresh(){
-        excite.getNextUsers();
+        excite.refreshUsers();
         animateCard(leftCard, 0, -385, false);
         animateCard(rightCard, 0, -385, false);
         RotateTransition rt = new RotateTransition(Duration.millis(500),refresh);
