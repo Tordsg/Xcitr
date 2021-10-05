@@ -120,6 +120,10 @@ public class User implements MatchListener {
         return likedByCounter.get(user.getEmail()) >= 3;
     }
 
+    public int getImageHashCode(){
+        return this.email.hashCode();
+    }
+
     @Override
     public String toString() {
         return "User{" +
