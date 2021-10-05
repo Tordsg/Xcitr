@@ -2,98 +2,73 @@ package ui;
 
 import core.*;
 import json.*;
-
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Rectangle;
-import javafx.scene.shape.Shape;
 import javafx.util.Duration;
 import javafx.animation.RotateTransition;
-import javafx.event.ActionEvent;
+import javafx.animation.TranslateTransition;
 import javafx.event.EventHandler;
 import javafx.scene.paint.ImagePattern;
 import javafx.scene.image.Image;
-import javafx.scene.input.DragEvent;
-import javafx.scene.input.Dragboard;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.input.TransferMode;
 import javafx.scene.layout.Pane;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
-import javafx.scene.effect.DropShadow;
-import javafx.scene.effect.Effect;
 import javafx.scene.Node;
-import javafx.scene.control.Button;
 
 public class PrimaryController implements Initializable{
-
+    @FXML
+    private Rectangle leftPicture, rightPicture;
+    @FXML 
+    private Circle profile;
+    @FXML
+    private Label Name1,Age1,Name2,Age2;
+    @FXML
+    private Pane leftCard, rightCard, refresh;
     private Exciter excite = new Exciter();
     private FileHandler fileHandler = new FileHandler();
-
-
 
     @FXML
     private void switchToSecondary() throws IOException {
         App.setRoot("secondary");
-
     }
     @FXML
     public void saveUserData(){
         fileHandler.createFile();
         fileHandler.saveUser(excite.getCurrentUser());
     }
-    @FXML
-    private Rectangle leftPicture, rightPicture;
-    @FXML
-    private Circle profile;
-    @FXML
-    private Button Like1;
-
-    @FXML
-    private Label Name1;
-
-    @FXML
-    private Label Bio1;
-
-    @FXML
-    private Label Age1;
-
-    @FXML
-    private Button Like2;
-
-    @FXML
-    private Label Name2;
-
-    @FXML
-    private Label Bio2;
-
-    @FXML
-    private Label Age2;
-    @FXML
-    private Pane leftCard, rightCard, refresh;
-
-    @FXML
-    void onLike1() {
-       excite.pressedLikeFirst();
-       setUsers();
-
-
+    
+    void onLike1() { 
+        animateCard(leftCard,leftCard.getLayoutY()-55, -400,false);
+        excite.pressedLikeFirst();
+        setUsers();
     }
-
-    @FXML
     void onLike2() {
+        animateCard(rightCard,rightCard.getLayoutY()-55, -400,false);
         excite.pressedLikeSecond();
         setUsers();
-
-
-
+    } 
+    void animateCard(Pane pane,double startPosition,double endPosition, boolean lastAnimation){
+        refresh.setDisable(true);
+        double duration = Math.abs(endPosition-startPosition);
+        TranslateTransition tt = new TranslateTransition(Duration.millis(duration), pane);
+        tt.setFromY(startPosition);
+        tt.setToY(endPosition);
+        tt.setCycleCount(1);
+        tt.setAutoReverse(true);
+        if(!lastAnimation) tt.setOnFinished(e -> animateCard(pane,430,0,true));
+        else tt.setOnFinished(e -> refresh.setDisable(false));
+        tt.play();
     }
     @FXML
     void refresh(){
+        animateCard(leftCard, 0, -385, false);
+        animateCard(rightCard, 0, -385, false);
         RotateTransition rt = new RotateTransition(Duration.millis(500),refresh);
         rt.setFromAngle(0);
         rt.setToAngle(360);
@@ -101,7 +76,7 @@ public class PrimaryController implements Initializable{
         setUsers();
     }
 
-    public void setInitialeUsers(){
+    public void setUsers(){
         ArrayList<User> displayUsers = excite.getNextUsers();
         User user1 = displayUsers.get(0);
         User user2 = displayUsers.get(1);
@@ -112,26 +87,7 @@ public class PrimaryController implements Initializable{
         Age2.setText(String.valueOf(user2.getAge()));
 
     }
-
-    public void setUsers() {
-        ArrayList<User> displayUsers = excite.getOnScreenUsers();
-        User user1 = displayUsers.get(0);
-        User user2 = displayUsers.get(1);
-        excite.setOnScreenUser(user1, user2);
-        Name1.setText(user1.getName());
-        Age1.setText(String.valueOf(user1.getAge()));
-        Name2.setText(user2.getName());
-        Age2.setText(String.valueOf(user2.getAge()));
-    }
-
-    public void setSingleNewUser(){
-
-    }
-    double dY = 0;
-    double initialY = 0;
-    Boolean dragged = false;
-    double y = 0;
-    double lastY = 0;
+    
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         leftPicture.setFill(new ImagePattern(new Image(this.getClass().getResourceAsStream("Images/defaultPicture.png"))));
@@ -139,9 +95,16 @@ public class PrimaryController implements Initializable{
         profile.setFill(new ImagePattern(new Image(this.getClass().getResourceAsStream("Images/defaultPicture.png")),30.5,62,60,95,false));
         dragY(leftCard);
         dragY(rightCard);
-        setInitialeUsers();
+        setUsers();
     }
-    private void dragY(Node e){
+
+    double dY = 0;
+    double initialY = 0;
+    Boolean dragged = false;
+    double y = 0;
+    double lastY = 0;
+
+    private void dragY(Pane e){
         e.setOnMousePressed(new EventHandler<MouseEvent>(){
             @Override
             public void handle(MouseEvent event){
@@ -176,6 +139,8 @@ public class PrimaryController implements Initializable{
                         }else{
                             onLike2();
                         }
+                    }else{
+                        animateCard(e, e.getLayoutY()-55, 0, true);
                     }
                     e.setLayoutY(55);
                     dragged = false;
