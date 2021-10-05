@@ -46,7 +46,7 @@ public class PrimaryController implements Initializable{
         fileHandler.saveUser(excite.getCurrentUser());
     }
 
-    void onLike1() { 
+    void onLike1() {
         excite.pressedLikeSecond();
         animateCard(leftCard,leftCard.getLayoutY()-55, -400,false);
     }
@@ -84,17 +84,17 @@ public class PrimaryController implements Initializable{
     public void animateScore(boolean isLeftCard, boolean begin){
         if(!isLeftCard){
             scorePane.setLayoutX(82.5);
-            int count = excite.getOnScreenUserLikeCount(displayUsers.get(1));
+            int count = excite.getOnScreenUserLikeCount(excite.getOnScreenUser1());
             scoreNumber.setText(String.valueOf(count));
             System.out.println(count);
         }
         else {
             scorePane.setLayoutX(352.5);
-            int count = excite.getOnScreenUserLikeCount(displayUsers.get(0));
+            int count = excite.getOnScreenUserLikeCount(excite.getOnScreenUser2());
             scoreNumber.setText(String.valueOf(count));
             System.out.println(count);
         }
-        
+
         FadeTransition ft = new FadeTransition(Duration.millis(100),scorePane);
         if(begin){
             ft.setFromValue(0);
