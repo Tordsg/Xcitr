@@ -43,15 +43,13 @@ public class PrimaryController implements Initializable{
         fileHandler.saveUser(excite.getCurrentUser());
     }
 
-    void onLike1() {
-        animateCard(leftCard,leftCard.getLayoutY()-55, -400,false);
+    void onLike1() { 
         excite.pressedLikeSecond();
-        setNextUsers();
+        animateCard(leftCard,leftCard.getLayoutY()-55, -400,false);
     }
     void onLike2() {
-        animateCard(rightCard,rightCard.getLayoutY()-55, -400,false);
         excite.pressedLikeFirst();
-        setNextUsers();
+        animateCard(rightCard,rightCard.getLayoutY()-55, -400,false);
     }
     void animateCard(Pane pane,double startPosition,double endPosition, boolean lastAnimation){
         refresh.setDisable(true);
@@ -61,7 +59,10 @@ public class PrimaryController implements Initializable{
         tt.setToY(endPosition);
         tt.setCycleCount(1);
         tt.setAutoReverse(true);
-        if(!lastAnimation) tt.setOnFinished(e -> animateCard(pane,430,0,true));
+        if(!lastAnimation) tt.setOnFinished(e -> {
+            animateCard(pane,430,0,true);
+            setNextUsers();
+        });
         else tt.setOnFinished(e -> refresh.setDisable(false));
         tt.play();
     }
@@ -73,7 +74,7 @@ public class PrimaryController implements Initializable{
         rt.setFromAngle(0);
         rt.setToAngle(360);
         rt.play();
-        setUsers();
+      //  setUsers();
     }
 
     public void setUsers(){
@@ -95,6 +96,9 @@ public class PrimaryController implements Initializable{
         Age1.setText(String.valueOf(user1.getAge()));
         Name2.setText(user2.getName());
         Age2.setText(String.valueOf(user2.getAge()));
+    }
+    public void updateUsers(){
+        
     }
 
     @Override
