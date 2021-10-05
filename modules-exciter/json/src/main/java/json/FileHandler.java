@@ -47,6 +47,7 @@ public class FileHandler {
       } catch (IOException e) {
          e.printStackTrace();
       }
+      User temp = readUser();
    }
 
    public void createFile() {
@@ -66,6 +67,8 @@ public class FileHandler {
       try (BufferedReader fileReader = new BufferedReader(new InputStreamReader(new FileInputStream(path), "UTF-8"))) {
          JSONObject userData =(JSONObject) parser.parse(fileReader.readLine());
          return new User(userData.get("name").toString(), Integer.parseInt(userData.get("age").toString()),
+         userData.get("userInformation").toString(),
+         parseUserMatchesJSON((JSONObject)userData.get("matches")),
                userData.get("email").toString());
 
       } catch (FileNotFoundException e) {
@@ -80,12 +83,13 @@ public class FileHandler {
       return null;
    }
 
-   public HashMap<String,Integer> parseUserFromJSON(JSONObject obj){
+   public HashMap<String,Integer> parseUserMatchesJSON(JSONObject obj){
       HashMap<String,Integer> matchedUsers = new HashMap<>();
       Iterator<?> keys = obj.keySet().iterator();
       while(keys.hasNext())
       {
-         //TODO
+         Object localKey = keys.next();
+         matchedUsers.put(localKey.toString(), Integer.parseInt(obj.get(localKey).toString()));
       }
       return null;
    }
