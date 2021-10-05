@@ -12,6 +12,7 @@ import javafx.scene.text.Text;
 import javafx.util.Duration;
 import javafx.animation.FadeTransition;
 import javafx.animation.Interpolator;
+import javafx.animation.ParallelTransition;
 import javafx.animation.RotateTransition;
 import javafx.animation.SequentialTransition;
 import javafx.animation.TranslateTransition;
@@ -50,10 +51,16 @@ public class PrimaryController implements Initializable{
     }
 
     void onLike1() {
-        //SequentialTransition st = new SequentialTransition(translateCardY(leftCard, leftCard.getLayoutY()-55, -400),translateCardY(leftCard, 400, 0) );
-        //st.play();
+        TranslateTransition tt1 = translateCardY(leftCard, leftCard.getLayoutY()-55, -400);
+        TranslateTransition tt2 = translateCardY(leftCard, 400, 0);
+        FadeTransition ft1 = animateScore(false, true);
+        FadeTransition ft2 = animateScore(false, false);
+        ParallelTransition pt1 = new ParallelTransition(tt1,ft1);
+        ParallelTransition pt2 = new ParallelTransition(tt2,ft2);
+        SequentialTransition st = new SequentialTransition(pt1,pt2);
+        st.play();
         excite.pressedLikeSecond();
-        animateCard(leftCard,leftCard.getLayoutY()-55, -400,false,false);
+        //animateCard(leftCard,leftCard.getLayoutY()-55, -400,false,false);
     }
     void onLike2() {
         excite.pressedLikeFirst();
@@ -99,8 +106,8 @@ public class PrimaryController implements Initializable{
         tt.autoReverseProperty();
         return tt;
     }
-    public void animateScore(boolean isLeftCard, boolean begin){
-        if(!isLeftCard){
+    public FadeTransition animateScore(boolean onLeftCard, boolean begin){
+        if(onLeftCard){
             scorePane.setLayoutX(82.5);
             int count = excite.getOnScreenUserLikeCount(excite.getOnScreenUser1());
             scoreNumber.setText(String.valueOf(count));
@@ -122,7 +129,7 @@ public class PrimaryController implements Initializable{
         }
         ft.setCycleCount(1);
         ft.setAutoReverse(true);
-        ft.play();
+        return ft;
     }
     @FXML
     void refresh(){
@@ -139,6 +146,8 @@ public class PrimaryController implements Initializable{
         displayUsers = excite.getOnScreenUsers();
         User user1 = displayUsers.get(0);
         User user2 = displayUsers.get(1);
+        leftPicture.setFill(new ImagePattern(imageController.getImage(excite.getOnScreenUser1())));
+        rightPicture.setFill(new ImagePattern(imageController.getImage(excite.getOnScreenUser2())));
         Name1.setText(user1.getName());
         Age1.setText(String.valueOf(user1.getAge()));
         Name2.setText(user2.getName());
