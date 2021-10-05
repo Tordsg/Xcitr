@@ -30,12 +30,12 @@ public class PrimaryController implements Initializable{
     @FXML
     private Label Name1,Age1,Name2,Age2;
     @FXML
-    private Text scoreText;
+    private Text scoreNumber;
     @FXML
     private Pane leftCard, rightCard, refresh,scorePane;
     private Exciter excite = new Exciter();
     private FileHandler fileHandler = new FileHandler();
-
+    private ArrayList<User> displayUsers;;
     @FXML
     private void switchToSecondary() throws IOException {
         App.setRoot("secondary");
@@ -82,8 +82,19 @@ public class PrimaryController implements Initializable{
         tt.play();
     }
     public void animateScore(boolean isLeftCard, boolean begin){
-        if(!isLeftCard)scorePane.setLayoutX(82.5);
-        else scorePane.setLayoutX(352.5);
+        if(!isLeftCard){
+            scorePane.setLayoutX(82.5);
+            int count = excite.getOnScreenUserLikeCount(displayUsers.get(1));
+            scoreNumber.setText(String.valueOf(count));
+            System.out.println(count);
+        }
+        else {
+            scorePane.setLayoutX(352.5);
+            int count = excite.getOnScreenUserLikeCount(displayUsers.get(0));
+            scoreNumber.setText(String.valueOf(count));
+            System.out.println(count);
+        }
+        
         FadeTransition ft = new FadeTransition(Duration.millis(100),scorePane);
         if(begin){
             ft.setFromValue(0);
@@ -100,6 +111,7 @@ public class PrimaryController implements Initializable{
     @FXML
     void refresh(){
         excite.refreshUsers();
+        scorePane.setDisable(true);
         animateCard(leftCard, 0, -385, false);
         animateCard(rightCard, 0, -385, false);
         RotateTransition rt = new RotateTransition(Duration.millis(500),refresh);
@@ -108,7 +120,7 @@ public class PrimaryController implements Initializable{
         rt.play();
     }
     public void setNextUsers(){
-        ArrayList<User> displayUsers = excite.getOnScreenUsers();
+        displayUsers = excite.getOnScreenUsers();
         User user1 = displayUsers.get(0);
         User user2 = displayUsers.get(1);
         Name1.setText(user1.getName());
