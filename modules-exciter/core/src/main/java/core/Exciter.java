@@ -73,6 +73,13 @@ public class Exciter {
       return onScreenUser2;
    }
 
+   public int getOnScreenUserLikeCount(User user) {
+      if(currentUser.getAlreadyMatched().containsKey(user.getEmail())) {
+         return currentUser.getAlreadyMatched().get(user.getEmail());
+      }
+      return 0;
+   }
+
    public ArrayList<User> getAllUsers() {
       return allUsers;
    }
