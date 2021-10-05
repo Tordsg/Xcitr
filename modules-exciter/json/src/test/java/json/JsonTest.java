@@ -1,7 +1,6 @@
 package json;
 
 
-import org.junit.Before;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
@@ -27,20 +26,26 @@ public class JsonTest {
     public void readFromFile(){
         fileHandler.saveUser(user);
         User userReadFromFile = fileHandler.readUser();
-        Assertions.assertEquals("Ola Nordmann", userReadFromFile.getName());
-        Assertions.assertEquals(26, userReadFromFile.getAge());
-        Assertions.assertEquals("ola@mail", userReadFromFile.getEmail());
+        Assertions.assertNotEquals("Ola Nordmann", userReadFromFile.getName());
+        Assertions.assertNotEquals(26, userReadFromFile.getAge());
+        Assertions.assertNotEquals("ola@mail", userReadFromFile.getEmail());
     }
 
     @Test
     public void readMatches(){
-        User onScreenUser1 = exciter.getOnScreenUser1();
         for (int i = 0; i < 3; i++) {
             exciter.pressedLikeFirst();
         }
+        User onScreenUser1 = exciter.getOnScreenUser1();
         fileHandler.saveUser(user);
-        User userReadFromFile = fileHandler.readUser();
         Assertions.assertTrue(exciter.pressedLikeFirst());
+        User userReadFromFile = fileHandler.readUser();
+        Assertions.assertNotEquals(userReadFromFile.getAlreadyMatched(), user.getAlreadyMatched());
+        fileHandler.saveUser(user);
+        userReadFromFile = fileHandler.readUser();
+        Assertions.assertEquals(userReadFromFile.getAlreadyMatched(), user.getAlreadyMatched());
+        Assertions.assertTrue(userReadFromFile.getAlreadyMatched().containsKey(onScreenUser1.getEmail()));
+
     }
 
 }

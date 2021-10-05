@@ -119,4 +119,16 @@ public class User implements MatchListener {
         }
         return likedByCounter.get(user.getEmail()) >= 3;
     }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "name='" + name + '\'' +
+                ", age=" + age +
+                ", userInformation='" + userInformation + '\'' +
+                ", email='" + email + '\'' +
+                ", likedByCounter=" + likedByCounter +
+                '}';
+    }
+
 }
