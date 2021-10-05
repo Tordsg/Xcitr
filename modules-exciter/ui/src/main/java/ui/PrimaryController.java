@@ -68,37 +68,22 @@ public class PrimaryController implements Initializable{
     }
     @FXML
     void refresh(){
+        excite.getNextUsers();
         animateCard(leftCard, 0, -385, false);
         animateCard(rightCard, 0, -385, false);
         RotateTransition rt = new RotateTransition(Duration.millis(500),refresh);
         rt.setFromAngle(0);
         rt.setToAngle(360);
         rt.play();
-      //  setUsers();
-    }
-
-    public void setUsers(){
-        ArrayList<User> displayUsers = excite.getNextUsers();
-        User user1 = displayUsers.get(0);
-        User user2 = displayUsers.get(1);
-        excite.setOnScreenUser(user1, user2);
-        Name1.setText(user1.getName());
-        Age1.setText(String.valueOf(user1.getAge()));
-        Name2.setText(user2.getName());
-        Age2.setText(String.valueOf(user2.getAge()));
     }
     public void setNextUsers(){
         ArrayList<User> displayUsers = excite.getOnScreenUsers();
         User user1 = displayUsers.get(0);
         User user2 = displayUsers.get(1);
-        excite.setOnScreenUser(user1, user2);
         Name1.setText(user1.getName());
         Age1.setText(String.valueOf(user1.getAge()));
         Name2.setText(user2.getName());
         Age2.setText(String.valueOf(user2.getAge()));
-    }
-    public void updateUsers(){
-        
     }
 
     @Override
@@ -108,7 +93,7 @@ public class PrimaryController implements Initializable{
         profile.setFill(new ImagePattern(new Image(this.getClass().getResourceAsStream("Images/defaultPicture.png")),30.5,62,60,95,false));
         dragY(leftCard);
         dragY(rightCard);
-        setUsers();
+        setNextUsers();
     }
 
     double dY = 0;
