@@ -11,7 +11,9 @@ import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
 import javafx.util.Duration;
 import javafx.animation.FadeTransition;
+import javafx.animation.Interpolator;
 import javafx.animation.RotateTransition;
+import javafx.animation.SequentialTransition;
 import javafx.animation.TranslateTransition;
 import javafx.event.EventHandler;
 import javafx.scene.paint.ImagePattern;
@@ -47,6 +49,8 @@ public class PrimaryController implements Initializable{
     }
 
     void onLike1() {
+        //SequentialTransition st = new SequentialTransition(translateCardY(leftCard, leftCard.getLayoutY()-55, -400),translateCardY(leftCard, 400, 0) );
+        //st.play();
         excite.pressedLikeSecond();
         animateCard(leftCard,leftCard.getLayoutY()-55, -400,false,false);
     }
@@ -86,18 +90,24 @@ public class PrimaryController implements Initializable{
         });
         tt.play();
     }
+    public TranslateTransition translateCardY(Pane pane, double start, double end){
+        TranslateTransition tt = new TranslateTransition(Duration.millis(Math.abs(start-end)*1.4),pane);
+        tt.setFromY(start);
+        tt.setToY(end);
+        tt.setCycleCount(1);
+        tt.autoReverseProperty();
+        return tt;
+    }
     public void animateScore(boolean isLeftCard, boolean begin){
         if(!isLeftCard){
             scorePane.setLayoutX(82.5);
             int count = excite.getOnScreenUserLikeCount(excite.getOnScreenUser1());
             scoreNumber.setText(String.valueOf(count));
-            System.out.println(count);
         }
         else {
             scorePane.setLayoutX(352.5);
             int count = excite.getOnScreenUserLikeCount(excite.getOnScreenUser2());
             scoreNumber.setText(String.valueOf(count));
-            System.out.println(count);
         }
 
         FadeTransition ft = new FadeTransition(Duration.millis(100),scorePane);
