@@ -14,5 +14,13 @@ public class ImageController {
     File dir = new File(path);
     File[] directoryListing = dir.listFiles();
 
-    //TODO: add images to the set
+    public ImageController() {
+        if (directoryListing != null) {
+            for (File child : directoryListing) {
+                images.add(new Image(path + child.getName() + ".png"));
+            }
+        }
+
+    }
+
 }
