@@ -7,28 +7,59 @@
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.paint.Color?>
+<?import javafx.scene.paint.LinearGradient?>
+<?import javafx.scene.paint.Stop?>
+<?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
 
-
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="548.0" prefWidth="365.0" style="-fx-background-color: D5F6FF; -fx-background-radius: 160; -fx-background-image: 00AAD4;" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="548.0" prefWidth="365.0" style="-fx-background-color: D5F6FF; -fx-background-image: 00AAD4;" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <TextField layoutX="66.0" layoutY="208.0" prefHeight="46.0" prefWidth="234.0" />
-      <PasswordField layoutX="66.0" layoutY="321.0" prefHeight="46.0" prefWidth="234.0" />
-      <Button layoutX="156.0" layoutY="400.0" mnemonicParsing="false" text="LOGIN" />
-      <Label layoutX="66.0" layoutY="291.0" text="Password" textFill="#6a6c73">
-         <font>
-            <Font name="Al Bayan Plain" size="12.0" />
-         </font>
-      </Label>
-      <Label layoutX="66.0" layoutY="184.0" text="Email" textFill="#6a6c73">
-         <font>
-            <Font name="Apple Braille" size="12.0" />
-         </font>
-      </Label>
-      <ImageView fitHeight="85.0" fitWidth="200.0" layoutX="93.0" layoutY="44.0" pickOnBounds="true" preserveRatio="true">
-         <image>
-            <Image url="@../../../../../../../../../Downloads/unknown.png" />
-         </image>
-      </ImageView>
+      <Rectangle arcHeight="5.0" arcWidth="5.0" height="548.0" stroke="BLACK" strokeType="INSIDE" width="365.0">
+         <fill>
+            <LinearGradient endX="0.8609112709832134" endY="0.5683453237410071" startX="0.5515587529976019" startY="0.42685851318944845">
+               <stops>
+                  <Stop>
+                     <color>
+                        <Color red="0.17019981145858765" green="0.5250406265258789" blue="0.8355262875556946" opacity="0.07000000029802322" />
+                     </color>
+                  </Stop>
+                  <Stop offset="0.007532956685499058">
+                     <color>
+                        <Color red="0.18039999902248383" green="0.5428400039672852" blue="0.8199999928474426" opacity="0.06881720572710037" />
+                     </color>
+                  </Stop>
+                  <Stop offset="1.0">
+                     <color>
+                        <Color red="0.46666666865348816" green="0.8588235378265381" blue="0.9450980424880981" opacity="0.6499999761581421" />
+                     </color>
+                  </Stop>
+               </stops>
+            </LinearGradient>
+         </fill>
+      </Rectangle>
+      <Pane prefHeight="548.0" prefWidth="365.0" style="-fx-background-color: 1BC5EA; -fx-background-radius: 123;">
+         <children>
+            <ImageView fitHeight="85.0" fitWidth="200.0" layoutX="89.0" layoutY="52.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../../../../../../../../Downloads/unknown.png" />
+               </image>
+            </ImageView>
+            <Label layoutX="70.0" layoutY="207.0" prefHeight="15.0" prefWidth="53.0" text="Email" textFill="#6a6c73">
+               <font>
+                  <Font name="Apple Braille" size="12.0" />
+               </font>
+            </Label>
+            <Label layoutX="70.0" layoutY="307.0" text="Password" textFill="#6a6c73">
+               <font>
+                  <Font name="Al Bayan Plain" size="12.0" />
+               </font>
+            </Label>
+            <Button fx:id="login" layoutX="152.0" layoutY="402.0" mnemonicParsing="false" text="LOGIN" />
+            <PasswordField fx:id="emailLogin" layoutX="66.0" layoutY="222.0" prefHeight="46.0" prefWidth="234.0" />
+            <TextField fx:id="passwordLogin" layoutX="66.0" layoutY="330.0" prefHeight="46.0" prefWidth="234.0" />
+         </children>
+      </Pane>
    </children>
 </AnchorPane>
