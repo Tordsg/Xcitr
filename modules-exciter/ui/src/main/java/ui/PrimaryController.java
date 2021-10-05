@@ -24,7 +24,7 @@ import javafx.scene.Node;
 public class PrimaryController implements Initializable{
     @FXML
     private Rectangle leftPicture, rightPicture;
-    @FXML 
+    @FXML
     private Circle profile;
     @FXML
     private Label Name1,Age1,Name2,Age2;
@@ -42,17 +42,17 @@ public class PrimaryController implements Initializable{
         fileHandler.createFile();
         fileHandler.saveUser(excite.getCurrentUser());
     }
-    
-    void onLike1() { 
+
+    void onLike1() {
         animateCard(leftCard,leftCard.getLayoutY()-55, -400,false);
-        excite.pressedLikeFirst();
-        setUsers();
+        excite.pressedLikeSecond();
+        setNextUsers();
     }
     void onLike2() {
         animateCard(rightCard,rightCard.getLayoutY()-55, -400,false);
-        excite.pressedLikeSecond();
-        setUsers();
-    } 
+        excite.pressedLikeFirst();
+        setNextUsers();
+    }
     void animateCard(Pane pane,double startPosition,double endPosition, boolean lastAnimation){
         refresh.setDisable(true);
         double duration = Math.abs(endPosition-startPosition);
@@ -85,9 +85,18 @@ public class PrimaryController implements Initializable{
         Age1.setText(String.valueOf(user1.getAge()));
         Name2.setText(user2.getName());
         Age2.setText(String.valueOf(user2.getAge()));
-
     }
-    
+    public void setNextUsers(){
+        ArrayList<User> displayUsers = excite.getOnScreenUsers();
+        User user1 = displayUsers.get(0);
+        User user2 = displayUsers.get(1);
+        excite.setOnScreenUser(user1, user2);
+        Name1.setText(user1.getName());
+        Age1.setText(String.valueOf(user1.getAge()));
+        Name2.setText(user2.getName());
+        Age2.setText(String.valueOf(user2.getAge()));
+    }
+
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         leftPicture.setFill(new ImagePattern(new Image(this.getClass().getResourceAsStream("Images/defaultPicture.png"))));
