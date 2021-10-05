@@ -11,12 +11,12 @@ public class User implements MatchListener {
     private HashMap<String, Integer> likedByCounter = new HashMap<>();
 
     /**
-     * Constructor
-     *
+     * Constructor for User class
      * @param name
      * @param age
      * @param userInformation
-     * @param likedByCounter  HashMap<User, Integer> of users and their likes
+     * @param likedByCounter
+     * @param email
      */
     public User(String name, int age, String userInformation, HashMap<String, Integer> likedByCounter, String email) {
         this.userInformation = userInformation;
@@ -26,6 +26,13 @@ public class User implements MatchListener {
         setAge(age);
     }
 
+    /**
+     * Constructor for User class
+     * @param name
+     * @param age
+     * @param userInformation
+     * @param email
+     */
     public User(String name, int age, String userInformation, String email) {
         this.userInformation = userInformation;
         this.name = name;
@@ -33,6 +40,12 @@ public class User implements MatchListener {
         setAge(age);
     }
 
+    /**
+     * Constructor for User class
+     * @param name
+     * @param age
+     * @param email
+     */
     public User(String name, int age, String email) {
         this.name = name;
         setAge(age);
@@ -106,4 +119,16 @@ public class User implements MatchListener {
         }
         return likedByCounter.get(user.getEmail()) >= 3;
     }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "name='" + name + '\'' +
+                ", age=" + age +
+                ", userInformation='" + userInformation + '\'' +
+                ", email='" + email + '\'' +
+                ", likedByCounter=" + likedByCounter +
+                '}';
+    }
+
 }
