@@ -3,11 +3,8 @@ package json;
 import java.io.*;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 
@@ -47,7 +44,6 @@ public class FileHandler {
       } catch (IOException e) {
          e.printStackTrace();
       }
-      User temp = readUser();
    }
 
    public void createFile() {
@@ -91,7 +87,7 @@ public class FileHandler {
          Object localKey = keys.next();
          matchedUsers.put(localKey.toString(), Integer.parseInt(obj.get(localKey).toString()));
       }
-      return null;
+      return matchedUsers;
    }
 
 }
