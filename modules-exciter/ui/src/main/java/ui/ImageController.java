@@ -17,7 +17,7 @@ public class ImageController {
     File[] directoryListing = dir.listFiles();
 
     public ImageController() {
-        this.defaultImage =  new ImagePattern(new Image(this.getClass().getResourceAsStream("/images/defaultPicture.png")));
+        this.defaultImage =  new ImagePattern(new Image(this.getClass().getResourceAsStream("Images/defaultPicture.png")));
         for (File file : directoryListing) {
             try {
                 if(getFileExtension(file).equals(".jpg")) {
