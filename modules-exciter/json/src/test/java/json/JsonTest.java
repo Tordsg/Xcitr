@@ -26,9 +26,9 @@ public class JsonTest {
     public void readFromFile(){
         fileHandler.saveUser(user);
         User userReadFromFile = fileHandler.readUser();
-        Assertions.assertNotEquals("Ola Nordmann", userReadFromFile.getName());
-        Assertions.assertNotEquals(26, userReadFromFile.getAge());
-        Assertions.assertNotEquals("ola@mail", userReadFromFile.getEmail());
+        Assertions.assertEquals("Ola Nordmann", userReadFromFile.getName());
+        Assertions.assertEquals(26, userReadFromFile.getAge());
+        Assertions.assertEquals("ola@mail", userReadFromFile.getEmail());
     }
 
     @Test
