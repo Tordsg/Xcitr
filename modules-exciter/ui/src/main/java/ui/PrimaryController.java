@@ -11,7 +11,6 @@ import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
 import javafx.util.Duration;
 import javafx.animation.FadeTransition;
-import javafx.animation.Interpolator;
 import javafx.animation.ParallelTransition;
 import javafx.animation.RotateTransition;
 import javafx.animation.SequentialTransition;
@@ -52,37 +51,45 @@ public class PrimaryController implements Initializable{
 
     void onLike1() {
         excite.pressedLikeSecond();
+        leftCard.setDisable(true);
+        rightCard.setDisable(true);
+        refresh.setDisable(true);
         TranslateTransition tt1 = translateCardY(leftCard, leftCard.getLayoutY()-55, -400,true);
         TranslateTransition tt2 = translateCardY(leftCard, 400, 0,false);
         FadeTransition ft1 = animateScore(false, true);
         FadeTransition ft2 = animateScore(false, false);
         ParallelTransition pt1 = new ParallelTransition(tt1,ft1);
-        ParallelTransition pt2 = new ParallelTransition(tt2,ft2);
-        SequentialTransition st = new SequentialTransition(pt1,pt2);
+        SequentialTransition st = new SequentialTransition(pt1,tt2,ft2);
         st.play();
     }
     void onLike2() {
         excite.pressedLikeFirst();
+        leftCard.setDisable(true);
+        rightCard.setDisable(true);
+        refresh.setDisable(true);
         TranslateTransition tt1 = translateCardY(rightCard, rightCard.getLayoutY()-55, -400,true);
         TranslateTransition tt2 = translateCardY(rightCard, 400, 0,false);
         FadeTransition ft1 = animateScore(true, true);
         FadeTransition ft2 = animateScore(true, false);
         ParallelTransition pt1 = new ParallelTransition(tt1,ft1);
-        ParallelTransition pt2 = new ParallelTransition(tt2,ft2);
-        SequentialTransition st = new SequentialTransition(pt1,pt2);
+        SequentialTransition st = new SequentialTransition(pt1,tt2,ft2);
         st.play();
     }
     
     public TranslateTransition translateCardY(Pane pane, double start, double end, boolean updateOnFinish){
-        TranslateTransition tt = new TranslateTransition(Duration.millis(Math.abs(start-end)*1.4),pane);
+        TranslateTransition tt = new TranslateTransition(Duration.millis(Math.abs(start-end)),pane);
         tt.setFromY(start);
         tt.setToY(end);
         tt.setCycleCount(1);
         tt.setAutoReverse(true);
         pane.setLayoutY(55);
-        tt.setInterpolator(Interpolator.EASE_OUT);
         if(updateOnFinish){
             tt.setOnFinished(e -> setNextUsers());
+        } else {
+            tt.setOnFinished(e -> {leftCard.setDisable(false);
+            rightCard.setDisable(false);
+            refresh.setDisable(false);
+            });
         }
         return tt;
     }
@@ -116,6 +123,9 @@ public class PrimaryController implements Initializable{
     void refresh(){
         excite.refreshUsers();
         scorePane.setDisable(true);
+        leftCard.setDisable(true);
+        rightCard.setDisable(true);
+        refresh.setDisable(true);
         TranslateTransition ltt1 = translateCardY(leftCard, leftCard.getLayoutY()-55, -400,true);
         TranslateTransition ltt2 = translateCardY(leftCard, 400, 0,false);
         TranslateTransition rtt1 = translateCardY(rightCard, rightCard.getLayoutY()-55, -400,true);
@@ -127,7 +137,7 @@ public class PrimaryController implements Initializable{
         RotateTransition rt = new RotateTransition(Duration.millis(500),refresh);
         rt.setFromAngle(0);
         rt.setToAngle(360);
-        rt.playFromStart();
+        rt.play();
     }
     public void setNextUsers(){
         displayUsers = excite.getOnScreenUsers();
