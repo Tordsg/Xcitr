@@ -133,8 +133,8 @@ public class PrimaryController implements Initializable{
         displayUsers = excite.getOnScreenUsers();
         User user1 = displayUsers.get(0);
         User user2 = displayUsers.get(1);
-        leftPicture.setFill(new ImagePattern(imageController.getImage(excite.getOnScreenUser1())));
-        rightPicture.setFill(new ImagePattern(imageController.getImage(excite.getOnScreenUser2())));
+        leftPicture.setFill(imageController.getImage(excite.getOnScreenUser1()));
+        rightPicture.setFill(imageController.getImage(excite.getOnScreenUser2()));
         Name1.setText(user1.getName());
         Age1.setText(String.valueOf(user1.getAge()));
         Name2.setText(user2.getName());
@@ -143,8 +143,8 @@ public class PrimaryController implements Initializable{
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        leftPicture.setFill(new ImagePattern(imageController.getImage(excite.getOnScreenUser1())));
-        rightPicture.setFill(new ImagePattern(imageController.getImage(excite.getOnScreenUser2())));
+        leftPicture.setFill(imageController.getImage(excite.getOnScreenUser1()));
+        rightPicture.setFill(imageController.getImage(excite.getOnScreenUser2()));
         profile.setFill(new ImagePattern(new Image(this.getClass().getResourceAsStream("Images/defaultPicture.png")),30.5,62,60,95,false));
         dragY(leftCard);
         dragY(rightCard);
