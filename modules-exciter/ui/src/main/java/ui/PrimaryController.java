@@ -75,7 +75,7 @@ public class PrimaryController implements Initializable{
         SequentialTransition st = new SequentialTransition(pt1,tt2,ft2);
         st.play();
     }
-    
+
     public TranslateTransition translateCardY(Pane pane, double start, double end, boolean updateOnFinish){
         TranslateTransition tt = new TranslateTransition(Duration.millis(Math.abs(start-end)),pane);
         tt.setFromY(start);
@@ -93,7 +93,7 @@ public class PrimaryController implements Initializable{
         }
         return tt;
     }
-    public FadeTransition animateScore(boolean onLeftCard, boolean begin){ 
+    public FadeTransition animateScore(boolean onLeftCard, boolean begin){
         FadeTransition ft = new FadeTransition(Duration.millis(100),scorePane);
         if(onLeftCard){
             ft.getNode().setLayoutX(82.5);
@@ -106,7 +106,7 @@ public class PrimaryController implements Initializable{
             scoreNumber.setText(String.valueOf(count));
         }
 
-       
+
         if(begin){
             ft.setFromValue(0);
             ft.setToValue(1);
