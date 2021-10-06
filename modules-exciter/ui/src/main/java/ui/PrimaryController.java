@@ -11,7 +11,6 @@ import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
 import javafx.util.Duration;
 import javafx.animation.FadeTransition;
-import javafx.animation.Interpolator;
 import javafx.animation.ParallelTransition;
 import javafx.animation.RotateTransition;
 import javafx.animation.SequentialTransition;
@@ -51,74 +50,56 @@ public class PrimaryController implements Initializable{
     }
 
     void onLike1() {
-        TranslateTransition tt1 = translateCardY(leftCard, leftCard.getLayoutY()-55, -400);
-        TranslateTransition tt2 = translateCardY(leftCard, 400, 0);
+        excite.pressedLikeSecond();
+        TranslateTransition tt1 = translateCardY(leftCard, leftCard.getLayoutY()-55, -400,true);
+        TranslateTransition tt2 = translateCardY(leftCard, 400, 0,false);
         FadeTransition ft1 = animateScore(false, true);
         FadeTransition ft2 = animateScore(false, false);
         ParallelTransition pt1 = new ParallelTransition(tt1,ft1);
         ParallelTransition pt2 = new ParallelTransition(tt2,ft2);
         SequentialTransition st = new SequentialTransition(pt1,pt2);
         st.play();
-        excite.pressedLikeSecond();
-        //animateCard(leftCard,leftCard.getLayoutY()-55, -400,false,false);
     }
     void onLike2() {
         excite.pressedLikeFirst();
-        animateCard(rightCard,rightCard.getLayoutY()-55, -400,false,false);
+        TranslateTransition tt1 = translateCardY(rightCard, rightCard.getLayoutY()-55, -400,true);
+        TranslateTransition tt2 = translateCardY(rightCard, 400, 0,false);
+        FadeTransition ft1 = animateScore(true, true);
+        FadeTransition ft2 = animateScore(true, false);
+        ParallelTransition pt1 = new ParallelTransition(tt1,ft1);
+        ParallelTransition pt2 = new ParallelTransition(tt2,ft2);
+        SequentialTransition st = new SequentialTransition(pt1,pt2);
+        st.play();
     }
-    void animateCard(Pane pane,double startPosition,double endPosition, boolean lastAnimation, boolean isRefresh){
-        rightCard.setDisable(true);
-        leftCard.setDisable(true);
-        refresh.setDisable(true);
-        double duration = Math.abs(endPosition-startPosition)*1.4;
-        TranslateTransition tt = new TranslateTransition(Duration.millis(duration), pane);
-        tt.setFromY(startPosition);
-        tt.setToY(endPosition);
-        tt.setCycleCount(1);
-        tt.setAutoReverse(true);
-        if(!lastAnimation){
-            if(!isRefresh){
-                if(pane.getId().equals("leftCard")) animateScore(true,true);
-                else animateScore(false,true);
-            }
-            tt.setOnFinished(e -> {
-                if(!isRefresh)animateCard(pane,430,0,true,false);
-                else animateCard(pane,430,0,true,true);
-                setNextUsers();
-        });
-        }
-        else tt.setOnFinished(e -> {
-            if(!isRefresh){
-                if(pane.getId().equals("leftCard")) animateScore(true,false);
-                else animateScore(false,false);
-            }
-            refresh.setDisable(false);
-            rightCard.setDisable(false);
-            leftCard.setDisable(false);
-        });
-        tt.play();
-    }
-    public TranslateTransition translateCardY(Pane pane, double start, double end){
+    
+    public TranslateTransition translateCardY(Pane pane, double start, double end, boolean updateOnFinish){
         TranslateTransition tt = new TranslateTransition(Duration.millis(Math.abs(start-end)*1.4),pane);
         tt.setFromY(start);
         tt.setToY(end);
         tt.setCycleCount(1);
-        tt.autoReverseProperty();
+        tt.setAutoReverse(true);
+        pane.setLayoutY(55);
+        System.out.println(tt.getToY());
+        System.out.println(pane.getTranslateY() + "" + pane.getLayoutY());
+        if(updateOnFinish){
+            tt.setOnFinished(e -> setNextUsers());
+        }
         return tt;
     }
-    public FadeTransition animateScore(boolean onLeftCard, boolean begin){
+    public FadeTransition animateScore(boolean onLeftCard, boolean begin){ 
+        FadeTransition ft = new FadeTransition(Duration.millis(100),scorePane);
         if(onLeftCard){
-            scorePane.setLayoutX(82.5);
+            ft.getNode().setLayoutX(82.5);
             int count = excite.getOnScreenUserLikeCount(excite.getOnScreenUser1());
             scoreNumber.setText(String.valueOf(count));
         }
         else {
-            scorePane.setLayoutX(352.5);
+            ft.getNode().setLayoutX(352.5);
             int count = excite.getOnScreenUserLikeCount(excite.getOnScreenUser2());
             scoreNumber.setText(String.valueOf(count));
         }
 
-        FadeTransition ft = new FadeTransition(Duration.millis(100),scorePane);
+       
         if(begin){
             ft.setFromValue(0);
             ft.setToValue(1);
@@ -135,12 +116,18 @@ public class PrimaryController implements Initializable{
     void refresh(){
         excite.refreshUsers();
         scorePane.setDisable(true);
-        animateCard(leftCard, 0, -385, false,true);
-        animateCard(rightCard, 0, -385, false,true);
+        TranslateTransition ltt1 = translateCardY(leftCard, leftCard.getLayoutY()-55, -400,true);
+        TranslateTransition ltt2 = translateCardY(leftCard, 400, 0,false);
+        TranslateTransition rtt1 = translateCardY(rightCard, rightCard.getLayoutY()-55, -400,true);
+        TranslateTransition rtt2 = translateCardY(rightCard, 400, 0,false);
+        ParallelTransition pt1 = new ParallelTransition(ltt1,rtt1);
+        ParallelTransition pt2 = new ParallelTransition(ltt2,rtt2);
+        SequentialTransition st = new SequentialTransition(pt1,pt2);
+        st.play();
         RotateTransition rt = new RotateTransition(Duration.millis(500),refresh);
         rt.setFromAngle(0);
         rt.setToAngle(360);
-        rt.play();
+        rt.playFromStart();
     }
     public void setNextUsers(){
         displayUsers = excite.getOnScreenUsers();
@@ -206,9 +193,8 @@ public class PrimaryController implements Initializable{
                             onLike2();
                         }
                     }else{
-                        animateCard(e, e.getLayoutY()-55, 0, true,true);
+                        e.setLayoutY(55);
                     }
-                    e.setLayoutY(55);
                     dragged = false;
                 }
             }
