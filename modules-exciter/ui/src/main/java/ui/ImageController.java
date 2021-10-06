@@ -11,12 +11,13 @@ import javafx.scene.paint.ImagePattern;
 public class ImageController {
 
     private HashMap<Integer, ImagePattern> userImages = new HashMap<>();
-    private ImagePattern defaultImage = new ImagePattern(new Image(this.getClass().getResourceAsStream("/images/defaultPicture.png")));
+    private ImagePattern defaultImage;
     private String path = "../json/src/main/resources/";
     File dir = new File(path);
     File[] directoryListing = dir.listFiles();
 
     public ImageController() {
+        this.defaultImage =  new ImagePattern(new Image(this.getClass().getResourceAsStream("/images/defaultPicture.png")));
         for (File file : directoryListing) {
             try {
                 if(getFileExtension(file).equals(".jpg")) {
