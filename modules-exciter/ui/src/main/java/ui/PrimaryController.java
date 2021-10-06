@@ -49,33 +49,78 @@ public class PrimaryController implements Initializable{
         fileHandler.saveUser(excite.getCurrentUser());
     }
 
-    void onLike1() {
-        excite.pressedLikeSecond();
+    void onDiscardLeftCard() {
+        if(excite.pressedLikeSecond()) {
+            cardLiked(rightCard,leftCard);
+            return;
+        }
         leftCard.setDisable(true);
         rightCard.setDisable(true);
         refresh.setDisable(true);
         TranslateTransition tt1 = translateCardY(leftCard, leftCard.getLayoutY()-55, -400,true);
         TranslateTransition tt2 = translateCardY(leftCard, 400, 0,false);
-        FadeTransition ft1 = animateScore(false, true);
-        FadeTransition ft2 = animateScore(false, false);
+        FadeTransition ft1 = animateScore("leftCard", true);
+        FadeTransition ft2 = animateScore("leftCard", false);
         ParallelTransition pt1 = new ParallelTransition(tt1,ft1);
         SequentialTransition st = new SequentialTransition(pt1,tt2,ft2);
         st.play();
     }
-    void onLike2() {
-        excite.pressedLikeFirst();
+    void onDiscardRightCard() {
         leftCard.setDisable(true);
         rightCard.setDisable(true);
         refresh.setDisable(true);
+        if(excite.pressedLikeFirst()) {
+            cardLiked(leftCard,rightCard);
+            return;
+        }
         TranslateTransition tt1 = translateCardY(rightCard, rightCard.getLayoutY()-55, -400,true);
         TranslateTransition tt2 = translateCardY(rightCard, 400, 0,false);
-        FadeTransition ft1 = animateScore(true, true);
-        FadeTransition ft2 = animateScore(true, false);
+        FadeTransition ft1 = animateScore("rightCard", true);
+        FadeTransition ft2 = animateScore("rightCard", false);
         ParallelTransition pt1 = new ParallelTransition(tt1,ft1);
         SequentialTransition st = new SequentialTransition(pt1,tt2,ft2);
         st.play();
     }
-
+    public void cardLiked(Pane likedcard, Pane discardedcard){
+        TranslateTransition ttScore = new TranslateTransition(Duration.millis(Math.abs(-likedcard.getLayoutX()-300)),scorePane);
+        ttScore.setFromX(0);
+        ttScore.setToX(-likedcard.getLayoutX()-300);
+        ttScore.setCycleCount(1);
+        ttScore.setAutoReverse(true);
+        TranslateTransition tt = translateCardY(likedcard, 400, 0,false);
+        tt.setFromX(0);
+        tt.setToX(0);
+        TranslateTransition ttCard = new TranslateTransition(Duration.millis(Math.abs(-likedcard.getLayoutX()-300)),likedcard);
+        ttCard.setFromX(0);
+        ttCard.setToX(-likedcard.getLayoutX()-300);
+        ttCard.setCycleCount(1);
+        ttCard.setAutoReverse(true);
+        ttCard.setOnFinished(e -> {
+            setNextUsers();
+        }
+        );
+        FadeTransition ft = animateScore(discardedcard.getId(), false);
+        ft.setOnFinished(e-> {
+            ft.getNode().setTranslateX(0);
+            ft.getNode().setLayoutX(-200);
+        });
+        TranslateTransition firstTT = translateCardY(discardedcard,discardedcard.getLayoutY()-55,-400,false);
+        firstTT.setOnFinished(e-> e.consume());
+        SequentialTransition st = new SequentialTransition(
+            new ParallelTransition(
+                firstTT,
+                animateScore(discardedcard.getId(), true))
+            ,
+            new ParallelTransition(
+                ttScore,ttCard)
+            ,
+            
+            new ParallelTransition(
+                translateCardY(discardedcard, 400, 0,false),
+                tt,ft)
+            );
+        st.play();
+    }
     public TranslateTransition translateCardY(Pane pane, double start, double end, boolean updateOnFinish){
         TranslateTransition tt = new TranslateTransition(Duration.millis(Math.abs(start-end)),pane);
         tt.setFromY(start);
@@ -93,9 +138,9 @@ public class PrimaryController implements Initializable{
         }
         return tt;
     }
-    public FadeTransition animateScore(boolean onLeftCard, boolean begin){
+    public FadeTransition animateScore(String discardedCard, boolean begin){
         FadeTransition ft = new FadeTransition(Duration.millis(100),scorePane);
-        if(onLeftCard){
+        if(discardedCard.equals("rightCard")){
             ft.getNode().setLayoutX(82.5);
             int count = excite.getOnScreenUserLikeCount(excite.getOnScreenUser1());
             scoreNumber.setText(String.valueOf(count));
@@ -105,8 +150,6 @@ public class PrimaryController implements Initializable{
             int count = excite.getOnScreenUserLikeCount(excite.getOnScreenUser2());
             scoreNumber.setText(String.valueOf(count));
         }
-
-
         if(begin){
             ft.setFromValue(0);
             ft.setToValue(1);
@@ -158,6 +201,7 @@ public class PrimaryController implements Initializable{
         profile.setFill(new ImagePattern(new Image(this.getClass().getResourceAsStream("Images/defaultPicture.png")),30.5,62,60,95,false));
         dragY(leftCard);
         dragY(rightCard);
+        System.out.println("here");
         setNextUsers();
     }
 
@@ -198,9 +242,9 @@ public class PrimaryController implements Initializable{
                 if(dragged){
                     if(e.getLayoutY()<0){
                         if(e.getId().equals("leftCard")){
-                            onLike1();
+                            onDiscardLeftCard();
                         }else{
-                            onLike2();
+                            onDiscardRightCard();
                         }
                     }else{
                         translateCardY(e, e.getLayoutY()-55, 0, false).play();
