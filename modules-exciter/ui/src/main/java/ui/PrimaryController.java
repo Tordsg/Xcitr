@@ -11,6 +11,7 @@ import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
 import javafx.util.Duration;
 import javafx.animation.FadeTransition;
+import javafx.animation.Interpolator;
 import javafx.animation.ParallelTransition;
 import javafx.animation.RotateTransition;
 import javafx.animation.SequentialTransition;
@@ -79,8 +80,7 @@ public class PrimaryController implements Initializable{
         tt.setCycleCount(1);
         tt.setAutoReverse(true);
         pane.setLayoutY(55);
-        System.out.println(tt.getToY());
-        System.out.println(pane.getTranslateY() + "" + pane.getLayoutY());
+        tt.setInterpolator(Interpolator.EASE_OUT);
         if(updateOnFinish){
             tt.setOnFinished(e -> setNextUsers());
         }
@@ -193,7 +193,7 @@ public class PrimaryController implements Initializable{
                             onLike2();
                         }
                     }else{
-                        e.setLayoutY(55);
+                        translateCardY(e, e.getLayoutY()-55, 0, false).play();
                     }
                     dragged = false;
                 }
