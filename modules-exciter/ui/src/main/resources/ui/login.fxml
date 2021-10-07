@@ -13,6 +13,7 @@
 <?import javafx.scene.paint.Stop?>
 <?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="548.0" prefWidth="365.0" style="-fx-background-color: D5F6FF; -fx-background-image: 00AAD4;" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1">
    <children>
@@ -46,19 +47,25 @@
                   <Image url="@../../../../../../../../../Downloads/unknown.png" />
                </image>
             </ImageView>
-            <Label layoutX="70.0" layoutY="207.0" prefHeight="15.0" prefWidth="53.0" text="Email" textFill="#6a6c73">
+            <Label layoutX="70.0" layoutY="201.0" prefHeight="15.0" prefWidth="33.0" text="Email" textFill="#6a6c73">
                <font>
                   <Font name="Apple Braille" size="12.0" />
                </font>
             </Label>
-            <Label layoutX="70.0" layoutY="307.0" text="Password" textFill="#6a6c73">
+            <Label layoutX="70.0" layoutY="309.0" text="Password" textFill="#6a6c73">
                <font>
-                  <Font name="Al Bayan Plain" size="12.0" />
+                  <Font name="Apple Braille" size="12.0" />
                </font>
             </Label>
-            <Button fx:id="login" layoutX="152.0" layoutY="402.0" mnemonicParsing="false" text="LOGIN" />
+            <Button fx:id="login" defaultButton="true" layoutX="151.0" layoutY="422.0" mnemonicParsing="false" text="LOGIN" />
             <PasswordField fx:id="emailLogin" layoutX="66.0" layoutY="222.0" prefHeight="46.0" prefWidth="234.0" />
             <TextField fx:id="passwordLogin" layoutX="66.0" layoutY="330.0" prefHeight="46.0" prefWidth="234.0" />
+            <Text fill="#6a6c73" layoutX="102.0" layoutY="490.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Need an account?" />
+            <Text fx:id="fromLoginToSignup" fill="#2e8ea6" layoutX="216.0" layoutY="490.0" onMouseClicked="#onSwitchToSignup" strokeType="OUTSIDE" strokeWidth="0.0" text="Sign Up">
+               <font>
+                  <Font name="System Bold" size="13.0" />
+               </font>
+            </Text>
          </children>
       </Pane>
    </children>
