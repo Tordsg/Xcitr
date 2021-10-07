@@ -95,7 +95,7 @@
                   <Font size="96.0" />
                </font>
             </Text>
-            <Text fx:id="scoreNumber" fill="WHITE" layoutX="5.0" layoutY="78.0" strokeType="OUTSIDE" strokeWidth="0.0" text="1">
+            <Text fx:id="scoreNumber" fill="WHITE" layoutX="4.0" layoutY="75.0" strokeType="OUTSIDE" strokeWidth="0.0" text="1">
                <font>
                   <Font size="96.0" />
                </font>

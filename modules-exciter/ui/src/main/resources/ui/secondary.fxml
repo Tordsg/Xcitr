@@ -16,6 +16,7 @@
          </image>
       </ImageView>
       <Button fx:id="Back" layoutX="518.0" layoutY="14.0" mnemonicParsing="false" onAction="#switchToPrimary" text="Back" />
+      <Button fx:id="Upload" layoutX="518.0" layoutY="114.0" mnemonicParsing="false" onAction="#uploadPicture" text="Upload" />
       <TextField fx:id="Name" layoutX="44.0" layoutY="188.0" />
       <TextArea fx:id="Bio" layoutX="366.0" layoutY="184.0" prefHeight="200.0" prefWidth="200.0" />
       <Label layoutX="366.0" layoutY="158.0" text="Bio" />
