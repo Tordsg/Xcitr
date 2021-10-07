@@ -29,9 +29,23 @@ public class SecondaryController implements Initializable{
     @FXML
     private void uploadPicture () throws IOException {
         File file = fileChooser.showOpenDialog(null);
-        if (file != null) {
+        System.out.println(getFileExtension(file));
+        if (file != null && getFileExtension(file).equals(".jpg")) {
             imageController.uploadPicture(excite.getCurrentUser(), file);
         }
+    }
+
+    private String getFileExtension(File file) {
+        String extension = "";
+        try {
+            if (file.exists()) {
+                String name = file.getName();
+                extension = name.substring(name.lastIndexOf("."));
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return extension;
     }
 
 
