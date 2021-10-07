@@ -18,16 +18,18 @@ public class ImageController {
     File dir = new File(path);
     File[] directoryListing = dir.listFiles();
 
-    public ImageController() {
-        this.defaultImage =  new ImagePattern(new Image(this.getClass().getResourceAsStream("Images/defaultPicture.png")));
-        for (File file : directoryListing) {
-            try {
-                if(getFileExtension(file).equals(".jpg")) {
-                    userImages.put(Integer.valueOf(file.getName().substring(0,file.getName().indexOf('.'))), new ImagePattern(new Image(file.toURI().toString())));
+    public ImageController(boolean load) {
+        if (load) {
+            this.defaultImage =  new ImagePattern(new Image(this.getClass().getResourceAsStream("Images/defaultPicture.png")));
+            for (File file : directoryListing) {
+                try {
+                    if(getFileExtension(file).equals(".jpg")) {
+                        userImages.put(Integer.valueOf(file.getName().substring(0,file.getName().indexOf('.'))), new ImagePattern(new Image(file.toURI().toString())));
+                    }
+                } catch (Exception e) {
+                    // TODO: handle exception
+                    e.printStackTrace();
                 }
-            } catch (Exception e) {
-                // TODO: handle exception
-                e.printStackTrace();
             }
         }
     }
@@ -58,11 +60,9 @@ public class ImageController {
         System.out.println(file.getAbsolutePath());
         try {
             Image image = new Image(file.toURI().toString());
-            userImages.put(user.getImageHashCode(), new ImagePattern(image));
             FileUtils.copyFile(file, new File(path + user.getImageHashCode() + ".jpg"));
             return true;
         } catch (Exception e) {
-            //TODO: handle exception
             e.printStackTrace();
         }
         return false;

@@ -18,7 +18,7 @@ import java.util.ResourceBundle;
 public class SecondaryController implements Initializable{
     private Exciter excite = new Exciter();
     private FileChooser fileChooser = new FileChooser();
-    private ImageController imageController = new ImageController();
+    private ImageController imageController = new ImageController(false);
 
 
     @FXML

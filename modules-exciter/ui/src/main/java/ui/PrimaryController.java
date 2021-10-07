@@ -35,7 +35,7 @@ public class PrimaryController implements Initializable{
     private Pane leftCard, rightCard, refresh,scorePane;
     private Exciter excite = new Exciter();
     private FileHandler fileHandler = new FileHandler();
-    private ImageController imageController = new ImageController();
+    private ImageController imageController = new ImageController(true);
     private ArrayList<User> displayUsers;;
     @FXML
     private void switchToSecondary() throws IOException {
