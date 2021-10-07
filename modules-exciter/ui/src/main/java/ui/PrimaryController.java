@@ -16,8 +16,6 @@ import javafx.animation.RotateTransition;
 import javafx.animation.SequentialTransition;
 import javafx.animation.TranslateTransition;
 import javafx.event.EventHandler;
-import javafx.scene.paint.ImagePattern;
-import javafx.scene.image.Image;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.fxml.FXML;
@@ -114,7 +112,7 @@ public class PrimaryController implements Initializable{
             new ParallelTransition(
                 ttScore,ttCard)
             ,
-            
+
             new ParallelTransition(
                 translateCardY(discardedcard, 400, 0,false),
                 tt,ft)
@@ -198,7 +196,7 @@ public class PrimaryController implements Initializable{
     public void initialize(URL location, ResourceBundle resources) {
         leftPicture.setFill(imageController.getImage(excite.getOnScreenUser1()));
         rightPicture.setFill(imageController.getImage(excite.getOnScreenUser2()));
-        profile.setFill(new ImagePattern(new Image(this.getClass().getResourceAsStream("Images/defaultPicture.png")),30.5,62,60,95,false));
+        profile.setFill(imageController.getImage(excite.getCurrentUser()));
         dragY(leftCard);
         dragY(rightCard);
         System.out.println("here");
