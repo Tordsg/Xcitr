@@ -2,6 +2,7 @@ package ui;
 
 import core.*;
 
+import java.io.File;
 import java.io.IOException;
 import javafx.fxml.Initializable;
 
@@ -9,21 +10,37 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import javafx.stage.FileChooser;
+
 import java.net.URL;
 import java.util.ResourceBundle;
 
 public class SecondaryController implements Initializable{
     private Exciter excite = new Exciter();
+    private FileChooser fileChooser = new FileChooser();
+    private ImageController imageController = new ImageController();
 
 
     @FXML
     private void switchToPrimary() throws IOException {
         App.setRoot("primary");
     }
-    
+
+    @FXML
+    private void uploadPicture () throws IOException {
+        File file = fileChooser.showOpenDialog(null);
+        if (file != null) {
+            imageController.uploadPicture(excite.getCurrentUser(), file);
+        }
+    }
+
+
 
     @FXML
     private Button Back;
+
+    @FXML
+    private Button Upload;
 
     @FXML
     private TextField Name;
@@ -48,7 +65,7 @@ public void initData(){
 @Override
 public void initialize(URL location, ResourceBundle resources) {
     initData();
-    
+
 }
 
 

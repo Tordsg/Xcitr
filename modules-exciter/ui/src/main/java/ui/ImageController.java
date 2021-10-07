@@ -48,4 +48,16 @@ public class ImageController {
         }
     }
 
+    public boolean uploadPicture(User user, File file) {
+
+        System.out.println(file.getAbsolutePath());
+        try {
+            Image image = new Image(file.toURI().toString());
+            userImages.put(user.getImageHashCode(), image);
+        } catch (Exception e) {
+            //TODO: handle exception
+        }
+        return false;
+    }
+
 }
