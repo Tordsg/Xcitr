@@ -58,7 +58,8 @@ public class ImageController {
     }
 
     public boolean uploadPicture(User user, File file) {
-
+        //Only jpg files are allowed
+        //No null checks since it's handled by SecondaryController
         try {
             Image image = new Image(file.toURI().toString());
             FileUtils.copyFile(file, new File(path + user.getImageHashCode() + ".jpg"));

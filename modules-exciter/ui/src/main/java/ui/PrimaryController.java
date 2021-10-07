@@ -36,6 +36,7 @@ public class PrimaryController implements Initializable{
     private Pane leftCard, rightCard, refresh,scorePane;
     private Exciter excite = new Exciter();
     private FileHandler fileHandler = new FileHandler();
+    //Static since it's shared by the SecondaryController
     protected static ImageController imageController = new ImageController();
     private ArrayList<User> displayUsers;
     @FXML
