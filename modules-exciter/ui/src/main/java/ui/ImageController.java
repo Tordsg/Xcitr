@@ -5,6 +5,8 @@ import core.*;
 import java.io.File;
 import java.util.HashMap;
 
+import org.apache.commons.io.*;
+
 import javafx.scene.image.Image;
 import javafx.scene.paint.ImagePattern;
 
@@ -56,9 +58,12 @@ public class ImageController {
         System.out.println(file.getAbsolutePath());
         try {
             Image image = new Image(file.toURI().toString());
-            userImages.put(user.getImageHashCode(), image);
+            userImages.put(user.getImageHashCode(), new ImagePattern(image));
+            FileUtils.copyFile(file, new File(path + user.getImageHashCode() + ".jpg"));
+            return true;
         } catch (Exception e) {
             //TODO: handle exception
+            e.printStackTrace();
         }
         return false;
     }
