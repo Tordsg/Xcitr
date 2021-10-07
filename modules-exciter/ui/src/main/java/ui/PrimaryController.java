@@ -2,6 +2,7 @@ package ui;
 
 import core.*;
 import json.*;
+
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
@@ -35,8 +36,8 @@ public class PrimaryController implements Initializable{
     private Pane leftCard, rightCard, refresh,scorePane;
     private Exciter excite = new Exciter();
     private FileHandler fileHandler = new FileHandler();
-    private ImageController imageController = new ImageController(true);
-    private ArrayList<User> displayUsers;;
+    protected static ImageController imageController = new ImageController();
+    private ArrayList<User> displayUsers;
     @FXML
     private void switchToSecondary() throws IOException {
         App.setRoot("secondary");

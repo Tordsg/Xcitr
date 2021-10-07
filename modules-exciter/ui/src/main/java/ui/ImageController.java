@@ -18,19 +18,21 @@ public class ImageController {
     File dir = new File(path);
     File[] directoryListing = dir.listFiles();
 
-    public ImageController(boolean load) {
-        if (load) {
-            this.defaultImage =  new ImagePattern(new Image(this.getClass().getResourceAsStream("Images/defaultPicture.png")));
-            for (File file : directoryListing) {
-                try {
-                    if(getFileExtension(file).equals(".jpg")) {
-                        userImages.put(Integer.valueOf(file.getName().substring(0,file.getName().indexOf('.'))), new ImagePattern(new Image(file.toURI().toString())));
-                    }
-                } catch (Exception e) {
-                    // TODO: handle exception
-                    e.printStackTrace();
+    public ImageController() {
+
+        this.defaultImage = new ImagePattern(
+                new Image(this.getClass().getResourceAsStream("Images/defaultPicture.png")));
+        for (File file : directoryListing) {
+            try {
+                if (getFileExtension(file).equals(".jpg")) {
+                    userImages.put(Integer.valueOf(file.getName().substring(0, file.getName().indexOf('.'))),
+                            new ImagePattern(new Image(file.toURI().toString())));
                 }
+            } catch (Exception e) {
+                // TODO: handle exception
+                e.printStackTrace();
             }
+
         }
     }
 
@@ -58,7 +60,9 @@ public class ImageController {
     public boolean uploadPicture(User user, File file) {
 
         try {
+            Image image = new Image(file.toURI().toString());
             FileUtils.copyFile(file, new File(path + user.getImageHashCode() + ".jpg"));
+            userImages.put(user.getImageHashCode(), new ImagePattern(image));
             return true;
         } catch (Exception e) {
             e.printStackTrace();
