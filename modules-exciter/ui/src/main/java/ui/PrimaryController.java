@@ -199,7 +199,6 @@ public class PrimaryController implements Initializable{
         profile.setFill(imageController.getImage(excite.getCurrentUser()));
         dragY(leftCard);
         dragY(rightCard);
-        System.out.println("here");
         setNextUsers();
     }
 

@@ -57,9 +57,7 @@ public class ImageController {
 
     public boolean uploadPicture(User user, File file) {
 
-        System.out.println(file.getAbsolutePath());
         try {
-            Image image = new Image(file.toURI().toString());
             FileUtils.copyFile(file, new File(path + user.getImageHashCode() + ".jpg"));
             return true;
         } catch (Exception e) {
