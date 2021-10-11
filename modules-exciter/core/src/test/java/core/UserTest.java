@@ -18,6 +18,7 @@ public class UserTest {
         Assertions.assertEquals("Roger", user.getName());
         Assertions.assertEquals(22, user.getAge());
         Assertions.assertEquals("roger@mail", user.getEmail());
+        Assertions.assertEquals(user.getEmail().hashCode(), user.getImageHashCode());
     }
 
     @Test
