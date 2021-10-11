@@ -108,6 +108,12 @@ public class User implements MatchListener {
         }
     }
 
+    public void resetUserMatch(User user) {
+        if (likedByCounter.containsKey(user.getEmail())) {
+            likedByCounter.put(user.getEmail(), 0);
+        }
+    }
+
     @Override
     public boolean checkIfMatch(User user) {
         return haveLikedUser(user) && user.haveLikedUser(this);
