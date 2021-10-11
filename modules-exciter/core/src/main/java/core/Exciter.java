@@ -20,12 +20,13 @@ public class Exciter {
    }
 
    public void addSomePlaceholderUsers() {
-      allUsers.add(new BotUser("John", 22, "John@mail"));
-      allUsers.add(new BotUser("Jane", 31, "Jane@mail"));
-      allUsers.add(new BotUser("Joe", 19, "Joe@mail"));
-      allUsers.add(new BotUser("Derik", 27, "Derik@mail"));
-      allUsers.add(new BotUser("Diana", 23, "Diana@mail"));
-      allUsers.add(new BotUser("Dani", 25, "Dani@mail"));
+      allUsers.add(new BotUser("John", 22, "John@mail",true));
+      allUsers.add(new BotUser("Jane", 31, "Jane@mail",true));
+      allUsers.add(new BotUser("Joe", 19, "Joe@mail",false));
+      allUsers.add(new BotUser("Derik", 27, "Derik@mail",false));
+      allUsers.add(new BotUser("Diana", 23, "Diana@mail",false));
+      allUsers.add(new BotUser("Dani", 25, "Dani@mail",true));
+      allUsers.add(new User("Roger", 25, "Roger@mail"));
    }
 
    public User getCurrentUser() {
@@ -104,15 +105,21 @@ public class Exciter {
    }
 
    public boolean pressedLikeFirst() {
-      onScreenUser1.fireOnLike(currentUser);
+      currentUser.fireOnLike(onScreenUser1);
       currentUser.resetUserMatch(onScreenUser2);
+      if (onScreenUser1 instanceof BotUser) {
+         onScreenUser1.fireOnLike(currentUser);
+      }
       onScreenUser2 = getNextRandomUser();
       return onScreenUser1.checkIfMatch(currentUser);
    }
 
    public boolean pressedLikeSecond() {
-      onScreenUser2.fireOnLike(currentUser);
+      currentUser.fireOnLike(onScreenUser2);
       currentUser.resetUserMatch(onScreenUser1);
+      if (onScreenUser2 instanceof BotUser) {
+         onScreenUser2.fireOnLike(currentUser);
+      }
       onScreenUser1 = getNextRandomUser();
       return onScreenUser2.checkIfMatch(currentUser);
    }
