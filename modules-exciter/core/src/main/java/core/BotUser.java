@@ -1,15 +1,16 @@
 package core;
 
 public class BotUser extends User {
-    public BotUser(String name, int age, String email) {
-        super(name, age,email);
-    }
+    private boolean likeBack;
 
+    public BotUser(String name, int age, String email, boolean likeback) {
+        super(name, age, email);
+        this.likeBack = likeback;
+    }
 
     @Override
     public void fireOnLike(User match) {
-        match.fireOnLike(this);
-        super.addUserOnMatch(match);
+        if (likeBack) super.fireOnLike(match);
     }
 
 }
