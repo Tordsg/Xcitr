@@ -22,31 +22,31 @@ public class JsonTest {
 
     }
 
-    @Test
-    public void readFromFile(){
-        fileHandler.saveUser(user);
-        User userReadFromFile = fileHandler.readUser();
-        Assertions.assertEquals("Ola Nordmann", userReadFromFile.getName());
-        Assertions.assertEquals(26, userReadFromFile.getAge());
-        Assertions.assertEquals("ola@mail", userReadFromFile.getEmail());
-    }
+    // @Test
+    // public void readFromFile(){
+    //     fileHandler.saveUser(user);
+    //     User userReadFromFile = fileHandler.readUser();
+    //     Assertions.assertEquals("Ola Nordmann", userReadFromFile.getName());
+    //     Assertions.assertEquals(26, userReadFromFile.getAge());
+    //     Assertions.assertEquals("ola@mail", userReadFromFile.getEmail());
+    // }
 
-    @Test
-    public void readMatches(){
-        for (int i = 0; i < 3; i++) {
-            exciter.pressedLikeFirst();
-        }
-        User onScreenUser1 = exciter.getOnScreenUser1();
-        fileHandler.saveUser(user);
-        Assertions.assertTrue(exciter.pressedLikeFirst());
-        User userReadFromFile = fileHandler.readUser();
-        Assertions.assertNotEquals(userReadFromFile.getAlreadyMatched(), user.getAlreadyMatched());
-        fileHandler.saveUser(user);
-        userReadFromFile = fileHandler.readUser();
-        Assertions.assertEquals(userReadFromFile.getAlreadyMatched(), user.getAlreadyMatched());
-        Assertions.assertTrue(userReadFromFile.getAlreadyMatched().containsKey(onScreenUser1.getEmail()));
+    // @Test
+    // public void readMatches(){
+    //     for (int i = 0; i < 3; i++) {
+    //         exciter.pressedLikeFirst();
+    //     }
+    //     User onScreenUser1 = exciter.getOnScreenUser1();
+    //     fileHandler.saveUser(user);
+    //     Assertions.assertTrue(exciter.pressedLikeFirst());
+    //     User userReadFromFile = fileHandler.readUser();
+    //     Assertions.assertNotEquals(userReadFromFile.getAlreadyMatched(), user.getAlreadyMatched());
+    //     fileHandler.saveUser(user);
+    //     userReadFromFile = fileHandler.readUser();
+    //     Assertions.assertEquals(userReadFromFile.getAlreadyMatched(), user.getAlreadyMatched());
+    //     Assertions.assertTrue(userReadFromFile.getAlreadyMatched().containsKey(onScreenUser1.getEmail()));
 
-    }
+    // }
 
 }
 

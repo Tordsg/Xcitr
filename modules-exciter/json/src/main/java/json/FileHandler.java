@@ -5,10 +5,11 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 
-
+import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
@@ -25,21 +26,25 @@ public class FileHandler {
    String path = "../json/src/main/resources/tempSaveFile.JSON";
 
    @SuppressWarnings("unchecked") // Type safety can't be avoided with simple-json
-   public void saveUser(User user) {
-      JSONObject userData = new JSONObject();
-      userData.put("name", user.getName());
-      userData.put("age", user.getAge());
-      userData.put("matches", user.getAlreadyMatched());
-      userData.put("userInformation", user.getUserInformation());
-      userData.put("email", user.getEmail());
+   public void saveUser(ArrayList<User> users) {
+      JSONArray userArray = new JSONArray();
+      for (User user : users) {
+         JSONObject userData = new JSONObject();
+         userData.put("name", user.getName());
+         userData.put("age", user.getAge());
+         userData.put("matches", user.getAlreadyMatched());
+         userData.put("userInformation", user.getUserInformation());
+         userData.put("email", user.getEmail());
+         userArray.add(userData);
+      }
       try {
-         BufferedWriter fileWriter = new BufferedWriter
          //OutputStreamWriter is used to force UTF-8 encoding since fileWriter is using wrong encoding on older mac
+         BufferedWriter fileWriter = new BufferedWriter
          (new OutputStreamWriter(new FileOutputStream(path), StandardCharsets.UTF_8));
-         fileWriter.write(userData.toJSONString());
+         fileWriter.write(userArray.toJSONString());
          fileWriter.close();
       } catch (FileNotFoundException e) {
-         // TODO Handle this exception
+         createFile();
          e.printStackTrace();
       } catch (IOException e) {
          e.printStackTrace();
