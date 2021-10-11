@@ -38,22 +38,28 @@ public class Exciter {
 
    public ArrayList<User> getNextUsers() {
       int[] randomUsers = new Random().ints(0, allUsers.size() - 1).distinct().limit(2).toArray();
+
       setOnScreenUser(allUsers.get(randomUsers[0]), allUsers.get(randomUsers[1]));
+
       return new ArrayList<>(Arrays.asList(allUsers.get(randomUsers[0]), allUsers.get(randomUsers[1])));
    }
 
    public ArrayList<User> refreshUsers(){
       ArrayList<User> tempUserList = allUsers.stream().filter(a -> a != onScreenUser1 && a != onScreenUser2)
             .collect(Collectors.toCollection(ArrayList::new));
+
       int[] randomUsers = new Random().ints(0, tempUserList.size() - 1).distinct().limit(2).toArray();
       setOnScreenUser(tempUserList.get(randomUsers[0]), tempUserList.get(randomUsers[1]));
+
       return new ArrayList<>(Arrays.asList(tempUserList.get(randomUsers[0]), tempUserList.get(randomUsers[1])));
    }
 
    public User getNextRandomUser() {
       ArrayList<User> tempUserList = allUsers.stream().filter(a -> a != onScreenUser1 && a != onScreenUser2)
             .collect(Collectors.toCollection(ArrayList::new));
+
       int randomUser = new Random().nextInt(tempUserList.size());
+
       return tempUserList.get(randomUser);
    }
 
@@ -99,12 +105,14 @@ public class Exciter {
 
    public boolean pressedLikeFirst() {
       onScreenUser1.fireOnLike(currentUser);
+      currentUser.resetUserMatch(onScreenUser2);
       onScreenUser2 = getNextRandomUser();
       return onScreenUser1.checkIfMatch(currentUser);
    }
 
    public boolean pressedLikeSecond() {
       onScreenUser2.fireOnLike(currentUser);
+      currentUser.resetUserMatch(onScreenUser1);
       onScreenUser1 = getNextRandomUser();
       return onScreenUser2.checkIfMatch(currentUser);
    }
