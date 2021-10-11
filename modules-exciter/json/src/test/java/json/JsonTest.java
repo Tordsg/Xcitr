@@ -2,6 +2,9 @@ package json;
 
 
 import org.junit.jupiter.api.Test;
+
+import java.util.ArrayList;
+
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 
@@ -12,41 +15,49 @@ public class JsonTest {
     FileHandler fileHandler = new FileHandler();
     private User user;
     private Exciter exciter;
+    private ArrayList<User> users = new ArrayList<>();
 
     @BeforeEach
     public void setUp() {
+        users.clear();
         exciter = new Exciter();
         fileHandler.createFile();
         user = new User("Ola Nordmann", 26, "Fiskesprett på søndager","ola@mail");
         exciter.setCurrentUser(user);
+        users.add(user);
+    }
+
+    @Test
+    public void readFromFile(){
+        fileHandler.saveUser(users);
+        ArrayList<User> userReadFromFile = fileHandler.readUsers();
+        Assertions.assertEquals("Ola Nordmann", userReadFromFile.get(0).getName());
+        Assertions.assertEquals(26, userReadFromFile.get(0).getAge());
+        Assertions.assertEquals("ola@mail", userReadFromFile.get(0).getEmail());
+    }
+
+    @Test
+    public void readMatches(){
+        for (int i = 0; i < 3; i++) {
+            exciter.pressedLikeFirst();
+        }
+        User onScreenUser1 = exciter.getOnScreenUser1();
+        fileHandler.saveUser(users);
+        User userReadFromFile = fileHandler.readUsers().get(0);
+        userReadFromFile = fileHandler.readUsers().get(0);
+        Assertions.assertEquals(userReadFromFile.getAlreadyMatched(), user.getAlreadyMatched());
+        Assertions.assertTrue(userReadFromFile.getAlreadyMatched().containsKey(onScreenUser1.getEmail()));
 
     }
 
-    // @Test
-    // public void readFromFile(){
-    //     fileHandler.saveUser(user);
-    //     User userReadFromFile = fileHandler.readUser();
-    //     Assertions.assertEquals("Ola Nordmann", userReadFromFile.getName());
-    //     Assertions.assertEquals(26, userReadFromFile.getAge());
-    //     Assertions.assertEquals("ola@mail", userReadFromFile.getEmail());
-    // }
-
-    // @Test
-    // public void readMatches(){
-    //     for (int i = 0; i < 3; i++) {
-    //         exciter.pressedLikeFirst();
-    //     }
-    //     User onScreenUser1 = exciter.getOnScreenUser1();
-    //     fileHandler.saveUser(user);
-    //     Assertions.assertTrue(exciter.pressedLikeFirst());
-    //     User userReadFromFile = fileHandler.readUser();
-    //     Assertions.assertNotEquals(userReadFromFile.getAlreadyMatched(), user.getAlreadyMatched());
-    //     fileHandler.saveUser(user);
-    //     userReadFromFile = fileHandler.readUser();
-    //     Assertions.assertEquals(userReadFromFile.getAlreadyMatched(), user.getAlreadyMatched());
-    //     Assertions.assertTrue(userReadFromFile.getAlreadyMatched().containsKey(onScreenUser1.getEmail()));
-
-    // }
+    @Test
+    public void getExplicitUser() {
+        fileHandler.saveUser(users);
+        Assertions.assertEquals(users.get(0).getName(), fileHandler.getUser("ola@mail").getName());
+        Assertions.assertEquals(users.get(0).getAge(), fileHandler.getUser("ola@mail").getAge());
+        Assertions.assertEquals(users.get(0).getEmail(), fileHandler.getUser("ola@mail").getEmail());
+        Assertions.assertEquals(users.get(0).getUserInformation(), fileHandler.getUser("ola@mail").getUserInformation());
+    }
 
 }
 

@@ -38,9 +38,10 @@ public class FileHandler {
          userArray.add(userData);
       }
       try {
-         //OutputStreamWriter is used to force UTF-8 encoding since fileWriter is using wrong encoding on older mac
-         BufferedWriter fileWriter = new BufferedWriter
-         (new OutputStreamWriter(new FileOutputStream(path), StandardCharsets.UTF_8));
+         // OutputStreamWriter is used to force UTF-8 encoding since fileWriter is using
+         // wrong encoding on older mac
+         BufferedWriter fileWriter = new BufferedWriter(
+               new OutputStreamWriter(new FileOutputStream(path), StandardCharsets.UTF_8));
          fileWriter.write(userArray.toJSONString());
          fileWriter.close();
       } catch (FileNotFoundException e) {
@@ -54,45 +55,59 @@ public class FileHandler {
    public void createFile() {
       try {
          File file = new File(path);
-         if(file.createNewFile()) {
+         if (file.createNewFile()) {
             System.out.println("File created");
          }
-      }  catch (Exception e) {
+      } catch (Exception e) {
          e.printStackTrace();
       }
 
    }
 
-   public User readUser() {
+   public ArrayList<User> readUsers() {
 
       try (BufferedReader fileReader = new BufferedReader(new InputStreamReader(new FileInputStream(path), "UTF-8"))) {
-         JSONObject userData =(JSONObject) parser.parse(fileReader.readLine());
-         return new User(userData.get("name").toString(), Integer.parseInt(userData.get("age").toString()),
-         userData.get("userInformation").toString(),
-         parseUserMatchesJSON((JSONObject)userData.get("matches")),
-               userData.get("email").toString());
-
+         ArrayList<User> users = new ArrayList<>();
+         JSONArray userArray = (JSONArray) parser.parse(fileReader);
+         for (Object user : userArray) {
+            JSONObject userData = (JSONObject) user;
+            String name = userData.get("name").toString();
+            int age = Integer.parseInt(userData.get("age").toString());
+            HashMap<String, Integer> alreadyMatched = parseUserMatchesJSON((JSONObject) userData.get("matches"));
+            String userInformation = userData.get("userInformation").toString();
+            String email = userData.get("email").toString();
+            users.add(new User(name, age, userInformation, alreadyMatched, email));
+         }
+         return users;
       } catch (FileNotFoundException e) {
-         // TODO Handle this exception
-         e.printStackTrace();
+         createFile();
+         return null;
       } catch (IOException e) {
          e.printStackTrace();
       } catch (ParseException e) {
-         // TODO Auto-generated catch block
-         e.printStackTrace();
+         return null;
       }
       return null;
    }
 
-   public HashMap<String,Integer> parseUserMatchesJSON(JSONObject obj){
-      HashMap<String,Integer> matchedUsers = new HashMap<>();
+   public HashMap<String, Integer> parseUserMatchesJSON(JSONObject obj) {
+      HashMap<String, Integer> matchedUsers = new HashMap<>();
       Iterator<?> keys = obj.keySet().iterator();
-      while(keys.hasNext())
-      {
+      while (keys.hasNext()) {
          Object localKey = keys.next();
          matchedUsers.put(localKey.toString(), Integer.parseInt(obj.get(localKey).toString()));
       }
       return matchedUsers;
+   }
+
+   public User getUser(String mail) {
+      ArrayList<User> users = readUsers();
+      for (User user : users) {
+         if (user.getEmail().equals(mail)) {
+            return user;
+         }
+      }
+      return null;
    }
 
 }
