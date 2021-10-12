@@ -1,0 +1,65 @@
+@startuml
+scale 2
+class Exciter {
+    -allUsers: arrayList
+    -onScreenUser1: string
+    -onScreenUser1: string
+    +addSomePlaceholderUsers()
+    +getCurrentUser()
+    +setCurrentUser()
+    +getNestUsers()
+    +refreshUsers()
+    +getNextRandomUser()
+    +setOnScreenUser1()
+    +setOnScreenUser2()
+    +getOnScreenUser1()
+    +getOnScreenUser2()
+    +getAllUsers()
+    +setAllUsers()
+    +setOnScreenUser()
+    +getOnScreenUsers()
+    +pressedLikeFirst()
+    +pressedLikeSecond()
+}
+
+class BotUser{
+    -likeBack: boolean
+    +fireOnLike()
+
+}
+interface MatchListener{
+    +fireOnLike
+    +checkIfMatch
+}
+class User {
+    -name: string
+    -age: int
+    -userInformation: string
+    -email: string
+    -likedByCounter: HashMap
+    +getName()
+    +setName()
+    +getAge()
+    +setAge()
+    +setEmail()
+    +getEmail()
+    +setUserInformation()
+    +getUserInformation()
+    +getAlreadyMatched()
+    +fireOnLike()
+    +containsPreciousMatch()
+    +addUserOnMatch()
+    +resetUserMatch()
+    +checkIfMatch()
+    +haveLikedUser()
+    +getImageHashCode()
+    +toString()
+
+}
+User <|-- BotUser
+User <|-- MatchListener
+Exciter <|-- User
+
+
+
+@enduml
