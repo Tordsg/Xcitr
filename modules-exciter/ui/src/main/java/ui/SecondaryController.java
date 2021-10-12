@@ -7,9 +7,9 @@ import java.io.IOException;
 import javafx.fxml.Initializable;
 
 import javafx.fxml.FXML;
-import javafx.scene.control.TextArea;
-import javafx.scene.control.TextField;
+import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.shape.Rectangle;
 import javafx.stage.FileChooser;
 
 import java.net.URL;
@@ -48,14 +48,18 @@ public class SecondaryController implements Initializable{
     }
 
     @FXML
-    private TextField Name;
+    private Label Name;
 
     @FXML
-    private TextArea Bio;
+    private Label Bio;
 
 
     @FXML
-    private TextField Age;
+    private Label Age;
+
+    @FXML
+    private Rectangle ProfileImage;
+
 
 
 
@@ -65,6 +69,8 @@ public void initData(){
     Name.setText(currentUser.getName());
     Age.setText(String.valueOf(currentUser.getAge()));
     Bio.setText(currentUser.getUserInformation());
+    ProfileImage.setFill(imageController.getImage(excite.getCurrentUser()));
+    
 
 }
 @Override
