@@ -10,6 +10,6 @@ public class SignUpController {
 
     @FXML
     public void switchToLogIn() throws IOException {
-        App.setRoot("");
+        App.setRoot("login");
     }
 }
