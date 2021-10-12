@@ -24,7 +24,7 @@ public class FileHandler {
    }
 
    private JSONParser parser = new JSONParser();
-   String path = "../json/src/main/resources/tempSaveFile.JSON";
+   String path = "../json/src/main/resources/UserData.JSON";
 
    @SuppressWarnings("unchecked") // Type safety can't be avoided with simple-json
    public void saveUser(ArrayList<User> users) {
