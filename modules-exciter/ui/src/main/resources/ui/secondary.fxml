@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.TextArea?>
-<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.Label?>
 <?import javafx.scene.effect.DropShadow?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.paint.Color?>
@@ -9,7 +8,7 @@
 <?import javafx.scene.paint.Stop?>
 <?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.shape.SVGPath?>
-
+<?import javafx.scene.text.Font?>
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="430.0" prefWidth="630.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ui.SecondaryController">
    <children>
@@ -67,8 +66,17 @@
          </effect>
       </SVGPath>
       <SVGPath content="M12.0865, 13.6603L28.0042, 33.3303L13.4411, 50.6161C15.6878, 51.9242, 18.1103, 52.8998, 20.634, 53.5126L33.0308, 38.6948L42.1587, 49.6052C44.1889, 48.2138, 46.0206, 46.5504, 47.6033, 44.6608L38.0575, 33.3303L51.7812, 16.3714C51.3819, 15.4431, 50.9312, 14.538, 50.4314, 13.6603H44.3408L33.0308, 27.9658L21.7209, 13.6603H12.0865Z" fill="#D5F6FF" layoutX="538.0" layoutY="23.0" />
-      <TextField fx:id="Name" layoutX="93.0" layoutY="233.0" visible="false" />
-      <TextField fx:id="Age" layoutX="281.0" layoutY="234.0" prefHeight="26.0" prefWidth="48.0" visible="false" />
-      <TextArea fx:id="Bio" layoutX="80.0" layoutY="269.0" prefHeight="147.0" prefWidth="320.0" visible="false" />
+      <Label fx:id="Name" layoutX="101.0" layoutY="264.0" prefHeight="54.0" prefWidth="228.0">
+         <font>
+            <Font size="24.0" />
+         </font>
+      </Label>
+      <Label fx:id="Age" layoutX="320.0" layoutY="271.0" prefHeight="40.0" prefWidth="54.0">
+         <font>
+            <Font size="24.0" />
+         </font>
+      </Label>
+      <Label fx:id="Bio" alignment="TOP_LEFT" layoutX="101.0" layoutY="320.0" prefHeight="94.0" prefWidth="332.0" />
+      <Rectangle fx:id="ProfileImage" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="226.0" layoutX="101.0" layoutY="14.0" stroke="BLACK" strokeType="INSIDE" width="379.0" />
    </children>
 </AnchorPane>
