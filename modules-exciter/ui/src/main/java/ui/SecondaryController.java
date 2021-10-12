@@ -7,9 +7,9 @@ import java.io.IOException;
 import javafx.fxml.Initializable;
 
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import javafx.scene.input.MouseEvent;
 import javafx.stage.FileChooser;
 
 import java.net.URL;
@@ -22,7 +22,7 @@ public class SecondaryController implements Initializable{
 
 
     @FXML
-    private void switchToPrimary() throws IOException {
+    private void switchToPrimary(MouseEvent event) throws IOException {
         App.setRoot("primary");
     }
 
@@ -46,14 +46,6 @@ public class SecondaryController implements Initializable{
         }
         return extension;
     }
-
-
-
-    @FXML
-    private Button Back;
-
-    @FXML
-    private Button Upload;
 
     @FXML
     private TextField Name;
