@@ -1,9 +1,9 @@
 @startuml
 scale 2
 class Exciter {
-    -allUsers: arrayList
-    -onScreenUser1: string
-    -onScreenUser1: string
+    -allUsers: ArrayList
+    -onScreenUser1: User
+    -onScreenUser1: User
     +addSomePlaceholderUsers()
     +getCurrentUser()
     +setCurrentUser()
@@ -22,7 +22,7 @@ class Exciter {
     +pressedLikeSecond()
 }
 
-class BotUser{
+class BotUser extends User{
     -likeBack: boolean
     +fireOnLike()
 
@@ -56,7 +56,7 @@ class User {
     +toString()
 
 }
-User <|-- BotUser
+
 User <|-- MatchListener
 Exciter <|-- User
 
