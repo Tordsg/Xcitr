@@ -34,6 +34,7 @@ public class FileHandler {
          if (user instanceof BotUser) {
             userData.put("isBot", true);
             userData.put("password", null);
+            userData.put("isLikeBack", ((BotUser) user).isLikeBack());
          } else {
             userData.put("isBot", false);
             userData.put("password", user.getPassword());
@@ -79,12 +80,19 @@ public class FileHandler {
          JSONArray userArray = (JSONArray) parser.parse(fileReader);
          for (Object user : userArray) {
             JSONObject userData = (JSONObject) user;
-            String name = userData.get("name").toString();
-            int age = Integer.parseInt(userData.get("age").toString());
+            String name = String.valueOf(userData.get("name"));
+            int age = Integer.parseInt(String.valueOf(userData.get("age")));
             HashMap<String, Integer> alreadyMatched = parseUserMatchesJSON((JSONObject) userData.get("matches"));
-            String userInformation = userData.get("userInformation").toString();
-            String email = userData.get("email").toString();
-            users.add(new User(name, age, userInformation, alreadyMatched, email));
+            String userInformation = String.valueOf(userData.get("userInformation"));
+            String email = String.valueOf(userData.get("email"));
+            boolean isBot = Boolean.parseBoolean(String.valueOf(userData.get("isBot")));
+            if (isBot) {
+               boolean isLikeBack = Boolean.parseBoolean(String.valueOf(userData.get("isLikeBack")));
+               users.add(new BotUser(name, age, userInformation, email, isLikeBack));
+            } else {
+               String password = String.valueOf(userData.get("password"));
+               users.add(new User(name, age, userInformation, alreadyMatched, email, password));
+            }
          }
          return users;
       } catch (FileNotFoundException e) {

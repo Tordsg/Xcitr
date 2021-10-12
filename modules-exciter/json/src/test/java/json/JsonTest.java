@@ -59,5 +59,14 @@ public class JsonTest {
         Assertions.assertEquals(users.get(0).getUserInformation(), fileHandler.getUser("ola@mail").getUserInformation());
     }
 
+    @Test
+    public void testPasswords(){
+        users.add(new BotUser("bot", 24, "bot@mail", true));
+        users.get(0).setPassword("password");
+        fileHandler.saveUser(users);
+        Assertions.assertEquals("5f4dcc3b5aa765d61d8327deb882cf99", fileHandler.getUser("ola@mail").getPassword());
+        Assertions.assertEquals(null, fileHandler.getUser("bot@mail").getPassword());
+    }
+
 }
 

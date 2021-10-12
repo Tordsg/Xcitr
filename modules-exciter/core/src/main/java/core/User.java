@@ -21,6 +21,26 @@ public class User implements MatchListener {
      * @param userInformation
      * @param likedByCounter
      * @param email
+     * @param password
+     *
+     * @apiNote This constructor is to only be used by the filehandler class
+     */
+    public User(String name, int age, String userInformation, HashMap<String, Integer> likedByCounter, String email, String password) {
+        this.userInformation = userInformation;
+        this.likedByCounter = likedByCounter;
+        this.name = name;
+        this.email = email;
+        this.password = password;
+        setAge(age);
+    }
+    /**
+     * Constructor for User class
+     *
+     * @param name
+     * @param age
+     * @param userInformation
+     * @param likedByCounter
+     * @param email
      */
     public User(String name, int age, String userInformation, HashMap<String, Integer> likedByCounter, String email) {
         this.userInformation = userInformation;
@@ -93,8 +113,12 @@ public class User implements MatchListener {
         this.age = age;
     }
 
-    //Security implementation with MD5
     public void setPassword(String password) {
+        this.password = MD5Hash(password);;
+    }
+
+    //Security implementation with MD5
+    public static String MD5Hash(String password) {
         String outString = null;
         try {
             MessageDigest md = MessageDigest.getInstance("MD5");
@@ -109,7 +133,7 @@ public class User implements MatchListener {
         } catch (NoSuchAlgorithmException e) {
             e.printStackTrace();
         }
-        this.password = outString;
+        return outString;
     }
 
     public String getPassword() {
