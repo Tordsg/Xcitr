@@ -26,4 +26,10 @@ public class UserTest {
         Assertions.assertThrows(IllegalArgumentException.class, () -> user.setAge(-2));
     }
 
+    @Test
+    public void testPassword() {
+        user.setPassword("password");
+        Assertions.assertEquals("5f4dcc3b5aa765d61d8327deb882cf99", user.getPassword());
+    }
+
 }

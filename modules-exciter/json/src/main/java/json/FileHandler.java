@@ -14,6 +14,7 @@ import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 
+import core.BotUser;
 import core.User;
 
 public class FileHandler {
@@ -30,6 +31,13 @@ public class FileHandler {
       JSONArray userArray = new JSONArray();
       for (User user : users) {
          JSONObject userData = new JSONObject();
+         if (user instanceof BotUser) {
+            userData.put("isBot", true);
+            userData.put("password", null);
+         } else {
+            userData.put("isBot", false);
+            userData.put("password", user.getPassword());
+         }
          userData.put("name", user.getName());
          userData.put("age", user.getAge());
          userData.put("matches", user.getAlreadyMatched());
@@ -39,7 +47,7 @@ public class FileHandler {
       }
       try {
          // OutputStreamWriter is used to force UTF-8 encoding since fileWriter is using
-         // wrong encoding on older mac
+         // wrong encoding on older mac models
          BufferedWriter fileWriter = new BufferedWriter(
                new OutputStreamWriter(new FileOutputStream(path), StandardCharsets.UTF_8));
          fileWriter.write(userArray.toJSONString());

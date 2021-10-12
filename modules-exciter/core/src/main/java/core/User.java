@@ -1,5 +1,7 @@
 package core;
 
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.util.HashMap;
 
 public class User implements MatchListener {
@@ -9,9 +11,11 @@ public class User implements MatchListener {
     private String userInformation;
     private String email;
     private HashMap<String, Integer> likedByCounter = new HashMap<>();
+    private String password = null;
 
     /**
      * Constructor for User class
+     *
      * @param name
      * @param age
      * @param userInformation
@@ -28,6 +32,7 @@ public class User implements MatchListener {
 
     /**
      * Constructor for User class
+     *
      * @param name
      * @param age
      * @param userInformation
@@ -42,6 +47,7 @@ public class User implements MatchListener {
 
     /**
      * Constructor for User class
+     *
      * @param name
      * @param age
      * @param email
@@ -53,7 +59,7 @@ public class User implements MatchListener {
     }
 
     public String getName() {
-        return name;
+        return this.name;
     }
 
     public void setName(String name) {
@@ -61,7 +67,7 @@ public class User implements MatchListener {
     }
 
     public int getAge() {
-        return age;
+        return this.age;
     }
 
     public void setEmail(String email) {
@@ -77,7 +83,7 @@ public class User implements MatchListener {
     }
 
     public String getUserInformation() {
-        return userInformation;
+        return this.userInformation;
     }
 
     public void setAge(int age) {
@@ -85,6 +91,29 @@ public class User implements MatchListener {
             throw new IllegalArgumentException("Age cannot be negative");
         }
         this.age = age;
+    }
+
+    //Security implementation with MD5
+    public void setPassword(String password) {
+        String outString = null;
+        try {
+            MessageDigest md = MessageDigest.getInstance("MD5");
+            md.update(password.getBytes());
+            byte[] bytes = md.digest();
+            StringBuilder sb = new StringBuilder();
+
+            for (int i = 0; i < bytes.length; i++) {
+                sb.append(Integer.toString((bytes[i] & 0xff) + 0x100, 16).substring(1));
+            }
+            outString = sb.toString();
+        } catch (NoSuchAlgorithmException e) {
+            e.printStackTrace();
+        }
+        this.password = outString;
+    }
+
+    public String getPassword() {
+        return this.password;
     }
 
     public HashMap<String, Integer> getAlreadyMatched() {
@@ -126,19 +155,14 @@ public class User implements MatchListener {
         return likedByCounter.get(user.getEmail()) >= 3;
     }
 
-    public int getImageHashCode(){
+    public int getImageHashCode() {
         return this.email.hashCode();
     }
 
     @Override
     public String toString() {
-        return "User{" +
-                "name='" + name + '\'' +
-                ", age=" + age +
-                ", userInformation='" + userInformation + '\'' +
-                ", email='" + email + '\'' +
-                ", likedByCounter=" + likedByCounter +
-                '}';
+        return "User{" + "name='" + name + '\'' + ", age=" + age + ", userInformation='" + userInformation + '\''
+                + ", email='" + email + '\'' + ", likedByCounter=" + likedByCounter + '}';
     }
 
 }
