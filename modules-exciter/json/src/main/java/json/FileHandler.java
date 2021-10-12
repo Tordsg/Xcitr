@@ -78,6 +78,9 @@ public class FileHandler {
       try (BufferedReader fileReader = new BufferedReader(new InputStreamReader(new FileInputStream(path), "UTF-8"))) {
          ArrayList<User> users = new ArrayList<>();
          JSONArray userArray = (JSONArray) parser.parse(fileReader);
+         if (userArray.isEmpty()) {
+            return users;
+         }
          for (Object user : userArray) {
             JSONObject userData = (JSONObject) user;
             String name = String.valueOf(userData.get("name"));
