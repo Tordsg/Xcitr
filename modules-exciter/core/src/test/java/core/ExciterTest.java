@@ -32,5 +32,13 @@ public class ExciterTest {
         Assertions.assertTrue(exciter.getOnScreenUser2().getAlreadyMatched().containsKey(exciter.getCurrentUser().getEmail()));
     }
 
+    @Test
+    public void resetOnScreenUsers(){
+        User user = exciter.getOnScreenUser1();
+        User user2 = exciter.getOnScreenUser2();
+        exciter.refreshUsers();
+        Assertions.assertFalse(user.equals(exciter.getOnScreenUser1()) || user2.equals(exciter.getOnScreenUser2()));
+    }
+
 }
 

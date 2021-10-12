@@ -65,7 +65,7 @@ public class JsonTest {
         users.get(0).setPassword("password");
         fileHandler.saveUser(users);
         Assertions.assertEquals("5f4dcc3b5aa765d61d8327deb882cf99", fileHandler.getUser("ola@mail").getPassword());
-        Assertions.assertEquals(null, fileHandler.getUser("bot@mail").getPassword());
+        Assertions.assertNull(fileHandler.getUser("bot@mail").getPassword());
     }
 
 }
