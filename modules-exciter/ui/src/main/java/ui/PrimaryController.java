@@ -41,12 +41,15 @@ public class PrimaryController implements Initializable{
     private ArrayList<User> displayUsers;
     @FXML
     private void switchToSecondary() throws IOException {
+        saveUserData();
         App.setRoot("secondary");
     }
     @FXML
     public void saveUserData(){
         fileHandler.createFile();
-        fileHandler.saveUser(excite.getCurrentUser());
+        ArrayList<User> users = excite.getAllUsers();
+        users.add(excite.getCurrentUser());
+        fileHandler.saveUser(users);
     }
 
     void onDiscardLeftCard() {
