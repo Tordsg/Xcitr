@@ -1,64 +1,30 @@
 @startuml
-scale 2
-class Exciter {
-    -allUsers: ArrayList
-    -onScreenUser1: User
-    -onScreenUser1: User
-    +addSomePlaceholderUsers()
-    +getCurrentUser()
-    +setCurrentUser()
-    +getNestUsers()
-    +refreshUsers()
-    +getNextRandomUser()
-    +setOnScreenUser1()
-    +setOnScreenUser2()
-    +getOnScreenUser1()
-    +getOnScreenUser2()
-    +getAllUsers()
-    +setAllUsers()
-    +setOnScreenUser()
-    +getOnScreenUsers()
-    +pressedLikeFirst()
-    +pressedLikeSecond()
+
+component core{
+    package exciter.core
 }
 
-class BotUser extends User{
-    -likeBack: boolean
-    +fireOnLike()
-
-}
-interface MatchListener{
-    +fireOnLike
-    +checkIfMatch
-}
-class User {
-    -name: string
-    -age: int
-    -userInformation: string
-    -email: string
-    -likedByCounter: HashMap
-    +getName()
-    +setName()
-    +getAge()
-    +setAge()
-    +setEmail()
-    +getEmail()
-    +setUserInformation()
-    +getUserInformation()
-    +getAlreadyMatched()
-    +fireOnLike()
-    +containsPreciousMatch()
-    +addUserOnMatch()
-    +resetUserMatch()
-    +checkIfMatch()
-    +haveLikedUser()
-    +getImageHashCode()
-    +toString()
-
+component ui{
+    package exciter.ui
 }
 
-User <|-- MatchListener
-Exciter <|-- User
+component json{
+    package json.jsimple
+    package exciter.core
+    
+}
+
+component javafx{
+    package javafx.controls
+    package javafx.fxml
+}
+
+exciter.ui ..> exciter.core
+exciter.ui ..> json.jsimple
+exciter.ui ..> javafx.controls
+exciter.ui ..> javafx.fxml
+
+json.jsimple ..> exciter.core
 
 
 
