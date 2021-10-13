@@ -40,7 +40,7 @@
             </LinearGradient>
          </fill>
       </Rectangle>
-      <Pane prefHeight="548.0" prefWidth="365.0" style="-fx-background-color: 1BC5EA; -fx-background-radius: 123;">
+      <Pane fx:id="errorMessage" prefHeight="548.0" prefWidth="365.0" style="-fx-background-color: 1BC5EA; -fx-background-radius: 123;">
          <children>
             <ImageView fitHeight="85.0" fitWidth="200.0" layoutX="89.0" layoutY="52.0" pickOnBounds="true" preserveRatio="true">
                <image>
@@ -72,6 +72,11 @@
             <Text fx:id="fromLoginToSignup" fill="#2e8ea6" layoutX="223.0" layoutY="517.0" onMouseClicked="#onSwitchToLogin" strokeType="OUTSIDE" strokeWidth="0.0" text="Login">
                <font>
                   <Font name="System Bold" size="13.0" />
+               </font>
+            </Text>
+            <Text fill="#be2525" layoutX="27.0" layoutY="150.0" strokeType="OUTSIDE" strokeWidth="0.0" text="User already exists, try to login or use another email.">
+               <font>
+                  <Font name="Apple Braille" size="13.0" />
                </font>
             </Text>
          </children>
