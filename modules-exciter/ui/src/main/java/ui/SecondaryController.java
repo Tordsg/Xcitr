@@ -8,12 +8,16 @@ import javafx.fxml.Initializable;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
+import javafx.scene.control.TextArea;
+import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.FileChooser;
 
 import java.net.URL;
 import java.util.ResourceBundle;
+
+
 
 public class SecondaryController implements Initializable{
     private Exciter excite = new Exciter();
@@ -48,19 +52,45 @@ public class SecondaryController implements Initializable{
     }
 
     @FXML
-    private Label Name;
-
-    @FXML
-    private Label Bio;
-
-
-    @FXML
-    private Label Age;
+    private Label Age, Email, Bio, Name;
 
     @FXML
     private Rectangle ProfileImage;
+    
+    @FXML
+    private TextArea UpdateBio;
+
+    @FXML
+    private TextField UpdateName, UpdateEmail, UpdateAge;
 
 
+    @FXML
+    void UpdateInfo(MouseEvent event) {
+        UpdateBio.setVisible(true);
+        UpdateAge.setVisible(true);
+        UpdateEmail.setVisible(true);
+        UpdateName.setVisible(true);
+
+    
+
+    }
+    @FXML
+    void SaveInfo(MouseEvent event) {
+        User currentUser = excite.getCurrentUser();
+        currentUser.setName(UpdateName.getText());
+        currentUser.setEmail(UpdateEmail.getText());
+        currentUser.setUserInformation(UpdateBio.getText());
+        currentUser.setAge(Integer.parseInt(UpdateAge.getText()));
+        excite.setCurrentUser(currentUser);
+        initData();
+        UpdateBio.setVisible(false);
+        UpdateAge.setVisible(false);
+        UpdateEmail.setVisible(false);
+        UpdateName.setVisible(false);
+
+
+
+    }
 
 
 
@@ -70,6 +100,11 @@ public void initData(){
     Age.setText(String.valueOf(currentUser.getAge()));
     Bio.setText(currentUser.getUserInformation());
     ProfileImage.setFill(imageController.getImage(excite.getCurrentUser()));
+    Email.setText(currentUser.getEmail());
+    UpdateBio.setText(currentUser.getUserInformation());
+    UpdateName.setText(currentUser.getName());
+    UpdateAge.setText(String.valueOf(currentUser.getAge()));
+    UpdateEmail.setText(currentUser.getEmail());
     
 
 }
