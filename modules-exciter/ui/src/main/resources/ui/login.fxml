@@ -19,25 +19,26 @@
    <children>
       <Rectangle arcHeight="5.0" arcWidth="5.0" height="548.0" stroke="BLACK" strokeType="INSIDE" width="365.0">
          <fill>
-            <LinearGradient endX="0.8609112709832134" endY="0.5683453237410071" startX="0.5515587529976019" startY="0.42685851318944845">
+            <LinearGradient endX="1.0" endY="1.0">
                <stops>
                   <Stop>
                      <color>
-                        <Color red="0.17019981145858765" green="0.5250406265258789" blue="0.8355262875556946" opacity="0.07000000029802322" />
+                        <Color red="0.3843137323856354" green="0.9137254953384399" blue="0.9450980424880981" />
                      </color>
                   </Stop>
                   <Stop offset="0.007532956685499058">
                      <color>
-                        <Color red="0.18039999902248383" green="0.5428400039672852" blue="0.8199999928474426" opacity="0.06881720572710037" />
+                        <Color red="0.3843137323856354" green="0.9137254953384399" blue="0.9450980424880981" />
                      </color>
                   </Stop>
                   <Stop offset="1.0">
                      <color>
-                        <Color red="0.46666666865348816" green="0.8588235378265381" blue="0.9450980424880981" opacity="0.6499999761581421" />
+                        <Color red="0.2666666805744171" green="0.7333333492279053" blue="0.8784313797950745" />
                      </color>
                   </Stop>
                </stops>
             </LinearGradient>
+
          </fill>
       </Rectangle>
       <Pane prefHeight="548.0" prefWidth="365.0" style="-fx-background-color: 1BC5EA; -fx-background-radius: 123;">
@@ -58,8 +59,8 @@
                </font>
             </Label>
             <Button fx:id="login" defaultButton="true" layoutX="151.0" layoutY="422.0" mnemonicParsing="false" onAction="#handleLogin" text="LOGIN" />
-            <PasswordField fx:id="emailLogin" layoutX="66.0" layoutY="222.0" prefHeight="46.0" prefWidth="234.0" />
-            <TextField fx:id="passwordLogin" layoutX="66.0" layoutY="330.0" prefHeight="46.0" prefWidth="234.0" />
+            <PasswordField fx:id="passwordLogin" layoutX="66.0" layoutY="330.0" prefHeight="46.0" prefWidth="234.0" />
+            <TextField fx:id="emailLogin" layoutX="66.0" layoutY="222.0" prefHeight="46.0" prefWidth="234.0" />
             <Text fill="#6a6c73" layoutX="102.0" layoutY="490.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Need an account?" />
             <Text fx:id="fromLoginToSignup" fill="#2e8ea6" layoutX="216.0" layoutY="490.0" onMouseClicked="#onSwitchToSignup" onMousePressed="#handleSwitchToSignup" strokeType="OUTSIDE" strokeWidth="0.0" text="Sign Up">
                <font>
