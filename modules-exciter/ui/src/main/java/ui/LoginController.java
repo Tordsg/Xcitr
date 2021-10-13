@@ -10,6 +10,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.text.Text;
 
@@ -31,6 +32,9 @@ public class LoginController {
 
     @FXML
     private Text errorMessage;
+
+    @FXML
+    private ImageView excitrLogo;
 
     @FXML
     public void initialize() {

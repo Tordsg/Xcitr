@@ -42,7 +42,7 @@
       </Rectangle>
       <Pane prefHeight="548.0" prefWidth="365.0" style="-fx-background-color: 1BC5EA; -fx-background-radius: 123;">
          <children>
-            <ImageView fitHeight="85.0" fitWidth="200.0" layoutX="89.0" layoutY="52.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fitHeight="85.0" fitWidth="200.0" layoutX="89.0" layoutY="52.0" pickOnBounds="true" preserveRatio="true" fx:id="xcitrLogo">
                <image>
                   <Image url="@../../../../../../../../../Downloads/unknown.png" />
                </image>
