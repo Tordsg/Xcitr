@@ -14,7 +14,7 @@ import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.text.Text;
 
-public class LoginController implements Initializable {
+public class LoginController {
 
     private FileHandler fileHandler = new FileHandler();;
 
@@ -33,6 +33,13 @@ public class LoginController implements Initializable {
     @FXML
     private Text errorMessage;
 
+    @FXML
+    public void initialize() {
+        passwordLogin.clear();
+        emailLogin.clear();
+        errorMessage.setVisible(false);
+    }
+    
     @FXML
     public void onSwitchToSignup() throws IOException {
         App.setRoot("signup");
@@ -55,12 +62,4 @@ public class LoginController implements Initializable {
 
     }
 
-    @Override
-    public void initialize(URL location, ResourceBundle resources) {
-        passwordLogin.clear();
-        emailLogin.clear();
-        errorMessage.setVisible(false);
-    }
-
-    
 }
