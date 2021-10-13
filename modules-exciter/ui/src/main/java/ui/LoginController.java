@@ -28,10 +28,14 @@ public class LoginController {
     private Text fromLoginToSignup;
 
     @FXML
+    private Text errorMessage;
+
+    @FXML
     void initialize() {
         fileHandler = new FileHandler();
         passwordLogin.clear();
         emailLogin.clear();
+        errorMessage.setVisible(false);
     }
 
     @FXML
@@ -41,13 +45,21 @@ public class LoginController {
 
     @FXML
     public void handleLogin() throws IOException {
-        String user = emailLogin.getText();
+        String email = emailLogin.getText();
         String password = passwordLogin.getText();
 
+        ArrayList<User> users = fileHandler.readUsers();
+        for (User user : users) {
+            if (email.equals(user.getEmail()) && password.equals(user.getPassword())) {
+                App.setRoot("primary");
+            }
+        }
+       
+        errorMessage.setVisible(true);
+        passwordLogin.clear();
+        emailLogin.clear();
 
-        
-        App.setRoot("primary");
-
+        }
 
     }
 
