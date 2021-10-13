@@ -38,7 +38,6 @@
                   </Stop>
                </stops>
             </LinearGradient>
-
          </fill>
       </Rectangle>
       <Pane prefHeight="548.0" prefWidth="365.0" style="-fx-background-color: 1BC5EA; -fx-background-radius: 123;">

@@ -12,24 +12,43 @@ import javafx.scene.text.Text;
 
 public class LoginController {
 
-    
+    User user;
+    FileHandler fileHandler;
 
     @FXML
     private TextField emailLogin;
+
+    @FXML
     private PasswordField passwordLogin;
-    private Button loginBtn;
+
+    @FXML
+    private Button login;
+
+    @FXML
     private Text fromLoginToSignup;
 
-    
     @FXML
-    public void handleSwitchToSignup() throws IOException {
+    void initialize() {
+        fileHandler = new FileHandler();
+        passwordLogin.clear();
+        emailLogin.clear();
+    }
+
+    @FXML
+    public void onSwitchToSignup() throws IOException {
         App.setRoot("signup");
     }
 
-    public handleLogin() {
+    @FXML
+    public void handleLogin() throws IOException {
         String user = emailLogin.getText();
         String password = passwordLogin.getText();
-        for ()
+
+
+        
+        App.setRoot("primary");
+
+
     }
 
 

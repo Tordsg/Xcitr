@@ -19,21 +19,21 @@
    <children>
       <Rectangle arcHeight="5.0" arcWidth="5.0" height="548.0" stroke="BLACK" strokeType="INSIDE" width="365.0">
          <fill>
-            <LinearGradient endX="0.8609112709832134" endY="0.5683453237410071" startX="0.5515587529976019" startY="0.42685851318944845">
+            <LinearGradient endX="1.0" endY="1.0">
                <stops>
                   <Stop>
                      <color>
-                        <Color red="0.17019981145858765" green="0.5250406265258789" blue="0.8355262875556946" opacity="0.07000000029802322" />
+                        <Color red="0.3843137323856354" green="0.9137254953384399" blue="0.9450980424880981" />
                      </color>
                   </Stop>
                   <Stop offset="0.007532956685499058">
                      <color>
-                        <Color red="0.18039999902248383" green="0.5428400039672852" blue="0.8199999928474426" opacity="0.06881720572710037" />
+                        <Color red="0.3843137323856354" green="0.9137254953384399" blue="0.9450980424880981" />
                      </color>
                   </Stop>
                   <Stop offset="1.0">
                      <color>
-                        <Color red="0.46666666865348816" green="0.8588235378265381" blue="0.9450980424880981" opacity="0.6499999761581421" />
+                        <Color red="0.2666666805744171" green="0.7333333492279053" blue="0.8784313797950745" />
                      </color>
                   </Stop>
                </stops>
@@ -48,26 +48,26 @@
                </image>
             </ImageView>
             <Button fx:id="createAccount" defaultButton="true" layoutX="119.0" layoutY="468.0" mnemonicParsing="false" onAction="#handleCreateAccount" text="CREATE CCOUNT" />
-            <TextField fx:id="name" layoutX="62.0" layoutY="168.0" onAction="#handleFirstName" prefHeight="46.0" prefWidth="234.0" />
+            <TextField fx:id="name" layoutX="61.0" layoutY="175.0" onAction="#handleFirstName" prefHeight="46.0" prefWidth="234.0" />
             <PasswordField fx:id="passwordSignup" layoutX="62.0" layoutY="405.0" onAction="#handlePasswordRegistration" prefHeight="46.0" prefWidth="234.0" />
-            <Label layoutX="66.0" layoutY="151.0" text="Name" textFill="#6a6c73">
+            <Label layoutX="61.0" layoutY="160.0" text="Name" textFill="#6a6c73">
                <font>
                   <Font name="Apple Braille" size="12.0" />
                </font></Label>
-            <Label layoutX="66.0" layoutY="234.0" text="Age" textFill="#6a6c73">
+            <Label layoutX="62.0" layoutY="237.0" text="Age" textFill="#6a6c73">
                <font>
                   <Font name="Apple Braille" size="12.0" />
                </font></Label>
-            <Label layoutX="66.0" layoutY="306.0" text="Email" textFill="#6a6c73">
+            <Label layoutX="62.0" layoutY="314.0" text="Email" textFill="#6a6c73">
                <font>
                   <Font name="Apple Braille" size="12.0" />
                </font></Label>
-            <Label layoutX="67.0" layoutY="388.0" text="Passord" textFill="#6a6c73">
+            <Label layoutX="62.0" layoutY="390.0" text="Passord" textFill="#6a6c73">
                <font>
                   <Font name="Apple Braille" size="12.0" />
                </font></Label>
-            <TextField fx:id="age" layoutX="62.0" layoutY="251.0" prefHeight="46.0" prefWidth="234.0" />
-            <TextField fx:id="emailSignup" layoutX="62.0" layoutY="323.0" onAction="#handleEmailRegistration" prefHeight="46.0" prefWidth="234.0" />
+            <TextField fx:id="age" layoutX="61.0" layoutY="253.0" prefHeight="46.0" prefWidth="234.0" />
+            <TextField fx:id="emailSignup" layoutX="62.0" layoutY="330.0" onAction="#handleEmailRegistration" prefHeight="46.0" prefWidth="234.0" />
             <Text fill="#6a6c73" layoutX="73.0" layoutY="517.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Already have an account?" />
             <Text fx:id="fromLoginToSignup" fill="#2e8ea6" layoutX="223.0" layoutY="517.0" onMouseClicked="#onSwitchToLogin" strokeType="OUTSIDE" strokeWidth="0.0" text="Login">
                <font>
