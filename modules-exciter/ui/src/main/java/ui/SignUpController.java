@@ -5,8 +5,6 @@ import json.*;
 
 import java.io.IOException;
 
-import org.dom4j.Text;
-
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.PasswordField;
