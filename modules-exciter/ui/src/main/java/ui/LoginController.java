@@ -4,16 +4,19 @@ import core.*;
 import json.*;
 
 import java.io.IOException;
+import java.net.URL;
+import java.util.ResourceBundle;
+
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.text.Text;
 
-public class LoginController {
+public class LoginController implements Initializable {
 
-    User user;
-    FileHandler fileHandler;
+    private FileHandler fileHandler = new FileHandler();;
 
     @FXML
     private TextField emailLogin;
@@ -29,14 +32,6 @@ public class LoginController {
 
     @FXML
     private Text errorMessage;
-
-    @FXML
-    void initialize() {
-        fileHandler = new FileHandler();
-        passwordLogin.clear();
-        emailLogin.clear();
-        errorMessage.setVisible(false);
-    }
 
     @FXML
     public void onSwitchToSignup() throws IOException {
@@ -58,6 +53,13 @@ public class LoginController {
         passwordLogin.clear();
         emailLogin.clear();
 
+    }
+
+    @Override
+    public void initialize(URL location, ResourceBundle resources) {
+        passwordLogin.clear();
+        emailLogin.clear();
+        errorMessage.setVisible(false);
     }
 
     
