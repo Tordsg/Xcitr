@@ -29,6 +29,7 @@ public class SecondaryController implements Initializable{
     @FXML
     private void switchToPrimary(MouseEvent event) throws IOException {
         App.setRoot("primary");
+
     }
 
     @FXML
@@ -53,7 +54,7 @@ public class SecondaryController implements Initializable{
     }
 
     @FXML
-    private Label Age, Email, Bio, Name, SaveLabel;
+    private Label Age, Email, Bio, Name, SaveLabel, EditLabel;
 
     @FXML
     private Rectangle ProfileImage;
@@ -79,6 +80,7 @@ public class SecondaryController implements Initializable{
         SaveButton.setVisible(true);
         SaveLabel.setVisible(true);
         UpdateButton.setVisible(false);
+        EditLabel.setVisible(false);
 
     
 
@@ -99,6 +101,7 @@ public class SecondaryController implements Initializable{
         SaveButton.setVisible(false);
         SaveLabel.setVisible(false);
         UpdateButton.setVisible(true);
+        EditLabel.setVisible(true);
 
 
 
