@@ -3,7 +3,6 @@
 <?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextArea?>
-<?import javafx.scene.control.TextField?>
 <?import javafx.scene.effect.DropShadow?>
 <?import javafx.scene.effect.SepiaTone?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -77,8 +76,6 @@
                   <Font size="30.0" />
                </font>
             </Label>
-            <TextField fx:id="UpdateName" layoutX="13.0" layoutY="293.0" prefHeight="40.0" prefWidth="119.0" visible="false" />
-            <TextField fx:id="UpdateAge" layoutX="150.0" layoutY="288.0" prefHeight="40.0" prefWidth="62.0" visible="false" />
          </children>
          <effect>
             <DropShadow blurType="TWO_PASS_BOX" offsetX="2.0" offsetY="2.0">
@@ -88,7 +85,7 @@
             </DropShadow>
          </effect>
       </Pane>
-      <Pane layoutX="335.0" layoutY="4.0" prefHeight="422.0" prefWidth="295.0">
+      <Pane layoutX="335.0" layoutY="4.0" onMouseClicked="#signOut" prefHeight="422.0" prefWidth="295.0">
          <children>
             <Label fx:id="Bio" accessibleRole="TEXT_AREA" alignment="TOP_CENTER" cache="true" contentDisplay="TOP" layoutX="21.0" layoutY="211.0" lineSpacing="1.0" nodeOrientation="LEFT_TO_RIGHT" opacity="0.5" prefHeight="165.0" prefWidth="207.0" textFill="#000000a3" wrapText="true">
                <font>
@@ -116,37 +113,6 @@
                   <Font size="18.0" />
                </font>
             </Label>
-            <SVGPath content="M27 54.2898C41.9117 54.2898 54 42.1366 54 27.1449C54 12.1532 41.9117 0 27 0C12.0883 0 0 12.1532 0 27.1449C0 42.1366 12.0883 54.2898 27 54.2898Z" layoutX="235.0" layoutY="6.0" onMouseClicked="#switchToPrimary">
-               <fill>
-                  <LinearGradient endX="1.0" endY="0.7601918465227817" startX="0.27098321342925663" startY="0.15827338129496402">
-                     <stops>
-                        <Stop>
-                           <color>
-                              <Color red="0.3843137323856354" green="0.9137254953384399" blue="0.9450980424880981" />
-                           </color>
-                        </Stop>
-                        <Stop offset="0.011299435028248588">
-                           <color>
-                              <Color red="0.3843137323856354" green="0.9137254953384399" blue="0.9450980424880981" />
-                           </color>
-                        </Stop>
-                        <Stop offset="1.0">
-                           <color>
-                              <Color green="0.6666666865348816" blue="0.8313725590705872" />
-                           </color>
-                        </Stop>
-                     </stops>
-                  </LinearGradient>
-               </fill>
-               <effect>
-                  <DropShadow blurType="TWO_PASS_BOX" height="22.63" offsetX="2.0" offsetY="2.0" radius="11.192499999999999" width="24.14">
-                     <color>
-                        <Color opacity="0.4099999964237213" />
-                     </color>
-                  </DropShadow>
-               </effect>
-            </SVGPath>
-            <SVGPath content="M12.0865, 13.6603L28.0042, 33.3303L13.4411, 50.6161C15.6878, 51.9242, 18.1103, 52.8998, 20.634, 53.5126L33.0308, 38.6948L42.1587, 49.6052C44.1889, 48.2138, 46.0206, 46.5504, 47.6033, 44.6608L38.0575, 33.3303L51.7812, 16.3714C51.3819, 15.4431, 50.9312, 14.538, 50.4314, 13.6603H44.3408L33.0308, 27.9658L21.7209, 13.6603H12.0865Z" fill="#D5F6FF" layoutX="237.0" layoutY="6.0" />
             <SVGPath fx:id="UpdateButton" content="M27 54.2898C41.9117 54.2898 54 42.1366 54 27.1449C54 12.1532 41.9117 0 27 0C12.0883 0 0 12.1532 0 27.1449C0 42.1366 12.0883 54.2898 27 54.2898ZM27 54.2898C41.9117 54.2898 54 42.1366 54 27.1449C54 12.1532 41.9117 0 27 0C12.0883 0 0 12.1532 0 27.1449C0 42.1366 12.0883 54.2898 27 54.2898Z" layoutX="105.0" layoutY="367.0" onMouseClicked="#UpdateInfo">
                <fill>
                   <LinearGradient endX="1.0" endY="0.7601918465227817" startX="0.27098321342925663" startY="0.15827338129496402">
@@ -178,7 +144,6 @@
                </effect>
             </SVGPath>
             <TextArea fx:id="UpdateBio" layoutX="24.0" layoutY="211.0" prefHeight="146.0" prefWidth="245.0" visible="false" wrapText="true" />
-            <TextField fx:id="UpdateEmail" layoutX="24.0" layoutY="132.0" prefHeight="31.0" prefWidth="200.0" visible="false" />
             <SVGPath fx:id="SaveButton" content="M27 54.2898C41.9117 54.2898 54 42.1366 54 27.1449C54 12.1532 41.9117 0 27 0C12.0883 0 0 12.1532 0 27.1449C0 42.1366 12.0883 54.2898 27 54.2898ZM27 54.2898C41.9117 54.2898 54 42.1366 54 27.1449C54 12.1532 41.9117 0 27 0C12.0883 0 0 12.1532 0 27.1449C0 42.1366 12.0883 54.2898 27 54.2898Z" layoutX="105.0" layoutY="367.0" onMouseClicked="#SaveInfo" visible="false">
                <fill>
                   <LinearGradient endX="1.0" endY="0.7601918465227817" startX="0.27098321342925663" startY="0.15827338129496402">
@@ -210,8 +175,40 @@
                </effect>
             </SVGPath>
             <Label fx:id="SaveLabel" layoutX="118.0" layoutY="386.0" text="Save" visible="false" />
-            <Label fx:id="EditLabel" layoutX="117.0" layoutY="386.0" text="Edit" />
+            <Label fx:id="EditLabel" layoutX="122.0" layoutY="386.0" text="Edit" />
+            <SVGPath content="M10 9.408l2.963 2.592-2.963 2.592v-1.592h-8v-2h8v-1.592zm-2-4.408v4h-8v6h8v4l8-7-8-7zm6-3c-1.787 0-3.46.474-4.911 1.295l.228.2 1.396 1.221c1.004-.456 2.114-.716 3.287-.716 4.411 0 8 3.589 8 8s-3.589 8-8 8c-1.173 0-2.283-.26-3.288-.715l-1.396 1.221-.228.2c1.452.82 3.125 1.294 4.912 1.294 5.522 0 10-4.477 10-10s-4.478-10-10-10zM10 9.408l2.963 2.592-2.963 2.592v-1.592h-8v-2h8v-1.592zm-2-4.408v4h-8v6h8v4l8-7-8-7zm6-3c-1.787 0-3.46.474-4.911 1.295l.228.2 1.396 1.221c1.004-.456 2.114-.716 3.287-.716 4.411 0 8 3.589 8 8s-3.589 8-8 8c-1.173 0-2.283-.26-3.288-.715l-1.396 1.221-.228.2c1.452.82 3.125 1.294 4.912 1.294 5.522 0 10-4.477 10-10s-4.478-10-10-10z" layoutX="257.0" layoutY="12.0" />
          </children>
       </Pane>
+      <SVGPath content="M27 54.2898C41.9117 54.2898 54 42.1366 54 27.1449C54 12.1532 41.9117 0 27 0C12.0883 0 0 12.1532 0 27.1449C0 42.1366 12.0883 54.2898 27 54.2898Z" layoutX="14.0" layoutY="14.0" onMouseClicked="#switchToPrimary">
+         <fill>
+            <LinearGradient endX="1.0" endY="0.7601918465227817" startX="0.27098321342925663" startY="0.15827338129496402">
+               <stops>
+                  <Stop>
+                     <color>
+                        <Color red="0.3843137323856354" green="0.9137254953384399" blue="0.9450980424880981" />
+                     </color>
+                  </Stop>
+                  <Stop offset="0.011299435028248588">
+                     <color>
+                        <Color red="0.3843137323856354" green="0.9137254953384399" blue="0.9450980424880981" />
+                     </color>
+                  </Stop>
+                  <Stop offset="1.0">
+                     <color>
+                        <Color green="0.6666666865348816" blue="0.8313725590705872" />
+                     </color>
+                  </Stop>
+               </stops>
+            </LinearGradient>
+         </fill>
+         <effect>
+            <DropShadow blurType="TWO_PASS_BOX" height="22.63" offsetX="2.0" offsetY="2.0" radius="11.192499999999999" width="24.14">
+               <color>
+                  <Color opacity="0.4099999964237213" />
+               </color>
+            </DropShadow>
+         </effect>
+      </SVGPath>
+      <SVGPath content="M12.0865, 13.6603L28.0042, 33.3303L13.4411, 50.6161C15.6878, 51.9242, 18.1103, 52.8998, 20.634, 53.5126L33.0308, 38.6948L42.1587, 49.6052C44.1889, 48.2138, 46.0206, 46.5504, 47.6033, 44.6608L38.0575, 33.3303L51.7812, 16.3714C51.3819, 15.4431, 50.9312, 14.538, 50.4314, 13.6603H44.3408L33.0308, 27.9658L21.7209, 13.6603H12.0865Z" fill="#D5F6FF" layoutX="18.0" layoutY="14.0" />
    </children>
 </AnchorPane>

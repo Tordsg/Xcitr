@@ -74,9 +74,6 @@ public class SecondaryController implements Initializable{
     @FXML
     void UpdateInfo(MouseEvent event) {
         UpdateBio.setVisible(true);
-        UpdateAge.setVisible(true);
-        UpdateEmail.setVisible(true);
-        UpdateName.setVisible(true);
         SaveButton.setVisible(true);
         SaveLabel.setVisible(true);
         UpdateButton.setVisible(false);
@@ -88,16 +85,10 @@ public class SecondaryController implements Initializable{
     @FXML
     void SaveInfo(MouseEvent event) {
         User currentUser = excite.getCurrentUser();
-        currentUser.setName(UpdateName.getText());
-        currentUser.setEmail(UpdateEmail.getText());
         currentUser.setUserInformation(UpdateBio.getText());
-        currentUser.setAge(Integer.parseInt(UpdateAge.getText()));
         excite.setCurrentUser(currentUser);
         initData();
         UpdateBio.setVisible(false);
-        UpdateAge.setVisible(false);
-        UpdateEmail.setVisible(false);
-        UpdateName.setVisible(false);
         SaveButton.setVisible(false);
         SaveLabel.setVisible(false);
         UpdateButton.setVisible(true);
@@ -107,6 +98,10 @@ public class SecondaryController implements Initializable{
 
     }
 
+    @FXML
+    public void signOut(MouseEvent event){
+        
+    }
 
 
 public void initData(){
@@ -117,9 +112,7 @@ public void initData(){
     ProfileImage.setFill(imageController.getImage(excite.getCurrentUser()));
     Email.setText(currentUser.getEmail());
     UpdateBio.setText(currentUser.getUserInformation());
-    UpdateName.setText(currentUser.getName());
-    UpdateAge.setText(String.valueOf(currentUser.getAge()));
-    UpdateEmail.setText(currentUser.getEmail());
+   
     
 
 }
