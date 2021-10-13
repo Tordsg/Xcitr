@@ -58,10 +58,7 @@ public class LoginController {
         passwordLogin.clear();
         emailLogin.clear();
 
-        }
-
     }
-
 
     
 }
