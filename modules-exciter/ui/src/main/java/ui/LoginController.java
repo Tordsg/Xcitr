@@ -48,8 +48,7 @@ public class LoginController {
         String email = emailLogin.getText();
         String password = passwordLogin.getText();
 
-        ArrayList<User> users = fileHandler.readUsers();
-        for (User user : users) {
+        for (User user : fileHandler.readUsers()) {
             if (email.equals(user.getEmail()) && password.equals(user.getPassword())) {
                 App.setRoot("primary");
             }

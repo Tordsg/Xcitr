@@ -32,7 +32,6 @@ public class SignUpController {
     Text errorMessage;
 
     FileHandler fileHandler;
-    User user;
 
     @FXML
     void initialize() {
@@ -63,10 +62,10 @@ public class SignUpController {
                 passwordSignup.clear();
             }
         }
-        this.user = new User(nameReg, Integer.parseInt(ageReg), emailReg);
-        user.setPassword(passwordReg);
+        User userXcitr = new User(nameReg, Integer.parseInt(ageReg), emailReg);
+        userXcitr.setPassword(passwordReg);
 
-        fileHandler.saveUser(user);
+        fileHandler.saveUser(userXcitr);
        
         App.setRoot("primary");
 
