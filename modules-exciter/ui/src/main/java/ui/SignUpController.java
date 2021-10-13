@@ -65,7 +65,7 @@ public class SignUpController {
         User userXcitr = new User(nameReg, Integer.parseInt(ageReg), emailReg);
         userXcitr.setPassword(passwordReg);
 
-        fileHandler.saveUser(userXcitr);
+        //fileHandler.saveUser(user);
        
         App.setRoot("primary");
 
