@@ -1,5 +1,5 @@
 module exciter.json {
-    requires exciter.core;
-    requires json.simple;
+    requires transitive json.simple;
+    requires transitive exciter.core;
     exports json;
 }
