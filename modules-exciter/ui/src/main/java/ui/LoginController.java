@@ -12,6 +12,8 @@ import javafx.scene.text.Text;
 
 public class LoginController {
 
+    
+
     @FXML
     private TextField emailLogin;
     private PasswordField passwordLogin;
@@ -20,11 +22,15 @@ public class LoginController {
 
     
     @FXML
-    public void switchToSignUp() throws IOException {
+    public void handleSwitchToSignup() throws IOException {
         App.setRoot("signup");
     }
 
-
+    public handleLogin() {
+        String user = emailLogin.getText();
+        String password = passwordLogin.getText();
+        for ()
+    }
 
 
     
