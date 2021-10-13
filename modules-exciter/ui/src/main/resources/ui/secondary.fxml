@@ -88,9 +88,9 @@
             </DropShadow>
          </effect>
       </Pane>
-      <Pane layoutX="335.0" prefHeight="422.0" prefWidth="295.0">
+      <Pane layoutX="335.0" layoutY="4.0" prefHeight="422.0" prefWidth="295.0">
          <children>
-            <Label fx:id="Bio" accessibleRole="TEXT_AREA" alignment="TOP_CENTER" cache="true" contentDisplay="TOP" layoutX="24.0" layoutY="211.0" lineSpacing="1.0" nodeOrientation="LEFT_TO_RIGHT" opacity="0.5" prefHeight="165.0" prefWidth="207.0" textFill="#000000a3" wrapText="true">
+            <Label fx:id="Bio" accessibleRole="TEXT_AREA" alignment="TOP_CENTER" cache="true" contentDisplay="TOP" layoutX="21.0" layoutY="211.0" lineSpacing="1.0" nodeOrientation="LEFT_TO_RIGHT" opacity="0.5" prefHeight="165.0" prefWidth="207.0" textFill="#000000a3" wrapText="true">
                <font>
                   <Font size="15.0" />
                </font>
@@ -147,7 +147,7 @@
                </effect>
             </SVGPath>
             <SVGPath content="M12.0865, 13.6603L28.0042, 33.3303L13.4411, 50.6161C15.6878, 51.9242, 18.1103, 52.8998, 20.634, 53.5126L33.0308, 38.6948L42.1587, 49.6052C44.1889, 48.2138, 46.0206, 46.5504, 47.6033, 44.6608L38.0575, 33.3303L51.7812, 16.3714C51.3819, 15.4431, 50.9312, 14.538, 50.4314, 13.6603H44.3408L33.0308, 27.9658L21.7209, 13.6603H12.0865Z" fill="#D5F6FF" layoutX="237.0" layoutY="6.0" />
-            <SVGPath content="M27 54.2898C41.9117 54.2898 54 42.1366 54 27.1449C54 12.1532 41.9117 0 27 0C12.0883 0 0 12.1532 0 27.1449C0 42.1366 12.0883 54.2898 27 54.2898ZM27 54.2898C41.9117 54.2898 54 42.1366 54 27.1449C54 12.1532 41.9117 0 27 0C12.0883 0 0 12.1532 0 27.1449C0 42.1366 12.0883 54.2898 27 54.2898Z" layoutX="36.0" layoutY="367.0" onMouseClicked="#UpdateInfo">
+            <SVGPath fx:id="UpdateButton" content="M27 54.2898C41.9117 54.2898 54 42.1366 54 27.1449C54 12.1532 41.9117 0 27 0C12.0883 0 0 12.1532 0 27.1449C0 42.1366 12.0883 54.2898 27 54.2898ZM27 54.2898C41.9117 54.2898 54 42.1366 54 27.1449C54 12.1532 41.9117 0 27 0C12.0883 0 0 12.1532 0 27.1449C0 42.1366 12.0883 54.2898 27 54.2898Z" layoutX="105.0" layoutY="367.0" onMouseClicked="#UpdateInfo">
                <fill>
                   <LinearGradient endX="1.0" endY="0.7601918465227817" startX="0.27098321342925663" startY="0.15827338129496402">
                      <stops>
@@ -179,7 +179,7 @@
             </SVGPath>
             <TextArea fx:id="UpdateBio" layoutX="24.0" layoutY="211.0" prefHeight="146.0" prefWidth="245.0" visible="false" wrapText="true" />
             <TextField fx:id="UpdateEmail" layoutX="24.0" layoutY="132.0" prefHeight="31.0" prefWidth="200.0" visible="false" />
-            <SVGPath content="M27 54.2898C41.9117 54.2898 54 42.1366 54 27.1449C54 12.1532 41.9117 0 27 0C12.0883 0 0 12.1532 0 27.1449C0 42.1366 12.0883 54.2898 27 54.2898ZM27 54.2898C41.9117 54.2898 54 42.1366 54 27.1449C54 12.1532 41.9117 0 27 0C12.0883 0 0 12.1532 0 27.1449C0 42.1366 12.0883 54.2898 27 54.2898Z" layoutX="147.0" layoutY="367.0" onMouseClicked="#SaveInfo">
+            <SVGPath fx:id="SaveButton" content="M27 54.2898C41.9117 54.2898 54 42.1366 54 27.1449C54 12.1532 41.9117 0 27 0C12.0883 0 0 12.1532 0 27.1449C0 42.1366 12.0883 54.2898 27 54.2898ZM27 54.2898C41.9117 54.2898 54 42.1366 54 27.1449C54 12.1532 41.9117 0 27 0C12.0883 0 0 12.1532 0 27.1449C0 42.1366 12.0883 54.2898 27 54.2898Z" layoutX="105.0" layoutY="367.0" onMouseClicked="#SaveInfo" visible="false">
                <fill>
                   <LinearGradient endX="1.0" endY="0.7601918465227817" startX="0.27098321342925663" startY="0.15827338129496402">
                      <stops>
@@ -209,7 +209,7 @@
                   </DropShadow>
                </effect>
             </SVGPath>
-            <Label layoutX="159.0" layoutY="386.0" text="Save" />
+            <Label fx:id="SaveLabel" layoutX="118.0" layoutY="386.0" text="Save" visible="false" />
          </children>
       </Pane>
    </children>

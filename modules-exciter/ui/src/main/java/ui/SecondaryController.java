@@ -12,6 +12,7 @@ import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.shape.Rectangle;
+import javafx.scene.shape.SVGPath;
 import javafx.stage.FileChooser;
 
 import java.net.URL;
@@ -52,7 +53,7 @@ public class SecondaryController implements Initializable{
     }
 
     @FXML
-    private Label Age, Email, Bio, Name;
+    private Label Age, Email, Bio, Name, SaveLabel;
 
     @FXML
     private Rectangle ProfileImage;
@@ -63,6 +64,11 @@ public class SecondaryController implements Initializable{
     @FXML
     private TextField UpdateName, UpdateEmail, UpdateAge;
 
+    @FXML
+    private SVGPath SaveButton, UpdateButton;
+
+
+
 
     @FXML
     void UpdateInfo(MouseEvent event) {
@@ -70,6 +76,9 @@ public class SecondaryController implements Initializable{
         UpdateAge.setVisible(true);
         UpdateEmail.setVisible(true);
         UpdateName.setVisible(true);
+        SaveButton.setVisible(true);
+        SaveLabel.setVisible(true);
+        UpdateButton.setVisible(false);
 
     
 
@@ -87,6 +96,9 @@ public class SecondaryController implements Initializable{
         UpdateAge.setVisible(false);
         UpdateEmail.setVisible(false);
         UpdateName.setVisible(false);
+        SaveButton.setVisible(false);
+        SaveLabel.setVisible(false);
+        UpdateButton.setVisible(true);
 
 
 
