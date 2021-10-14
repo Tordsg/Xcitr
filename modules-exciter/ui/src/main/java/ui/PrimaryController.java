@@ -21,7 +21,10 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.Group;
+import javafx.scene.Node;
 import javafx.scene.control.Label;
+import javafx.scene.effect.Lighting;
 
 public class PrimaryController implements Initializable{
     @FXML
@@ -32,6 +35,8 @@ public class PrimaryController implements Initializable{
     private Label Name1,Age1,Name2,Age2;
     @FXML
     private Text scoreNumber;
+    @FXML
+    private Group matchButton;
     @FXML
     private Pane leftCard, rightCard, refresh,scorePane;
     private Exciter excite = new Exciter();
@@ -45,13 +50,25 @@ public class PrimaryController implements Initializable{
         App.setRoot("secondary");
     }
     @FXML
+    private void switchToMatch() throws IOException {
+        saveUserData();
+        App.setRoot("match");
+    }
+    @FXML
     public void saveUserData(){
         fileHandler.createFile();
         ArrayList<User> users = excite.getAllUsers();
         users.add(excite.getCurrentUser());
         fileHandler.saveUser(users);
     }
-
+    private void hoverButton(Node n){
+        n.setOnMouseEntered(e -> {
+            n.setEffect(new Lighting());
+        });
+        n.setOnMouseExited(e -> {
+            n.setEffect(null);
+        });
+    }
     void onDiscardLeftCard() {
         if(excite.pressedLikeSecond()) {
             cardLiked(rightCard,leftCard);
@@ -204,11 +221,13 @@ public class PrimaryController implements Initializable{
         profile.setFill(imageController.getImage(excite.getCurrentUser()));
         dragY(leftCard);
         dragY(rightCard);
+        hoverButton(refresh);
+        hoverButton(matchButton);
+        hoverButton(profile);
         setNextUsers();
     }
 
     double dY = 0;
-    double initialY = 0;
     Boolean dragged = false;
     double y = 0;
     double lastY = 0;
@@ -217,8 +236,8 @@ public class PrimaryController implements Initializable{
         e.setOnMousePressed(new EventHandler<MouseEvent>(){
             @Override
             public void handle(MouseEvent event){
-                initialY = event.getSceneY();
-                lastY = initialY;
+                lastY = event.getSceneY();
+                
             }
         });
         e.setOnMouseDragged(new EventHandler<MouseEvent>(){

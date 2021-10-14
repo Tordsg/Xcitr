@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.Group?>
+<?import javafx.scene.effect.DropShadow?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.paint.Color?>
+<?import javafx.scene.paint.LinearGradient?>
+<?import javafx.scene.paint.Stop?>
+<?import javafx.scene.shape.Circle?>
+<?import javafx.scene.shape.Line?>
+<?import javafx.scene.shape.Rectangle?>
+<?import javafx.scene.shape.SVGPath?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane fx:id = "anchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="430.0" prefWidth="640.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ui.MatchController">
+   <children>
+      <Rectangle height="430.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="640.0">
+         <fill>
+            <LinearGradient endX="1.0" endY="1.0">
+               <stops>
+                  <Stop>
+                     <color>
+                        <Color red="0.3843137323856354" green="0.9137254953384399" blue="0.9450980424880981" />
+                     </color>
+                  </Stop>
+                  <Stop offset="0.007532956685499058">
+                     <color>
+                        <Color red="0.3843137323856354" green="0.9137254953384399" blue="0.9450980424880981" />
+                     </color>
+                  </Stop>
+                  <Stop offset="1.0">
+                     <color>
+                        <Color red="0.2666666805744171" green="0.7333333492279053" blue="0.8784313797950745" />
+                     </color>
+                  </Stop>
+               </stops>
+            </LinearGradient>
+         </fill>
+      </Rectangle>
+      <Group fx:id="button" layoutX="21.0" layoutY="16.0" onMousePressed="#switchToPrimary">
+         <children>
+            <Circle fill="WHITE" layoutX="28.0" layoutY="19.0" radius="23.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0">
+               <effect>
+                  <DropShadow blurType="TWO_PASS_BOX" offsetX="2.0" offsetY="2.0">
+                     <color>
+                        <Color opacity="0.5" />
+                     </color></DropShadow>
+               </effect>
+            </Circle>
+            <SVGPath content="M23 13.5C23.8284 13.5 24.5 12.8284 24.5 12C24.5 11.1716 23.8284 10.5 23 10.5L23 13.5ZM0.93934 10.9393C0.353553 11.5251 0.353553 12.4749 0.93934 13.0607L10.4853 22.6066C11.0711 23.1924 12.0208 23.1924 12.6066 22.6066C13.1924 22.0208 13.1924 21.0711 12.6066 20.4853L4.12132 12L12.6066 3.51472C13.1924 2.92893 13.1924 1.97918 12.6066 1.3934C12.0208 0.807612 11.0711 0.807612 10.4853 1.3934L0.93934 10.9393ZM23 10.5L2 10.5L2 13.5L23 13.5L23 10.5Z" fill="#00a3fe" layoutX="16.0" layoutY="7.0" />
+         </children>
+      </Group>
+      <Text fill="WHITE" layoutX="231.0" layoutY="54.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Matches">
+         <font>
+            <Font size="48.0" />
+         </font>
+      </Text>
+      <Line endX="620.0" endY="75.0" startX="20.0" startY="75.0" stroke="WHITE" strokeLineCap="ROUND" strokeLineJoin="ROUND" strokeWidth="3.0" />
+      <HBox fx:id="hBox" layoutX="20.0" layoutY="85.0">
+         <opaqueInsets>
+            <Insets />
+         </opaqueInsets>
+      </HBox>
+   </children>
+</AnchorPane>
