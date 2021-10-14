@@ -2,3 +2,4 @@
 modules-template/
 .DS_Store
 .vscode/tasks.json
+modules-exciter/.vscode/tasks.json

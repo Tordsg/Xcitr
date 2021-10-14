@@ -16,6 +16,7 @@ import javafx.animation.ParallelTransition;
 import javafx.animation.RotateTransition;
 import javafx.animation.SequentialTransition;
 import javafx.animation.TranslateTransition;
+import javafx.css.Match;
 import javafx.event.EventHandler;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
@@ -39,10 +40,11 @@ public class PrimaryController implements Initializable{
     private Group matchButton;
     @FXML
     private Pane leftCard, rightCard, refresh,scorePane;
-    private Exciter excite = new Exciter();
+    protected Exciter excite = new Exciter();
     private FileHandler fileHandler = new FileHandler();
     //Static since it's shared by the SecondaryController
     protected static ImageController imageController = new ImageController();
+    protected static ArrayList<User> matches;
     private ArrayList<User> displayUsers;
     @FXML
     private void switchToSecondary() throws IOException {
@@ -52,6 +54,8 @@ public class PrimaryController implements Initializable{
     @FXML
     private void switchToMatch() throws IOException {
         saveUserData();
+       
+        MatchController.matches = excite.getCurrentUserMatches();
         App.setRoot("match");
     }
     @FXML

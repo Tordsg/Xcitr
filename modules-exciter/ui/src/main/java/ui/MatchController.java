@@ -2,8 +2,10 @@ package ui;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
 import core.BotUser;
+import core.Exciter;
 import core.User;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -35,13 +37,15 @@ public class MatchController implements Initializable{
     @FXML
     AnchorPane anchorPane;
     private ImageController imageController = PrimaryController.imageController;
+    protected static ArrayList<User> matches;
+    
     public void switchToPrimary() throws IOException{
         App.setRoot("primary");
     }
-    @Override
+
     public void initialize(URL arg0, ResourceBundle arg1) {
-        dragMatches();
         hoverButton(button);
+        matches.forEach(e -> hBox.getChildren().add(createCard(e)));
         if(hBox.getChildren().size()==0){
             Label label = new Label();
             label.setText("You have not matches, yet.");
@@ -50,7 +54,8 @@ public class MatchController implements Initializable{
             label.setLayoutX(140);
             label.setLayoutY(210);
             anchorPane.getChildren().add(label);
-        }
+        }else 
+        dragMatches();
     }
 
     private void hoverButton(Node n){
@@ -164,5 +169,9 @@ public class MatchController implements Initializable{
             }
         });
     }
+
+    
+
+   
 
 }
