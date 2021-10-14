@@ -45,8 +45,8 @@ public class JsonTest {
         fileHandler.saveUser(users);
         User userReadFromFile = fileHandler.readUsers().get(0);
         userReadFromFile = fileHandler.readUsers().get(0);
-        Assertions.assertEquals(userReadFromFile.getAlreadyMatched(), user.getAlreadyMatched());
-        Assertions.assertTrue(userReadFromFile.getAlreadyMatched().containsKey(onScreenUser1.getEmail()));
+        Assertions.assertEquals(userReadFromFile.getLikedUsers(), user.getLikedUsers());
+        Assertions.assertTrue(userReadFromFile.getLikedUsers().containsKey(onScreenUser1.getEmail()));
 
     }
 
