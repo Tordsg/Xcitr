@@ -1,5 +1,6 @@
 package ui;
 
+import org.junit.Test;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.MethodSource;
@@ -14,13 +15,15 @@ import java.util.List;
 
 import javafx.stage.*;
 import core.*;
+import static org.testfx.api.FxAssert.verifyThat;
+import static org.testfx.matcher.control.LabeledMatchers.hasText;
 
 /**
  * TestFX App test
  */
 public class AppTest extends ApplicationTest {
 
-    private PrimaryController controller = new PrimaryController();
+    private LoginController controller;
     private Parent root;
     List<User> users = new ArrayList<>();
 
@@ -31,6 +34,17 @@ public class AppTest extends ApplicationTest {
         controller = fxmlLoader.getController();
         stage.setScene(new Scene(root));
         stage.show();
+    }
+
+    @Test
+    public void testLogin(){
+        clickOn("#emailLogin").write("Ola@mail");
+        verifyThat("#emailLogin", hasText("Ola@mail"));
+        clickOn("#PasswordField").write("123qwe");
+        verifyThat("#PasswordField", hasText("123qwe"));
+        clickOn("#login");
+        
+        
     }
     //TODO: Add more tests
 
