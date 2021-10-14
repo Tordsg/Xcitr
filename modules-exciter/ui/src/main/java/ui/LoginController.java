@@ -34,7 +34,7 @@ public class LoginController {
     private Text errorMessage;
 
     @FXML
-    private ImageView excitrLogo;
+    private ImageView xcitrLogo;
 
     @FXML
     public void initialize() {
