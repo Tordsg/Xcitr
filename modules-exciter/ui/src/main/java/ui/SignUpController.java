@@ -4,7 +4,9 @@ import core.*;
 import json.*;
 
 import java.io.IOException;
+import java.net.URL;
 import java.util.ArrayList;
+import java.util.ResourceBundle;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -18,31 +20,34 @@ import javafx.scene.text.Text;
 public class SignUpController {
 
     @FXML
-    Button createAccount;
+    private ResourceBundle resources;
+
+    @FXML
+    private URL location;
+
+    @FXML
+    private Button createAccount;
     
     @FXML
-    TextField name;
+    private TextField name;
 
     @FXML
-    TextField age;
+    private TextField age;
 
     @FXML
-    TextField emailSignup;
+    private TextField emailSignup;
 
     @FXML
-    PasswordField passwordSignup;
+    private PasswordField passwordSignup;
 
     @FXML
-    Text errorMessage;
+    private ImageView xcitrLogo;
 
     @FXML
-    ImageView xcitrLogo;
+    private Text fromSignupToLogin;
 
-    @FXML
-    Text fromSignupToLogin;
-
-    FileHandler fileHandler;
-    Exciter xcitr = new Exciter();
+    private FileHandler fileHandler;
+    private Exciter xcitr = new Exciter();
 
     @FXML
     void initialize() {
@@ -50,17 +55,17 @@ public class SignUpController {
         age.clear();
         emailSignup.clear();
         passwordSignup.clear();
-        errorMessage.setVisible(false);
+        //errorMessage.setVisible(false);
 
     }
 
     @FXML
-    void onSwitchToLogIn(MouseEvent event) throws IOException {
+    void onSwitchToLogin(MouseEvent event) throws IOException {
         App.setRoot("login");
     }
 
     @FXML
-    void handleCreateAccount(ActionEvent e) throws IOException {
+    void handleCreateAccount(ActionEvent event) throws IOException {
         String nameReg = name.getText();
         String ageReg = age.getText();
         String emailReg = emailSignup.getText();
@@ -68,7 +73,7 @@ public class SignUpController {
         
         for (User user : fileHandler.readUsers()) {
             if (emailReg.equals(user.getEmail())) { 
-                errorMessage.setVisible(true);
+                //errorMessage.setVisible(true);
                 emailSignup.clear();
                 passwordSignup.clear();
             }
