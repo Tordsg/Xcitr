@@ -6,6 +6,7 @@ import json.*;
 import java.io.IOException;
 import java.util.ArrayList;
 
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.PasswordField;
@@ -35,7 +36,10 @@ public class SignUpController {
     Text errorMessage;
 
     @FXML
-    private ImageView xcitrLogo;
+    ImageView xcitrLogo;
+
+    @FXML
+    Text fromSignupToLogin;
 
     FileHandler fileHandler;
     Exciter xcitr = new Exciter();
@@ -56,7 +60,7 @@ public class SignUpController {
     }
 
     @FXML
-    void handleCreateAccount() throws IOException {
+    void handleCreateAccount(ActionEvent e) throws IOException {
         String nameReg = name.getText();
         String ageReg = age.getText();
         String emailReg = emailSignup.getText();
