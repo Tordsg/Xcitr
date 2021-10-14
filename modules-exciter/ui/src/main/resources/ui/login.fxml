@@ -42,7 +42,7 @@
       </Rectangle>
       <Pane prefHeight="548.0" prefWidth="365.0" style="-fx-background-color: 1BC5EA; -fx-background-radius: 123;">
          <children>
-            <ImageView fitHeight="85.0" fitWidth="200.0" layoutX="89.0" layoutY="52.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fitHeight="85.0" fitWidth="200.0" layoutX="89.0" layoutY="52.0" pickOnBounds="true" preserveRatio="true" fx:id="xcitrLogo">
                <image>
                   <Image url="@../../../../../../../../../Downloads/unknown.png" />
                </image>
@@ -61,7 +61,7 @@
             <PasswordField fx:id="passwordLogin" layoutX="66.0" layoutY="330.0" prefHeight="46.0" prefWidth="234.0" />
             <TextField fx:id="emailLogin" layoutX="66.0" layoutY="222.0" prefHeight="46.0" prefWidth="234.0" />
             <Text fill="#6a6c73" layoutX="102.0" layoutY="490.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Need an account?" />
-            <Text fx:id="fromLoginToSignup" fill="#2e8ea6" layoutX="216.0" layoutY="490.0" onMouseClicked="#onSwitchToSignup" onMousePressed="#handleSwitchToSignup" strokeType="OUTSIDE" strokeWidth="0.0" text="Sign Up">
+            <Text fx:id="fromLoginToSignup" fill="#2e8ea6" layoutX="216.0" layoutY="490.0" onMouseClicked="#onSwitchToSignup" strokeType="OUTSIDE" strokeWidth="0.0" text="Sign Up">
                <font>
                   <Font name="System Bold" size="13.0" />
                </font>
