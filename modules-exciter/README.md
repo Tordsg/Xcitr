@@ -17,7 +17,7 @@ After a year and a half living in a global pandemic, Ulf Reidar has recognized a
 ## Illustration
 Below are three figma frames roughly describing how the application is going to look like after it is finished. 
 
-1. First the user is presented with two profile cards, where only the profile picture, the name and the age is displayed. In the top left corner is a small profile picture of the user. If this is pressed the user will be directed to their profile where they can edit their information, pictures, preferences, etc. The Xcitr-icon in the bottom left corner can be pressed to get an overview of all the people the user has matched with. 
+1. First the user is presented with two profile cards, where only the profile picture, the name and the age is displayed. In the top right corner is a small profile picture of the user. If this is pressed the user will be directed to their profile where they can edit their information, pictures, preferences, etc. The Xcitr-icon in the bottom right corner can be pressed to get an overview of all the people the user has matched with. 
 
 ![pic1](/uploads/ee0e85422ef1d66505f52fc82cdee24e/pic1.png)
 
