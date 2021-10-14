@@ -17,7 +17,7 @@ public class App extends Application {
 
     @Override
     public void start(Stage stage) throws IOException {
-        scene = new Scene(loadFXML("signup"), 365, 548);
+        scene = new Scene(loadFXML("signup"));
         stage.setScene(scene);
         stage.show();
     }

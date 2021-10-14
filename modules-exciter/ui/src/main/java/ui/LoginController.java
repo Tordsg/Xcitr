@@ -7,12 +7,16 @@ import java.io.IOException;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.text.Text;
+import javafx.stage.Stage;
 
 public class LoginController {
 
@@ -59,7 +63,21 @@ public class LoginController {
         passwordLogin.clear();
         emailLogin.clear();
 
+        Stage stage = (Stage) login.getScene().getWindow();
+        stage.close();
+
+        openPrimary(event);
+
     }
+
+    private void openPrimary(ActionEvent e) throws IOException {
+		Parent parent = FXMLLoader.load(getClass().getResource("primary.fxml"));
+		Scene scene = new Scene(parent);
+		Stage window = new Stage();
+		
+		window.setScene(scene);
+		window.show();
+	}
 
     @FXML
     void onSwitchToSignup(MouseEvent event) throws IOException {
