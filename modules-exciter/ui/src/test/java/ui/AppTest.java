@@ -62,6 +62,7 @@ public class AppTest extends ApplicationTest {
   // third method, where you do the assertions
   // and you actually call the click, lookup, whatever methods
   private void checkResult(String string1, boolean excpected) {
+    clickOn("#login");
     Assertions.assertNull(string1);
   }
 
