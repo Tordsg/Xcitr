@@ -3,6 +3,7 @@ package ui;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import java.util.stream.Stream;
 
@@ -62,7 +63,14 @@ public class AppTest extends ApplicationTest {
   // third method, where you do the assertions
   // and you actually call the click, lookup, whatever methods
   private void checkResult(String string1, boolean excpected) {
+    //How to fill textboxes
+    TextField email = lookup("#emailLogin").query();
+    email.setText("ulf@mail");
+    TextField password = lookup("#passwordLogin").query();
+    password.setText("123");
+    //Simple click. It refers to fxml id
     clickOn("#login");
+    //Assertions placeholder
     Assertions.assertNull(string1);
   }
 
