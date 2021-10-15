@@ -37,6 +37,10 @@ public class Exciter {
       currentUser = user;
    }
 
+   /**
+    * 
+    * @return a list of the next users in the file of users
+    */
    public ArrayList<User> getNextUsers() {
       int[] randomUsers = new Random().ints(0, allUsers.size() - 1).distinct().limit(2).toArray();
 
@@ -45,6 +49,10 @@ public class Exciter {
       return new ArrayList<>(Arrays.asList(allUsers.get(randomUsers[0]), allUsers.get(randomUsers[1])));
    }
 
+   /**
+    * 
+    * @return two users who are not curretly portrayed on the app
+    */
    public ArrayList<User> refreshUsers(){
       ArrayList<User> tempUserList = allUsers.stream().filter(a -> a != onScreenUser1 && a != onScreenUser2)
             .collect(Collectors.toCollection(ArrayList::new));
@@ -55,6 +63,10 @@ public class Exciter {
       return new ArrayList<>(Arrays.asList(tempUserList.get(randomUsers[0]), tempUserList.get(randomUsers[1])));
    }
 
+   /**
+    * 
+    * @return a random user from the file archive
+    */
    public User getNextRandomUser() {
       ArrayList<User> tempUserList = allUsers.stream().filter(a -> a != onScreenUser1 && a != onScreenUser2)
             .collect(Collectors.toCollection(ArrayList::new));
@@ -63,6 +75,7 @@ public class Exciter {
 
       return tempUserList.get(randomUser);
    }
+
 
    public void setOnScreenUser1(User user) {
       onScreenUser1 = user;
@@ -80,6 +93,11 @@ public class Exciter {
       return onScreenUser2;
    }
 
+   /**
+    * 
+    * @param user
+    * @return how many likes an onscreen user has
+    */
    public int getOnScreenUserLikeCount(User user) {
       if(currentUser.getAlreadyMatched().containsKey(user.getEmail())) {
          return currentUser.getAlreadyMatched().get(user.getEmail());
@@ -104,6 +122,10 @@ public class Exciter {
       return new ArrayList<>(Arrays.asList(onScreenUser1, onScreenUser2));
    }
 
+   /**
+    * 
+    * @return
+    */
    public boolean pressedLikeFirst() {
       currentUser.fireOnLike(onScreenUser1);
       currentUser.resetUserMatch(onScreenUser2);

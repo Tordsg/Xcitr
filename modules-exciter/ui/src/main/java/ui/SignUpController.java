@@ -68,6 +68,7 @@ public class SignUpController {
         App.setRoot("login");
     }
 
+
     @FXML
     void handleCreateAccount(ActionEvent event) throws IOException {
         String nameReg = name.getText();
