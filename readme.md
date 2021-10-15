@@ -14,19 +14,27 @@ To test the different modules you have to be in the desired module by using  'cd
 The project is organized in the following structre. Code and modules can be found under modules-exciter. Within this folder one can find all of the core logic that makes up the backend of the app, along with the code for the frontend user interface and the file storage. Within modules-exciter there is also a README-file with a complete app description.
 
 ### Core
-The core module contains the different classes that make up the back-end development of the app. It has four classes, where MatchListener is an interface that allows the User-class to register how many matches a user object has:
+The core module contains the different classes that make up the back-end development of the app. It has four classes, where MatchListener is an interface that allows the User-class to register how many matches a user object has. While BotUser is an inherited class from User that ensures matches occurs:
 - Exciter (main class)
 - MatchListener (Action listiner interface)
 - User (class that describes a user object)
+- BotUser (class to ensure that the viewed "profiles" can like the user back even though they are not real users)
 
 There is also a test class for the Exciter class that tests whether the like-function and match-function works how we intend it to. 
 
 ### JSON
-#### FileHandler
 There is only one class within the JSON module, which is a file handler class. This class saves information on who the user has liked on the app, as well as how many times they have liked the same person. This is necessary infromation to store so that the users can match with each other. There is also a file test class that makes sure the information is stored in the right place and format. 
 
-#### Test
-
 ### UI
-The UI folder contains all of the front-end development of the app. This includes the app class which provides the framework for managing of JavaFX dating application. Then there are to controller classes that implements the two classes Exciter and User from the core module. The primary controller manage the profile-card page where the user can like other users. The secondary controller connects the User logic with the profile page in the app. 
+The UI folder contains all of the front-end development of the app. This includes the app class which provides the framework for managing of JavaFX dating application. Then there are six controller classes that implements the two classes Exciter and User from the core module. 
+- ImageController (controller to handle the images that are being swiped and loaded from the users computer)
+- LoginController (controller connected to login.fxml that enables a user to login to the application)
+- SignUpController (connected to signup.fxml and manages the signup window where a new user can sign up so their information is stored and can move on to use the app)
+- PrimaryController (connected to primary.fxml and manages the swiping page where the user can like and match with other users)
+- SecondaryController (connected to profile.fxml and manages the user information as a profile page)
+- MatchController (connected to match.fxml and manages the users matches and communication with them)
+
+There is also an app class in this module that launces the Xcitr application in Scenebuilder. 
+
+UI testing
 
