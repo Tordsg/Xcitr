@@ -36,7 +36,8 @@ public class MatchController implements Initializable{
     Group button;
     @FXML
     AnchorPane anchorPane;
-    private ImageController imageController = PrimaryController.imageController;
+    private Exciter xcitr = LoginController.xcitr;
+    protected static ImageController imageController = PrimaryController.imageController;
     protected static ArrayList<User> matches;
     
     public void switchToPrimary() throws IOException{
@@ -66,7 +67,7 @@ public class MatchController implements Initializable{
             n.setEffect(null);
         });
     }
-    private Pane createCard(User user){
+    protected static Pane createCard(User user){
         Pane pane = new Pane();
         pane.setPrefHeight(338);
         pane.setPrefWidth(245);
@@ -93,7 +94,7 @@ public class MatchController implements Initializable{
         age.setAlignment(Pos.CENTER);
         age.setContentDisplay(ContentDisplay.CENTER);
         age.setLayoutX(170);
-        age.setLayoutY(0);
+        age.setLayoutY(-3);
         age.setPrefHeight(45);
         age.setPrefWidth(58);
         age.setText(Integer.toString(user.getAge()));
@@ -103,7 +104,7 @@ public class MatchController implements Initializable{
         name.setLayoutX(5);
         name.setLayoutY(-3);
         name.setPrefHeight(17);
-        name.setPrefWidth(119);
+        name.setPrefWidth(160);
         name.setText(user.getName());
         name.setFont(new Font(30));
         name.setOpacity(1);

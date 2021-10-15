@@ -40,8 +40,8 @@ public class PrimaryController implements Initializable{
     private Group matchButton;
     @FXML
     private Pane leftCard, rightCard, refresh,scorePane;
-    protected Exciter excite = new Exciter();
-    private FileHandler fileHandler = new FileHandler();
+    protected Exciter excite = LoginController.xcitr;
+    protected static FileHandler fileHandler = LoginController.fileHandler;
     //Static since it's shared by the SecondaryController
     protected static ImageController imageController = new ImageController();
     protected static ArrayList<User> matches;
@@ -49,12 +49,11 @@ public class PrimaryController implements Initializable{
     @FXML
     private void switchToSecondary() throws IOException {
         saveUserData();
-        App.setRoot("secondary");
+        App.setRoot("profile");
     }
     @FXML
     private void switchToMatch() throws IOException {
         saveUserData();
-       
         MatchController.matches = excite.getCurrentUserMatches();
         App.setRoot("match");
     }
@@ -62,7 +61,8 @@ public class PrimaryController implements Initializable{
     public void saveUserData(){
         fileHandler.createFile();
         ArrayList<User> users = excite.getAllUsers();
-        users.add(excite.getCurrentUser());
+        boolean hasUser = users.stream().anyMatch(e -> e.getClass().getName().equals("core.User"));
+        if(!hasUser) users.add(excite.getCurrentUser());
         fileHandler.saveUser(users);
     }
     private void hoverButton(Node n){

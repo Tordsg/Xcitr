@@ -12,11 +12,12 @@ public class Exciter {
    private User onScreenUser2;
 
    // Current user placeholder before logging in is implemented
-   private User currentUser = new User("Ulf Reidar", 25, "Camping, guitar, professional speed knitter", "Ulf@mail");
+   private User currentUser = new User("admin", 18, "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut", "admin");
 
    public Exciter() {
       addSomePlaceholderUsers();
       getNextUsers();
+      currentUser.setPassword("admin");
    }
 
    public void addSomePlaceholderUsers() {
