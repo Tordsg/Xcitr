@@ -7,14 +7,18 @@ import java.io.IOException;
 import javafx.fxml.Initializable;
 
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import javafx.scene.input.MouseEvent;
+import javafx.scene.shape.Rectangle;
+import javafx.scene.shape.SVGPath;
 import javafx.stage.FileChooser;
 
 import java.net.URL;
 import java.util.ResourceBundle;
+
+
 
 public class SecondaryController implements Initializable{
     private Exciter excite = new Exciter();
@@ -23,8 +27,9 @@ public class SecondaryController implements Initializable{
 
 
     @FXML
-    private void switchToPrimary() throws IOException {
+    private void switchToPrimary(MouseEvent event) throws IOException {
         App.setRoot("primary");
+
     }
 
     @FXML
@@ -48,25 +53,55 @@ public class SecondaryController implements Initializable{
         return extension;
     }
 
+    @FXML
+    private Label Age, Email, Bio, Name, SaveLabel, EditLabel;
+
+    @FXML
+    private Rectangle ProfileImage;
+    
+    @FXML
+    private TextArea UpdateBio;
+
+    @FXML
+    private TextField UpdateName, UpdateEmail, UpdateAge;
+
+    @FXML
+    private SVGPath SaveButton, UpdateButton;
+
+
 
 
     @FXML
-    private Button Back;
+    void UpdateInfo(MouseEvent event) {
+        UpdateBio.setVisible(true);
+        SaveButton.setVisible(true);
+        SaveLabel.setVisible(true);
+        UpdateButton.setVisible(false);
+        EditLabel.setVisible(false);
+
+    
+
+    }
+    @FXML
+    void SaveInfo(MouseEvent event) {
+        User currentUser = excite.getCurrentUser();
+        currentUser.setUserInformation(UpdateBio.getText());
+        excite.setCurrentUser(currentUser);
+        initData();
+        UpdateBio.setVisible(false);
+        SaveButton.setVisible(false);
+        SaveLabel.setVisible(false);
+        UpdateButton.setVisible(true);
+        EditLabel.setVisible(true);
+
+
+
+    }
 
     @FXML
-    private Button Upload;
-
-    @FXML
-    private Label Name;
-
-    @FXML
-    private Label Bio;
-
-
-    @FXML
-    private Label Age;
-
-
+    public void signOut(MouseEvent event){
+        
+    }
 
 
 public void initData(){
@@ -74,6 +109,11 @@ public void initData(){
     Name.setText(currentUser.getName());
     Age.setText(String.valueOf(currentUser.getAge()));
     Bio.setText(currentUser.getUserInformation());
+    ProfileImage.setFill(imageController.getImage(excite.getCurrentUser()));
+    Email.setText(currentUser.getEmail());
+    UpdateBio.setText(currentUser.getUserInformation());
+   
+    
 
 }
 @Override
