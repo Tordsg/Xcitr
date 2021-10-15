@@ -17,7 +17,7 @@ The goal for persistence in this release is to expand it so that it can store al
 For release 2 the goal is to expand the ui substantially with a login page, signup page and a match page. Additionally its aimed to update the user interface so that it stands more in line with the figma models from release 1. The user should be able to switch between the login and signup page depending on whether they already have a profile on the app. From the swiping page the user shoudl be able to move to their profile page where their email and bio can be updated. Here they will also have the opportunity to log out of the app. The user can also move to the match page where there will be an overview of everyone they have matched with as well as some form of communication platform. All of these windows or pages will follow the same graphical profile.
 
 ### Testing 
-Another goal for this release is to implement more testing coverage for both the persistence and the ui. This expansion is natural considering the additional functionality and complexity that will be added to the application. 
+Another goal for this release is to implement more testing coverage for both the persistence and the ui. This expansion is natural considering the additional functionality and complexity that will be added to the application. The our goal is not to test all of the UI but at least a few of the controller classes and then move on to finish these in release 3. 
 
-## Illustration
+
 
