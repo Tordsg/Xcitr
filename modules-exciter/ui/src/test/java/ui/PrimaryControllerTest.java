@@ -4,7 +4,6 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.TextField;
-import javafx.scene.shape.SVGPath;
 import javafx.stage.Stage;
 import java.util.stream.Stream;
 
@@ -16,20 +15,20 @@ import org.testfx.framework.junit5.ApplicationTest;
 
 /*TestFx App Test*/
 
-public class SecondaryControllerTest extends ApplicationTest {
+public class PrimaryControllerTest extends ApplicationTest {
 
-  private SecondaryController controller = new SecondaryController();
+  private PrimaryController controller = new PrimaryController();
 
   @Override
   public void start(Stage stage) throws Exception {
-    FXMLLoader loader = new FXMLLoader(getClass().getResource("secondary.fxml"));
+    FXMLLoader loader = new FXMLLoader(getClass().getResource("primary.fxml"));
     Parent root = loader.load();
     controller = loader.getController();
     stage.setScene(new Scene(root));
     stage.show();
   }
 
-  public SecondaryController getController() {
+  public PrimaryController getController() {
     return controller;
   }
 
@@ -64,16 +63,8 @@ public class SecondaryControllerTest extends ApplicationTest {
   // third method, where you do the assertions
   // and you actually call the click, lookup, whatever methods
   private void checkResult(String string1, boolean excpected) {
-    SVGPath edit = lookup("#UpdateButton").query();
-    clickOn(edit);
     
-    TextField bio = lookup("#UpdateBio").query();
-    String bioNow = bio.getText();
-    bio.setText(bioNow + "ulf@mail");
-    
-    SVGPath save = lookup("#SaveButton").query();
-    clickOn(save);
-    Assertions.assertNull(string1);
+
   }
 
   private void checkResult(int one, int two) {

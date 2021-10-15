@@ -78,15 +78,7 @@ public class AppTest extends ApplicationTest {
     Assertions.assertEquals(one, two);
   }
 
-  // Click on må gjøres om til lookup
 
-  /*
-   * @Test public void testLogin(){
-   * /*clickOn(lookup("#emailLogin").query()).write("Ola@mail");
-   * verifyThat("#emailLogin", hasText("Ola@mail"));
-   * clickOn("#PasswordField").write("123qwe"); verifyThat("#PasswordField",
-   * hasText("123qwe")); clickOn("#login");
-   */
 
   // TODO: Add more tests
 

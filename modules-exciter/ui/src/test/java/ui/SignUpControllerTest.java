@@ -4,7 +4,6 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.TextField;
-import javafx.scene.shape.SVGPath;
 import javafx.stage.Stage;
 import java.util.stream.Stream;
 
@@ -16,20 +15,20 @@ import org.testfx.framework.junit5.ApplicationTest;
 
 /*TestFx App Test*/
 
-public class SecondaryControllerTest extends ApplicationTest {
+public class SignUpControllerTest extends ApplicationTest {
 
-  private SecondaryController controller = new SecondaryController();
+  private SignUpController controller = new SignUpController();
 
   @Override
   public void start(Stage stage) throws Exception {
-    FXMLLoader loader = new FXMLLoader(getClass().getResource("secondary.fxml"));
+    FXMLLoader loader = new FXMLLoader(getClass().getResource("signup.fxml"));
     Parent root = loader.load();
     controller = loader.getController();
     stage.setScene(new Scene(root));
     stage.show();
   }
 
-  public SecondaryController getController() {
+  public SignUpController getController() {
     return controller;
   }
 
@@ -64,15 +63,21 @@ public class SecondaryControllerTest extends ApplicationTest {
   // third method, where you do the assertions
   // and you actually call the click, lookup, whatever methods
   private void checkResult(String string1, boolean excpected) {
-    SVGPath edit = lookup("#UpdateButton").query();
-    clickOn(edit);
-    
-    TextField bio = lookup("#UpdateBio").query();
-    String bioNow = bio.getText();
-    bio.setText(bioNow + "ulf@mail");
-    
-    SVGPath save = lookup("#SaveButton").query();
-    clickOn(save);
+    //How to fill textboxes
+    TextField name = lookup("#name").query();
+    name.setText("Ulf Reidar");
+
+    TextField age = lookup("#age").query();
+    age.setText("19");
+
+    TextField email = lookup("#emailSignup").query();
+    email.setText("Ulf@mail.no");
+
+    TextField password = lookup("#passwordSignup").query();
+    password.setText("123");
+    //Simple click. It refers to fxml id
+    clickOn("#createAccount");
+    //Assertions placeholder
     Assertions.assertNull(string1);
   }
 
@@ -80,7 +85,7 @@ public class SecondaryControllerTest extends ApplicationTest {
     Assertions.assertEquals(one, two);
   }
 
-
+ 
 
   // TODO: Add more tests
 
