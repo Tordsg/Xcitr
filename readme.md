@@ -23,11 +23,13 @@ The core module contains the different classes that make up the back-end develop
 - BotUser (class to ensure that the viewed "profiles" can like the user back even though they are not real users)
 
 There is also a test class for the Exciter class that tests whether the like-function and match-function works how we intend it to. 
+(add jacoco image file)
 
 ### JSON
 Link: https://gitlab.stud.idi.ntnu.no/it1901/groups-2021/gr2117/gr2117/-/tree/master/modules-exciter/json
 
 There is only one class within the JSON module, which is a file handler class. This class saves information on who the user has liked on the app, as well as how many times they have liked the same person. This is necessary infromation to store so that the users can match with each other. There is also a file test class that makes sure the information is stored in the right place and format. 
+(add jacoco image file)
 
 ### UI
 Link: https://gitlab.stud.idi.ntnu.no/it1901/groups-2021/gr2117/gr2117/-/tree/master/modules-exciter/ui
@@ -42,5 +44,5 @@ The UI folder contains all of the front-end development of the app. This include
 
 There is also an app class in this module that launces the Xcitr application in Scenebuilder. 
 
-UI testing
+UI testing (add jacoco image file)
 
