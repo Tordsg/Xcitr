@@ -4,8 +4,6 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
-import core.BotUser;
-import core.Exciter;
 import core.User;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -36,7 +34,6 @@ public class MatchController implements Initializable{
     Group button;
     @FXML
     AnchorPane anchorPane;
-    private Exciter xcitr = LoginController.xcitr;
     protected static ImageController imageController = PrimaryController.imageController;
     protected static ArrayList<User> matches;
     

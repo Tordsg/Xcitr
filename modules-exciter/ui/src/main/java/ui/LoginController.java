@@ -51,7 +51,7 @@ public class LoginController {
         for (User user : fileHandler.readUsers()) {
             if (email.equals(user.getEmail()) && User.MD5Hash(password).equals(user.getPassword())) {
                 xcitr.setCurrentUser(user);
-                App.setRoot("primary");
+                switchToPrimary();
             }
         }
        if(email.equals(xcitr.getCurrentUser().getEmail()) && User.MD5Hash(password).equals(xcitr.getCurrentUser().getPassword())) App.setRoot("primary");
@@ -59,7 +59,6 @@ public class LoginController {
         errorMessage.setVisible(true);
         passwordLogin.clear();
         emailLogin.clear();
-        App.setRoot("primary");
 
 
        
