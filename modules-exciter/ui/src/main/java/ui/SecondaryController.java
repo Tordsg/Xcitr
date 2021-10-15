@@ -8,6 +8,7 @@ import javafx.fxml.Initializable;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.stage.FileChooser;
@@ -56,14 +57,14 @@ public class SecondaryController implements Initializable{
     private Button Upload;
 
     @FXML
-    private TextField Name;
+    private Label Name;
 
     @FXML
-    private TextArea Bio;
+    private Label Bio;
 
 
     @FXML
-    private TextField Age;
+    private Label Age;
 
 
 
