@@ -1,12 +1,17 @@
 [![Gitpod Ready-to-Code](https://img.shields.io/badge/Gitpod-Ready--to--Code-blue?logo=gitpod)](https://gitlab.stud.idi.ntnu.no/it1901/groups-2021/gr2117/gr2117)
 
 # Group gr2117 repository
-This is the coding project called Xcitr for group 2117´s dating application in the course IT1901. The project is git modified and will open in gitpod if you press the gitpod lable above.
+This is the coding project called Xcitr for group 2117´s dating application in the course IT1901. The project is git modified and will open in gitpod if you press the gitpod label above.
 
 ## Running, Building and Testing the Project
+The project uses maven configuration to build and run the application. To build the project, enter 'mvn install' in the terminal from the **modules-exciter** folder. This must be done before you can run the application and its tests.
+
+To run the application you have to be in the **ui** module, which can be *accessed* by using the command 'cd ui', and then using the command 'mvn javafx:run'.
+
+To test the different modules you have to be in the desired module by using  'cd *module name*' and writing the command 'mvn test' in the terminal. 
 
 ## Modules-Exciter
-The project is organized in the following structre. Code and modules can be found under modules-exciter. Within this folder one can find all of the core logic that makes up the app, along with the code for the user interface and the file storage. Within this module there is also a README-file with a complete app description.
+The project is organized in the following structre. Code and modules can be found under modules-exciter. Within this folder one can find all of the core logic that makes up the backend of the app, along with the code for the frontend user interface and the file storage. Within modules-exciter there is also a README-file with a complete app description.
 
 ### Core
 The core module contains the different classes that make up the back-end development of the app. It has four classes, where MatchListener is an interface that allows the User-class to register how many matches a user object has:
