@@ -117,7 +117,9 @@ public class User implements MatchListener {
         this.password = MD5Hash(password);;
     }
 
-    //Security implementation with MD5
+    /**
+     * Security implementation with MD5
+     */
     public static String MD5Hash(String password) {
         String outString = null;
         try {

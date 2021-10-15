@@ -20,3 +20,4 @@ For release 2 the goal is to expand the ui substantially with a login page, sign
 Another goal for this release is to implement more testing coverage for both the persistence and the ui. This expansion is natural considering the additional functionality and complexity that will be added to the application. 
 
 ## Illustration
+
