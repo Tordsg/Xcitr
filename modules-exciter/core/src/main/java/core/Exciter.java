@@ -20,12 +20,12 @@ public class Exciter {
    }
 
    public void addSomePlaceholderUsers() {
-      allUsers.add(new BotUser("John", 22, "John@mail",true));
-      allUsers.add(new BotUser("Jane", 31, "Jane@mail",true));
-      allUsers.add(new BotUser("Joe", 19, "Joe@mail",false));
-      allUsers.add(new BotUser("Derik", 27, "Derik@mail",false));
-      allUsers.add(new BotUser("Diana", 23, "Diana@mail",false));
-      allUsers.add(new BotUser("Dani", 25, "Dani@mail",true));
+      allUsers.add(new BotUser("John", 22, "John@mail", true));
+      allUsers.add(new BotUser("Jane", 31, "Jane@mail", true));
+      allUsers.add(new BotUser("Joe", 19, "Joe@mail", false));
+      allUsers.add(new BotUser("Derik", 27, "Derik@mail", false));
+      allUsers.add(new BotUser("Diana", 23, "Diana@mail", false));
+      allUsers.add(new BotUser("Dani", 25, "Dani@mail", true));
       allUsers.add(new User("Roger", 25, "Roger@mail"));
    }
 
@@ -45,7 +45,7 @@ public class Exciter {
       return new ArrayList<>(Arrays.asList(allUsers.get(randomUsers[0]), allUsers.get(randomUsers[1])));
    }
 
-   public ArrayList<User> refreshUsers(){
+   public ArrayList<User> refreshUsers() {
       ArrayList<User> tempUserList = allUsers.stream().filter(a -> a != onScreenUser1 && a != onScreenUser2)
             .collect(Collectors.toCollection(ArrayList::new));
 
@@ -81,8 +81,8 @@ public class Exciter {
    }
 
    public int getOnScreenUserLikeCount(User user) {
-      if(currentUser.getAlreadyMatched().containsKey(user.getEmail())) {
-         return currentUser.getAlreadyMatched().get(user.getEmail());
+      if (currentUser.getLikedUsers().containsKey(user.getEmail())) {
+         return currentUser.getLikedUsers().get(user.getEmail());
       }
       return 0;
    }
@@ -122,6 +122,11 @@ public class Exciter {
       }
       onScreenUser1 = getNextRandomUser();
       return onScreenUser2.checkIfMatch(currentUser);
+   }
+
+   public ArrayList<User> getCurrentUserMatches() {
+      return allUsers.stream().filter(a -> currentUser.checkIfMatch(a))
+            .collect(Collectors.toCollection(ArrayList::new));
    }
 
 }

@@ -40,7 +40,7 @@
             </LinearGradient>
          </fill>
       </Rectangle>
-      <Pane fx:id="leftCard" layoutX="40.0" layoutY="55.0" prefHeight="338.0" prefWidth="225.0" style="-fx-background-color: lightblue; -fx-background-radius: 21 21 21 21; -fx-border-radius: 20 20 20 20; -fx-border-width: 2; -fx-border-color: black;">
+      <Pane fx:id="leftCard" layoutX="40.0" layoutY="55.0" prefHeight="338.0" prefWidth="225.0">
          <children>
             <Rectangle fx:id="leftPicture" arcHeight="45.0" arcWidth="45.0" fill="DODGERBLUE" height="338.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="2.0" width="225.0" />
             <Pane cacheShape="false" layoutY="286.0" opacity="0.39" prefHeight="52.0" prefWidth="225.0" style="-fx-background-color: white; -fx-background-radius: 0 0 22 22; -fx-border-radius: 0 0 21 21; -fx-border-width: 0 2 2 2; -fx-border-color: black;" />
@@ -102,7 +102,7 @@
             </Text>
          </children>
       </Pane>
-      <Group layoutX="560.0" layoutY="186.0">
+      <Group fx:id="matchButton" layoutX="560.0" layoutY="186.0" onMouseClicked="#switchToMatch">
          <children>
             
                                     <SVGPath content="M27 54.2898C41.9117 54.2898 54 42.1366 54 27.1449C54 12.1532 41.9117 0 27 0C12.0883 0 0 12.1532 0 27.1449C0 42.1366 12.0883 54.2898 27 54.2898Z">

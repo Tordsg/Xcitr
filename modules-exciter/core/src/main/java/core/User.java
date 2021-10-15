@@ -2,6 +2,7 @@ package core;
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.util.ArrayList;
 import java.util.HashMap;
 
 public class User implements MatchListener {
@@ -10,7 +11,7 @@ public class User implements MatchListener {
     private int age;
     private String userInformation;
     private String email;
-    private HashMap<String, Integer> likedByCounter = new HashMap<>();
+    private HashMap<String, Integer> likedUsers = new HashMap<>();
     private String password = null;
 
     /**
@@ -19,15 +20,15 @@ public class User implements MatchListener {
      * @param name
      * @param age
      * @param userInformation
-     * @param likedByCounter
+     * @param likedUsers
      * @param email
      * @param password
      *
      * @apiNote This constructor is to only be used by the filehandler class
      */
-    public User(String name, int age, String userInformation, HashMap<String, Integer> likedByCounter, String email, String password) {
+    public User(String name, int age, String userInformation, HashMap<String, Integer> likedUsers, String email, String password) {
         this.userInformation = userInformation;
-        this.likedByCounter = likedByCounter;
+        this.likedUsers = likedUsers;
         this.name = name;
         this.email = email;
         this.password = password;
@@ -39,12 +40,12 @@ public class User implements MatchListener {
      * @param name
      * @param age
      * @param userInformation
-     * @param likedByCounter
+     * @param likedUsers
      * @param email
      */
-    public User(String name, int age, String userInformation, HashMap<String, Integer> likedByCounter, String email) {
+    public User(String name, int age, String userInformation, HashMap<String, Integer> likedUsers, String email) {
         this.userInformation = userInformation;
-        this.likedByCounter = likedByCounter;
+        this.likedUsers = likedUsers;
         this.name = name;
         this.email = email;
         setAge(age);
@@ -140,8 +141,8 @@ public class User implements MatchListener {
         return this.password;
     }
 
-    public HashMap<String, Integer> getAlreadyMatched() {
-        return new HashMap<>(likedByCounter);
+    public HashMap<String, Integer> getLikedUsers() {
+        return new HashMap<>(likedUsers);
     }
 
     @Override
@@ -150,20 +151,20 @@ public class User implements MatchListener {
     }
 
     public boolean containsPreviousMatch(User match) {
-        return likedByCounter.containsKey(match.getEmail());
+        return likedUsers.containsKey(match.getEmail());
     }
 
     public void addUserOnMatch(User match) {
-        if (!likedByCounter.containsKey(match.getEmail())) {
-            likedByCounter.put(match.getEmail(), 1);
+        if (!likedUsers.containsKey(match.getEmail())) {
+            likedUsers.put(match.getEmail(), 1);
         } else {
-            likedByCounter.put(match.getEmail(), likedByCounter.get(match.getEmail()) + 1);
+            likedUsers.put(match.getEmail(), likedUsers.get(match.getEmail()) + 1);
         }
     }
 
     public void resetUserMatch(User user) {
-        if (likedByCounter.containsKey(user.getEmail())) {
-            likedByCounter.put(user.getEmail(), 0);
+        if (likedUsers.containsKey(user.getEmail())) {
+            likedUsers.put(user.getEmail(), 0);
         }
     }
 
@@ -173,10 +174,10 @@ public class User implements MatchListener {
     }
 
     public boolean haveLikedUser(User user) {
-        if (!likedByCounter.containsKey(user.getEmail())) {
+        if (!likedUsers.containsKey(user.getEmail())) {
             return false;
         }
-        return likedByCounter.get(user.getEmail()) >= 3;
+        return likedUsers.get(user.getEmail()) >= 3;
     }
 
     public int getImageHashCode() {
@@ -186,7 +187,7 @@ public class User implements MatchListener {
     @Override
     public String toString() {
         return "User{" + "name='" + name + '\'' + ", age=" + age + ", userInformation='" + userInformation + '\''
-                + ", email='" + email + '\'' + ", likedByCounter=" + likedByCounter + '}';
+                + ", email='" + email + '\'' + ", likedUsers=" + likedUsers + '}';
     }
 
 }

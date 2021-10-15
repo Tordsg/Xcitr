@@ -18,7 +18,7 @@ public class ExciterTest {
     public void likeFirst(){
         exciter.getNextUsers();
         exciter.pressedLikeFirst();
-        Assertions.assertTrue(exciter.getCurrentUser().getAlreadyMatched().containsKey(exciter.getOnScreenUsers().get(0).getEmail()));
+        Assertions.assertTrue(exciter.getCurrentUser().getLikedUsers().containsKey(exciter.getOnScreenUsers().get(0).getEmail()));
     }
 
     @Test
@@ -29,7 +29,7 @@ public class ExciterTest {
             exciter.pressedLikeSecond();
         }
         Assertions.assertTrue(exciter.pressedLikeSecond());
-        Assertions.assertTrue(exciter.getOnScreenUser2().getAlreadyMatched().containsKey(exciter.getCurrentUser().getEmail()));
+        Assertions.assertTrue(exciter.getOnScreenUser2().getLikedUsers().containsKey(exciter.getCurrentUser().getEmail()));
     }
 
     @Test
