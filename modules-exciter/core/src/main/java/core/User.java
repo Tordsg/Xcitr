@@ -162,7 +162,7 @@ public class User implements MatchListener {
     }
 
     public void resetUserMatch(User user) {
-        if (likedUsers.containsKey(user.getEmail())) {
+        if (likedUsers.containsKey(user.getEmail()) && likedUsers.get(user.getEmail()) < 3) {
             likedUsers.put(user.getEmail(), 0);
         }
     }
