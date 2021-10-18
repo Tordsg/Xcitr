@@ -28,9 +28,6 @@ public class Exciter {
          if (!userMailList.contains(user.getEmail())) {
             allUsers.add(user);
          }
-         else {
-            System.out.println("here");
-         }
       }
    }
 
