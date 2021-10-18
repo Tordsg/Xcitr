@@ -3,6 +3,8 @@ package ui;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.shape.Circle;
+import javafx.scene.shape.SVGPath;
 import javafx.stage.Stage;
 import java.util.stream.Stream;
 
@@ -62,6 +64,12 @@ public class PrimaryControllerTest extends ApplicationTest {
   // third method, where you do the assertions
   // and you actually call the click, lookup, whatever methods
   private void checkResult(String string1, boolean excpected) {
+    drag("#Name1").moveTo("#leftPicture").drop();
+    drag("#Name2").moveTo("#rightPicture").drop();
+
+    Circle profile = lookup("#profile").query();
+    clickOn(profile);
+
     
 
   }
