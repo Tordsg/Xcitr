@@ -13,12 +13,16 @@ import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
 import org.testfx.framework.junit5.ApplicationTest;
 
+import core.Exciter;
+import core.User;
+
 /*TestFx App Test*/
 
 public class SignUpControllerTest extends ApplicationTest {
 
   private SignUpController controller = new SignUpController();
-
+  private Exciter excite = new Exciter();
+  
   @Override
   public void start(Stage stage) throws Exception {
     FXMLLoader loader = new FXMLLoader(getClass().getResource("signup.fxml"));
@@ -65,25 +69,41 @@ public class SignUpControllerTest extends ApplicationTest {
   private void checkResult(String string1, boolean excpected) {
     //How to fill textboxes
     TextField name = lookup("#name").query();
-    name.setText("Ulf Reidar");
+    clickOn(name);
+    write("Ulf Reidar");
 
     TextField age = lookup("#age").query();
-    age.setText("19");
+    clickOn(age);
+    write("19");
 
     TextField email = lookup("#emailSignup").query();
-    email.setText("Ulf@mail.no");
+    clickOn(email);
+    write("Ulf@mail.no");
+
+    User currentUser = new User(name.getText(), Integer.parseInt(age.getText()), email.getText());
 
     TextField password = lookup("#passwordSignup").query();
-    password.setText("123");
+    clickOn(password);
+    write("123");
     //Simple click. It refers to fxml id
     clickOn("#createAccount");
     //Assertions placeholder
+    checkIfContainsUser(currentUser);
     Assertions.assertNull(string1);
   }
 
   private void checkResult(int one, int two) {
     Assertions.assertEquals(one, two);
   }
+
+  private void checkIfContainsUser(User user){
+    int number = 0;
+    if(excite.getAllUsers().contains(user)){
+      number = 1;
+    }
+    test1equal1(1, number);
+   
+}
 
  
 

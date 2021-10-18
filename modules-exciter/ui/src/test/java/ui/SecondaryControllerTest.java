@@ -48,12 +48,12 @@ public class SecondaryControllerTest extends ApplicationTest {
   // from the test method to the checkResult method
   // Why you keep this one is to split up the first parameter if it's a list for
   // example
-  /*@ParameterizedTest
+  @ParameterizedTest
   @MethodSource
   public void test1equal1(int one, int two) {
     checkResult(one, two);
   }
-*/
+
   // This is second method, where you keep all the values
   // you want to test. i.e. you can have a list of values
   // like name, age, etc.
@@ -68,7 +68,8 @@ public class SecondaryControllerTest extends ApplicationTest {
     clickOn(edit);
     
     TextField bio = lookup("#UpdateBio").query();
-    bio.setText("ulf@mail");
+    clickOn(bio);
+    write("ulf@mail");
     
     SVGPath save = lookup("#SaveButton").query();
     clickOn(save);

@@ -65,9 +65,12 @@ public class AppTest extends ApplicationTest {
   private void checkResult(String string1, boolean excpected) {
     //How to fill textboxes
     TextField email = lookup("#emailLogin").query();
-    email.setText("ulf@mail");
+    clickOn(email);
+    write("ulf@mail");
+
     TextField password = lookup("#passwordLogin").query();
-    password.setText("123");
+    clickOn(password);
+    write("123");
     //Simple click. It refers to fxml id
     clickOn("#login");
     //Assertions placeholder
