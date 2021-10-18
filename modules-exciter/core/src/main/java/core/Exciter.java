@@ -12,20 +12,21 @@ public class Exciter {
    private User onScreenUser2;
 
    // Current user placeholder before logging in is implemented
-   private User currentUser = new User("Ulf Reidar", 25, "Camping, guitar, professional speed knitter", "Ulf@mail");
+   private User currentUser = new User("admin", 18, "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut", "admin");
 
    public Exciter() {
       addSomePlaceholderUsers();
       getNextUsers();
+      currentUser.setPassword("admin");
    }
 
    public void addSomePlaceholderUsers() {
-      allUsers.add(new BotUser("John", 22, "John@mail",true));
-      allUsers.add(new BotUser("Jane", 31, "Jane@mail",true));
-      allUsers.add(new BotUser("Joe", 19, "Joe@mail",false));
-      allUsers.add(new BotUser("Derik", 27, "Derik@mail",false));
-      allUsers.add(new BotUser("Diana", 23, "Diana@mail",false));
-      allUsers.add(new BotUser("Dani", 25, "Dani@mail",true));
+      allUsers.add(new BotUser("John", 22, "John@mail", true));
+      allUsers.add(new BotUser("Jane", 31, "Jane@mail", true));
+      allUsers.add(new BotUser("Joe", 19, "Joe@mail", false));
+      allUsers.add(new BotUser("Derik", 27, "Derik@mail", false));
+      allUsers.add(new BotUser("Diana", 23, "Diana@mail", false));
+      allUsers.add(new BotUser("Dani", 25, "Dani@mail", true));
       allUsers.add(new User("Roger", 25, "Roger@mail"));
    }
 
@@ -45,7 +46,7 @@ public class Exciter {
       return new ArrayList<>(Arrays.asList(allUsers.get(randomUsers[0]), allUsers.get(randomUsers[1])));
    }
 
-   public ArrayList<User> refreshUsers(){
+   public ArrayList<User> refreshUsers() {
       ArrayList<User> tempUserList = allUsers.stream().filter(a -> a != onScreenUser1 && a != onScreenUser2)
             .collect(Collectors.toCollection(ArrayList::new));
 
@@ -81,8 +82,8 @@ public class Exciter {
    }
 
    public int getOnScreenUserLikeCount(User user) {
-      if(currentUser.getAlreadyMatched().containsKey(user.getEmail())) {
-         return currentUser.getAlreadyMatched().get(user.getEmail());
+      if (currentUser.getLikedUsers().containsKey(user.getEmail())) {
+         return currentUser.getLikedUsers().get(user.getEmail());
       }
       return 0;
    }
@@ -111,6 +112,7 @@ public class Exciter {
          onScreenUser1.fireOnLike(currentUser);
       }
       onScreenUser2 = getNextRandomUser();
+      if(currentUser.haveLikedUser(onScreenUser1)) onScreenUser1 = getNextRandomUser();
       return onScreenUser1.checkIfMatch(currentUser);
    }
 
@@ -121,7 +123,13 @@ public class Exciter {
          onScreenUser2.fireOnLike(currentUser);
       }
       onScreenUser1 = getNextRandomUser();
+      if(currentUser.haveLikedUser(onScreenUser2)) onScreenUser2 = getNextRandomUser();
       return onScreenUser2.checkIfMatch(currentUser);
+   }
+
+   public ArrayList<User> getCurrentUserMatches() {
+      return allUsers.stream().filter(a -> currentUser.checkIfMatch(a))
+            .collect(Collectors.toCollection(ArrayList::new));
    }
 
 }
