@@ -17,13 +17,14 @@ import javafx.scene.layout.Pane;
 import javafx.stage.FileChooser;
 
 import java.net.URL;
-import java.util.ArrayList;
+
+import java.util.List;
 import java.util.ResourceBundle;
 
 
 
 public class SecondaryController implements Initializable{
-    private Exciter excite = LoginController.xcitr;
+    private Exciter excite = App.exciter;
     private FileChooser fileChooser = new FileChooser();
     private ImageController imageController = PrimaryController.imageController;
 
@@ -65,7 +66,7 @@ public class SecondaryController implements Initializable{
 
     @FXML
     private Group upload, backButton, signOut, save;
-    
+
     @FXML
     private TextArea bio;
 
@@ -92,7 +93,7 @@ public class SecondaryController implements Initializable{
     @FXML
     public void signOut() throws IOException{
         fileHandler.createFile();
-        ArrayList<User> users = excite.getAllUsers();
+        List<User> users = excite.getAllUsers();
         boolean hasUser = users.stream().anyMatch(e -> e.getClass().getName().equals("core.User"));
         if(!hasUser) users.add(excite.getCurrentUser());
         fileHandler.saveUser(users);
@@ -123,10 +124,10 @@ public class SecondaryController implements Initializable{
                 pane.requestFocus();
             }
         };
-  
+
         // when enter is pressed
         pane.setOnMouseClicked(event);
-  
+
         updatePreview();
 
     }

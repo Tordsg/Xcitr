@@ -15,7 +15,7 @@ import javafx.scene.text.Text;
 public class LoginController {
 
     protected static FileHandler fileHandler = new FileHandler();
-    protected static Exciter xcitr = new Exciter();
+    private Exciter xcitr = App.exciter;
 
     @FXML
     private TextField emailLogin;
@@ -54,20 +54,19 @@ public class LoginController {
                 switchToPrimary();
             }
         }
-       if(email.equals(xcitr.getCurrentUser().getEmail()) && User.MD5Hash(password).equals(xcitr.getCurrentUser().getPassword())) App.setRoot("primary");
-       
+
         errorMessage.setVisible(true);
         passwordLogin.clear();
         emailLogin.clear();
 
 
-       
+
 
     }
     private void switchToPrimary() throws IOException {
         App.setRoot("primary");
     }
-    
+
     @FXML
     void onSwitchToSignup() throws IOException {
         App.setRoot("signup");

@@ -2,8 +2,11 @@ package ui;
 
 import java.io.IOException;
 import java.net.URL;
-import java.util.ArrayList;
+import java.util.List;
 import java.util.ResourceBundle;
+import java.util.stream.Collectors;
+
+import core.Exciter;
 import core.User;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -26,7 +29,7 @@ import javafx.scene.shape.StrokeType;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 
-public class MatchController implements Initializable{
+public class MatchController implements Initializable {
 
     @FXML
     HBox hBox;
@@ -35,16 +38,20 @@ public class MatchController implements Initializable{
     @FXML
     AnchorPane anchorPane;
     protected static ImageController imageController = PrimaryController.imageController;
-    protected static ArrayList<User> matches;
-    
-    public void switchToPrimary() throws IOException{
+    private Exciter exciter = App.exciter;
+    private List<User> matches = exciter.getAllUsers().stream().filter(a -> exciter.getCurrentUserMatches().contains(a.getEmail()))
+    .collect(Collectors.toList());
+
+    public void switchToPrimary() throws IOException {
         App.setRoot("primary");
     }
 
     public void initialize(URL arg0, ResourceBundle arg1) {
         hoverButton(button);
-        matches.forEach(e -> hBox.getChildren().add(createCard(e)));
-        if(hBox.getChildren().size()==0){
+        if (matches != null && !matches.isEmpty()) {
+            matches.forEach(e -> hBox.getChildren().add(createCard(e)));
+        }
+        if (hBox.getChildren().size() == 0) {
             Label label = new Label();
             label.setText("You have not matches, yet.");
             label.setFont(new Font(30));
@@ -52,11 +59,11 @@ public class MatchController implements Initializable{
             label.setLayoutX(140);
             label.setLayoutY(210);
             anchorPane.getChildren().add(label);
-        }else 
-        dragMatches();
+        } else
+            dragMatches();
     }
 
-    private void hoverButton(Node n){
+    private void hoverButton(Node n) {
         n.setOnMouseEntered(e -> {
             n.setEffect(new Lighting());
         });
@@ -64,7 +71,8 @@ public class MatchController implements Initializable{
             n.setEffect(null);
         });
     }
-    protected static Pane createCard(User user){
+
+    protected static Pane createCard(User user) {
         Pane pane = new Pane();
         pane.setPrefHeight(338);
         pane.setPrefWidth(245);
@@ -85,7 +93,8 @@ public class MatchController implements Initializable{
         pane1.setPrefHeight(121);
         pane1.setMinHeight(121);
         pane1.setPrefWidth(225);
-        pane1.setStyle("-fx-background-color: rgba(255, 255, 255, .4); -fx-background-radius: 0 0 22 22; -fx-border-radius: 0 0 21 21; -fx-border-width: 0 2 2 2; -fx-border-color: black;");
+        pane1.setStyle(
+                "-fx-background-color: rgba(255, 255, 255, .4); -fx-background-radius: 0 0 22 22; -fx-border-radius: 0 0 21 21; -fx-border-width: 0 2 2 2; -fx-border-color: black;");
         Label age = new Label();
         pane1.getChildren().add(age);
         age.setAlignment(Pos.CENTER);
@@ -137,39 +146,34 @@ public class MatchController implements Initializable{
         return pane;
     }
 
-
     double x;
     double dX;
     double lastX;
-    private void dragMatches(){
-        hBox.setOnMousePressed(new EventHandler<MouseEvent>(){
+
+    private void dragMatches() {
+        hBox.setOnMousePressed(new EventHandler<MouseEvent>() {
             @Override
-            public void handle(MouseEvent event){
+            public void handle(MouseEvent event) {
                 lastX = event.getSceneX();
-                
+
             }
         });
-        hBox.setOnMouseDragged(new EventHandler<MouseEvent>(){
+        hBox.setOnMouseDragged(new EventHandler<MouseEvent>() {
             @Override
-            public void handle(MouseEvent event){
+            public void handle(MouseEvent event) {
                 x = event.getSceneX();
                 dX = x - lastX;
                 lastX = x;
                 double hBoxPosition = dX + hBox.getLayoutX();
-                if (hBoxPosition>20&&dX>0){
+                if (hBoxPosition > 20 && dX > 0) {
                     hBox.setLayoutX(hBox.getLayoutX());
-                } else if (hBoxPosition + hBox.getWidth() < 640 && dX<0){
+                } else if (hBoxPosition + hBox.getWidth() < 640 && dX < 0) {
                     hBox.setLayoutX(hBox.getLayoutX());
-                }
-                else {
+                } else {
                     hBox.setLayoutX(hBoxPosition);
                 }
             }
         });
     }
-
-    
-
-   
 
 }

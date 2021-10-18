@@ -2,15 +2,18 @@ package core;
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
-public class User implements MatchListener {
+public class User {
 
     private String name;
     private int age;
     private String userInformation;
     private String email;
-    private HashMap<String, Integer> likedUsers = new HashMap<>();
+    private HashMap<User, Integer> likedUsers = new HashMap<>();
+    private List<String> matches = new ArrayList<>();
     private String password = null;
 
     /**
@@ -25,9 +28,9 @@ public class User implements MatchListener {
      *
      * @apiNote This constructor is to only be used by the filehandler class
      */
-    public User(String name, int age, String userInformation, HashMap<String, Integer> likedUsers, String email, String password) {
+    public User(String name, int age, String userInformation, List<String> matches, String email, String password) {
         this.userInformation = userInformation;
-        this.likedUsers = likedUsers;
+        this.matches = matches;
         this.name = name;
         this.email = email;
         this.password = password;
@@ -42,9 +45,9 @@ public class User implements MatchListener {
      * @param likedUsers
      * @param email
      */
-    public User(String name, int age, String userInformation, HashMap<String, Integer> likedUsers, String email) {
+    public User(String name, int age, String userInformation, List<String> matches, String email) {
         this.userInformation = userInformation;
-        this.likedUsers = likedUsers;
+        this.matches = matches;
         this.name = name;
         this.email = email;
         setAge(age);
@@ -140,53 +143,55 @@ public class User implements MatchListener {
         return this.password;
     }
 
-    public HashMap<String, Integer> getLikedUsers() {
+    public HashMap<User, Integer> getLikedUsers() {
         return new HashMap<>(likedUsers);
     }
 
-    @Override
+
     public void fireOnLike(User match) {
         this.addUserOnMatch(match);
     }
 
+    public List<String> getMatches() {
+        return new ArrayList<>(matches);
+    }
+
     public boolean containsPreviousMatch(User match) {
-        return likedUsers.containsKey(match.getEmail());
+        return likedUsers.containsKey(match);
     }
 
     public void addUserOnMatch(User match) {
-        if (!likedUsers.containsKey(match.getEmail())) {
-            likedUsers.put(match.getEmail(), 1);
+        if (!likedUsers.containsKey(match)) {
+            likedUsers.put(match, 1);
         } else {
-            likedUsers.put(match.getEmail(), likedUsers.get(match.getEmail()) + 1);
+            likedUsers.put(match, likedUsers.get(match) + 1);
         }
     }
 
     public void resetUserMatch(User user) {
-        if (likedUsers.containsKey(user.getEmail()) && likedUsers.get(user.getEmail()) < 3) {
-            likedUsers.put(user.getEmail(), 0);
+        if (likedUsers.containsKey(user)) {
+            likedUsers.put(user, 0);
         }
     }
 
-    @Override
     public boolean checkIfMatch(User user) {
+        if (haveLikedUser(user) && user.haveLikedUser(this) && !matches.contains(user.getEmail())) {
+            System.out.println("Match found");
+            matches.add(user.getEmail());
+            user.matches.add(this.getEmail());
+        }
         return haveLikedUser(user) && user.haveLikedUser(this);
     }
 
     public boolean haveLikedUser(User user) {
-        if (!likedUsers.containsKey(user.getEmail())) {
+        if (!likedUsers.containsKey(user)) {
             return false;
         }
-        return likedUsers.get(user.getEmail()) >= 3;
+        return likedUsers.get(user) >= 3;
     }
 
     public int getImageHashCode() {
         return this.email.hashCode();
-    }
-
-    @Override
-    public String toString() {
-        return "User{" + "name='" + name + '\'' + ", age=" + age + ", userInformation='" + userInformation + '\''
-                + ", email='" + email + '\'' + ", likedUsers=" + likedUsers + '}';
     }
 
 }

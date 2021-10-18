@@ -5,7 +5,7 @@ import json.*;
 
 import java.io.IOException;
 import java.net.URL;
-import java.util.ArrayList;
+import java.util.List;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -23,7 +23,7 @@ public class SignUpController {
 
     @FXML
     private Button createAccount;
-    
+
     @FXML
     private TextField name;
 
@@ -40,14 +40,15 @@ public class SignUpController {
     private Text fromSignupToLogin;
 
     FileHandler fileHandler = LoginController.fileHandler;
-    Exciter xcitr = LoginController.xcitr;
+    private Exciter xcitr = App.exciter;
+
     @FXML
     void initialize() {
         name.clear();
         age.clear();
         emailSignup.clear();
         passwordSignup.clear();
-        //errorMessage.setVisible(false);
+        // errorMessage.setVisible(false);
 
     }
 
@@ -62,12 +63,13 @@ public class SignUpController {
         String ageReg = age.getText();
         String emailReg = emailSignup.getText();
         String passwordReg = passwordSignup.getText();
-        
-        for (User user : fileHandler.readUsers()) {
-            if (emailReg.equals(user.getEmail())) { 
-                //errorMessage.setVisible(true);
-                emailSignup.clear();
-                passwordSignup.clear();
+        if (fileHandler.readUsers() != null) {
+            for (User user : fileHandler.readUsers()) {
+                if (emailReg.equals(user.getEmail())) {
+                    // errorMessage.setVisible(true);
+                    emailSignup.clear();
+                    passwordSignup.clear();
+                }
             }
         }
 
@@ -75,19 +77,23 @@ public class SignUpController {
         userXcitr.setPassword(passwordReg);
         saveUser(userXcitr);
 
+        xcitr.setCurrentUser(userXcitr);
+        xcitr.removeFromAllUsers(userXcitr);
+
         switchToPrimary();
 
     }
+
     private void switchToPrimary() throws IOException {
         App.setRoot("primary");
     }
 
     void saveUser(User user) {
         fileHandler.createFile();
-        ArrayList<User> users = xcitr.getAllUsers();
+        List<User> users = xcitr.getAllUsers();
         xcitr.setCurrentUser(user);
         fileHandler.saveUser(users);
-        
+
     }
 
 }
