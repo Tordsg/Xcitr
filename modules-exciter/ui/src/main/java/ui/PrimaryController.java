@@ -142,6 +142,7 @@ public class PrimaryController implements Initializable{
                 translateCardY(discardedcard, 400, 0,false),
                 tt,ft)
             );
+        scoreNumber.setText("3");
         st.play();
     }
     public TranslateTransition translateCardY(Pane pane, double start, double end, boolean updateOnFinish){

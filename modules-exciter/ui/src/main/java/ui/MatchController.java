@@ -49,7 +49,6 @@ public class MatchController implements Initializable {
     public void initialize(URL arg0, ResourceBundle arg1) {
         hoverButton(button);
         if (matches != null && !matches.isEmpty()) {
-            System.out.println("printing matches");
             matches.forEach(e -> hBox.getChildren().add(createCard(e)));
         }
         if (hBox.getChildren().size() == 0) {
