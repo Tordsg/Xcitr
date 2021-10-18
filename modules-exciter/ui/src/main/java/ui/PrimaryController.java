@@ -5,7 +5,7 @@ import json.*;
 
 import java.io.IOException;
 import java.net.URL;
-import java.util.ArrayList;
+import java.util.List;
 import java.util.ResourceBundle;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Rectangle;
@@ -39,12 +39,12 @@ public class PrimaryController implements Initializable{
     private Group matchButton;
     @FXML
     private Pane leftCard, rightCard, refresh,scorePane;
-    protected Exciter excite = LoginController.xcitr;
+    private Exciter excite = App.exciter;
     protected static FileHandler fileHandler = LoginController.fileHandler;
     //Static since it's shared by the SecondaryController
     protected static ImageController imageController = new ImageController();
-    protected static ArrayList<User> matches;
-    private ArrayList<User> displayUsers;
+    protected static List<User> matches;
+    private List<User> displayUsers;
     @FXML
     private void switchToSecondary() throws IOException {
         saveUserData();
@@ -53,13 +53,13 @@ public class PrimaryController implements Initializable{
     @FXML
     private void switchToMatch() throws IOException {
         saveUserData();
-        MatchController.matches = excite.getCurrentUserMatches();
+        //MatchController.matches = excite.getCurrentUserMatches();
         App.setRoot("match");
     }
     @FXML
     public void saveUserData(){
         fileHandler.createFile();
-        ArrayList<User> users = excite.getAllUsers();
+        List<User> users = excite.getAllUsers();
         boolean hasUser = users.stream().anyMatch(e -> e.getClass().getName().equals("core.User"));
         if(!hasUser) users.add(excite.getCurrentUser());
         fileHandler.saveUser(users);
@@ -73,7 +73,7 @@ public class PrimaryController implements Initializable{
         });
     }
     void onDiscardLeftCard() {
-        if(excite.pressedLikeSecond()) {
+        if(excite.discardFirst()) {
             cardLiked(rightCard,leftCard);
             return;
         }
@@ -92,7 +92,7 @@ public class PrimaryController implements Initializable{
         leftCard.setDisable(true);
         rightCard.setDisable(true);
         refresh.setDisable(true);
-        if(excite.pressedLikeFirst()) {
+        if(excite.discardSecond()) {
             cardLiked(leftCard,rightCard);
             return;
         }
@@ -240,7 +240,7 @@ public class PrimaryController implements Initializable{
             @Override
             public void handle(MouseEvent event){
                 lastY = event.getSceneY();
-                
+
             }
         });
         e.setOnMouseDragged(new EventHandler<MouseEvent>(){

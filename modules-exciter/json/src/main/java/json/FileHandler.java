@@ -6,8 +6,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Iterator;
+import java.util.List;
 
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
@@ -27,7 +26,7 @@ public class FileHandler {
    String path = "../json/src/main/resources/UserData.JSON";
 
    @SuppressWarnings("unchecked") // Type safety can't be avoided with simple-json
-   public void saveUser(ArrayList<User> users) {
+   public void saveUser(List<User> users) {
       JSONArray userArray = new JSONArray();
       for (User user : users) {
          JSONObject userData = new JSONObject();
@@ -41,7 +40,7 @@ public class FileHandler {
          }
          userData.put("name", user.getName());
          userData.put("age", user.getAge());
-         userData.put("matches", user.getLikedUsers());
+         userData.put("matches", user.getMatches());
          userData.put("userInformation", user.getUserInformation());
          userData.put("email", user.getEmail());
          userArray.add(userData);
@@ -61,6 +60,7 @@ public class FileHandler {
       }
    }
 
+
    public void createFile() {
       try {
          File file = new File(path);
@@ -73,7 +73,11 @@ public class FileHandler {
 
    }
 
-   public ArrayList<User> readUsers() {
+   public void deleteUserFromFile(User user) {
+
+   }
+
+   public List<User> readUsers() {
 
       try (BufferedReader fileReader = new BufferedReader(new InputStreamReader(new FileInputStream(path), "UTF-8"))) {
          ArrayList<User> users = new ArrayList<>();
@@ -85,7 +89,9 @@ public class FileHandler {
             JSONObject userData = (JSONObject) user;
             String name = String.valueOf(userData.get("name"));
             int age = Integer.parseInt(String.valueOf(userData.get("age")));
-            HashMap<String, Integer> alreadyMatched = parseUserMatchesJSON((JSONObject) userData.get("matches"));
+
+            List<String> alreadyMatched = parseJSONList((JSONArray) userData.get("matches"));
+
             String userInformation = String.valueOf(userData.get("userInformation"));
             String email = String.valueOf(userData.get("email"));
             boolean isBot = Boolean.parseBoolean(String.valueOf(userData.get("isBot")));
@@ -109,18 +115,17 @@ public class FileHandler {
       return null;
    }
 
-   public HashMap<String, Integer> parseUserMatchesJSON(JSONObject obj) {
-      HashMap<String, Integer> matchedUsers = new HashMap<>();
-      Iterator<?> keys = obj.keySet().iterator();
-      while (keys.hasNext()) {
-         Object localKey = keys.next();
-         matchedUsers.put(localKey.toString(), Integer.parseInt(obj.get(localKey).toString()));
+   public List<String> parseJSONList(JSONArray jsonArray) {
+      List<String> list = new ArrayList<>();
+      for (Object object : jsonArray) {
+         list.add(String.valueOf(object));
       }
-      return matchedUsers;
+      return list;
    }
 
+
    public User getUser(String mail) {
-      ArrayList<User> users = readUsers();
+      List<User> users = readUsers();
       for (User user : users) {
          if (user.getEmail().equals(mail)) {
             return user;

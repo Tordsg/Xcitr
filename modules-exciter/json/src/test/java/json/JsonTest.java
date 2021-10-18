@@ -1,8 +1,8 @@
 package json;
 
-
 import org.junit.jupiter.api.Test;
 
+import java.util.List;
 import java.util.ArrayList;
 
 import org.junit.jupiter.api.Assertions;
@@ -15,38 +15,37 @@ public class JsonTest {
     FileHandler fileHandler = new FileHandler();
     private User user;
     private Exciter exciter;
-    private ArrayList<User> users = new ArrayList<>();
+    private List<User> users = new ArrayList<>();
 
     @BeforeEach
     public void setUp() {
         users.clear();
         exciter = new Exciter();
         fileHandler.createFile();
-        user = new User("Ola Nordmann", 26, "Fiskesprett på søndager","ola@mail");
+        user = new User("Ola Nordmann", 26, "Fiskesprett på søndager", "ola@mail");
         exciter.setCurrentUser(user);
         users.add(user);
     }
 
     @Test
-    public void readFromFile(){
+    public void readFromFile() {
         fileHandler.saveUser(users);
-        ArrayList<User> userReadFromFile = fileHandler.readUsers();
+        List<User> userReadFromFile = fileHandler.readUsers();
         Assertions.assertEquals("Ola Nordmann", userReadFromFile.get(0).getName());
         Assertions.assertEquals(26, userReadFromFile.get(0).getAge());
         Assertions.assertEquals("ola@mail", userReadFromFile.get(0).getEmail());
     }
 
     @Test
-    public void readMatches(){
-        for (int i = 0; i < 3; i++) {
-            exciter.pressedLikeFirst();
-        }
+    public void readMatches() {
         User onScreenUser1 = exciter.getOnScreenUser1();
+        for (int i = 0; i < 3; i++) {
+            exciter.discardSecond();
+        }
         fileHandler.saveUser(users);
         User userReadFromFile = fileHandler.readUsers().get(0);
-        userReadFromFile = fileHandler.readUsers().get(0);
-        Assertions.assertEquals(userReadFromFile.getLikedUsers(), user.getLikedUsers());
-        Assertions.assertTrue(userReadFromFile.getLikedUsers().containsKey(onScreenUser1.getEmail()));
+        Assertions.assertEquals(userReadFromFile.getMatches(), user.getMatches());
+        Assertions.assertTrue(userReadFromFile.getMatches().contains(onScreenUser1.getEmail()));
 
     }
 
@@ -56,11 +55,12 @@ public class JsonTest {
         Assertions.assertEquals(users.get(0).getName(), fileHandler.getUser("ola@mail").getName());
         Assertions.assertEquals(users.get(0).getAge(), fileHandler.getUser("ola@mail").getAge());
         Assertions.assertEquals(users.get(0).getEmail(), fileHandler.getUser("ola@mail").getEmail());
-        Assertions.assertEquals(users.get(0).getUserInformation(), fileHandler.getUser("ola@mail").getUserInformation());
+        Assertions.assertEquals(users.get(0).getUserInformation(),
+                fileHandler.getUser("ola@mail").getUserInformation());
     }
 
     @Test
-    public void testPasswords(){
+    public void testPasswords() {
         users.add(new BotUser("bot", 24, "bot@mail", true));
         users.get(0).setPassword("password");
         fileHandler.saveUser(users);
@@ -69,13 +69,12 @@ public class JsonTest {
     }
 
     @Test
-    public void testNullfind(){
+    public void testNullfind() {
         Assertions.assertNull(fileHandler.getUser("404notfound@mail"));
-        //First checks while file is empty
-        //Second checks when file is not empty but does not contain the user
+        // First checks while file is empty
+        // Second checks when file is not empty but does not contain the user
         fileHandler.saveUser(users);
         Assertions.assertNull(fileHandler.getUser("404notfound@mail"));
     }
 
 }
-
