@@ -14,7 +14,7 @@ public class ImageController {
 
     private HashMap<Integer, ImagePattern> userImages = new HashMap<>();
     private ImagePattern defaultImage;
-    private String path = "../json/src/main/resources/";
+    private String path = "../json/src/main/resources/images/";
     File dir = new File(path);
     File[] directoryListing = dir.listFiles();
 
