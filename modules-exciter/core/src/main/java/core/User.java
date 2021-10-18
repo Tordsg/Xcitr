@@ -175,9 +175,10 @@ public class User {
     }
 
     public boolean checkIfMatch(User user) {
-        if (haveLikedUser(user) && user.haveLikedUser(this)) {
+        if (haveLikedUser(user) && user.haveLikedUser(this) && !matches.contains(user.getEmail())) {
             System.out.println("Match found");
             matches.add(user.getEmail());
+            user.matches.add(this.getEmail());
         }
         return haveLikedUser(user) && user.haveLikedUser(this);
     }

@@ -28,6 +28,9 @@ public class Exciter {
          if (!userMailList.contains(user.getEmail())) {
             allUsers.add(user);
          }
+         else {
+            System.out.println("here");
+         }
       }
    }
 
@@ -46,6 +49,8 @@ public class Exciter {
    }
 
    public void setCurrentUser(User user) {
+      User localUser = allUsers.stream().filter(u -> u.getEmail().equals(user.getEmail())).findFirst().orElse(null);
+      allUsers.remove(localUser);
       currentUser = user;
    }
 
