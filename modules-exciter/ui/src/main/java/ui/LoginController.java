@@ -54,7 +54,6 @@ public class LoginController {
                 switchToPrimary();
             }
         }
-       if(email.equals(xcitr.getCurrentUser().getEmail()) && User.MD5Hash(password).equals(xcitr.getCurrentUser().getPassword())) App.setRoot("primary");
 
         errorMessage.setVisible(true);
         passwordLogin.clear();
