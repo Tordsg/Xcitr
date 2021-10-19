@@ -8,6 +8,7 @@ import javafx.stage.Stage;
 import java.util.stream.Stream;
 
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
@@ -20,20 +21,27 @@ import core.User;
 
 public class PrimaryControllerTest extends ApplicationTest {
 
-  private Exciter excite = new Exciter();
-  private PrimaryController controller = new PrimaryController();
+  private App app = new App();
+  private Exciter excite = App.exciter;
+  private PrimaryController controller;
 
   @Override
   public void start(Stage stage) throws Exception {
-    FXMLLoader loader = new FXMLLoader(getClass().getResource("primary.fxml"));
-    Parent root = loader.load();
-    controller = loader.getController();
-    stage.setScene(new Scene(root));
-    stage.show();
+    app.start(stage);
   }
 
-  public PrimaryController getController() {
-    return controller;
+  @BeforeEach
+  public void setUp() {
+    clickOn("#fromLoginToSignup");
+    clickOn("#name");
+    write("Ulf");
+    clickOn("#age");
+    write("20");
+    clickOn("#emailSignup");
+    write("ulf@mail");
+    clickOn("#passwordSignup");
+    write("ulf");
+    clickOn("#createAccount");
   }
 
   @ParameterizedTest
@@ -47,22 +55,6 @@ public class PrimaryControllerTest extends ApplicationTest {
     return Stream.of(Arguments.of(null, true));
   }
 
-  // This is first method, where all you do is pass what's comes
-  // from the test method to the checkResult method
-  // Why you keep this one is to split up the first parameter if it's a list for
-  // example
-  @ParameterizedTest
-  @MethodSource
-  public void test1equal1(int one, int two) {
-    checkResult(one, two);
-  }
-
-  // This is second method, where you keep all the values
-  // you want to test. i.e. you can have a list of values
-  // like name, age, etc.
-  private static Stream<Arguments> test1equal1() {
-    return Stream.of(Arguments.of(1, 1));
-  }
 
   // third method, where you do the assertions
   // and you actually call the click, lookup, whatever methods
@@ -78,13 +70,11 @@ public class PrimaryControllerTest extends ApplicationTest {
     Circle profile = lookup("#profile").query();
     clickOn(profile);
 
-    
+
 
   }
 
-  private void checkResult(int one, int two) {
-    Assertions.assertEquals(one, two);
-  }
+
 
   private void checkMatchCounter(User user){
     User currentUser = excite.getCurrentUser();
@@ -93,7 +83,7 @@ public class PrimaryControllerTest extends ApplicationTest {
     if(!currentUser.haveLikedUser(user)){
       number = 0;
     }
-    test1equal1(1, number);
+    //test1equal1(1, number);
   }
 
 

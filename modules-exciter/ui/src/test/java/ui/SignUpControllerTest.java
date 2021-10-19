@@ -48,27 +48,6 @@ public class SignUpControllerTest extends ApplicationTest {
     return Stream.of(Arguments.of(true));
   }
 
-  // This is first method, where all you do is pass what's comes
-  // from the test method to the checkResult method
-  // Why you keep this one is to split up the first parameter if it's a list for
-  // example
-  /*
-   * @ParameterizedTest
-   *
-   * @MethodSource public void test1equal1(int one, int two) { checkResult(one,
-   * two); }
-   */
-
-  // This is second method, where you keep all the values
-  // you want to test. i.e. you can have a list of values
-  // like name, age, etc.
-  /*
-   * private static Stream<Arguments> test1equal1() { return
-   * Stream.of(Arguments.of(1, 1)); }
-   */
-
-  // third method, where you do the assertions
-  // and you actually call the click, lookup, whatever methods
   private void checkResult(boolean excpected) {
     if (excpected) {
 
@@ -124,14 +103,5 @@ public class SignUpControllerTest extends ApplicationTest {
     return Stream.of(Arguments.of(false));
   }
 
-  /*
-   * private void checkIfContainsUser(User user){ int number = 0;
-   * if(excite.getAllUsers().contains(user)){ number = 1; } test1equal1(1,
-   * number);
-   *
-   * }
-   */
-
-  // TODO: Add more tests
 
 }
