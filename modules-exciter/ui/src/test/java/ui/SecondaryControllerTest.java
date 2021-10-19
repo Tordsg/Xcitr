@@ -66,6 +66,8 @@ public class SecondaryControllerTest extends ApplicationTest {
     write("guitar player");
     clickOn("#save");
     Assertions.assertEquals("guitar player", exciter.getCurrentUser().getUserInformation());
+    clickOn("#signOut");
+    Assertions.assertEquals("guitar player", fileHandler.getUser("test@mail").getUserInformation());
   }
 
 }
