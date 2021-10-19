@@ -23,7 +23,7 @@ public class App extends Application {
 
     private static Scene scene;
     private static Stage stage;
-    protected static Exciter exciter = new Exciter();
+    public static Exciter exciter = new Exciter();
     private FileHandler fileHandler = new FileHandler();
 
     @Override
@@ -59,7 +59,7 @@ public class App extends Application {
         scene = new Scene(loadFXML(fxml));
         stage.setScene(scene);
         stage.show();
-        }else 
+        }else
         scene.setRoot(loadFXML(fxml));
     }
 

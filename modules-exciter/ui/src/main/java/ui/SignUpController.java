@@ -44,7 +44,7 @@ public class SignUpController {
     private Text fromSignupToLogin;
 
     FileHandler fileHandler = LoginController.fileHandler;
-    private Exciter xcitr = App.exciter;
+    private Exciter excite = App.exciter;
     private User userXcitr;
 
     @FXML
@@ -73,8 +73,8 @@ public class SignUpController {
             userXcitr = new User(nameReg, Integer.parseInt(ageReg), emailReg);
             userXcitr.setPassword(passwordReg);
             saveUser(userXcitr);
-            xcitr.setCurrentUser(userXcitr);
-            xcitr.removeFromAllUsers(userXcitr);
+            excite.setCurrentUser(userXcitr);
+            excite.removeFromAllUsers(userXcitr);
 
             switchToPrimary();
 
@@ -92,8 +92,8 @@ public class SignUpController {
 
     void saveUser(User user) {
         fileHandler.createFile();
-        List<User> users = xcitr.getAllUsers();
-        xcitr.setCurrentUser(user);
+        List<User> users =excite.getAllUsers();
+        excite.setCurrentUser(user);
         fileHandler.saveUser(users);
 
     }

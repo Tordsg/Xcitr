@@ -15,7 +15,6 @@ public class User {
     private HashMap<User, Integer> likedUsers = new HashMap<>();
     private List<String> matches = new ArrayList<>();
     private String password = null;
-    private Exciter excite = new Exciter();
 
     /**
      * Constructor for User class
@@ -66,7 +65,7 @@ public class User {
         setName(name);
         setAge(age);
         setEmail(email);
-       
+
     }
 
     /**
@@ -87,12 +86,12 @@ public class User {
     }
 
     public void setName(String name) {
-        if(name.length() < 2){
+        /*if(name.length() < 2){
             throw new IllegalArgumentException("Name must be at least 2 letters");
         }
-        if(!name.matches("[a-zA-Z]+")){
+        if(!name.matches("/^[a-zA-Z\s]*$/")){
             throw new IllegalArgumentException("Name must only contain letters");
-        }
+        }*/
         this.name = name;
     }
 
@@ -101,15 +100,6 @@ public class User {
     }
 
     public void setEmail(String email) {
-        for (User user : excite.getAllUsers()) {
-            if(user.getEmail().equals(email)){
-                throw new IllegalArgumentException("The e-mail does already exist");
-            }     
-        }
-        if(!email.contains("@")){
-            throw new IllegalArgumentException("The e-mail must contain @");
-
-        }
         this.email = email;
     }
 
