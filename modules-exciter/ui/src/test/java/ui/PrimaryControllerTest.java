@@ -2,6 +2,8 @@ package ui;
 
 import javafx.scene.shape.Circle;
 import javafx.stage.Stage;
+
+import java.util.concurrent.TimeUnit;
 import java.util.stream.Stream;
 
 import org.junit.jupiter.api.Assertions;
@@ -20,7 +22,7 @@ public class PrimaryControllerTest extends ApplicationTest {
 
   private App app = new App();
   private Exciter excite = App.exciter;
-  private PrimaryController controller = new PrimaryController();
+  private PrimaryController controller;
   private BotUser botUser = new BotUser("John", 21, "john@mail.no", true);
 
 
@@ -65,19 +67,30 @@ public class PrimaryControllerTest extends ApplicationTest {
   // and you actually call the click, lookup, whatever methods
   private void checkResult(boolean excpected) {
     if(excpected){
-    
-    drag("#Name2").moveTo("#rightPicture").drop();
-    
-    drag("#Name2").moveTo("#rightPicture").drop();
-    drag("#Name2").moveTo("#rightPicture").drop();
 
-    Assertions.assertTrue(excite.getCurrentUser().getMatches().contains(botUser));}
+    drag("#rightCard").moveBy(0, -100).drop();
+    try {
+      TimeUnit.SECONDS.sleep(1);
+    } catch (InterruptedException e) {
+      // TODO Auto-generated catch block
+      e.printStackTrace();
+    }
+    drag("#rightCard").moveBy(0, -100).drop();
+    try {
+      TimeUnit.SECONDS.sleep(1);
+    } catch (InterruptedException e) {
+      // TODO Auto-generated catch block
+      e.printStackTrace();
+    }
+    drag("#rightCard").moveBy(0, -100).drop();
+
+    Assertions.assertTrue(excite.getCurrentUser().getMatches().contains(botUser.getEmail()));}
 
     else{
     Circle profile = lookup("#profile").query();
     clickOn(profile);
   }
-    
+
 
 
   }
