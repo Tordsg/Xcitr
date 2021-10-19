@@ -6,31 +6,56 @@ import javafx.scene.Scene;
 import javafx.scene.control.TextField;
 import javafx.scene.shape.SVGPath;
 import javafx.stage.Stage;
+import json.FileHandler;
+
 import java.util.stream.Stream;
 
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
 import org.testfx.framework.junit5.ApplicationTest;
 
+import core.Exciter;
+
 /*TestFx App Test*/
 
 public class SecondaryControllerTest extends ApplicationTest {
 
-  private SecondaryController controller = new SecondaryController();
+  private SecondaryController controller;
+  private App app = new App();
+  private Exciter exciter = App.exciter;
+  private FileHandler fileHandler = new FileHandler();
 
   @Override
   public void start(Stage stage) throws Exception {
-    FXMLLoader loader = new FXMLLoader(getClass().getResource("secondary.fxml"));
-    Parent root = loader.load();
-    controller = loader.getController();
-    stage.setScene(new Scene(root));
-    stage.show();
+    app.start(stage);
   }
 
-  public SecondaryController getController() {
-    return controller;
+  @BeforeEach
+  public void setUp() {
+    app = new App();
+    if (fileHandler.getUser("test@mail") != null) {
+      clickOn("#emailLogin");
+      write("test@mail");
+      clickOn("#passwordLogin");
+      write("test");
+      clickOn("#login");
+      clickOn("#profile");
+    } else {
+      clickOn("#fromLoginToSignup");
+      clickOn("#name");
+      write("test");
+      clickOn("#age");
+      write("20");
+      clickOn("#emailSignup");
+      write("test@mail");
+      clickOn("#passwordSignup");
+      write("test");
+      clickOn("#createAccount");
+      clickOn("#profile");
+    }
   }
 
   @ParameterizedTest
@@ -44,19 +69,12 @@ public class SecondaryControllerTest extends ApplicationTest {
     return Stream.of(Arguments.of(null, true));
   }
 
-  // This is first method, where all you do is pass what's comes
-  // from the test method to the checkResult method
-  // Why you keep this one is to split up the first parameter if it's a list for
-  // example
   @ParameterizedTest
   @MethodSource
   public void test1equal1(int one, int two) {
     checkResult(one, two);
   }
 
-  // This is second method, where you keep all the values
-  // you want to test. i.e. you can have a list of values
-  // like name, age, etc.
   private static Stream<Arguments> test1equal1() {
     return Stream.of(Arguments.of(1, 1));
   }
@@ -66,11 +84,11 @@ public class SecondaryControllerTest extends ApplicationTest {
   private void checkResult(String string1, boolean excpected) {
     SVGPath edit = lookup("#UpdateButton").query();
     clickOn(edit);
-    
+
     TextField bio = lookup("#UpdateBio").query();
     clickOn(bio);
     write("ulf@mail");
-    
+
     SVGPath save = lookup("#SaveButton").query();
     clickOn(save);
     Assertions.assertNull(string1);
@@ -79,8 +97,6 @@ public class SecondaryControllerTest extends ApplicationTest {
   private void checkResult(int one, int two) {
     Assertions.assertEquals(one, two);
   }
-
-
 
   // TODO: Add more tests
 
