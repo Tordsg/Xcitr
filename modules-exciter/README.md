@@ -12,7 +12,10 @@ Because the users have to like a person over someone else three times it adds so
 
 
 ## User Story
+## User Story
 After a year and a half living in a global pandemic, Ulf Reidar has recognized an increased need to connect with new people. He finds that he does not have a platform where he can get in touch with people with the same interests as him without being forced to meet more people than he is comfortable with. Ulf wants an app or webpage where he can find a meaningful connection that goes beyond just swiping on people left and right. He wants to find a new friend, girlfriend or companion who has some of the same interests as he does, like camping and knitting by the fire. And he wants to be certain that there is almost a guaranteed mutual interest between him and this new person. After being “introduced” he wants to be able to get in touch and meet this person in real life. Being comfortable that it is safe also from a pandemic viewpoint.
+
+Due to this he wants an application where two persons are presented to him so that he has the opportunity to compare to different persons on the app. If he can "choose" this person over someone else multiple times then he can also be more sure of his own interest for the other user. When he matches with someone he would like the application to provide an overview of everyone he has matched with, together with some form of communication platform. He wants to be able to login and logout as he pleases but not loose any of his matches when he logs out. 
 
 ## Illustration
 Below are three figma frames roughly describing how the application is going to look like after it is finished. 
