@@ -15,6 +15,7 @@ public class User {
     private HashMap<User, Integer> likedUsers = new HashMap<>();
     private List<String> matches = new ArrayList<>();
     private String password = null;
+    private Exciter excite = new Exciter();
 
     /**
      * Constructor for User class
@@ -31,8 +32,8 @@ public class User {
     public User(String name, int age, String userInformation, List<String> matches, String email, String password) {
         this.userInformation = userInformation;
         this.matches = matches;
-        this.name = name;
-        this.email = email;
+        setName(name);
+        setEmail(email);
         this.password = password;
         setAge(age);
     }
@@ -47,9 +48,9 @@ public class User {
     public User(String name, int age, String userInformation, List<String> matches, String email) {
         this.userInformation = userInformation;
         this.matches = matches;
-        this.name = name;
-        this.email = email;
+        setName(name);;
         setAge(age);
+        setEmail(email);
     }
 
     /**
@@ -62,8 +63,8 @@ public class User {
      */
     public User(String name, int age, String userInformation, String email) {
         this.userInformation = userInformation;
-        this.name = name;
-        this.email = email;
+        setName(name);
+        setEmail(email);
         setAge(age);
     }
 
@@ -75,9 +76,9 @@ public class User {
      * @param email
      */
     public User(String name, int age, String email) {
-        this.name = name;
+        setName(name);;
         setAge(age);
-        this.email = email;
+        setEmail(email);;
     }
 
     public String getName() {
@@ -85,6 +86,12 @@ public class User {
     }
 
     public void setName(String name) {
+        if(name.length() < 2){
+            throw new IllegalArgumentException("Name must be at least 2 letters");
+        }
+        if(!name.matches("[a-zA-Z]+")){
+            throw new IllegalArgumentException("Name must only contain letters");
+        }
         this.name = name;
     }
 
@@ -93,6 +100,19 @@ public class User {
     }
 
     public void setEmail(String email) {
+        for (User user : excite.getAllUsers()) {
+            if(user.getEmail().equals(email)){
+                throw new IllegalArgumentException("The e-mail does already exist");
+            }     
+        }
+        if(!email.contains("@")){
+            throw new IllegalArgumentException("The e-mail must contain @");
+
+        }
+        String afterAt = email.substring(email.indexOf("@"));
+        if(!afterAt.contains(".")){
+            throw new IllegalArgumentException("The mail must contain a . after @");
+        }
         this.email = email;
     }
 
