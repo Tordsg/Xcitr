@@ -33,9 +33,9 @@ public class User {
         this.userInformation = userInformation;
         this.matches = matches;
         setName(name);
+        setAge(age);
         setEmail(email);
         this.password = password;
-        setAge(age);
     }
     /**
      *
@@ -48,7 +48,7 @@ public class User {
     public User(String name, int age, String userInformation, List<String> matches, String email) {
         this.userInformation = userInformation;
         this.matches = matches;
-        setName(name);;
+        setName(name);
         setAge(age);
         setEmail(email);
     }
@@ -64,8 +64,9 @@ public class User {
     public User(String name, int age, String userInformation, String email) {
         this.userInformation = userInformation;
         setName(name);
-        setEmail(email);
         setAge(age);
+        setEmail(email);
+       
     }
 
     /**
@@ -76,9 +77,9 @@ public class User {
      * @param email
      */
     public User(String name, int age, String email) {
-        setName(name);;
+        setName(name);
         setAge(age);
-        setEmail(email);;
+        setEmail(email);
     }
 
     public String getName() {
