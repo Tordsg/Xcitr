@@ -22,7 +22,7 @@ public class User {
      * @param name
      * @param age
      * @param userInformation
-     * @param likedUsers
+     * @param matches
      * @param email
      * @param password
      *
@@ -37,12 +37,11 @@ public class User {
         setAge(age);
     }
     /**
-     * Constructor for User class
      *
      * @param name
      * @param age
      * @param userInformation
-     * @param likedUsers
+     * @param matches
      * @param email
      */
     public User(String name, int age, String userInformation, List<String> matches, String email) {
@@ -120,7 +119,13 @@ public class User {
         this.password = MD5Hash(password);;
     }
 
-    //Security implementation with MD5
+    /**
+     * This method is used to hash the password
+     *
+     * @param password string
+     * @return MD5 hash of password
+     *
+     */
     public static String MD5Hash(String password) {
         String outString = null;
         try {
@@ -160,6 +165,10 @@ public class User {
         return likedUsers.containsKey(match);
     }
 
+    /**
+     * Adds a user to the likedUsers HashMap
+     * @param match The user to be added
+     */
     public void addUserOnMatch(User match) {
         if (!likedUsers.containsKey(match)) {
             likedUsers.put(match, 1);
@@ -168,21 +177,33 @@ public class User {
         }
     }
 
+    /**
+     * If a user is liked sufficiently, like count resets to 0
+     */
     public void resetUserMatch(User user) {
         if (likedUsers.containsKey(user)) {
             likedUsers.put(user, 0);
         }
     }
 
+    /**
+     *
+     * @param user that this user will check against
+     * @return true if the user has liked the other user sufficient times
+     */
     public boolean checkIfMatch(User user) {
         if (haveLikedUser(user) && user.haveLikedUser(this) && !matches.contains(user.getEmail())) {
-            System.out.println("Match found");
             matches.add(user.getEmail());
             user.matches.add(this.getEmail());
         }
         return haveLikedUser(user) && user.haveLikedUser(this);
     }
 
+    /**
+     *
+     * @param user that this user will check against
+     * @return true if the user has liked the other user more than 3 times
+     */
     public boolean haveLikedUser(User user) {
         if (!likedUsers.containsKey(user)) {
             return false;

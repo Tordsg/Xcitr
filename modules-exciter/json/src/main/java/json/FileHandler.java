@@ -25,6 +25,12 @@ public class FileHandler {
    private JSONParser parser = new JSONParser();
    String path = "../json/src/main/resources/UserData.JSON";
 
+   /**
+    * Saves users to the JSON file. Will makes necessary checks for bot users to
+    * differentiate between normal users and bot users.
+    *
+    * @param users to be saved
+    */
    @SuppressWarnings("unchecked") // Type safety can't be avoided with simple-json
    public void saveUser(List<User> users) {
       JSONArray userArray = new JSONArray();
@@ -60,7 +66,6 @@ public class FileHandler {
       }
    }
 
-
    public void createFile() {
       try {
          File file = new File(path);
@@ -73,10 +78,12 @@ public class FileHandler {
 
    }
 
-   public void deleteUserFromFile(User user) {
-
-   }
-
+   /**
+    * Loads users from the JSON file. Will makes necessary checks for bot users to
+    * differentiate between normal users and bot users.
+    *
+    * @return list of users
+    */
    public List<User> readUsers() {
 
       try (BufferedReader fileReader = new BufferedReader(new InputStreamReader(new FileInputStream(path), "UTF-8"))) {
@@ -115,6 +122,12 @@ public class FileHandler {
       return null;
    }
 
+   /**
+    * Parses a JSONArray into a List of Strings.
+    *
+    * @param jsonArray
+    * @return List of user Emails
+    */
    public List<String> parseJSONList(JSONArray jsonArray) {
       List<String> list = new ArrayList<>();
       for (Object object : jsonArray) {
@@ -123,7 +136,11 @@ public class FileHandler {
       return list;
    }
 
-
+   /**
+    *
+    * @param mail of a user
+    * @return user if mail exists in JSON file, null otherwise
+    */
    public User getUser(String mail) {
       List<User> users = readUsers();
       for (User user : users) {

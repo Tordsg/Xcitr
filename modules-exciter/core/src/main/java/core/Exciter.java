@@ -22,6 +22,12 @@ public class Exciter {
       currentUser.setPassword("admin");
    }
 
+   /**
+    * Will check that users to be added does not exist in the list
+    * @param users to be added to the list of all users
+    *
+    * @apiNote primarly used to add users from JSON file
+    */
    public void addUsers(List<User> users) {
       List<String> userMailList = allUsers.stream().map(User::getEmail).collect(Collectors.toList());
       for (User user : users) {
@@ -45,12 +51,22 @@ public class Exciter {
       return currentUser;
    }
 
+   /**
+    * Method will also make sure that user is not among allUsers,
+    * to make sure that user can't like himself.
+    * @param user to be set as current user
+    */
    public void setCurrentUser(User user) {
       User localUser = allUsers.stream().filter(u -> u.getEmail().equals(user.getEmail())).findFirst().orElse(null);
       allUsers.remove(localUser);
       currentUser = user;
    }
 
+   /**
+    *
+    * @return two new users to be displayed on the screen
+    * @apiNote this method does not check against onScreenUser1 and onScreenUser2
+    */
    public ArrayList<User> getNextUsers() {
       int[] randomUsers = new Random().ints(0, allUsers.size() - 1).distinct().limit(2).toArray();
 
@@ -59,6 +75,10 @@ public class Exciter {
       return new ArrayList<>(Arrays.asList(allUsers.get(randomUsers[0]), allUsers.get(randomUsers[1])));
    }
 
+   /**
+    *
+    * @return two new unique users that are not on screen
+    */
    public ArrayList<User> refreshUsers() {
       ArrayList<User> tempUserList = allUsers.stream().filter(a -> a != onScreenUser1 && a != onScreenUser2)
             .collect(Collectors.toCollection(ArrayList::new));
@@ -69,6 +89,10 @@ public class Exciter {
       return new ArrayList<>(Arrays.asList(tempUserList.get(randomUsers[0]), tempUserList.get(randomUsers[1])));
    }
 
+   /**
+    *
+    * @return new user that is not on screen
+    */
    public User getNextRandomUser() {
       ArrayList<User> tempUserList = allUsers.stream().filter(a -> a != onScreenUser1 && a != onScreenUser2)
             .collect(Collectors.toCollection(ArrayList::new));
@@ -94,6 +118,11 @@ public class Exciter {
       return onScreenUser2;
    }
 
+   /**
+    *
+    * @param user
+    * @return number of likes in a row by current user
+    */
    public int getOnScreenUserLikeCount(User user) {
       if (currentUser.getLikedUsers().containsKey(user)) {
          return currentUser.getLikedUsers().get(user);
@@ -122,6 +151,12 @@ public class Exciter {
       return new ArrayList<>(Arrays.asList(onScreenUser1, onScreenUser2));
    }
 
+   /**
+    * Core logic of exciter class.
+    * It discards one user and checks if the current user has liked the other user
+    *
+    * @return true if the user liked the other user three times in a row
+    */
    public boolean discardSecond() {
       if(currentUser.haveLikedUser(onScreenUser2)) currentUser.resetUserMatch(onScreenUser2);
       currentUser.fireOnLike(onScreenUser1);
@@ -136,6 +171,12 @@ public class Exciter {
       return match;
    }
 
+   /**
+    * Core logic of exciter class.
+    * It discards one user and checks if the current user has liked the other user
+    *
+    * @return true if the user liked the other user three times in a row
+    */
    public boolean discardFirst() {
       if(currentUser.haveLikedUser(onScreenUser2)) currentUser.resetUserMatch(onScreenUser2);
       currentUser.fireOnLike(onScreenUser2);
