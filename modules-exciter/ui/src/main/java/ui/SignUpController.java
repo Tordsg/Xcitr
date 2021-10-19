@@ -109,7 +109,7 @@ public class SignUpController {
         ArrayList<User> users = xcitr.getAllUsers();
         users.add(user);
         fileHandler.saveUser(users);
-        
     }
+    
 
 }
