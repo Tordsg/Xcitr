@@ -4,7 +4,6 @@ import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import java.util.stream.Stream;
 
-import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -38,19 +37,14 @@ public class SignUpControllerTest extends ApplicationTest {
     clickOn("#fromLoginToSignup");
   }
 
-  @AfterEach
-  public void tearDown() throws Exception {
-    app.stop();
-  }
-
   @ParameterizedTest
   @MethodSource
-  public void testController(boolean excpected) {
-    checkResult(excpected);
+  public void testSignup(boolean age) {
+    checkResult(age);
 
   }
 
-  private static Stream<Arguments> testController() {
+  private static Stream<Arguments> testSignup() {
     return Stream.of(Arguments.of(true));
   }
 
@@ -58,62 +52,85 @@ public class SignUpControllerTest extends ApplicationTest {
   // from the test method to the checkResult method
   // Why you keep this one is to split up the first parameter if it's a list for
   // example
-  /*@ParameterizedTest
-  @MethodSource
-  public void test1equal1(int one, int two) {
-    checkResult(one, two);
-  }*/
+  /*
+   * @ParameterizedTest
+   *
+   * @MethodSource public void test1equal1(int one, int two) { checkResult(one,
+   * two); }
+   */
 
   // This is second method, where you keep all the values
   // you want to test. i.e. you can have a list of values
   // like name, age, etc.
-  /*private static Stream<Arguments> test1equal1() {
-    return Stream.of(Arguments.of(1, 1));
-  }*/
+  /*
+   * private static Stream<Arguments> test1equal1() { return
+   * Stream.of(Arguments.of(1, 1)); }
+   */
 
   // third method, where you do the assertions
   // and you actually call the click, lookup, whatever methods
   private void checkResult(boolean excpected) {
-    //How to fill textboxes
-    TextField name = lookup("#name").query();
-    clickOn(name);
-    write("Ulf Reidar");
+    if (excpected) {
 
-    TextField age = lookup("#age").query();
-    clickOn(age);
-    write("19");
+      TextField name = lookup("#name").query();
+      clickOn(name);
+      write("Ulf Reidar");
 
-    TextField email = lookup("#emailSignup").query();
-    clickOn(email);
-    write("Ulf@mail.no");
+      TextField age = lookup("#age").query();
+      clickOn(age);
+      write("19");
 
-    User currentUser = new User(name.getText(), Integer.parseInt(age.getText()), email.getText());
+      TextField email = lookup("#emailSignup").query();
+      clickOn(email);
+      write("Ulf@mail.no");
 
-    TextField password = lookup("#passwordSignup").query();
-    clickOn(password);
-    write("123");
+      User currentUser = new User(name.getText(), Integer.parseInt(age.getText()), email.getText());
 
+      TextField password = lookup("#passwordSignup").query();
+      clickOn(password);
+      write("123");
 
-    clickOn("#createAccount");
-    //Assertions placeholder
-    //checkIfContainsUser(currentUser);
-    Assertions.assertTrue(excite.getCurrentUser().getEmail().equals(currentUser.getEmail()));
-  }
+      clickOn("#createAccount");
 
-  private void checkResult(int one, int two) {
-    Assertions.assertEquals(one, two);
-  }
+      Assertions.assertTrue(excite.getCurrentUser().getEmail().equals(currentUser.getEmail()));
+    } else {
+      TextField name = lookup("#name").query();
+      clickOn(name);
+      write("Ulf Reidar");
 
-  /*private void checkIfContainsUser(User user){
-    int number = 0;
-    if(excite.getAllUsers().contains(user)){
-      number = 1;
+      TextField age = lookup("#age").query();
+      clickOn(age);
+      write("-2");
+
+      TextField email = lookup("#emailSignup").query();
+      clickOn(email);
+      write("Ulf@mail.com");
+
+      TextField password = lookup("#passwordSignup").query();
+      clickOn(password);
+      write("123");
+
+      Assertions.assertThrows(IllegalArgumentException.class, () -> clickOn("#createAccount"));
     }
-    test1equal1(1, number);
+  }
 
-}*/
+  @ParameterizedTest
+  @MethodSource
+  public void testIllegal(boolean age) {
+    checkResult(age);
+  }
 
+  public static Stream<Arguments> testIllegal() {
+    return Stream.of(Arguments.of(false));
+  }
 
+  /*
+   * private void checkIfContainsUser(User user){ int number = 0;
+   * if(excite.getAllUsers().contains(user)){ number = 1; } test1equal1(1,
+   * number);
+   *
+   * }
+   */
 
   // TODO: Add more tests
 
