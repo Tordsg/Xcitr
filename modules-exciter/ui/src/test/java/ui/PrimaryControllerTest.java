@@ -1,8 +1,9 @@
 package ui;
 
-import javafx.scene.shape.Circle;
 import javafx.stage.Stage;
+import json.FileHandler;
 
+import java.util.List;
 import java.util.concurrent.TimeUnit;
 import java.util.stream.Stream;
 
@@ -15,6 +16,7 @@ import org.testfx.framework.junit5.ApplicationTest;
 
 import core.BotUser;
 import core.Exciter;
+import core.User;
 
 /*TestFx App Test*/
 
@@ -22,8 +24,8 @@ public class PrimaryControllerTest extends ApplicationTest {
 
   private App app = new App();
   private Exciter excite = App.exciter;
-  private PrimaryController controller;
   private BotUser botUser = new BotUser("John", 21, "john@mail.no", true);
+  private FileHandler fileHandler = new FileHandler();
 
 
   @Override
@@ -31,12 +33,12 @@ public class PrimaryControllerTest extends ApplicationTest {
     app.start(stage);
   }
 
-  public PrimaryController getController(){
-    return controller;
-  }
-
   @BeforeEach
   public void setUp() {
+    app = new App();
+    List<User> users = fileHandler.readUsers();
+    fileHandler.saveUser(users);
+    excite.setOnScreenUser1(botUser);
     clickOn("#fromLoginToSignup");
     clickOn("#name");
     write("Ulf");
@@ -47,7 +49,6 @@ public class PrimaryControllerTest extends ApplicationTest {
     clickOn("#passwordSignup");
     write("ulf");
     clickOn("#createAccount");
-    excite.setOnScreenUser1(botUser);
   }
 
   @ParameterizedTest
@@ -60,44 +61,57 @@ public class PrimaryControllerTest extends ApplicationTest {
     return Stream.of(Arguments.of(true));
   }
 
-
-
-
-  // third method, where you do the assertions
-  // and you actually call the click, lookup, whatever methods
   private void checkResult(boolean excpected) {
-    if(excpected){
 
     drag("#rightCard").moveBy(0, -100).drop();
     try {
       TimeUnit.SECONDS.sleep(1);
     } catch (InterruptedException e) {
-      // TODO Auto-generated catch block
       e.printStackTrace();
     }
     drag("#rightCard").moveBy(0, -100).drop();
     try {
       TimeUnit.SECONDS.sleep(1);
     } catch (InterruptedException e) {
-      // TODO Auto-generated catch block
       e.printStackTrace();
     }
     drag("#rightCard").moveBy(0, -100).drop();
 
-    Assertions.assertTrue(excite.getCurrentUser().getMatches().contains(botUser.getEmail()));}
+    Assertions.assertTrue(excite.getCurrentUser().getMatches().contains(botUser.getEmail()));
 
-    else{
-    Circle profile = lookup("#profile").query();
-    clickOn(profile);
+
+    try {
+      TimeUnit.SECONDS.sleep(1);
+    } catch (Exception e) {
+      e.printStackTrace();
+    }
+    drag("#leftCard").moveBy(0, -100).drop();
+    Assertions.assertTrue(excite.getCurrentUser().getMatches().size() == 1);
+
   }
 
+    @ParameterizedTest
+    @MethodSource
+    public void testRefresh(boolean match) {
+      checkRefresh(match);
+    }
 
+    public static Stream<Arguments> testRefresh() {
+      return Stream.of(Arguments.of(true));
+    }
 
-  }
-
-
-
-
-  // TODO: Add more tests
+    public void checkRefresh(boolean excpected) {
+      User user1 = excite.getOnScreenUser1();
+      User user2 = excite.getOnScreenUser2();
+      clickOn("#refresh");
+      try {
+        TimeUnit.SECONDS.sleep(2);
+      } catch (Exception e) {
+        System.out.println("here");
+        e.printStackTrace();
+      }
+      Assertions.assertNotEquals(user1, excite.getOnScreenUser1());
+      Assertions.assertNotEquals(user2, excite.getOnScreenUser2());
+    }
 
 }
