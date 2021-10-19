@@ -54,7 +54,7 @@ public class App extends Application {
     }
 
     static void setRoot(String fxml) throws IOException {
-        if(fxml.equals("primary") && scene.getWidth()<600 || fxml.equals("login")){
+        if(fxml.equals("primary") && scene.getWidth()<600 || fxml.equals("login") && scene.getWidth()>600){
         stage.hide();
         scene = new Scene(loadFXML(fxml));
         stage.setScene(scene);
