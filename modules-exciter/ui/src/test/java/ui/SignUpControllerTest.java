@@ -1,5 +1,6 @@
 package ui;
 
+import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import java.util.stream.Stream;
@@ -89,7 +90,10 @@ public class SignUpControllerTest extends ApplicationTest {
       clickOn(password);
       write("123");
 
-      Assertions.assertThrows(IllegalArgumentException.class, () -> clickOn("#createAccount"));
+      Label label = lookup("#errorLabel").query();
+      Assertions.assertEquals("", label.getText());
+      clickOn("#createAccount");
+      Assertions.assertNotEquals("", label.getText());
     }
   }
 

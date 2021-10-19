@@ -70,19 +70,19 @@ public class SignUpController {
         String passwordReg = passwordSignup.getText();
 
         try{
-        userXcitr = new User(nameReg, Integer.parseInt(ageReg), emailReg);}
+            userXcitr = new User(nameReg, Integer.parseInt(ageReg), emailReg);
+            userXcitr.setPassword(passwordReg);
+            saveUser(userXcitr);
+            xcitr.setCurrentUser(userXcitr);
+            xcitr.removeFromAllUsers(userXcitr);
 
-        catch(IllegalArgumentException e){
+            switchToPrimary();
+
+        } catch(IllegalArgumentException e){
             errorLabel.setText(e.getMessage());
        }
-       
-       userXcitr.setPassword(passwordReg);
-        saveUser(userXcitr);
 
-        xcitr.setCurrentUser(userXcitr);
-        xcitr.removeFromAllUsers(userXcitr);
 
-        switchToPrimary();
 
     }
 
