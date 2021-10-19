@@ -1,11 +1,6 @@
 package ui;
 
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.TextArea;
-import javafx.scene.control.TextField;
-import javafx.scene.shape.SVGPath;
 import javafx.stage.Stage;
 import json.FileHandler;
 
@@ -24,7 +19,6 @@ import core.Exciter;
 
 public class SecondaryControllerTest extends ApplicationTest {
 
-  private SecondaryController controller;
   private App app = new App();
   private Exciter exciter = App.exciter;
   private FileHandler fileHandler = new FileHandler();

@@ -1,6 +1,7 @@
 package ui;
 
 import javafx.scene.control.TextField;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import json.FileHandler;
 
@@ -84,9 +85,14 @@ public class LoginControllerTest extends ApplicationTest {
       TextField password = lookup("#passwordLogin").query();
       clickOn(password);
       write("test");
+      Text text = lookup("#errorMessage").query();
+      Assertions.assertFalse(text.isVisible());
+
       clickOn("#login");
 
-      Assertions.assertFalse(exciter.getCurrentUser().getEmail().equals(testUser.getEmail()));
+
+      Assertions.assertNotEquals("", text.getText());
+      Assertions.assertTrue(text.isVisible());
 
     }
   }
