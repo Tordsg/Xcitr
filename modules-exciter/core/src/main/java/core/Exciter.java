@@ -131,6 +131,7 @@ public class Exciter {
       }
       onScreenUser2 = getNextRandomUser();
       boolean match = currentUser.haveLikedUser(onScreenUser1);
+      currentUser.checkIfMatch(onScreenUser1);
       if(currentUser.haveLikedUser(onScreenUser1)) onScreenUser1 = getNextRandomUser();
       return match;
    }
@@ -144,6 +145,7 @@ public class Exciter {
       }
       onScreenUser1 = getNextRandomUser();
       boolean match = currentUser.haveLikedUser(onScreenUser2);
+      currentUser.checkIfMatch(onScreenUser2);
       if(currentUser.haveLikedUser(onScreenUser2)) onScreenUser2 = getNextRandomUser();
       return match;
    }
