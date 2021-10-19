@@ -3,9 +3,6 @@ package ui;
 import javafx.scene.shape.Circle;
 import javafx.stage.Stage;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.concurrent.TimeUnit;
 import java.util.stream.Stream;
 
 import org.junit.jupiter.api.Assertions;
