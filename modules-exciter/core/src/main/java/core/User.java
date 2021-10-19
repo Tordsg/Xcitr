@@ -109,10 +109,6 @@ public class User {
             throw new IllegalArgumentException("The e-mail must contain @");
 
         }
-        String afterAt = email.substring(email.indexOf("@"));
-        if(!afterAt.contains(".")){
-            throw new IllegalArgumentException("The mail must contain a . after @");
-        }
         this.email = email;
     }
 
