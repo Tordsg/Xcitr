@@ -3,6 +3,7 @@ package ui;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.shape.SVGPath;
 import javafx.stage.Stage;
@@ -60,44 +61,23 @@ public class SecondaryControllerTest extends ApplicationTest {
 
   @ParameterizedTest
   @MethodSource
-  public void testController(String string1, boolean excpected) {
-    checkResult(string1, excpected);
+  public void testController(boolean excpected) {
+    checkResult(excpected);
 
   }
 
   private static Stream<Arguments> testController() {
-    return Stream.of(Arguments.of(null, true));
+    return Stream.of(Arguments.of(true));
   }
 
-  @ParameterizedTest
-  @MethodSource
-  public void test1equal1(int one, int two) {
-    checkResult(one, two);
+
+  private void checkResult(boolean excpected) {
+    TextArea textField = lookup("#bio").query();
+    textField.clear();
+    clickOn("#bio");
+    write("guitar player");
+    clickOn("#save");
+    Assertions.assertEquals("guitar player", exciter.getCurrentUser().getUserInformation());
   }
-
-  private static Stream<Arguments> test1equal1() {
-    return Stream.of(Arguments.of(1, 1));
-  }
-
-  // third method, where you do the assertions
-  // and you actually call the click, lookup, whatever methods
-  private void checkResult(String string1, boolean excpected) {
-    SVGPath edit = lookup("#UpdateButton").query();
-    clickOn(edit);
-
-    TextField bio = lookup("#UpdateBio").query();
-    clickOn(bio);
-    write("ulf@mail");
-
-    SVGPath save = lookup("#SaveButton").query();
-    clickOn(save);
-    Assertions.assertNull(string1);
-  }
-
-  private void checkResult(int one, int two) {
-    Assertions.assertEquals(one, two);
-  }
-
-  // TODO: Add more tests
 
 }
