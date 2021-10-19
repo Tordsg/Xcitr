@@ -17,7 +17,7 @@ import javafx.scene.layout.Pane;
 import javafx.stage.FileChooser;
 
 import java.net.URL;
-
+import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 
@@ -94,9 +94,9 @@ public class SecondaryController implements Initializable{
     @FXML
     public void signOut() throws IOException{
         fileHandler.createFile();
-        List<User> users = excite.getAllUsers();
-        boolean hasUser = users.stream().anyMatch(e -> e.getClass().getName().equals("core.User"));
-        if(!hasUser) users.add(excite.getCurrentUser());
+        List<User> users = new ArrayList<>();
+        users.addAll(excite.getAllUsers());
+        users.add(excite.getCurrentUser());
         fileHandler.saveUser(users);
         App.setRoot("login");
     }
