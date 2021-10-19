@@ -17,7 +17,7 @@ import javafx.scene.layout.Pane;
 import javafx.stage.FileChooser;
 
 import java.net.URL;
-
+import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 
@@ -88,14 +88,15 @@ public class SecondaryController implements Initializable{
         currentPane.setLayoutX(70);
         currentPane.setLayoutY(70);
         lastPane = currentPane;
+        pane.requestFocus();
     }
 
     @FXML
     public void signOut() throws IOException{
         fileHandler.createFile();
-        List<User> users = excite.getAllUsers();
-        boolean hasUser = users.stream().anyMatch(e -> e.getClass().getName().equals("core.User"));
-        if(!hasUser) users.add(excite.getCurrentUser());
+        List<User> users = new ArrayList<>();
+        users.addAll(excite.getAllUsers());
+        users.add(excite.getCurrentUser());
         fileHandler.saveUser(users);
         App.setRoot("login");
     }
@@ -105,7 +106,6 @@ public class SecondaryController implements Initializable{
         excite.getCurrentUser().setName(name.getText());
         if(!password.getText().equals("")) excite.getCurrentUser().setPassword(password.getText());
         excite.getCurrentUser().setUserInformation(bio.getText());
-        pane.requestFocus();
         updatePreview();
     }
 
