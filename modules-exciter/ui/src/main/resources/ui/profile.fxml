@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.Group?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.effect.DropShadow?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.paint.Color?>
+<?import javafx.scene.paint.LinearGradient?>
+<?import javafx.scene.paint.Stop?>
+<?import javafx.scene.shape.Circle?>
+<?import javafx.scene.shape.Rectangle?>
+<?import javafx.scene.shape.SVGPath?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<Pane fx:id="pane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="430.0" prefWidth="640.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ui.SecondaryController">
+   <children>
+      <Rectangle height="430.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="640.0">
+         <fill>
+            <LinearGradient endX="1.0" endY="1.0">
+               <stops>
+                  <Stop>
+                     <color>
+                        <Color red="0.3843137323856354" green="0.9137254953384399" blue="0.9450980424880981" />
+                     </color>
+                  </Stop>
+                  <Stop offset="0.007532956685499058">
+                     <color>
+                        <Color red="0.3843137323856354" green="0.9137254953384399" blue="0.9450980424880981" />
+                     </color>
+                  </Stop>
+                  <Stop offset="1.0">
+                     <color>
+                        <Color red="0.2666666805744171" green="0.7333333492279053" blue="0.8784313797950745" />
+                     </color>
+                  </Stop>
+               </stops>
+            </LinearGradient>
+         </fill>
+      </Rectangle>
+      <Group fx:id="backButton" layoutX="15.0" layoutY="15.0" onMouseClicked="#switchToPrimary">
+         <children>
+            <Circle fill="WHITE" layoutX="28.0" layoutY="19.0" radius="23.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0">
+               <effect>
+                  <DropShadow blurType="TWO_PASS_BOX" offsetX="2.0" offsetY="2.0">
+                     <color>
+                        <Color opacity="0.5" />
+                     </color>
+                  </DropShadow>
+               </effect>
+            </Circle>
+            <SVGPath content="M23 13.5C23.8284 13.5 24.5 12.8284 24.5 12C24.5 11.1716 23.8284 10.5 23 10.5L23 13.5ZM0.93934 10.9393C0.353553 11.5251 0.353553 12.4749 0.93934 13.0607L10.4853 22.6066C11.0711 23.1924 12.0208 23.1924 12.6066 22.6066C13.1924 22.0208 13.1924 21.0711 12.6066 20.4853L4.12132 12L12.6066 3.51472C13.1924 2.92893 13.1924 1.97918 12.6066 1.3934C12.0208 0.807612 11.0711 0.807612 10.4853 1.3934L0.93934 10.9393ZM23 10.5L2 10.5L2 13.5L23 13.5L23 10.5Z" fill="#00a3fe" layoutX="16.0" layoutY="7.0" />
+         </children>
+      </Group>
+      <Text fill="WHITE" layoutX="109.0" layoutY="52.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Preview">
+         <font>
+            <Font size="45.0" />
+         </font>
+      </Text>
+      <Group fx:id="upload" layoutX="-32.0" layoutY="-347.0" onMouseClicked="#uploadPicture">
+         <children>
+            <Rectangle arcHeight="35.0" arcWidth="35.0" fill="WHITE" height="35.0" layoutX="420.0" layoutY="381.0" stroke="WHITE" strokeType="INSIDE" strokeWidth="0.0" width="151.0">
+               <effect>
+                  <DropShadow offsetX="2.0" offsetY="2.0">
+                     <color>
+                        <Color opacity="0.5" />
+                     </color>
+                  </DropShadow>
+               </effect>
+            </Rectangle>
+            <Text layoutX="432.0" layoutY="406.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Upload Picture" textAlignment="CENTER">
+               <font>
+                  <Font size="20.0" />
+               </font>
+            </Text>
+         </children>
+      </Group>
+      <TextField fx:id="name" layoutX="359.0" layoutY="110.0" prefHeight="35.0" prefWidth="123.0" promptText="john" />
+      <TextField fx:id="age" layoutX="515.0" layoutY="110.0" prefHeight="35.0" prefWidth="58.0" />
+      <PasswordField fx:id="password" layoutX="358.0" layoutY="179.0" prefHeight="35.0" prefWidth="214.0" />
+      <TextArea fx:id="bio" layoutX="358.0" layoutY="249.0" prefHeight="91.0" prefWidth="214.0" promptText="write about yourself..." wrapText="true">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </TextArea>
+      <Group fx:id="save" layoutX="-41.0" layoutY="-20.0" onMouseClicked="#save" onMousePressed="#save">
+         <children>
+            <Rectangle arcHeight="35.0" arcWidth="35.0" fill="WHITE" height="35.0" layoutX="420.0" layoutY="384.0" stroke="WHITE" strokeType="INSIDE" strokeWidth="0.0" width="63.0">
+               <effect>
+                  <DropShadow offsetX="2.0" offsetY="2.0">
+                     <color>
+                        <Color opacity="0.5" />
+                     </color>
+                  </DropShadow>
+               </effect>
+            </Rectangle>
+            <Text layoutX="432.0" layoutY="409.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Save" textAlignment="CENTER">
+               <font>
+                  <Font size="20.0" />
+               </font>
+            </Text>
+         </children>
+      </Group>
+      <Group fx:id="signOut" layoutX="50.0" layoutY="-18.0" onMousePressed="#signOut">
+         <children>
+            <Rectangle arcHeight="30.0" arcWidth="30.0" fill="WHITE" height="30.0" layoutX="420.0" layoutY="384.0" stroke="WHITE" strokeType="INSIDE" strokeWidth="0.0" width="86.0">
+               <effect>
+                  <DropShadow offsetX="2.0" offsetY="2.0">
+                     <color>
+                        <Color opacity="0.5" />
+                     </color>
+                  </DropShadow>
+               </effect>
+            </Rectangle>
+            <Text layoutX="433.0" layoutY="405.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Sign Out" textAlignment="CENTER">
+               <font>
+                  <Font size="16.0" />
+               </font>
+            </Text>
+         </children>
+      </Group>
+      <Text layoutX="360.0" layoutY="102.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Name">
+         <font>
+            <Font size="20.0" />
+         </font>
+      </Text>
+      <Text layoutX="358.0" layoutY="243.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Bio">
+         <font>
+            <Font size="20.0" />
+         </font>
+      </Text>
+      <Text layoutX="517.0" layoutY="102.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Age">
+         <font>
+            <Font size="20.0" />
+         </font>
+      </Text>
+      <Text layoutX="359.0" layoutY="171.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Password">
+         <font>
+            <Font size="20.0" />
+         </font>
+      </Text>
+   </children>
+</Pane>

@@ -15,25 +15,25 @@ public class ExciterTest {
     }
 
     @Test
-    public void likeFirst(){
+    public void likeFirst() {
         exciter.getNextUsers();
-        exciter.pressedLikeFirst();
-        Assertions.assertTrue(exciter.getCurrentUser().getAlreadyMatched().containsKey(exciter.getOnScreenUsers().get(0).getEmail()));
+        exciter.discardSecond();
+        Assertions.assertTrue(exciter.getCurrentUser().getLikedUsers().containsKey(exciter.getOnScreenUsers().get(0)));
     }
 
     @Test
-    public void testMatch(){
+    public void testMatch() {
         exciter.getNextUsers();
         exciter.setOnScreenUser2(botUser);
-        for(int i = 0; i <3;i++){
-            exciter.pressedLikeSecond();
+        for (int i = 0; i < 2; i++) {
+            exciter.discardFirst();
         }
-        Assertions.assertTrue(exciter.pressedLikeSecond());
-        Assertions.assertTrue(exciter.getOnScreenUser2().getAlreadyMatched().containsKey(exciter.getCurrentUser().getEmail()));
+        Assertions.assertTrue(exciter.discardFirst());
+        Assertions.assertEquals("sofie@mail", exciter.getCurrentUser().getMatches().get(0));
     }
 
     @Test
-    public void resetOnScreenUsers(){
+    public void resetOnScreenUsers() {
         User user = exciter.getOnScreenUser1();
         User user2 = exciter.getOnScreenUser2();
         exciter.refreshUsers();
@@ -41,4 +41,3 @@ public class ExciterTest {
     }
 
 }
-

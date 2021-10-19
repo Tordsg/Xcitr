@@ -5,7 +5,7 @@ import json.*;
 
 import java.io.IOException;
 import java.net.URL;
-import java.util.ArrayList;
+import java.util.List;
 import java.util.ResourceBundle;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Rectangle;
@@ -21,7 +21,10 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.Group;
+import javafx.scene.Node;
 import javafx.scene.control.Label;
+import javafx.scene.effect.Lighting;
 
 public class PrimaryController implements Initializable{
     @FXML
@@ -33,27 +36,44 @@ public class PrimaryController implements Initializable{
     @FXML
     private Text scoreNumber;
     @FXML
+    private Group matchButton;
+    @FXML
     private Pane leftCard, rightCard, refresh,scorePane;
-    private Exciter excite = new Exciter();
-    private FileHandler fileHandler = new FileHandler();
+    private Exciter excite = App.exciter;
+    protected static FileHandler fileHandler = LoginController.fileHandler;
     //Static since it's shared by the SecondaryController
     protected static ImageController imageController = new ImageController();
-    private ArrayList<User> displayUsers;
+    protected static List<User> matches;
+    private List<User> displayUsers;
     @FXML
     private void switchToSecondary() throws IOException {
         saveUserData();
-        App.setRoot("secondary");
+        App.setRoot("profile");
+    }
+    @FXML
+    private void switchToMatch() throws IOException {
+        saveUserData();
+        //MatchController.matches = excite.getCurrentUserMatches();
+        App.setRoot("match");
     }
     @FXML
     public void saveUserData(){
         fileHandler.createFile();
-        ArrayList<User> users = excite.getAllUsers();
-        users.add(excite.getCurrentUser());
+        List<User> users = excite.getAllUsers();
+        boolean hasUser = users.stream().anyMatch(e -> e.getClass().getName().equals("core.User"));
+        if(!hasUser) users.add(excite.getCurrentUser());
         fileHandler.saveUser(users);
     }
-
+    private void hoverButton(Node n){
+        n.setOnMouseEntered(e -> {
+            n.setEffect(new Lighting());
+        });
+        n.setOnMouseExited(e -> {
+            n.setEffect(null);
+        });
+    }
     void onDiscardLeftCard() {
-        if(excite.pressedLikeSecond()) {
+        if(excite.discardFirst()) {
             cardLiked(rightCard,leftCard);
             return;
         }
@@ -72,7 +92,7 @@ public class PrimaryController implements Initializable{
         leftCard.setDisable(true);
         rightCard.setDisable(true);
         refresh.setDisable(true);
-        if(excite.pressedLikeFirst()) {
+        if(excite.discardSecond()) {
             cardLiked(leftCard,rightCard);
             return;
         }
@@ -122,6 +142,7 @@ public class PrimaryController implements Initializable{
                 translateCardY(discardedcard, 400, 0,false),
                 tt,ft)
             );
+        scoreNumber.setText("3");
         st.play();
     }
     public TranslateTransition translateCardY(Pane pane, double start, double end, boolean updateOnFinish){
@@ -204,11 +225,13 @@ public class PrimaryController implements Initializable{
         profile.setFill(imageController.getImage(excite.getCurrentUser()));
         dragY(leftCard);
         dragY(rightCard);
+        hoverButton(refresh);
+        hoverButton(matchButton);
+        hoverButton(profile);
         setNextUsers();
     }
 
     double dY = 0;
-    double initialY = 0;
     Boolean dragged = false;
     double y = 0;
     double lastY = 0;
@@ -217,8 +240,8 @@ public class PrimaryController implements Initializable{
         e.setOnMousePressed(new EventHandler<MouseEvent>(){
             @Override
             public void handle(MouseEvent event){
-                initialY = event.getSceneY();
-                lastY = initialY;
+                lastY = event.getSceneY();
+
             }
         });
         e.setOnMouseDragged(new EventHandler<MouseEvent>(){
