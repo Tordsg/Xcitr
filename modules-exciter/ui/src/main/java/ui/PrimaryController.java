@@ -19,6 +19,7 @@ import javafx.animation.TranslateTransition;
 import javafx.event.EventHandler;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
+import javafx.scene.paint.ImagePattern;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Group;
@@ -222,7 +223,8 @@ public class PrimaryController implements Initializable{
     public void initialize(URL location, ResourceBundle resources) {
         leftPicture.setFill(imageController.getImage(excite.getOnScreenUser1()));
         rightPicture.setFill(imageController.getImage(excite.getOnScreenUser2()));
-        profile.setFill(imageController.getImage(excite.getCurrentUser()));
+
+        profile.setFill(new ImagePattern(imageController.getImage(excite.getCurrentUser()).getImage(), 0,0, 1, 1.4,true));
         dragY(leftCard);
         dragY(rightCard);
         hoverButton(refresh);

@@ -54,20 +54,11 @@ public class App extends Application {
     }
 
     static void setRoot(String fxml) throws IOException {
-        if(fxml.equals("primary") && stage.getWidth()!=656){
-            stage.hide();
-            stage.setHeight(469);
-            stage.setWidth(656);
-            scene.setRoot(loadFXML(fxml));
-            stage.show();
-        } else if(fxml.equals("login") && stage.getWidth()==656){
-            stage.hide();
-            stage.setHeight(587);
-            stage.setWidth(381);
-            scene.setRoot(loadFXML(fxml));
-            stage.show();
-        } else scene.setRoot(loadFXML(fxml));
-
+        if(fxml.equals("primary") && scene.getWidth()<600 || fxml.equals("login")){
+        scene = new Scene(loadFXML(fxml));
+        stage.setScene(scene);
+        }else 
+        scene.setRoot(loadFXML(fxml));
     }
 
     private static Parent loadFXML(String fxml) throws IOException {

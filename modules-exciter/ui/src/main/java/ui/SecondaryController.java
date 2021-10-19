@@ -88,6 +88,7 @@ public class SecondaryController implements Initializable{
         currentPane.setLayoutX(70);
         currentPane.setLayoutY(70);
         lastPane = currentPane;
+        pane.requestFocus();
     }
 
     @FXML
@@ -105,7 +106,6 @@ public class SecondaryController implements Initializable{
         excite.getCurrentUser().setName(name.getText());
         if(!password.getText().equals("")) excite.getCurrentUser().setPassword(password.getText());
         excite.getCurrentUser().setUserInformation(bio.getText());
-        pane.requestFocus();
         updatePreview();
     }
 
