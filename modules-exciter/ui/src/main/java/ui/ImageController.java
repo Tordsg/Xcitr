@@ -1,14 +1,17 @@
 package ui;
 
 import core.*;
-
 import java.io.File;
 import java.util.HashMap;
-
-import org.apache.commons.io.*;
-
 import javafx.scene.image.Image;
 import javafx.scene.paint.ImagePattern;
+import org.apache.commons.io.*;
+
+
+
+/**
+ * Controller for uploading of pictures in the application.
+ */
 
 public class ImageController {
 
@@ -17,6 +20,10 @@ public class ImageController {
     private String path = "../json/src/main/resources/images/";
     File dir = new File(path);
     File[] directoryListing = dir.listFiles();
+
+    /**
+     * Controller for imageuploading in the application.
+     */
 
     public ImageController() {
 
@@ -38,12 +45,14 @@ public class ImageController {
 
     private String getFileExtension(File file) {
         String extension = "";
+
         try {
             if (file.exists()) {
                 String name = file.getName();
                 extension = name.substring(name.lastIndexOf("."));
             }
-        } catch (Exception e) {
+        } 
+        catch (Exception e) {
             e.printStackTrace();
         }
         return extension;

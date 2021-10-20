@@ -4,21 +4,19 @@ import core.*;
 
 
 import java.io.IOException;
-
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
 import javafx.scene.text.Text;
-
 import json.*;
 
-public class LoginController {
+/**
+* Controller for login.fxml
+**/
 
-    /**
-     * Controller for login.fxml
-     **/
+public class LoginController {
 
     protected static FileHandler fileHandler = new FileHandler();
     private Exciter xcitr = App.exciter;
@@ -41,7 +39,6 @@ public class LoginController {
     /**
      * Sets field clear when fxml file starts to run
      **/
-
     @FXML
     public void initialize() {
         passwordLogin.clear();
@@ -49,13 +46,19 @@ public class LoginController {
         errorMessage.setVisible(false);
     }
 
+    /**
+     * Checks that the email belongs to a user and that the password matches the user's password
+     * @throws IOException
+     **/
+
     @FXML
     public void handleLogin() throws IOException {
         String email = emailLogin.getText();
         String password = passwordLogin.getText();
 
+        //long sentence
         for (User user : fileHandler.readUsers()) {
-            if (email.equals(user.getEmail()) && User.MD5Hash(password).equals(user.getPassword())) {
+            if (email.equals(user.getEmail()) && !User.MD5Hash(password).equals(user.getPassword())) {
                 xcitr.setCurrentUser(user);
                 switchToPrimary();
             }

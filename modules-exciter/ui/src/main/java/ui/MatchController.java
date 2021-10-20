@@ -1,13 +1,12 @@
 package ui;
 
+import core.Exciter;
+import core.User;
 import java.io.IOException;
 import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
 import java.util.stream.Collectors;
-
-import core.Exciter;
-import core.User;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -29,6 +28,9 @@ import javafx.scene.shape.StrokeType;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 
+/**
+ * Controller for match.fxml.
+ */
 public class MatchController implements Initializable {
 
     @FXML
@@ -39,12 +41,17 @@ public class MatchController implements Initializable {
     AnchorPane anchorPane;
     protected static ImageController imageController = PrimaryController.imageController;
     private Exciter exciter = App.exciter;
-    private List<User> matches = exciter.getAllUsers().stream().filter(a -> exciter.getCurrentUserMatches().contains(a.getEmail()))
+    private List<User> matches = exciter.getAllUsers().stream().
+    filter(a -> exciter.getCurrentUserMatches().contains(a.getEmail()))
     .collect(Collectors.toList());
 
     public void switchToPrimary() throws IOException {
         App.setRoot("primary");
     }
+
+    /**
+     * checks if user has any matches and set them in the match fxml file.
+     */
 
     public void initialize(URL arg0, ResourceBundle arg1) {
         hoverButton(button);
@@ -59,8 +66,10 @@ public class MatchController implements Initializable {
             label.setLayoutX(140);
             label.setLayoutY(210);
             anchorPane.getChildren().add(label);
-        } else
+        } 
+        else{
             dragMatches();
+        }
     }
 
     private void hoverButton(Node n) {
@@ -94,7 +103,11 @@ public class MatchController implements Initializable {
         pane1.setMinHeight(121);
         pane1.setPrefWidth(225);
         pane1.setStyle(
-                "-fx-background-color: rgba(255, 255, 255, .4); -fx-background-radius: 0 0 22 22; -fx-border-radius: 0 0 21 21; -fx-border-width: 0 2 2 2; -fx-border-color: black;");
+                """
+                -fx-background-color: rgba(255, 255, 255, .4);
+                -fx-background-radius: 0 0 22 22; -fx-border-radius: 0 0 21 21;
+                -fx-border-width: 0 2 2 2; -fx-border-color: black;
+                """);
         Label age = new Label();
         pane1.getChildren().add(age);
         age.setAlignment(Pos.CENTER);

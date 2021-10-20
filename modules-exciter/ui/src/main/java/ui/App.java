@@ -2,23 +2,21 @@ package ui;
 
 import core.Exciter;
 import core.User;
-import javafx.application.Application;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
-import javafx.scene.image.Image;
-import javafx.stage.Stage;
-
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-
+import javafx.application.Application;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.image.Image;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.stage.Stage;
 import json.FileHandler;
 
 
 /**
- * JavaFX App
- **/
+ * JavaFX App.
+ */
 public class App extends Application {
 
     private static Scene scene;
@@ -41,8 +39,9 @@ public class App extends Application {
     }
 
     /**
-     * Makes saving the state of the app interaction free
-     **/
+     * Makes saving the state of the app interaction free.
+     */
+
     @Override
     public void stop() throws Exception {
         List<User> users = new ArrayList<>();

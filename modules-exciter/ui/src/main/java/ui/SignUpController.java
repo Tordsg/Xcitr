@@ -12,12 +12,13 @@ import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.text.Text;
 import json.*;
+
+/**
+ * Controller for signup.fxml 
+ **/
+
 public class SignUpController {
-
-    /**
-     * Controller for signup.fxml 
-    **/
-
+    
     @FXML
     private ResourceBundle resources;
 
