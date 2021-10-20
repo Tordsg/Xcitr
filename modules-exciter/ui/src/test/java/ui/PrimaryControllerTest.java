@@ -65,13 +65,13 @@ public class PrimaryControllerTest extends ApplicationTest {
 
     drag("#rightCard").moveBy(0, -100).drop();
     try {
-      TimeUnit.SECONDS.sleep(1);
+      TimeUnit.SECONDS.sleep(2);
     } catch (InterruptedException e) {
       e.printStackTrace();
     }
     drag("#rightCard").moveBy(0, -100).drop();
     try {
-      TimeUnit.SECONDS.sleep(1);
+      TimeUnit.SECONDS.sleep(2);
     } catch (InterruptedException e) {
       e.printStackTrace();
     }
@@ -81,7 +81,7 @@ public class PrimaryControllerTest extends ApplicationTest {
 
 
     try {
-      TimeUnit.SECONDS.sleep(1);
+      TimeUnit.SECONDS.sleep(2);
     } catch (Exception e) {
       e.printStackTrace();
     }
