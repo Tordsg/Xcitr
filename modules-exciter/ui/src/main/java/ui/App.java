@@ -1,5 +1,7 @@
 package ui;
 
+import core.Exciter;
+import core.User;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -13,12 +15,10 @@ import java.util.List;
 
 import json.FileHandler;
 
-import core.Exciter;
-import core.User;
 
 /**
  * JavaFX App
- */
+ **/
 public class App extends Application {
 
     private static Scene scene;
@@ -28,11 +28,11 @@ public class App extends Application {
 
     @Override
     public void start(Stage stage) throws IOException {
-        if(fileHandler.readUsers() != null) {
+        if (fileHandler.readUsers() != null) {
             exciter.addUsers(fileHandler.readUsers());
         }
         App.stage = stage;
-        scene = new Scene(loadFXML("login"));
+        scene = new Scene(loadFxml("login"));
         stage.setScene(scene);
         stage.setResizable(false);
         stage.setTitle("citr");
@@ -42,7 +42,7 @@ public class App extends Application {
 
     /**
      * Makes saving the state of the app interaction free
-     */
+     **/
     @Override
     public void stop() throws Exception {
         List<User> users = new ArrayList<>();
@@ -54,16 +54,16 @@ public class App extends Application {
     }
 
     static void setRoot(String fxml) throws IOException {
-        if(fxml.equals("primary") && scene.getWidth()<600 || fxml.equals("login")){
+        if (fxml.equals("primary") && scene.getWidth() < 600 || fxml.equals("login")) {
         stage.hide();
-        scene = new Scene(loadFXML(fxml));
+        scene = new Scene(loadFxml(fxml));
         stage.setScene(scene);
         stage.show();
-        }else 
-        scene.setRoot(loadFXML(fxml));
+        }
+        scene.setRoot(loadFxml(fxml));
     }
 
-    private static Parent loadFXML(String fxml) throws IOException {
+    private static Parent loadFxml(String fxml) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource(fxml + ".fxml"));
         return fxmlLoader.load();
     }

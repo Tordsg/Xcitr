@@ -1,8 +1,7 @@
 package ui;
 
-import core.*;
-import json.*;
 
+import core.*;
 import java.io.IOException;
 import java.net.URL;
 import java.util.List;
@@ -12,8 +11,12 @@ import javafx.scene.control.Button;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.text.Text;
-
+import json.*;
 public class SignUpController {
+
+    /**
+     * Controller for signup.fxml 
+    **/
 
     @FXML
     private ResourceBundle resources;

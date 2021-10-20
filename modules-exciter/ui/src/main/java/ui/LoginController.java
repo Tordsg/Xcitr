@@ -1,7 +1,7 @@
 package ui;
 
 import core.*;
-import json.*;
+
 
 import java.io.IOException;
 
@@ -12,7 +12,13 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
 import javafx.scene.text.Text;
 
+import json.*;
+
 public class LoginController {
+
+    /**
+     * Controller for login.fxml
+     **/
 
     protected static FileHandler fileHandler = new FileHandler();
     private Exciter xcitr = App.exciter;
@@ -27,13 +33,14 @@ public class LoginController {
     private Button login;
 
     @FXML
-    private Text fromLoginToSignup;
-
-    @FXML
-    private Text errorMessage;
+    private Text fromLoginToSignup, errorMessage;
 
     @FXML
     private ImageView xcitrLogo;
+
+    /**
+     * Sets field clear when fxml file starts to run
+     **/
 
     @FXML
     public void initialize() {
@@ -41,7 +48,6 @@ public class LoginController {
         emailLogin.clear();
         errorMessage.setVisible(false);
     }
-
 
     @FXML
     public void handleLogin() throws IOException {
@@ -54,15 +60,12 @@ public class LoginController {
                 switchToPrimary();
             }
         }
-
+        
         errorMessage.setVisible(true);
         passwordLogin.clear();
         emailLogin.clear();
+ }
 
-
-
-
-    }
     private void switchToPrimary() throws IOException {
         App.setRoot("primary");
     }
