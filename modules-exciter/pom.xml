@@ -54,6 +54,7 @@
                         <skipTests>${skipTests}</skipTests>
                     </configuration>
                 </plugin>
+
                 <!-- Run the checkstyle code quality tool -->
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
@@ -83,7 +84,7 @@
                         </execution>
                     </executions>
                 </plugin>
-
+                
                 <!-- Run the spotbugs code quality tool -->
                 <plugin>
                     <groupId>com.github.spotbugs</groupId>
@@ -105,6 +106,9 @@
                     </executions>
                 </plugin>
 
+             
+
+                <!-- Configure jacoco code coverage -->
                 <plugin>
                     <groupId>org.jacoco</groupId>
                     <artifactId>jacoco-maven-plugin</artifactId>
