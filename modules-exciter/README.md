@@ -35,3 +35,5 @@ Below are three figma frames roughly describing how the application is going to 
 3. After swiping to tell the application which profile is the preferred one, this card will fall back onto the screen together with a new profile. The user can now compare the person they have already liked to a new profile and see if this person is the most likable. If the user is unsure on which profile she prefers, then she can press the profile card and view the profiles bio.
 
 ![pic3](/uploads/e0c708d613f6f114a24e87a0832fc717/pic3.png)
+
+Not all of the functionalities in the app, like having profile pictures for the users, is functional i gitpod. However when running the app in vscode or locally on the computer it works. 

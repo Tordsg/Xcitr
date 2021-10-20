@@ -14,5 +14,11 @@ For release 2 the goal is to expand the ui substantially with a login page, sign
 ### Testing 
 Another goal for this release is to implement more testing coverage for both the persistence and the ui. This expansion is natural considering the additional functionality and complexity that will be added to the application. The our goal is not to test all of the UI but at least a few of the controller classes and then move on to finish these in release 3. 
 
+Legg in screenshots av testdekningsgraden
 
+Skriv om vi velger implisitt lagring div (buker dette til dette og dette til dette)
+
+hva gjæør vi for å oppnå milepælene våre
+
+Alt nyttig hvis noen andre skulle tatt over prosjektet vårt
 
