@@ -2,6 +2,7 @@ package core;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 import java.util.Arrays;
 import java.util.concurrent.ThreadLocalRandom;
 import java.util.stream.Collectors;
@@ -71,7 +72,7 @@ public class Exciter {
   */
 
   public ArrayList<User> getNextUsers() {
-    int[] randomUsers = ThreadLocalRandom.current().ints(0, allUsers.size() - 1).distinct().limit(2).toArray();
+    int[] randomUsers = new Random().ints(0, allUsers.size() - 1).distinct().limit(2).toArray();
     setOnScreenUser(allUsers.get(randomUsers[0]), allUsers.get(randomUsers[1]));
     return new ArrayList<>(Arrays.asList(allUsers.get(randomUsers[0]), allUsers.get(randomUsers[1])));
   }
@@ -85,7 +86,7 @@ public class Exciter {
     ArrayList<User> tempUserList = allUsers.stream().filter(a -> a != onScreenUser1 && a != onScreenUser2)
             .collect(Collectors.toCollection(ArrayList::new));
 
-    int[] randomUsers = ThreadLocalRandom.current().ints(0, tempUserList.size() - 1).distinct().limit(2).toArray();
+    int[] randomUsers = new Random().ints(0, tempUserList.size() - 1).distinct().limit(2).toArray();
     setOnScreenUser(tempUserList.get(randomUsers[0]), tempUserList.get(randomUsers[1]));
 
     return new ArrayList<>(Arrays.asList(tempUserList.get(randomUsers[0]), tempUserList.get(randomUsers[1])));
