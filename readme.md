@@ -45,7 +45,7 @@ The UI folder contains all of the front-end development of the app. This include
 There is also an app class in this module that launches the Xcitr application in Scenebuilder. 
 
 ### Testing
-To determine the test coverage of our code, Jacoco has been implemented to test how much of the different classes and modules have been tested. Images that illustrate this can be viewed in the Jacoco folder: ... . To view these files one can also enter 'mvn -B verify' in the terminal. The quality of the code is also checked using spotbugs and checkstyle. 
+To determine the test coverage of our code, Jacoco has been implemented to test how much of the different classes and modules have been tested. Images that illustrate this can be viewed in the Jacoco folder: ... . To view these files one can also enter 'mvn verify' in the terminal. The quality of the code is also checked using spotbugs and checkstyle using the same command. 
 
 
 ## Gitlab
