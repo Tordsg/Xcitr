@@ -28,137 +28,146 @@ import javafx.scene.control.Label;
 import javafx.scene.effect.Lighting;
 
 public class PrimaryController implements Initializable{
-    @FXML
-    private Rectangle leftPicture, rightPicture;
-    @FXML
-    private Circle profile;
-    @FXML
-    private Label Name1,Age1,Name2,Age2;
-    @FXML
-    private Text scoreNumber;
-    @FXML
-    private Group matchButton;
-    @FXML
-    private Pane leftCard, rightCard, refresh,scorePane;
-    private Exciter excite = App.exciter;
-    protected static FileHandler fileHandler = LoginController.fileHandler;
-    //Static since it's shared by the SecondaryController
-    protected static ImageController imageController = new ImageController();
-    protected static List<User> matches;
-    private List<User> displayUsers;
-    @FXML
-    private void switchToSecondary() throws IOException {
-        saveUserData();
-        App.setRoot("profile");
+  @FXML
+  private Rectangle leftPicture, rightPicture;
+  @FXML
+  private Circle profile;
+  @FXML
+  private Label Name1,Age1,Name2,Age2;
+  @FXML
+  private Text scoreNumber;
+  @FXML
+  private Group matchButton;
+  @FXML
+  private Pane leftCard, rightCard, refresh,scorePane;
+  private Exciter excite = App.exciter;
+  protected static FileHandler fileHandler = LoginController.fileHandler;
+  //Static since it's shared by the SecondaryController
+  protected static ImageController imageController = new ImageController();
+  protected static List<User> matches;
+  private List<User> displayUsers;
+
+  @FXML
+  private void switchToSecondary() throws IOException {
+    saveUserData();
+    App.setRoot("profile");
+  }
+
+  @FXML
+  private void switchToMatch() throws IOException {
+    saveUserData();
+    //MatchController.matches = excite.getCurrentUserMatches();
+    App.setRoot("match");
+  }
+  @FXML
+  public void saveUserData(){
+    fileHandler.createFile();
+    List<User> users = excite.getAllUsers();
+    boolean hasUser = users.stream().anyMatch(e -> e.getClass().getName().equals("core.User"));
+    if(!hasUser){
+      users.add(excite.getCurrentUser());
     }
-    @FXML
-    private void switchToMatch() throws IOException {
-        saveUserData();
-        //MatchController.matches = excite.getCurrentUserMatches();
-        App.setRoot("match");
+
+    fileHandler.saveUser(users);
     }
-    @FXML
-    public void saveUserData(){
-        fileHandler.createFile();
-        List<User> users = excite.getAllUsers();
-        boolean hasUser = users.stream().anyMatch(e -> e.getClass().getName().equals("core.User"));
-        if(!hasUser) users.add(excite.getCurrentUser());
-        fileHandler.saveUser(users);
-    }
-    private void hoverButton(Node n){
-        n.setOnMouseEntered(e -> {
+    
+  private void hoverButton(Node n){
+    n.setOnMouseEntered(e -> {
             n.setEffect(new Lighting());
-        });
-        n.setOnMouseExited(e -> {
+    });
+    n.setOnMouseExited(e -> {
             n.setEffect(null);
-        });
+    });
+  }
+  void onDiscardLeftCard() {
+    if(excite.discardFirst()) {
+      cardLiked(rightCard,leftCard);
+      return;
     }
-    void onDiscardLeftCard() {
-        if(excite.discardFirst()) {
-            cardLiked(rightCard,leftCard);
-            return;
-        }
-        leftCard.setDisable(true);
-        rightCard.setDisable(true);
-        refresh.setDisable(true);
-        TranslateTransition tt1 = translateCardY(leftCard, leftCard.getLayoutY()-55, -400,true);
-        TranslateTransition tt2 = translateCardY(leftCard, 400, 0,false);
-        FadeTransition ft1 = animateScore("leftCard", true);
-        FadeTransition ft2 = animateScore("leftCard", false);
-        ParallelTransition pt1 = new ParallelTransition(tt1,ft1);
-        SequentialTransition st = new SequentialTransition(pt1,tt2,ft2);
-        st.play();
+    leftCard.setDisable(true);
+    rightCard.setDisable(true);
+    refresh.setDisable(true);
+    TranslateTransition tt1 = translateCardY(leftCard, leftCard.getLayoutY()-55, -400,true);
+    TranslateTransition tt2 = translateCardY(leftCard, 400, 0,false);
+    FadeTransition ft1 = animateScore("leftCard", true);
+    FadeTransition ft2 = animateScore("leftCard", false);
+    ParallelTransition pt1 = new ParallelTransition(tt1,ft1);
+    SequentialTransition st = new SequentialTransition(pt1,tt2,ft2);
+    st.play();
+  }
+
+  void onDiscardRightCard() {
+    leftCard.setDisable(true);
+    rightCard.setDisable(true);
+    refresh.setDisable(true);
+    if(excite.discardSecond()) {
+      cardLiked(leftCard,rightCard);
+      return;
     }
-    void onDiscardRightCard() {
-        leftCard.setDisable(true);
-        rightCard.setDisable(true);
-        refresh.setDisable(true);
-        if(excite.discardSecond()) {
-            cardLiked(leftCard,rightCard);
-            return;
-        }
-        TranslateTransition tt1 = translateCardY(rightCard, rightCard.getLayoutY()-55, -400,true);
-        TranslateTransition tt2 = translateCardY(rightCard, 400, 0,false);
-        FadeTransition ft1 = animateScore("rightCard", true);
-        FadeTransition ft2 = animateScore("rightCard", false);
-        ParallelTransition pt1 = new ParallelTransition(tt1,ft1);
-        SequentialTransition st = new SequentialTransition(pt1,tt2,ft2);
-        st.play();
-    }
-    public void cardLiked(Pane likedcard, Pane discardedcard){
-        TranslateTransition ttScore = new TranslateTransition(Duration.millis(Math.abs(-likedcard.getLayoutX()-300)),scorePane);
-        ttScore.setFromX(0);
-        ttScore.setToX(-likedcard.getLayoutX()-300);
-        ttScore.setCycleCount(1);
-        ttScore.setAutoReverse(true);
-        TranslateTransition tt = translateCardY(likedcard, 400, 0,false);
-        tt.setFromX(0);
-        tt.setToX(0);
-        TranslateTransition ttCard = new TranslateTransition(Duration.millis(Math.abs(-likedcard.getLayoutX()-300)),likedcard);
-        ttCard.setFromX(0);
-        ttCard.setToX(-likedcard.getLayoutX()-300);
-        ttCard.setCycleCount(1);
-        ttCard.setAutoReverse(true);
-        ttCard.setOnFinished(e -> {
+    TranslateTransition tt1 = translateCardY(rightCard, rightCard.getLayoutY()-55, -400,true);
+    TranslateTransition tt2 = translateCardY(rightCard, 400, 0,false);
+    FadeTransition ft1 = animateScore("rightCard", true);
+    FadeTransition ft2 = animateScore("rightCard", false);
+    ParallelTransition pt1 = new ParallelTransition(tt1,ft1);
+    SequentialTransition st = new SequentialTransition(pt1,tt2,ft2);
+    st.play();
+  }
+
+  public void cardLiked(Pane likedcard, Pane discardedcard){
+    TranslateTransition ttScore = new TranslateTransition(Duration.millis(Math.abs(-likedcard.getLayoutX()-300)),scorePane);
+    ttScore.setFromX(0);
+    ttScore.setToX(-likedcard.getLayoutX()-300);
+    ttScore.setCycleCount(1);
+    ttScore.setAutoReverse(true);
+    TranslateTransition tt = translateCardY(likedcard, 400, 0,false);
+    tt.setFromX(0);
+    tt.setToX(0);
+    TranslateTransition ttCard = new TranslateTransition(Duration.millis(Math.abs(-likedcard.getLayoutX()-300)),likedcard);
+    ttCard.setFromX(0);
+    ttCard.setToX(-likedcard.getLayoutX()-300);
+    ttCard.setCycleCount(1);
+    ttCard.setAutoReverse(true);
+    ttCard.setOnFinished(e -> {
             setNextUsers();
         }
-        );
-        FadeTransition ft = animateScore(discardedcard.getId(), false);
-        ft.setOnFinished(e-> {
+    );
+    FadeTransition ft = animateScore(discardedcard.getId(), false);
+    ft.setOnFinished(e-> {
             ft.getNode().setTranslateX(0);
             ft.getNode().setLayoutX(-200);
-        });
-        TranslateTransition firstTT = translateCardY(discardedcard,discardedcard.getLayoutY()-55,-400,false);
-        firstTT.setOnFinished(e-> e.consume());
-        SequentialTransition st = new SequentialTransition(
-            new ParallelTransition(
-                firstTT,
-                animateScore(discardedcard.getId(), true))
-            ,
-            new ParallelTransition(
-                ttScore,ttCard)
-            ,
+    });
+    TranslateTransition firstTT = translateCardY(discardedcard,discardedcard.getLayoutY()-55,-400,false);
+    firstTT.setOnFinished(e-> e.consume());
+    SequentialTransition st = new SequentialTransition(
+      new ParallelTransition(
+        firstTT,
+        animateScore(discardedcard.getId(), true))
+        ,
+        new ParallelTransition(
+          ttScore,ttCard)
+          ,
+          new ParallelTransition(
+            translateCardY(discardedcard, 400, 0,false),
+            tt,ft)
+          );
+    scoreNumber.setText("3");
+    st.play();
+  }
 
-            new ParallelTransition(
-                translateCardY(discardedcard, 400, 0,false),
-                tt,ft)
-            );
-        scoreNumber.setText("3");
-        st.play();
-    }
-    public TranslateTransition translateCardY(Pane pane, double start, double end, boolean updateOnFinish){
-        TranslateTransition tt = new TranslateTransition(Duration.millis(Math.abs(start-end)),pane);
-        tt.setFromY(start);
-        tt.setToY(end);
-        tt.setCycleCount(1);
-        tt.setAutoReverse(true);
-        pane.setLayoutY(55);
-        if(updateOnFinish){
-            tt.setOnFinished(e -> setNextUsers());
-        } else {
-            tt.setOnFinished(e -> {leftCard.setDisable(false);
-            rightCard.setDisable(false);
-            refresh.setDisable(false);
+  public TranslateTransition translateCardY(Pane pane, double start, double end, boolean updateOnFinish){
+    TranslateTransition tt = new TranslateTransition(Duration.millis(Math.abs(start-end)),pane);
+    tt.setFromY(start);
+    tt.setToY(end);
+    tt.setCycleCount(1);
+    tt.setAutoReverse(true);
+    pane.setLayoutY(55);
+    if(updateOnFinish){
+      tt.setOnFinished(e -> setNextUsers());
+    } 
+    else {
+      tt.setOnFinished(e -> {leftCard.setDisable(false);
+      rightCard.setDisable(false);
+      refresh.setDisable(false);
             });
         }
         return tt;

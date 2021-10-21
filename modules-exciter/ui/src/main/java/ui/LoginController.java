@@ -17,33 +17,33 @@ import json.*;
 **/
 
 public class LoginController {
+  
+  protected static FileHandler fileHandler = new FileHandler();
+  private Exciter xcitr = App.exciter;
 
-    protected static FileHandler fileHandler = new FileHandler();
-    private Exciter xcitr = App.exciter;
+  @FXML
+  private TextField emailLogin;
 
-    @FXML
-    private TextField emailLogin;
+  @FXML
+  private PasswordField passwordLogin;
 
-    @FXML
-    private PasswordField passwordLogin;
+  @FXML
+  private Button login;
 
-    @FXML
-    private Button login;
+  @FXML
+  private Text fromLoginToSignup, errorMessage;
 
-    @FXML
-    private Text fromLoginToSignup, errorMessage;
+  @FXML
+  private ImageView xcitrLogo;
 
-    @FXML
-    private ImageView xcitrLogo;
-
-    /**
-     * Sets field clear when fxml file starts to run
-     **/
-    @FXML
-    public void initialize() {
-        passwordLogin.clear();
-        emailLogin.clear();
-        errorMessage.setVisible(false);
+  /**
+   * Sets field clear when fxml file starts to run
+  **/
+  @FXML
+  public void initialize() {
+    passwordLogin.clear();
+    emailLogin.clear();
+    errorMessage.setVisible(false);
     }
 
     /**
@@ -51,31 +51,31 @@ public class LoginController {
      * @throws IOException
      **/
 
-    @FXML
-    public void handleLogin() throws IOException {
-        String email = emailLogin.getText();
-        String password = passwordLogin.getText();
-
-        //long sentence
-        for (User user : fileHandler.readUsers()) {
-            if (email.equals(user.getEmail()) && !User.MD5Hash(password).equals(user.getPassword())) {
-                xcitr.setCurrentUser(user);
-                switchToPrimary();
-            }
-        }
-        
-        errorMessage.setVisible(true);
-        passwordLogin.clear();
-        emailLogin.clear();
- }
-
-    private void switchToPrimary() throws IOException {
-        App.setRoot("primary");
+  @FXML
+  public void handleLogin() throws IOException {
+    String email = emailLogin.getText();
+    String password = passwordLogin.getText();
+    
+    //long sentence
+    for (User user : fileHandler.readUsers()) {
+      if (email.equals(user.getEmail()) && !User.MD5Hash(password).equals(user.getPassword())) {
+        xcitr.setCurrentUser(user);
+        switchToPrimary();
+      }
     }
+    
+    errorMessage.setVisible(true);
+    passwordLogin.clear();
+    emailLogin.clear();
+  }
 
-    @FXML
-    void onSwitchToSignup() throws IOException {
-        App.setRoot("signup");
-    }
+  private void switchToPrimary() throws IOException {
+    App.setRoot("primary");
+  }
+
+  @FXML
+  void onSwitchToSignup() throws IOException {
+    App.setRoot("signup");
+  }
 
 }
