@@ -1,5 +1,6 @@
 package core;
 
+import java.nio.charset.Charset;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
@@ -130,7 +131,7 @@ public class User {
         String outString = null;
         try {
             MessageDigest md = MessageDigest.getInstance("MD5");
-            md.update(password.getBytes());
+            md.update(password.getBytes(Charset.forName("UTF-8")));
             byte[] bytes = md.digest();
             StringBuilder sb = new StringBuilder();
 
