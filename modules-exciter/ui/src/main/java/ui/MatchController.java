@@ -42,7 +42,7 @@ public class MatchController implements Initializable {
   @FXML
   AnchorPane anchorPane;
     
-  protected static ImageController imageController = PrimaryController.imageController;
+  protected final static ImageController imageController = PrimaryController.imageController;
   private Exciter exciter = App.exciter;
   private List<User> matches = exciter.getAllUsers().stream().
       filter(a -> exciter.getCurrentUserMatches().contains(a.getEmail()))

@@ -16,7 +16,7 @@ import json.*;
 
 public class LoginController {
   
-  protected static FileHandler fileHandler = new FileHandler();
+  protected final static FileHandler fileHandler = new FileHandler();
   private Exciter xcitr = App.exciter;
 
   @FXML

@@ -41,9 +41,9 @@ public class PrimaryController implements Initializable{
   @FXML
   private Pane leftCard, rightCard, refresh,scorePane;
   private Exciter excite = App.exciter;
-  protected static FileHandler fileHandler = LoginController.fileHandler;
+  protected final static FileHandler fileHandler = LoginController.fileHandler;
   //Static since it's shared by the SecondaryController
-  protected static ImageController imageController = new ImageController();
+  protected final static ImageController imageController = new ImageController();
   protected static List<User> matches;
   private List<User> displayUsers;
 
