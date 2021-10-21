@@ -72,22 +72,18 @@ public class SignUpControllerTest extends ApplicationTest {
 
       clickOn("#createAccount");
 
-      Assertions.assertTrue(excite.getCurrentUser().getEmail().equals(currentUser.getEmail()));
+      Assertions.assertEquals(excite.getCurrentUser().getEmail(), currentUser.getEmail());
     } else {
-      TextField name = lookup("#name").query();
-      clickOn(name);
+      clickOn("#name");
       write("Ulf Reidar");
 
-      TextField age = lookup("#age").query();
-      clickOn(age);
+      clickOn("#age");
       write("-2");
 
-      TextField email = lookup("#emailSignup").query();
-      clickOn(email);
+      clickOn("#emailSignup");
       write("Ulf@mail.com");
 
-      TextField password = lookup("#passwordSignup").query();
-      clickOn(password);
+      clickOn("#passwordSignup");
       write("123");
 
       Label label = lookup("#errorLabel").query();
@@ -95,16 +91,6 @@ public class SignUpControllerTest extends ApplicationTest {
       clickOn("#createAccount");
       Assertions.assertNotEquals("", label.getText());
     }
-  }
-
-  @ParameterizedTest
-  @MethodSource
-  public void testIllegal(boolean age) {
-    checkResult(age);
-  }
-
-  public static Stream<Arguments> testIllegal() {
-    return Stream.of(Arguments.of(false));
   }
 
 

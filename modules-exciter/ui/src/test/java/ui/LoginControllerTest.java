@@ -74,7 +74,7 @@ public class LoginControllerTest extends ApplicationTest {
       write("test");
       clickOn("#login");
 
-      Assertions.assertTrue(exciter.getCurrentUser().getEmail().equals(testUser.getEmail()));
+      Assertions.assertEquals(exciter.getCurrentUser().getEmail(), testUser.getEmail());
 
     }
     else {

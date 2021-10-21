@@ -44,7 +44,6 @@ public class PrimaryController implements Initializable{
   protected final static FileHandler fileHandler = LoginController.fileHandler;
   //Static since it's shared by the SecondaryController
   protected final static ImageController imageController = new ImageController();
-  protected static List<User> matches;
   private List<User> displayUsers;
 
   @FXML
@@ -70,7 +69,7 @@ public class PrimaryController implements Initializable{
 
     fileHandler.saveUser(users);
     }
-    
+
   private void hoverButton(Node n){
     n.setOnMouseEntered(e -> {
             n.setEffect(new Lighting());
@@ -163,7 +162,7 @@ public class PrimaryController implements Initializable{
     pane.setLayoutY(55);
     if(updateOnFinish){
       tt.setOnFinished(e -> setNextUsers());
-    } 
+    }
     else {
       tt.setOnFinished(e -> {leftCard.setDisable(false);
       rightCard.setDisable(false);
@@ -188,7 +187,7 @@ public class PrimaryController implements Initializable{
     if (begin) {
       ft.setFromValue(0);
       ft.setToValue(1);
-    } 
+    }
     else {
       ft.setFromValue(1);
       ft.setToValue(0);
@@ -198,7 +197,7 @@ public class PrimaryController implements Initializable{
     ft.setAutoReverse(true);
     return ft;
   }
-    
+
   @FXML
   void refresh() {
     excite.refreshUsers();
@@ -272,7 +271,7 @@ public class PrimaryController implements Initializable{
           double posY = e.getLayoutY() - 55;
           dY = dY * ( 1 / (1 + posY * posY ));
           e.setLayoutY(e.getLayoutY() + dY);
-        } 
+        }
         else {
           e.setLayoutY(cardPosition);
         }

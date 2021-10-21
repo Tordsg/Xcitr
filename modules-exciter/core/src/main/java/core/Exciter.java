@@ -16,7 +16,7 @@ public class Exciter {
   private User onScreenUser1;
   private User onScreenUser2;
 
-  // Current user placeholder before logging in is implemented.
+  // Current user placeholder
   private User currentUser = new User("admin", 18, "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut", "admin@mail");
 
   /**
@@ -41,6 +41,7 @@ public class Exciter {
     for (User user : users) {
       if (!userMailList.contains(user.getEmail())) {
         allUsers.add(user);
+        userMailList.add(user.getEmail());
       }
     }
   }

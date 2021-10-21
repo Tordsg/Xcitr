@@ -35,8 +35,8 @@ public class User {
   public User(String name, int age, String userInformation, List<String> matches, String email, String password) {
     this.userInformation = userInformation;
     this.matches = matches;
-    this.name = name;
-    this.email = email;
+    setName(name);
+    setEmail(email);
     this.password = password;
     setAge(age);
   }
@@ -53,8 +53,8 @@ public class User {
   public User(String name, int age, String userInformation, List<String> matches, String email) {
     this.userInformation = userInformation;
     this.matches = matches;
-    this.name = name;
-    this.email = email;
+    setName(name);
+    setEmail(email);
     setAge(age);
   }
 
@@ -68,8 +68,8 @@ public class User {
 
   public User(String name, int age, String userInformation, String email) {
     this.userInformation = userInformation;
-    this.name = name;
-    this.email = email;
+    setName(name);
+    setEmail(email);
     setAge(age);
   }
 
@@ -82,7 +82,7 @@ public class User {
   public User(String name, int age, String email) {
     this.name = name;
     setAge(age);
-    this.email = email;
+    setEmail(email);
   }
 
   public String getName() {
@@ -90,7 +90,14 @@ public class User {
   }
 
   public void setName(String name) {
-    this.name = name;
+    if(name.length() < 2){
+      throw new IllegalArgumentException("Name must be at least 2 letters");
+    }
+    if(!name.matches("^[ a-zA-Z]+$")){
+      throw new IllegalArgumentException("Name must only contain letters");
+    }
+  this.name = name;
+
   }
 
   public int getAge() {
@@ -98,6 +105,9 @@ public class User {
   }
 
   public void setEmail(String email) {
+    if(!email.contains("@")) {
+      throw new IllegalArgumentException("Email must contain @");
+    }
     this.email = email;
   }
 

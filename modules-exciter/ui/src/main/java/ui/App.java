@@ -29,13 +29,21 @@ public class App extends Application {
     if (fileHandler.readUsers() != null) {
       exciter.addUsers(fileHandler.readUsers());
     }
-    App.stage = stage;
-    scene = new Scene(loadFxml("login"));
+    setStage(stage);
+    setScene(new Scene(loadFxml("login")));
     stage.setScene(scene);
     stage.setResizable(false);
     stage.setTitle("citr");
     stage.getIcons().add(new Image(App.class.getResourceAsStream("Images/logo.png")));
     stage.show();
+  }
+
+  private static void setScene(Scene scene) {
+    App.scene = scene;
+  }
+
+  private static void setStage(Stage stage) {
+    App.stage = stage;
   }
 
   /**

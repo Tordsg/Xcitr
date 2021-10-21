@@ -15,7 +15,7 @@ import json.*;
 **/
 
 public class LoginController {
-  
+
   protected final static FileHandler fileHandler = new FileHandler();
   private Exciter xcitr = App.exciter;
 
@@ -56,15 +56,15 @@ public class LoginController {
   public void handleLogin() throws IOException {
     String email = emailLogin.getText();
     String password = passwordLogin.getText();
-    
+
     //long sentence
     for (User user : fileHandler.readUsers()) {
-      if (email.equals(user.getEmail()) && !User.MD5Hash(password).equals(user.getPassword())) {
+      if (email.equals(user.getEmail()) && User.MD5Hash(password).equals(user.getPassword())) {
         xcitr.setCurrentUser(user);
         switchToPrimary();
       }
     }
-    
+
     errorMessage.setVisible(true);
     passwordLogin.clear();
     emailLogin.clear();
