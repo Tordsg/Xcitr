@@ -80,10 +80,10 @@ public class Exciter {
    }
 
    /**
-    *
-    * @return two new unique users that are not on screen
+    * 
+    * @return two users who are not curretly portrayed on the app
     */
-   public ArrayList<User> refreshUsers() {
+   public ArrayList<User> refreshUsers(){
       ArrayList<User> tempUserList = allUsers.stream().filter(a -> a != onScreenUser1 && a != onScreenUser2)
             .collect(Collectors.toCollection(ArrayList::new));
 
@@ -106,6 +106,7 @@ public class Exciter {
       return tempUserList.get(randomUser);
    }
 
+
    public void setOnScreenUser1(User user) {
       onScreenUser1 = user;
    }
@@ -123,9 +124,9 @@ public class Exciter {
    }
 
    /**
-    *
+    * 
     * @param user
-    * @return number of likes in a row by current user
+    * @return how many likes an onscreen user has
     */
    public int getOnScreenUserLikeCount(User user) {
       if (currentUser.getLikedUsers().containsKey(user)) {

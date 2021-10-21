@@ -62,6 +62,7 @@ public class SignUpController {
         App.setRoot("login");
     }
 
+
     @FXML
     void handleCreateAccount() throws IOException {
         String nameReg = name.getText();
@@ -95,7 +96,7 @@ public class SignUpController {
         List<User> users =excite.getAllUsers();
         excite.setCurrentUser(user);
         fileHandler.saveUser(users);
-
     }
+    
 
 }
