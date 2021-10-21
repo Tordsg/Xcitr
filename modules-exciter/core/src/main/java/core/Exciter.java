@@ -1,9 +1,9 @@
 package core;
 
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Arrays;
-import java.util.Random;
 import java.util.stream.Collectors;
 
 public class Exciter {
@@ -11,6 +11,8 @@ public class Exciter {
    private List<User> allUsers = new ArrayList<>();
    private User onScreenUser1;
    private User onScreenUser2;
+
+
 
    // Current user placeholder before logging in is implemented
    private User currentUser = new User("admin", 18, "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut", "admin");
@@ -69,11 +71,13 @@ public class Exciter {
     * @apiNote this method does not check against onScreenUser1 and onScreenUser2
     **/
    public ArrayList<User> getNextUsers() {
-      int[] randomUsers = new Random().ints(0, allUsers.size() - 1).distinct().limit(2).toArray();
+     allUsers.remove(currentUser);
 
-      setOnScreenUser(allUsers.get(randomUsers[0]), allUsers.get(randomUsers[1]));
+    int number1 = getRandomNumber(allUsers);
+    int number2 = getRandomNumber(allUsers);
+    setOnScreenUser(allUsers.get(number1), allUsers.get(number2));
 
-      return new ArrayList<>(Arrays.asList(allUsers.get(randomUsers[0]), allUsers.get(randomUsers[1])));
+    return new ArrayList<>(Arrays.asList(allUsers.get(number1), allUsers.get(number2)));
    }
 
    /**
@@ -84,10 +88,12 @@ public class Exciter {
       ArrayList<User> tempUserList = allUsers.stream().filter(a -> a != onScreenUser1 && a != onScreenUser2)
             .collect(Collectors.toCollection(ArrayList::new));
 
-      int[] randomUsers = new Random().ints(0, tempUserList.size() - 1).distinct().limit(2).toArray();
-      setOnScreenUser(tempUserList.get(randomUsers[0]), tempUserList.get(randomUsers[1]));
+            int number1 = getRandomNumber(tempUserList);
+            int number2 = getRandomNumber(tempUserList);
 
-      return new ArrayList<>(Arrays.asList(tempUserList.get(randomUsers[0]), tempUserList.get(randomUsers[1])));
+      setOnScreenUser(tempUserList.get(number1), tempUserList.get(number2));
+
+      return new ArrayList<>(Arrays.asList(tempUserList.get(number1), tempUserList.get(number2)));
    }
 
    /**
@@ -98,9 +104,8 @@ public class Exciter {
       ArrayList<User> tempUserList = allUsers.stream().filter(a -> a != onScreenUser1 && a != onScreenUser2)
             .collect(Collectors.toCollection(ArrayList::new));
 
-      int randomUser = new Random().nextInt(tempUserList.size());
 
-      return tempUserList.get(randomUser);
+      return tempUserList.get(getRandomNumber(tempUserList));
    }
 
    public void setOnScreenUser1(User user) {
@@ -159,7 +164,7 @@ public class Exciter {
     * @return true if the user liked the other user three times in a row
     **/
    public boolean discardSecond() {
-      if(currentUser.haveLikedUser(onScreenUser2)) currentUser.resetUserMatch(onScreenUser2);
+      if (currentUser.haveLikedUser(onScreenUser2)) currentUser.resetUserMatch(onScreenUser2);
       currentUser.fireOnLike(onScreenUser1);
       currentUser.resetUserMatch(onScreenUser2);
       if (onScreenUser1 instanceof BotUser) {
@@ -168,8 +173,11 @@ public class Exciter {
       onScreenUser2 = getNextRandomUser();
       boolean match = currentUser.haveLikedUser(onScreenUser1);
       currentUser.checkIfMatch(onScreenUser1);
-      if(currentUser.haveLikedUser(onScreenUser1)) onScreenUser1 = getNextRandomUser();
+      if (currentUser.haveLikedUser(onScreenUser1)) {
+        onScreenUser1 = getNextRandomUser();
+      }
       return match;
+    
    }
 
    /**
@@ -196,4 +204,9 @@ public class Exciter {
       return currentUser.getMatches();
    }
 
+
+   private int getRandomNumber(List<User> users){
+    int randomInt = (int)(Math.random() * users.size()) + 0;
+    return randomInt;
+    }
 }
