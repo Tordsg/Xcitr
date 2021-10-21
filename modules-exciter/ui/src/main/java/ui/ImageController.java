@@ -21,7 +21,7 @@ public class ImageController {
   File dir = new File(path);
   File[] directoryListing = dir.listFiles();
   
-  public ImageController() {
+  public ImageController() throws NullPointerException {
     this.defaultImage = new ImagePattern(
                 new Image(this.getClass().getResourceAsStream("Images/defaultPicture.png")));
     for (File file : directoryListing) {

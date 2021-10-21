@@ -21,7 +21,7 @@ public class App extends Application {
   
   private static Scene scene;
   private static Stage stage;
-  protected static Exciter exciter = new Exciter();
+  protected static final Exciter exciter = new Exciter();
   private FileHandler fileHandler = new FileHandler();
   
   @Override
