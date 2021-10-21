@@ -2,15 +2,18 @@ package core;
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
-public class User implements MatchListener {
+public class User {
 
     private String name;
     private int age;
     private String userInformation;
     private String email;
-    private HashMap<String, Integer> likedByCounter = new HashMap<>();
+    private HashMap<User, Integer> likedUsers = new HashMap<>();
+    private List<String> matches = new ArrayList<>();
     private String password = null;
 
     /**
@@ -19,35 +22,34 @@ public class User implements MatchListener {
      * @param name
      * @param age
      * @param userInformation
-     * @param likedByCounter
+     * @param matches
      * @param email
      * @param password
      *
      * @apiNote This constructor is to only be used by the filehandler class
      */
-    public User(String name, int age, String userInformation, HashMap<String, Integer> likedByCounter, String email, String password) {
+    public User(String name, int age, String userInformation, List<String> matches, String email, String password) {
         this.userInformation = userInformation;
-        this.likedByCounter = likedByCounter;
-        this.name = name;
-        this.email = email;
-        this.password = password;
+        this.matches = matches;
+        setName(name);
         setAge(age);
+        setEmail(email);
+        this.password = password;
     }
     /**
-     * Constructor for User class
      *
      * @param name
      * @param age
      * @param userInformation
-     * @param likedByCounter
+     * @param matches
      * @param email
      */
-    public User(String name, int age, String userInformation, HashMap<String, Integer> likedByCounter, String email) {
+    public User(String name, int age, String userInformation, List<String> matches, String email) {
         this.userInformation = userInformation;
-        this.likedByCounter = likedByCounter;
-        this.name = name;
-        this.email = email;
+        this.matches = matches;
+        setName(name);
         setAge(age);
+        setEmail(email);
     }
 
     /**
@@ -60,9 +62,10 @@ public class User implements MatchListener {
      */
     public User(String name, int age, String userInformation, String email) {
         this.userInformation = userInformation;
-        this.name = name;
-        this.email = email;
+        setName(name);
         setAge(age);
+        setEmail(email);
+
     }
 
     /**
@@ -73,9 +76,9 @@ public class User implements MatchListener {
      * @param email
      */
     public User(String name, int age, String email) {
-        this.name = name;
+        setName(name);
         setAge(age);
-        this.email = email;
+        setEmail(email);
     }
 
     public String getName() {
@@ -83,6 +86,12 @@ public class User implements MatchListener {
     }
 
     public void setName(String name) {
+        if(name.length() < 2){
+            throw new IllegalArgumentException("Name must be at least 2 letters");
+        }
+        if(!name.matches("^[ a-zA-Z]+$")){
+            throw new IllegalArgumentException("Name must only contain letters");
+        }
         this.name = name;
     }
 
@@ -91,6 +100,9 @@ public class User implements MatchListener {
     }
 
     public void setEmail(String email) {
+        if(!email.contains("@")) {
+            throw new IllegalArgumentException("Email must contain @");
+        }
         this.email = email;
     }
 
@@ -118,7 +130,11 @@ public class User implements MatchListener {
     }
 
     /**
-     * Security implementation with MD5
+     * This method is used to hash the password
+     *
+     * @param password string
+     * @return MD5 hash of password
+     *
      */
     public static String MD5Hash(String password) {
         String outString = null;
@@ -142,53 +158,67 @@ public class User implements MatchListener {
         return this.password;
     }
 
-    public HashMap<String, Integer> getAlreadyMatched() {
-        return new HashMap<>(likedByCounter);
+    public HashMap<User, Integer> getLikedUsers() {
+        return new HashMap<>(likedUsers);
     }
 
-    @Override
+
     public void fireOnLike(User match) {
         this.addUserOnMatch(match);
     }
 
-    public boolean containsPreviousMatch(User match) {
-        return likedByCounter.containsKey(match.getEmail());
+    public List<String> getMatches() {
+        return new ArrayList<>(matches);
     }
 
+    /**
+     * Adds a user to the likedUsers HashMap
+     * @param match The user to be added
+     */
     public void addUserOnMatch(User match) {
-        if (!likedByCounter.containsKey(match.getEmail())) {
-            likedByCounter.put(match.getEmail(), 1);
+        if (!likedUsers.containsKey(match)) {
+            likedUsers.put(match, 1);
         } else {
-            likedByCounter.put(match.getEmail(), likedByCounter.get(match.getEmail()) + 1);
+            likedUsers.put(match, likedUsers.get(match) + 1);
         }
     }
 
+    /**
+     * If a user is liked sufficiently, like count resets to 0
+     */
     public void resetUserMatch(User user) {
-        if (likedByCounter.containsKey(user.getEmail())) {
-            likedByCounter.put(user.getEmail(), 0);
+        if (likedUsers.containsKey(user)) {
+            likedUsers.put(user, 0);
         }
     }
 
-    @Override
+    /**
+     *
+     * @param user that this user will check against
+     * @return true if the user has liked the other user sufficient times
+     */
     public boolean checkIfMatch(User user) {
+        if (haveLikedUser(user) && user.haveLikedUser(this) && !matches.contains(user.getEmail())) {
+            matches.add(user.getEmail());
+            user.matches.add(this.getEmail());
+        }
         return haveLikedUser(user) && user.haveLikedUser(this);
     }
 
+    /**
+     *
+     * @param user that this user will check against
+     * @return true if the user has liked the other user more than 3 times
+     */
     public boolean haveLikedUser(User user) {
-        if (!likedByCounter.containsKey(user.getEmail())) {
+        if (!likedUsers.containsKey(user)) {
             return false;
         }
-        return likedByCounter.get(user.getEmail()) >= 3;
+        return likedUsers.get(user) >= 3;
     }
 
     public int getImageHashCode() {
         return this.email.hashCode();
-    }
-
-    @Override
-    public String toString() {
-        return "User{" + "name='" + name + '\'' + ", age=" + age + ", userInformation='" + userInformation + '\''
-                + ", email='" + email + '\'' + ", likedByCounter=" + likedByCounter + '}';
     }
 
 }
