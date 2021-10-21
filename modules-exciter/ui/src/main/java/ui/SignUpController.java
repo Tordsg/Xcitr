@@ -1,8 +1,7 @@
 package ui;
 
-import core.*;
-import json.*;
 
+import core.*;
 import java.io.IOException;
 import java.net.URL;
 import java.util.List;
@@ -13,6 +12,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.text.Text;
+import json.*;
 
 public class SignUpController {
 
@@ -85,18 +85,21 @@ public class SignUpController {
 
 
 
-    }
+    excite.setCurrentUser(userXcitr);
+    excite.removeFromAllUsers(userXcitr);
 
-    private void switchToPrimary() throws IOException {
-        App.setRoot("primary");
-    }
+    switchToPrimary();
+  }
 
-    void saveUser(User user) {
-        fileHandler.createFile();
-        List<User> users =excite.getAllUsers();
-        excite.setCurrentUser(user);
-        fileHandler.saveUser(users);
-    }
-    
+  private void switchToPrimary() throws IOException {
+    App.setRoot("primary");
+  }
+
+  void saveUser(User user) {
+    fileHandler.createFile();
+    List<User> users = excite.getAllUsers();
+    excite.setCurrentUser(user);
+    fileHandler.saveUser(users);
+  }
 
 }

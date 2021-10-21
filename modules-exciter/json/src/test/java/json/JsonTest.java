@@ -23,6 +23,7 @@ public class JsonTest {
         users.clear();
         exciter = new Exciter();
         fileHandler.createFile();
+        fileHandler.saveUser(exciter.getAllUsers());
         user = new User("Ola Nordmann", 26, "Fiskesprett på søndager", "ola@mail");
         exciter.setCurrentUser(user);
         users.add(user);
