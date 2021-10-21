@@ -45,4 +45,13 @@ public class UserTest {
         Assertions.assertTrue(botUser.isLikeBack());
     }
 
+    @Test
+    public void testIllegalName(){
+        Assertions.assertThrows(IllegalArgumentException.class, () -> user.setName("noe.test"));
+    }
+
+    @Test
+    public void testIllegalEmail(){
+        Assertions.assertThrows(IllegalArgumentException.class, () -> user.setEmail("noe.mail"));
+    }
 }

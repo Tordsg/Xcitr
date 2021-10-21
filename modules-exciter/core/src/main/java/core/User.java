@@ -86,12 +86,12 @@ public class User {
     }
 
     public void setName(String name) {
-        /*if(name.length() < 2){
+        if(name.length() < 2){
             throw new IllegalArgumentException("Name must be at least 2 letters");
         }
-        if(!name.matches("/^[a-zA-Z\s]*$/")){
+        if(!name.matches("^[ a-zA-Z]+$")){
             throw new IllegalArgumentException("Name must only contain letters");
-        }*/
+        }
         this.name = name;
     }
 
@@ -100,6 +100,9 @@ public class User {
     }
 
     public void setEmail(String email) {
+        if(!email.contains("@")) {
+            throw new IllegalArgumentException("Email must contain @");
+        }
         this.email = email;
     }
 
@@ -166,10 +169,6 @@ public class User {
 
     public List<String> getMatches() {
         return new ArrayList<>(matches);
-    }
-
-    public boolean containsPreviousMatch(User match) {
-        return likedUsers.containsKey(match);
     }
 
     /**
