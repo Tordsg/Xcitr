@@ -23,6 +23,7 @@ public class JsonTest {
         users.clear();
         exciter = new Exciter();
         fileHandler.createFile();
+        fileHandler.saveUser(exciter.getAllUsers());
         user = new User("Ola Nordmann", 26, "Fiskesprett på søndager", "ola@mail");
         exciter.setCurrentUser(user);
         users.add(user);
@@ -69,13 +70,13 @@ public class JsonTest {
         Assertions.assertNull(fileHandler.getUser("bot@mail").getPassword());
     }
 
-    /*@Test
+    @Test
     public void testNullfind() {
         Assertions.assertNull(fileHandler.getUser("404notfound@mail"));
         // First checks while file is empty
         // Second checks when file is not empty but does not contain the user
         fileHandler.saveUser(users);
         Assertions.assertNull(fileHandler.getUser("404notfound@mail"));
-    }*/
+    }
 
 }
