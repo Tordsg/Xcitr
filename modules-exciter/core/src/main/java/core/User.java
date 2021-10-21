@@ -31,10 +31,10 @@ public class User {
     public User(String name, int age, String userInformation, List<String> matches, String email, String password) {
         this.userInformation = userInformation;
         this.matches = matches;
-        this.name = name;
-        this.email = email;
-        this.password = password;
+        setName(name);
         setAge(age);
+        setEmail(email);
+        this.password = password;
     }
     /**
      *
@@ -47,9 +47,9 @@ public class User {
     public User(String name, int age, String userInformation, List<String> matches, String email) {
         this.userInformation = userInformation;
         this.matches = matches;
-        this.name = name;
-        this.email = email;
+        setName(name);
         setAge(age);
+        setEmail(email);
     }
 
     /**
@@ -62,9 +62,10 @@ public class User {
      */
     public User(String name, int age, String userInformation, String email) {
         this.userInformation = userInformation;
-        this.name = name;
-        this.email = email;
+        setName(name);
         setAge(age);
+        setEmail(email);
+
     }
 
     /**
@@ -75,9 +76,9 @@ public class User {
      * @param email
      */
     public User(String name, int age, String email) {
-        this.name = name;
+        setName(name);
         setAge(age);
-        this.email = email;
+        setEmail(email);
     }
 
     public String getName() {
@@ -85,6 +86,12 @@ public class User {
     }
 
     public void setName(String name) {
+        if(name.length() < 2){
+            throw new IllegalArgumentException("Name must be at least 2 letters");
+        }
+        if(!name.matches("^[ a-zA-Z]+$")){
+            throw new IllegalArgumentException("Name must only contain letters");
+        }
         this.name = name;
     }
 
@@ -93,6 +100,9 @@ public class User {
     }
 
     public void setEmail(String email) {
+        if(!email.contains("@")) {
+            throw new IllegalArgumentException("Email must contain @");
+        }
         this.email = email;
     }
 
@@ -159,10 +169,6 @@ public class User {
 
     public List<String> getMatches() {
         return new ArrayList<>(matches);
-    }
-
-    public boolean containsPreviousMatch(User match) {
-        return likedUsers.containsKey(match);
     }
 
     /**

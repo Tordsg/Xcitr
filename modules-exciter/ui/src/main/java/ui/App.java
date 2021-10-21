@@ -23,7 +23,7 @@ public class App extends Application {
 
     private static Scene scene;
     private static Stage stage;
-    protected static Exciter exciter = new Exciter();
+    public static Exciter exciter = new Exciter();
     private FileHandler fileHandler = new FileHandler();
 
     @Override
@@ -54,12 +54,12 @@ public class App extends Application {
     }
 
     static void setRoot(String fxml) throws IOException {
-        if(fxml.equals("primary") && scene.getWidth()<600 || fxml.equals("login")){
+        if(fxml.equals("primary") && scene.getWidth()<600 || fxml.equals("login") && scene.getWidth()>600){
         stage.hide();
         scene = new Scene(loadFXML(fxml));
         stage.setScene(scene);
         stage.show();
-        }else 
+        }else
         scene.setRoot(loadFXML(fxml));
     }
 
