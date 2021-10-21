@@ -16,6 +16,7 @@ public class JsonTest {
     private User user;
     private Exciter exciter;
     private List<User> users = new ArrayList<>();
+    private BotUser botUser = new BotUser("lars", 22, "lars@mail", true);
 
     @BeforeEach
     public void setUp() {
@@ -38,14 +39,14 @@ public class JsonTest {
 
     @Test
     public void readMatches() {
-        User onScreenUser1 = exciter.getOnScreenUser1();
+        exciter.setOnScreenUser1(botUser);
         for (int i = 0; i < 3; i++) {
             exciter.discardSecond();
         }
         fileHandler.saveUser(users);
         User userReadFromFile = fileHandler.readUsers().get(0);
         Assertions.assertEquals(userReadFromFile.getMatches(), user.getMatches());
-        Assertions.assertTrue(userReadFromFile.getMatches().contains(onScreenUser1.getEmail()));
+        Assertions.assertTrue(userReadFromFile.getMatches().contains(botUser.getEmail()));
 
     }
 

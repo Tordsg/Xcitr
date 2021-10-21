@@ -18,12 +18,12 @@ import json.FileHandler;
  * JavaFX App.
  */
 public class App extends Application {
-  
+
   private static Scene scene;
   private static Stage stage;
   static final Exciter exciter = new Exciter();
   private FileHandler fileHandler = new FileHandler();
-  
+
   @Override
   public void start(Stage stage) throws IOException {
     if (fileHandler.readUsers() != null) {
@@ -47,20 +47,21 @@ public class App extends Application {
     List<User> users = new ArrayList<>();
     users.addAll(exciter.getAllUsers());
     users.add(exciter.getCurrentUser());
-    
+
     fileHandler.saveUser(users);
     super.stop();
   }
 
-  static void setRoot(String fxml) throws IOException {
-    if (fxml.equals("primary") && scene.getWidth() < 600 || fxml.equals("login")) {
-      stage.hide();
-      scene = new Scene(loadFxml(fxml));
-      stage.setScene(scene);
-      stage.show();
-    }
-    scene.setRoot(loadFxml(fxml));
-  }
+    static void setRoot(String fxml) throws IOException {
+        if(fxml.equals("primary") && scene.getWidth()<600 || fxml.equals("login") && scene.getWidth()>600){
+        stage.hide();
+        scene = new Scene(loadFxml(fxml));
+        stage.setScene(scene);
+        stage.show();
+        }else
+        scene.setRoot(loadFxml(fxml));
+      }
+
 
   private static Parent loadFxml(String fxml) throws IOException {
     FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource(fxml + ".fxml"));

@@ -88,7 +88,7 @@ public class User {
   public String getName() {
     return this.name;
   }
-  
+
   public void setName(String name) {
     this.name = name;
   }
@@ -104,11 +104,11 @@ public class User {
   public String getEmail() {
     return this.email;
   }
-  
+
   public void setUserInformation(String userInformation) {
     this.userInformation = userInformation;
   }
-  
+
   public String getUserInformation() {
     return this.userInformation;
   }
@@ -137,12 +137,12 @@ public class User {
       md.update(password.getBytes(Charset.forName("UTF-8")));
       byte[] bytes = md.digest();
       StringBuilder sb = new StringBuilder();
-      
+
       for (int i = 0; i < bytes.length; i++) {
         sb.append(Integer.toString((bytes[i] & 0xff) + 0x100, 16).substring(1));
       }
       outString = sb.toString();
-    } 
+    }
     catch (NoSuchAlgorithmException e) {
       e.printStackTrace();
     }
@@ -156,7 +156,7 @@ public class User {
   public HashMap<User, Integer> getLikedUsers() {
     return new HashMap<>(likedUsers);
   }
-  
+
   public void fireOnLike(User match) {
     this.addUserOnMatch(match);
   }
@@ -172,13 +172,13 @@ public class User {
   /**
    * Adds a user to the likedUsers HashMap.
    * @param match The user to be added.
-   * 
+   *
    */
-  
+
   public void addUserOnMatch(User match) {
     if (!likedUsers.containsKey(match)) {
       likedUsers.put(match, 1);
-    } 
+    }
     else {
       likedUsers.put(match, likedUsers.get(match) + 1);
     }
@@ -197,7 +197,7 @@ public class User {
   /**
    *
    * @param user that this user will check against.
-   * 
+   *
    * @return true if the user has liked the other user sufficient times.
    */
 
@@ -210,11 +210,11 @@ public class User {
   }
 
   /**
-   * 
+   *
    * @param user that this user will check against
-   * 
+   *
    * @return true if the user has liked the other user more than 3 times
-   * 
+   *
    */
 
   public boolean haveLikedUser(User user) {
@@ -223,7 +223,7 @@ public class User {
     }
     return likedUsers.get(user) >= 3;
   }
-  
+
   public int getImageHashCode() {
     return this.email.hashCode();
   }

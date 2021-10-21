@@ -11,13 +11,13 @@ import java.util.stream.Collectors;
  */
 
 public class Exciter {
-  
+
   private List<User> allUsers = new ArrayList<>();
   private User onScreenUser1;
   private User onScreenUser2;
 
   // Current user placeholder before logging in is implemented.
-  private User currentUser = new User("admin", 18, "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut", "admin");
+  private User currentUser = new User("admin", 18, "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut", "admin@mail");
 
   /**
    * Constructor in the class.
@@ -32,7 +32,7 @@ public class Exciter {
   /**
    * Will check that users to be added does not exist in the list.
    * @param users to be added to the list of all users.
-   * 
+   *
    * @apiNote primarly used to add users from JSON file.
    */
 
@@ -46,7 +46,7 @@ public class Exciter {
   }
 
   /**
-   * adds botUsers 
+   * adds botUsers
    */
 
   public void addSomePlaceholderUsers() {
@@ -67,9 +67,9 @@ public class Exciter {
    * Method will also make sure that user is not among allUsers,
    * to make sure that user can't like himself.
    * @param user to be set as current user
-   * 
+   *
    */
-   
+
   public void setCurrentUser(User user) {
     User localUser = allUsers.stream().filter(u -> u.getEmail().equals(user.getEmail())).findFirst().orElse(null);
     allUsers.remove(localUser);
@@ -118,7 +118,7 @@ public class Exciter {
   public void setOnScreenUser1(User user) {
     onScreenUser1 = user;
   }
-  
+
   public void setOnScreenUser2(User user) {
     onScreenUser2 = user;
   }
@@ -134,7 +134,7 @@ public class Exciter {
   /**
    * @param user
    * @return number of likes in a row by current user
-   * 
+   *
    */
 
   public int getOnScreenUserLikeCount(User user) {
@@ -147,7 +147,7 @@ public class Exciter {
   public List<User> getAllUsers() {
     return new ArrayList<>(allUsers);
   }
-  
+
   public void removeFromAllUsers(User user) {
     allUsers.remove(user);
   }
@@ -178,7 +178,7 @@ public class Exciter {
     }
     currentUser.fireOnLike(onScreenUser1);
     currentUser.resetUserMatch(onScreenUser2);
-  
+
     if (onScreenUser1 instanceof BotUser) {
       onScreenUser1.fireOnLike(currentUser);
     }
