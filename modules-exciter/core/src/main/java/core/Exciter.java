@@ -2,9 +2,13 @@ package core;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.concurrent.ThreadLocalRandom;
 import java.util.List;
+import java.util.concurrent.ThreadLocalRandom;
 import java.util.stream.Collectors;
+
+/**
+ * The main logic class.
+ */
 
 public class Exciter {
   
@@ -12,9 +16,12 @@ public class Exciter {
   private User onScreenUser1;
   private User onScreenUser2;
 
-  // Current user placeholder before logging in is implemented
+  // Current user placeholder before logging in is implemented.
   private User currentUser = new User("admin", 18, "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut", "admin");
 
+  /**
+   * Constructor in the class.
+   */
 
   public Exciter() {
     addSomePlaceholderUsers();
@@ -23,11 +30,11 @@ public class Exciter {
   }
 
   /**
-   * Will check that users to be added does not exist in the list
-   * @param users to be added to the list of all users
-   *
-   * @apiNote primarly used to add users from JSON file
-  */
+   * Will check that users to be added does not exist in the list.
+   * @param users to be added to the list of all users.
+   * 
+   * @apiNote primarly used to add users from JSON file.
+   */
 
   public void addUsers(List<User> users) {
     List<String> userMailList = allUsers.stream().map(User::getEmail).collect(Collectors.toList());
@@ -37,6 +44,10 @@ public class Exciter {
       }
     }
   }
+
+  /**
+   * adds botUsers 
+   */
 
   public void addSomePlaceholderUsers() {
     allUsers.add(new BotUser("John", 22, "John@mail", true));
@@ -56,7 +67,8 @@ public class Exciter {
    * Method will also make sure that user is not among allUsers,
    * to make sure that user can't like himself.
    * @param user to be set as current user
-  */
+   * 
+   */
    
   public void setCurrentUser(User user) {
     User localUser = allUsers.stream().filter(u -> u.getEmail().equals(user.getEmail())).findFirst().orElse(null);
@@ -68,7 +80,7 @@ public class Exciter {
    *
    * @return two new users to be displayed on the screen
    * @apiNote this method does not check against onScreenUser1 and onScreenUser2
-  */
+   */
 
   public ArrayList<User> getNextUsers() {
     int[] randomUsers = ThreadLocalRandom.current().ints(0, allUsers.size() - 1).distinct().limit(2).toArray();
@@ -79,7 +91,7 @@ public class Exciter {
   /**
    *
    * @return two new unique users that are not on screen
-  */
+   */
 
   public ArrayList<User> refreshUsers() {
     ArrayList<User> tempUserList = allUsers.stream().filter(a -> a != onScreenUser1 && a != onScreenUser2)
@@ -92,14 +104,13 @@ public class Exciter {
   }
 
   /**
-   *
    * @return new user that is not on screen
-  */
+   */
   public User getNextRandomUser() {
     ArrayList<User> tempUserList = allUsers.stream().filter(a -> a != onScreenUser1 && a != onScreenUser2)
             .collect(Collectors.toCollection(ArrayList::new));
 
-    int randomUser = (int)(Math.random() * tempUserList.size()) + 0;
+    int randomUser = (int) (Math.random() * tempUserList.size()) + 0;
 
     return tempUserList.get(randomUser);
   }
@@ -121,10 +132,10 @@ public class Exciter {
   }
 
   /**
-   *
    * @param user
    * @return number of likes in a row by current user
-  */
+   * 
+   */
 
   public int getOnScreenUserLikeCount(User user) {
     if (currentUser.getLikedUsers().containsKey(user)) {
@@ -162,7 +173,7 @@ public class Exciter {
   */
 
   public boolean discardSecond() {
-    if(currentUser.haveLikedUser(onScreenUser2)) {
+    if (currentUser.haveLikedUser(onScreenUser2)) {
       currentUser.resetUserMatch(onScreenUser2);
     }
     currentUser.fireOnLike(onScreenUser1);
@@ -174,7 +185,7 @@ public class Exciter {
     onScreenUser2 = getNextRandomUser();
     boolean match = currentUser.haveLikedUser(onScreenUser1);
     currentUser.checkIfMatch(onScreenUser1);
-    if(currentUser.haveLikedUser(onScreenUser1)) {
+    if (currentUser.haveLikedUser(onScreenUser1)) {
       onScreenUser1 = getNextRandomUser();
     }
     return match;
@@ -188,7 +199,7 @@ public class Exciter {
   */
 
   public boolean discardFirst() {
-    if(currentUser.haveLikedUser(onScreenUser2)) {
+    if (currentUser.haveLikedUser(onScreenUser2)) {
       currentUser.resetUserMatch(onScreenUser2);
     }
     currentUser.fireOnLike(onScreenUser2);
@@ -199,7 +210,7 @@ public class Exciter {
     onScreenUser1 = getNextRandomUser();
     boolean match = currentUser.haveLikedUser(onScreenUser2);
     currentUser.checkIfMatch(onScreenUser2);
-    if(currentUser.haveLikedUser(onScreenUser2)) {
+    if (currentUser.haveLikedUser(onScreenUser2)) {
       onScreenUser2 = getNextRandomUser();
     }
 

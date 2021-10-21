@@ -77,11 +77,11 @@ public class MatchController implements Initializable {
 
   private void hoverButton(Node n) {
     n.setOnMouseEntered(e -> {
-            n.setEffect(new Lighting());
-        });
+      n.setEffect(new Lighting());
+    });
     n.setOnMouseExited(e -> {
-            n.setEffect(null);
-        });
+      n.setEffect(null);
+    });
   }
   protected static Pane createCard(User user) {
     Pane pane = new Pane();

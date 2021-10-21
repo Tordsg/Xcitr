@@ -1,8 +1,6 @@
 package ui;
 
 import core.*;
-
-
 import java.io.IOException;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -31,13 +29,16 @@ public class LoginController {
   private Button login;
 
   @FXML
-  private Text fromLoginToSignup, errorMessage;
+  private Text fromLoginToSignup;
+
+  @FXML
+  private Text errorMessage;
 
   @FXML
   private ImageView xcitrLogo;
 
   /**
-   * Sets field clear when fxml file starts to run
+   * Sets field clear when fxml file starts to run.
   **/
   @FXML
   public void initialize() {
@@ -46,10 +47,10 @@ public class LoginController {
     errorMessage.setVisible(false);
     }
 
-    /**
-     * Checks that the email belongs to a user and that the password matches the user's password
-     * @throws IOException
-     **/
+  /**
+   * Checks that the email belongs to a user and that the password matches the user's password.
+   * @throws IOException
+  **/
 
   @FXML
   public void handleLogin() throws IOException {
