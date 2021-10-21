@@ -45,12 +45,12 @@ public class LoginController {
     passwordLogin.clear();
     emailLogin.clear();
     errorMessage.setVisible(false);
-    }
+  }
 
   /**
    * Checks that the email belongs to a user and that the password matches the user's password.
    * @throws IOException
-  **/
+   */
 
   @FXML
   public void handleLogin() throws IOException {
