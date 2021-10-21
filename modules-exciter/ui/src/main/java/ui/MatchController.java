@@ -42,19 +42,19 @@ public class MatchController implements Initializable {
   @FXML
   AnchorPane anchorPane;
     
-  protected static ImageController imageController = PrimaryController.imageController;
+  protected final static ImageController imageController = PrimaryController.imageController;
   private Exciter exciter = App.exciter;
   private List<User> matches = exciter.getAllUsers().stream().
-    filter(a -> exciter.getCurrentUserMatches().contains(a.getEmail()))
-    .collect(Collectors.toList());
+      filter(a -> exciter.getCurrentUserMatches().contains(a.getEmail()))
+      .collect(Collectors.toList());
 
   public void switchToPrimary() throws IOException {
     App.setRoot("primary");
   }
 
-    /**
-     * checks if user has any matches and set them in the match fxml file.
-     */
+  /**
+   * checks if user has any matches and set them in the match fxml file.
+   */
 
   public void initialize(URL arg0, ResourceBundle arg1) {
     hoverButton(button);
@@ -70,18 +70,18 @@ public class MatchController implements Initializable {
       label.setLayoutY(210);
       anchorPane.getChildren().add(label);
     } 
-    else{
+    else {
       dragMatches();
     }
   }
 
   private void hoverButton(Node n) {
     n.setOnMouseEntered(e -> {
-            n.setEffect(new Lighting());
-        });
+      n.setEffect(new Lighting());
+    });
     n.setOnMouseExited(e -> {
-            n.setEffect(null);
-        });
+      n.setEffect(null);
+    });
   }
   protected static Pane createCard(User user) {
     Pane pane = new Pane();
@@ -185,7 +185,8 @@ public class MatchController implements Initializable {
         } 
         else if (hBoxPosition + hBox.getWidth() < 640 && dX < 0) {
           hBox.setLayoutX(hBox.getLayoutX());
-        } else {
+        } 
+        else {
           hBox.setLayoutX(hBoxPosition);
         }
       }

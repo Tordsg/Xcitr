@@ -7,7 +7,12 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+/**
+ * This class configure a user.
+ */
+
 public class User {
+
   private String name;
   private int age;
   private String userInformation;
@@ -17,17 +22,16 @@ public class User {
   private String password = null;
 
   /**
-   * Constructor for User class
-   *
+   * Constructor for User class.
    * @param name
    * @param age
    * @param userInformation
    * @param matches
    * @param email
    * @param password
-   *
-   * @apiNote This constructor is to only be used by the filehandler class
+   * @apiNote This constructor is to only be used by the filehandler class.
   */
+
   public User(String name, int age, String userInformation, List<String> matches, String email, String password) {
     this.userInformation = userInformation;
     this.matches = matches;
@@ -36,6 +40,7 @@ public class User {
     this.password = password;
     setAge(age);
   }
+
   /**
    *
    * @param name
@@ -44,6 +49,7 @@ public class User {
    * @param matches
    * @param email
   */
+
   public User(String name, int age, String userInformation, List<String> matches, String email) {
     this.userInformation = userInformation;
     this.matches = matches;
@@ -53,13 +59,13 @@ public class User {
   }
 
   /**
-   * Constructor for User class
-   *
+   * Constructor for User class.
    * @param name
    * @param age
    * @param userInformation
    * @param email
   */
+
   public User(String name, int age, String userInformation, String email) {
     this.userInformation = userInformation;
     this.name = name;
@@ -68,8 +74,7 @@ public class User {
   }
 
   /**
-   * Constructor for User class
-   *
+   * Constructor for User class.
    * @param name
    * @param age
    * @param email
@@ -95,6 +100,7 @@ public class User {
   public void setEmail(String email) {
     this.email = email;
   }
+
   public String getEmail() {
     return this.email;
   }
@@ -106,6 +112,7 @@ public class User {
   public String getUserInformation() {
     return this.userInformation;
   }
+
   public void setAge(int age) {
     if (age < 0) {
       throw new IllegalArgumentException("Age cannot be negative");
@@ -118,12 +125,11 @@ public class User {
   }
 
   /**
-   * This method is used to hash the password
-   *
-   * @param password string
-   * @return MD5 hash of password
-   *
+   * This method is used to hash the password.
+   * @param password string.
+   * @return MD5 hash of password.
   */
+
   public static String MD5Hash(String password) {
     String outString = null;
     try {
@@ -142,6 +148,7 @@ public class User {
     }
     return outString;
   }
+
   public String getPassword() {
     return this.password;
   }
@@ -157,13 +164,15 @@ public class User {
   public List<String> getMatches() {
     return new ArrayList<>(matches);
   }
+
   public boolean containsPreviousMatch(User match) {
     return likedUsers.containsKey(match);
   }
 
   /**
-   * Adds a user to the likedUsers HashMap
-   * @param match The user to be added
+   * Adds a user to the likedUsers HashMap.
+   * @param match The user to be added.
+   * 
    */
   
   public void addUserOnMatch(User match) {
@@ -176,8 +185,8 @@ public class User {
   }
 
   /**
-   * If a user is liked sufficiently, like count resets to 0
-  */
+   * If a user is liked sufficiently, like count resets to 0.
+   */
 
   public void resetUserMatch(User user) {
     if (likedUsers.containsKey(user)) {
@@ -187,9 +196,10 @@ public class User {
 
   /**
    *
-   * @param user that this user will check against
-   * @return true if the user has liked the other user sufficient times
-  */
+   * @param user that this user will check against.
+   * 
+   * @return true if the user has liked the other user sufficient times.
+   */
 
   public boolean checkIfMatch(User user) {
     if (haveLikedUser(user) && user.haveLikedUser(this) && !matches.contains(user.getEmail())) {
@@ -202,8 +212,10 @@ public class User {
   /**
    * 
    * @param user that this user will check against
+   * 
    * @return true if the user has liked the other user more than 3 times
-  */
+   * 
+   */
 
   public boolean haveLikedUser(User user) {
     if (!likedUsers.containsKey(user)) {
