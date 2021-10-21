@@ -42,7 +42,13 @@ The UI folder contains all of the front-end development of the app. This include
 - SecondaryController (connected to profile.fxml and manages the user information as a profile page)
 - MatchController (connected to match.fxml and manages the users matches and communication with them)
 
-There is also an app class in this module that launces the Xcitr application in Scenebuilder. 
+There is also an app class in this module that launches the Xcitr application in Scenebuilder. 
 
-UI testing (add jacoco image file)
+### Testing
+To determine the test coverage of our code, Jacoco has been implemented to test how much of the different classes and modules have been tested. Images that illustrate this can be viewed in the Jacoco folder: ... . To view these files one can also enter 'mvn -B verify' in the terminal. The quality of the code is also checked using spotbugs and checkstyle. 
+
+
+## Gitlab
+
+
 
