@@ -1,0 +1,32 @@
+@startuml 
+
+component core{
+    package exciter.core
+}
+
+component ui{
+    package exciter.ui
+}
+
+component json{
+    package json.jsimple
+    package exciter.core
+    
+}
+
+component javafx{
+    package javafx.controls
+    package javafx.fxml
+}
+
+exciter.ui ..> exciter.core
+exciter.ui ..> json.jsimple
+exciter.ui ..> javafx.controls
+exciter.ui ..> javafx.fxml
+
+json.jsimple ..> exciter.core
+
+
+
+
+@enduml
