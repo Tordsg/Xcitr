@@ -22,18 +22,22 @@ As a user Michelle wants to be able to match with both girls and guys, but also 
 As a user Mia wants to be able to see peoples ages and their bio so that she can meet up with people her own age who have expressed an interested for knitting. Also, because she finds smartphone technology quite challenging Mia would prefer to get her matches´ phone number or email so she can communicate with them on these channels instead of a potential chat function on the app. Mia is a swedish, 83 year old pensioner who recently got a new granddaughter. She loves her granddaughter more than anything and wants to knit a body for her, just like the one her grandmother knitted for her when she was a newborn many years ago. Mia enjoys knitting but is not so good at it. She also thinks knitting is a great way to be social and meet some new people. Mia wants to take use of her new smartphone to get in touch with someone who can help her with her knitting project and maybe become a new friend. 
 
 ## Illustration
-Below are three figma frames roughly describing how the application is going to look like after it is finished. 
+Below are five figma frames roughly describing how the application is going to look like after it is finished. 
 
-1. First the user is presented with two profile cards, where only the profile picture, the name and the age is displayed. In the top right corner is a small profile picture of the user. If this is pressed the user will be directed to their profile where they can edit their information, pictures, preferences, etc. The Xcitr-icon in the bottom right corner can be pressed to get an overview of all the people the user has matched with. 
+1. Firstly, because the application is user based, they need to login or create an account before they get access to use Xcitr. The two images below describes the design of the login and signup page. Here they need an email and password to login. If one does not have an account the blue signup text can be pressed to move to the signup window where one can create a user with a name, age, email and password. 
+
+![image](/uploads/9cda2c65a0d6e6b7a4bd0810f7566ce3/image.png)  ![image](/uploads/45b264d07197e9cb2c63e9e420b4eb96/image.png)
+
+2. When the user is logged in or an account has been created they move on to the match page. Here the user is presented to two profile cards, where the users profile picture, name and age are displayed. In the top right corner is a small profile picture of the user. If this button is pressed the user will be directed to their profile where they can edit their information, pictures, preferences, etc. The Xcitr-icon in the bottom right corner can be pressed to get an overview of all the people the user has matched with. 
 
 ![pic1](/uploads/ee0e85422ef1d66505f52fc82cdee24e/pic1.png)
 
-2. When the user likes one of the profiles more than the other, she swipes the card upwards. Here you can see that there is a counter 1/3 describing how many times the user has liked this persons profile. When this ever reaches 3/3 there will be a match.
+2. When the user likes one of the profiles more than the other, they swipe the card upwards. Here you can see that there is a counter 1/3 describing how many times the user has liked this persons profile. If the user likes someone 3/3 times the card will move to the left and a potenital match may occur.
 
 ![pic2](/uploads/3fc1b05c6dd29303bffa0b1cdf67db1c/pic2.png)
 
-3. After swiping to tell the application which profile is the preferred one, this card will fall back onto the screen together with a new profile. The user can now compare the person they have already liked to a new profile and see if this person is the most likable. If the user is unsure on which profile she prefers, then she can press the profile card and view the profiles bio.
+3. After swiping to tell the application which profile is the preferred one, this card will fall back onto the screen together with a new profile. The user can now compare the person they have already liked to a new profile and see if this person is the most likable. If the user is unsure on which profile they prefer, they can press the refresh button to get two new users they can compare.
 
 ![pic3](/uploads/e0c708d613f6f114a24e87a0832fc717/pic3.png)
 
-Not all of the functionalities in the app, like having profile pictures for the users, is functional i gitpod. However when running the app in vscode or locally on the computer it works. 
+
