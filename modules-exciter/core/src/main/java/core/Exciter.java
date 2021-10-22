@@ -114,7 +114,7 @@ public class Exciter {
     ArrayList<User> tempUserList = allUsers.stream().filter(a -> a != onScreenUser1 && a != onScreenUser2)
         .collect(Collectors.toCollection(ArrayList::new));
 
-    int randomUser = (int) (Math.random() * tempUserList.size()) + 0;
+    int randomUser = (int) (Math.random() * tempUserList.size());
 
     return tempUserList.get(randomUser);
   }
