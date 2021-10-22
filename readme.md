@@ -8,7 +8,9 @@ The project uses maven configuration to build and run the application. To build 
 
 To run the application you have to be in the **ui** module, which can be *accessed* by using the command 'cd ui', and then using the command 'mvn javafx:run'.
 
-To test the different modules you have to be in the desired module by using  'cd *module name*' and writing the command 'mvn test' in the terminal.
+To test the different modules you have to be in the desired module by using 'cd *module name*' and writing the command 'mvn test' in the terminal.
+
+Not all of the functionalities in the app, like having profile pictures for the users, is functional in gitpod. A problem is also the Login and Create Account buttons on the login and signup page. These are programmed so that one should be able to press enter to indicate that all the information as been entered to the textfields, but when enter is pressed when the app runs in gitpod the entire app carshes. However when the app is run in vscode or locally on the computer all these functionalities work. 
 
 ## Modules-Exciter
 The project is organized in the following structre. Code and modules can be found under modules-exciter. Within this folder one can find all of the core logic that makes up the backend of the app, along with the code for the frontend user interface and the file storage. Within modules-exciter there is also a README-file with a complete app description.
@@ -27,13 +29,13 @@ There is also a test class for the Exciter class that tests whether the like-fun
 ### JSON
 [Link to JSON](https://gitlab.stud.idi.ntnu.no/it1901/groups-2021/gr2117/gr2117/-/tree/master/modules-exciter/json)
 
-There is only one class within the JSON module, which is a file handler class. This class saves information on who the user has liked on the app, as well as how many times they have liked the same person. This is necessary infromation to store so that the users can match with each other. There is also a file test class that makes sure the information is stored in the right place and format.
+There is only one class within the JSON module, which is a file handler class. This class saves all the users who have created an account in Xcitr, as well as all of the information on who the user has liked on the app and how many times they have liked another user. This is necessary infromation to store so that the users can match with each other. There is also a file test class that makes sure the information is stored in the right place and format.
 
 
 ### UI
 [Link to UI](https://gitlab.stud.idi.ntnu.no/it1901/groups-2021/gr2117/gr2117/-/tree/master/modules-exciter/ui)
 
-The UI folder contains all of the front-end development of the app. This includes the app class which provides the framework for managing of JavaFX dating application. Then there are six controller classes that implements the two classes Exciter and User from the core module.
+The UI folder contains all of the front-end development of the app. This includes the app class which provides the framework for managing the JavaFX dating application. Then there are six controller classes that implements the two classes Exciter and User from the core module.
 - ImageController (controller to handle the images that are being swiped and loaded from the users computer)
 - LoginController (controller connected to login.fxml that enables a user to login to the application)
 - SignUpController (connected to signup.fxml and manages the signup window where a new user can sign up so their information is stored and can move on to use the app)
@@ -44,7 +46,7 @@ The UI folder contains all of the front-end development of the app. This include
 There is also an app class in this module that launches the Xcitr application in Scenebuilder.
 
 ### Testing
-To determine the test coverage of our code, Jacoco has been implemented to test how much of the different classes and modules have been tested. Images that illustrate this can be viewed in the Jacoco folder found in each modules target . To view these files one can also enter 'mvn verify' in the terminal. The quality of the code is also checked using spotbugs and checkstyle using the same command.
+To determine the test coverage of our code, Jacoco has been implemented to test how much of the different classes and modules have been tested. To view these files one can also enter 'mvn verify' in the terminal, and one can view these under target for each module. The quality of the code is also checked using spotbugs and checkstyle using the same command.
 
 
 
