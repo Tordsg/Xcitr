@@ -1,6 +1,7 @@
 package ui;
 
-import core.*;
+import core.Exciter;
+import core.User;
 import java.io.IOException;
 import java.net.URL;
 import java.util.List;
@@ -11,7 +12,11 @@ import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.text.Text;
-import json.*;
+import json.FileHandler;
+
+/**
+ * Controller for signup.fxml.
+ */
 
 public class SignUpController {
 

@@ -1,7 +1,7 @@
 package core;
 
 /**
- * This class makes randomusers that are shown as matches
+ * This class makes randomusers that are shown as matches.
  */
 
 public class BotUser extends User {

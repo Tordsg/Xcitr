@@ -1,12 +1,16 @@
 package ui;
 
-import core.*;
-
+import core.Exciter;
+import core.User;
 import java.io.File;
 import java.io.IOException;
-import javafx.fxml.Initializable;
+import java.net.URL;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.ResourceBundle;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.scene.Group;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextArea;
@@ -16,10 +20,9 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.stage.FileChooser;
 
-import java.net.URL;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.ResourceBundle;
+/**
+ * Controller for secondary.fxml.
+ */
 
 public class SecondaryController implements Initializable {
 
@@ -52,6 +55,11 @@ public class SecondaryController implements Initializable {
       n.setEffect(null);
     });
   }
+
+  /**
+   * Uploads images to profile.
+   * @throws IOException
+   */
 
   @FXML
   private void uploadPicture() throws IOException {
@@ -89,6 +97,11 @@ public class SecondaryController implements Initializable {
     pane.requestFocus();
   }
 
+  /**
+   * Signs out of the app and goes to the login-page.
+   * @throws IOException
+   */
+
   @FXML
   public void signOut() throws IOException {
     fileHandler.createFile();
@@ -110,6 +123,9 @@ public class SecondaryController implements Initializable {
     updatePreview();
   }
 
+  /**
+   * Puts in the user info when the page opens.
+   */
   @Override
   public void initialize(URL location, ResourceBundle resources) {
     name.setText(excite.getCurrentUser().getName());

@@ -8,9 +8,9 @@ import java.util.List;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
-import javafx.stage.Stage;
 import javafx.scene.Parent;
 import javafx.scene.image.Image;
+import javafx.stage.Stage;
 import json.FileHandler;
 
 /**
@@ -65,7 +65,7 @@ public class App extends Application {
       scene = new Scene(loadFxml(fxml));
       stage.setScene(scene);
       stage.show();
-    } else
+    }
       scene.setRoot(loadFxml(fxml));
   }
 

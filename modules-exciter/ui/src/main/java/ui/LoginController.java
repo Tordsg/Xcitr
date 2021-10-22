@@ -1,6 +1,7 @@
 package ui;
 
-import core.*;
+import core.Exciter;
+import core.User;
 import java.io.IOException;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -8,7 +9,7 @@ import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
 import javafx.scene.text.Text;
-import json.*;
+import json.FileHandler;
 
 /**
  * Controller for login.fxml

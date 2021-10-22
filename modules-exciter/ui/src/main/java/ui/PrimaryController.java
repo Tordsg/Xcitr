@@ -1,31 +1,31 @@
 package ui;
 
-import core.*;
-import json.*;
-
+import core.Exciter;
+import core.User;
 import java.io.IOException;
 import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
-import javafx.scene.shape.Circle;
-import javafx.scene.shape.Rectangle;
-import javafx.scene.text.Text;
-import javafx.util.Duration;
 import javafx.animation.FadeTransition;
 import javafx.animation.ParallelTransition;
 import javafx.animation.RotateTransition;
 import javafx.animation.SequentialTransition;
 import javafx.animation.TranslateTransition;
 import javafx.event.EventHandler;
-import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.Pane;
-import javafx.scene.paint.ImagePattern;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Group;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.effect.Lighting;
+import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.Pane;
+import javafx.scene.paint.ImagePattern;
+import javafx.scene.shape.Circle;
+import javafx.scene.shape.Rectangle;
+import javafx.scene.text.Text;
+import javafx.util.Duration;
+import json.FileHandler;
 
 public class PrimaryController implements Initializable {
   @FXML
@@ -58,6 +58,10 @@ public class PrimaryController implements Initializable {
     // MatchController.matches = excite.getCurrentUserMatches();
     App.setRoot("match");
   }
+
+  /**
+   * Saves the userdata and store it in a JSON file.
+   */
 
   @FXML
   public void saveUserData() {
@@ -190,6 +194,10 @@ public class PrimaryController implements Initializable {
     ft.setAutoReverse(true);
     return ft;
   }
+
+  /**
+   * When refresh is pushed new possible matches will appear.
+   */
 
   @FXML
   void refresh() {

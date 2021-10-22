@@ -1,11 +1,11 @@
 package ui;
 
-import core.*;
+import core.User;
 import java.io.File;
 import java.util.HashMap;
 import javafx.scene.image.Image;
 import javafx.scene.paint.ImagePattern;
-import org.apache.commons.io.*;
+import org.apache.commons.io.FileUtils;
 
 /**
  * Controller for uploading of pictures in the application.
@@ -57,7 +57,7 @@ public class ImageController {
   }
 
   /**
-   * Uploas a image.
+   * Uploads a image.
    *
    * @param user
    * @param file
