@@ -17,7 +17,8 @@ public class Exciter {
   private User onScreenUser2;
 
   // Current user placeholder
-  private User currentUser = new User("admin", 18, "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut", "admin@mail");
+  private User currentUser = new User("admin", 18,
+      "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut", "admin@mail");
 
   /**
    * Constructor in the class.
@@ -31,6 +32,7 @@ public class Exciter {
 
   /**
    * Will check that users to be added does not exist in the list.
+   *
    * @param users to be added to the list of all users.
    *
    * @apiNote primarly used to add users from JSON file.
@@ -65,8 +67,9 @@ public class Exciter {
   }
 
   /**
-   * Method will also make sure that user is not among allUsers,
-   * to make sure that user can't like himself.
+   * Method will also make sure that user is not among allUsers, to make sure that
+   * user can't like himself.
+   *
    * @param user to be set as current user
    *
    */
@@ -96,7 +99,7 @@ public class Exciter {
 
   public ArrayList<User> refreshUsers() {
     ArrayList<User> tempUserList = allUsers.stream().filter(a -> a != onScreenUser1 && a != onScreenUser2)
-            .collect(Collectors.toCollection(ArrayList::new));
+        .collect(Collectors.toCollection(ArrayList::new));
 
     int[] randomUsers = ThreadLocalRandom.current().ints(0, tempUserList.size() - 1).distinct().limit(2).toArray();
     setOnScreenUser(tempUserList.get(randomUsers[0]), tempUserList.get(randomUsers[1]));
@@ -109,7 +112,7 @@ public class Exciter {
    */
   public User getNextRandomUser() {
     ArrayList<User> tempUserList = allUsers.stream().filter(a -> a != onScreenUser1 && a != onScreenUser2)
-            .collect(Collectors.toCollection(ArrayList::new));
+        .collect(Collectors.toCollection(ArrayList::new));
 
     int randomUser = (int) (Math.random() * tempUserList.size()) + 0;
 
@@ -167,11 +170,11 @@ public class Exciter {
   }
 
   /**
-   * Core logic of exciter class.
-   * It discards one user and checks if the current user has liked the other user
+   * Core logic of exciter class. It discards one user and checks if the current
+   * user has liked the other user
    *
    * @return true if the user liked the other user three times in a row
-  */
+   */
 
   public boolean discardSecond() {
     if (currentUser.haveLikedUser(onScreenUser2)) {
@@ -193,11 +196,11 @@ public class Exciter {
   }
 
   /**
-   * Core logic of exciter class.
-   * It discards one user and checks if the current user has liked the other user
+   * Core logic of exciter class. It discards one user and checks if the current
+   * user has liked the other user
    *
    * @return true if the user liked the other user three times in a row
-  */
+   */
 
   public boolean discardFirst() {
     if (currentUser.haveLikedUser(onScreenUser2)) {

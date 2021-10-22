@@ -19,10 +19,11 @@ public class BotUser extends User {
 
   @Override
   public void fireOnLike(User match) {
-    if (likeBack){
+    if (likeBack) {
       super.fireOnLike(match);
     }
   }
+
   public boolean isLikeBack() {
     return likeBack;
   }

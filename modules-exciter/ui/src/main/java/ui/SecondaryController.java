@@ -21,10 +21,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 
+public class SecondaryController implements Initializable {
 
-
-public class SecondaryController implements Initializable{
-  
   private Exciter excite = App.exciter;
   private FileChooser fileChooser = new FileChooser();
   private ImageController imageController = PrimaryController.imageController;
@@ -41,23 +39,22 @@ public class SecondaryController implements Initializable{
   json.FileHandler fileHandler = PrimaryController.fileHandler;
   private Pane lastPane = null;
 
-
   @FXML
   private void switchToPrimary() throws IOException {
     App.setRoot("primary");
   }
 
-  private void hoverButton(Group n){
+  private void hoverButton(Group n) {
     n.setOnMouseEntered(e -> {
-            n.setEffect(new Lighting());
+      n.setEffect(new Lighting());
     });
     n.setOnMouseExited(e -> {
-            n.setEffect(null);
+      n.setEffect(null);
     });
   }
 
   @FXML
-  private void uploadPicture () throws IOException {
+  private void uploadPicture() throws IOException {
     File file = fileChooser.showOpenDialog(null);
     if (file != null && getFileExtension(file).equals(".jpg")) {
       imageController.uploadPicture(excite.getCurrentUser(), file);
@@ -72,8 +69,7 @@ public class SecondaryController implements Initializable{
         String name = file.getName();
         extension = name.substring(name.lastIndexOf("."));
       }
-    } 
-    catch (Exception e) {
+    } catch (Exception e) {
       e.printStackTrace();
     }
     return extension;
@@ -83,7 +79,7 @@ public class SecondaryController implements Initializable{
   void updatePreview() {
     User currentUser = excite.getCurrentUser();
     Pane currentPane = MatchController.createCard(currentUser);
-    if(pane.getChildren().contains(lastPane)) {
+    if (pane.getChildren().contains(lastPane)) {
       pane.getChildren().remove(lastPane);
     }
     pane.getChildren().add(currentPane);
@@ -94,7 +90,7 @@ public class SecondaryController implements Initializable{
   }
 
   @FXML
-  public void signOut() throws IOException{
+  public void signOut() throws IOException {
     fileHandler.createFile();
     List<User> users = new ArrayList<>();
     users.addAll(excite.getAllUsers());
@@ -104,7 +100,7 @@ public class SecondaryController implements Initializable{
   }
 
   @FXML
-  void save(){
+  void save() {
     excite.getCurrentUser().setAge(Integer.parseInt(age.getText()));
     excite.getCurrentUser().setName(name.getText());
     if (!password.getText().equals("")) {
@@ -130,7 +126,7 @@ public class SecondaryController implements Initializable{
     };
     // when enter is pressed
     pane.setOnMouseClicked(event);
-    
+
     updatePreview();
 
   }

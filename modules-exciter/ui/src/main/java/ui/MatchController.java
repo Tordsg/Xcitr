@@ -35,18 +35,17 @@ public class MatchController implements Initializable {
 
   @FXML
   HBox hBox;
-    
+
   @FXML
   Group button;
 
   @FXML
   AnchorPane anchorPane;
-    
+
   protected final static ImageController imageController = PrimaryController.imageController;
   private Exciter exciter = App.exciter;
-  private List<User> matches = exciter.getAllUsers().stream().
-      filter(a -> exciter.getCurrentUserMatches().contains(a.getEmail()))
-      .collect(Collectors.toList());
+  private List<User> matches = exciter.getAllUsers().stream()
+      .filter(a -> exciter.getCurrentUserMatches().contains(a.getEmail())).collect(Collectors.toList());
 
   public void switchToPrimary() throws IOException {
     App.setRoot("primary");
@@ -69,8 +68,7 @@ public class MatchController implements Initializable {
       label.setLayoutX(140);
       label.setLayoutY(210);
       anchorPane.getChildren().add(label);
-    } 
-    else {
+    } else {
       dragMatches();
     }
   }
@@ -83,6 +81,7 @@ public class MatchController implements Initializable {
       n.setEffect(null);
     });
   }
+
   protected static Pane createCard(User user) {
     Pane pane = new Pane();
     pane.setPrefHeight(338);
@@ -104,12 +103,11 @@ public class MatchController implements Initializable {
     pane1.setPrefHeight(121);
     pane1.setMinHeight(121);
     pane1.setPrefWidth(225);
-    pane1.setStyle(
-                """
-                -fx-background-color: rgba(255, 255, 255, .4);
-                -fx-background-radius: 0 0 22 22; -fx-border-radius: 0 0 21 21;
-                -fx-border-width: 0 2 2 2; -fx-border-color: black;
-                """);
+    pane1.setStyle("""
+        -fx-background-color: rgba(255, 255, 255, .4);
+        -fx-background-radius: 0 0 22 22; -fx-border-radius: 0 0 21 21;
+        -fx-border-width: 0 2 2 2; -fx-border-color: black;
+        """);
     Label age = new Label();
     pane1.getChildren().add(age);
     age.setAlignment(Pos.CENTER);
@@ -164,7 +162,7 @@ public class MatchController implements Initializable {
   double x;
   double dX;
   double lastX;
-  
+
   private void dragMatches() {
     hBox.setOnMousePressed(new EventHandler<MouseEvent>() {
       @Override
@@ -182,11 +180,9 @@ public class MatchController implements Initializable {
         double hBoxPosition = dX + hBox.getLayoutX();
         if (hBoxPosition > 20 && dX > 0) {
           hBox.setLayoutX(hBox.getLayoutX());
-        } 
-        else if (hBoxPosition + hBox.getWidth() < 640 && dX < 0) {
+        } else if (hBoxPosition + hBox.getWidth() < 640 && dX < 0) {
           hBox.setLayoutX(hBox.getLayoutX());
-        } 
-        else {
+        } else {
           hBox.setLayoutX(hBoxPosition);
         }
       }

@@ -23,6 +23,7 @@ public class User {
 
   /**
    * Constructor for User class.
+   *
    * @param name
    * @param age
    * @param userInformation
@@ -30,7 +31,7 @@ public class User {
    * @param email
    * @param password
    * @apiNote This constructor is to only be used by the filehandler class.
-  */
+   */
 
   public User(String name, int age, String userInformation, List<String> matches, String email, String password) {
     this.userInformation = userInformation;
@@ -48,7 +49,7 @@ public class User {
    * @param userInformation
    * @param matches
    * @param email
-  */
+   */
 
   public User(String name, int age, String userInformation, List<String> matches, String email) {
     this.userInformation = userInformation;
@@ -60,11 +61,12 @@ public class User {
 
   /**
    * Constructor for User class.
+   *
    * @param name
    * @param age
    * @param userInformation
    * @param email
-  */
+   */
 
   public User(String name, int age, String userInformation, String email) {
     this.userInformation = userInformation;
@@ -75,10 +77,11 @@ public class User {
 
   /**
    * Constructor for User class.
+   *
    * @param name
    * @param age
    * @param email
-  */
+   */
   public User(String name, int age, String email) {
     this.name = name;
     setAge(age);
@@ -90,13 +93,13 @@ public class User {
   }
 
   public void setName(String name) {
-    if(name.length() < 2){
+    if (name.length() < 2) {
       throw new IllegalArgumentException("Name must be at least 2 letters");
     }
-    if(!name.matches("^[ a-zA-Z]+$")){
+    if (!name.matches("^[ a-zA-Z]+$")) {
       throw new IllegalArgumentException("Name must only contain letters");
     }
-  this.name = name;
+    this.name = name;
 
   }
 
@@ -105,7 +108,7 @@ public class User {
   }
 
   public void setEmail(String email) {
-    if(!email.contains("@")) {
+    if (!email.contains("@")) {
       throw new IllegalArgumentException("Email must contain @");
     }
     this.email = email;
@@ -131,14 +134,16 @@ public class User {
   }
 
   public void setPassword(String password) {
-    this.password = MD5Hash(password);;
+    this.password = MD5Hash(password);
+    ;
   }
 
   /**
    * This method is used to hash the password.
+   *
    * @param password string.
    * @return MD5 hash of password.
-  */
+   */
 
   public static String MD5Hash(String password) {
     String outString = null;
@@ -152,8 +157,7 @@ public class User {
         sb.append(Integer.toString((bytes[i] & 0xff) + 0x100, 16).substring(1));
       }
       outString = sb.toString();
-    }
-    catch (NoSuchAlgorithmException e) {
+    } catch (NoSuchAlgorithmException e) {
       e.printStackTrace();
     }
     return outString;
@@ -181,6 +185,7 @@ public class User {
 
   /**
    * Adds a user to the likedUsers HashMap.
+   *
    * @param match The user to be added.
    *
    */
@@ -188,8 +193,7 @@ public class User {
   public void addUserOnMatch(User match) {
     if (!likedUsers.containsKey(match)) {
       likedUsers.put(match, 1);
-    }
-    else {
+    } else {
       likedUsers.put(match, likedUsers.get(match) + 1);
     }
   }

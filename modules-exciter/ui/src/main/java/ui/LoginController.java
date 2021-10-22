@@ -11,8 +11,8 @@ import javafx.scene.text.Text;
 import json.*;
 
 /**
-* Controller for login.fxml
-**/
+ * Controller for login.fxml
+ **/
 
 public class LoginController {
 
@@ -39,7 +39,7 @@ public class LoginController {
 
   /**
    * Sets field clear when fxml file starts to run.
-  **/
+   **/
   @FXML
   public void initialize() {
     passwordLogin.clear();
@@ -48,7 +48,9 @@ public class LoginController {
   }
 
   /**
-   * Checks that the email belongs to a user and that the password matches the user's password.
+   * Checks that the email belongs to a user and that the password matches the
+   * user's password.
+   *
    * @throws IOException
    */
 
@@ -57,7 +59,7 @@ public class LoginController {
     String email = emailLogin.getText();
     String password = passwordLogin.getText();
 
-    //long sentence
+    // long sentence
     for (User user : fileHandler.readUsers()) {
       if (email.equals(user.getEmail()) && User.MD5Hash(password).equals(user.getPassword())) {
         xcitr.setCurrentUser(user);

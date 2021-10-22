@@ -13,7 +13,6 @@ import javafx.scene.Parent;
 import javafx.scene.image.Image;
 import json.FileHandler;
 
-
 /**
  * JavaFX App.
  */
@@ -60,16 +59,15 @@ public class App extends Application {
     super.stop();
   }
 
-    static void setRoot(String fxml) throws IOException {
-        if(fxml.equals("primary") && scene.getWidth()<600 || fxml.equals("login") && scene.getWidth()>600){
-        stage.hide();
-        scene = new Scene(loadFxml(fxml));
-        stage.setScene(scene);
-        stage.show();
-        }else
-        scene.setRoot(loadFxml(fxml));
-      }
-
+  static void setRoot(String fxml) throws IOException {
+    if (fxml.equals("primary") && scene.getWidth() < 600 || fxml.equals("login") && scene.getWidth() > 600) {
+      stage.hide();
+      scene = new Scene(loadFxml(fxml));
+      stage.setScene(scene);
+      stage.show();
+    } else
+      scene.setRoot(loadFxml(fxml));
+  }
 
   private static Parent loadFxml(String fxml) throws IOException {
     FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource(fxml + ".fxml"));
