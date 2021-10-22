@@ -1,20 +1,23 @@
 package json;
 
-import java.io.*;
+import core.BotUser;
+import core.User;
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
-
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
-import org.json.simple.parser.ParseException;
-
-import core.BotUser;
-import core.User;
+import org.json.simple.parser.ParseException; 
 
 public class FileHandler {
 
@@ -25,12 +28,12 @@ public class FileHandler {
   private JSONParser parser = new JSONParser();
   String path = "../json/src/main/resources/UserData.JSON";
 
-   /**
-    * Saves users to the JSON file. Will makes necessary checks for bot users to
-    * differentiate between normal users and bot users.
-    *
-    * @param users to be saved
-    */
+  /**
+   * Saves users to the JSON file. Will makes necessary checks for bot users to
+   * differentiate between normal users and bot users.
+   *
+   * @param users to be saved
+   */
   @SuppressWarnings("unchecked") // Type safety can't be avoided with simple-json
   public void saveUser(List<User> users) {
     JSONArray userArray = new JSONArray();
@@ -40,8 +43,7 @@ public class FileHandler {
         userData.put("isBot", true);
         userData.put("password", null);
         userData.put("isLikeBack", ((BotUser) user).isLikeBack());
-        } 
-      else {
+      } else {
         userData.put("isBot", false);
         userData.put("password", user.getPassword());
       }
@@ -53,21 +55,19 @@ public class FileHandler {
       userArray.add(userData);
     }
     try {
-    // OutputStreamWriter is used to force UTF-8 encoding since fileWriter is using
-    // wrong encoding on older mac models
+      // OutputStreamWriter is used to force UTF-8 encoding since fileWriter is using
+      // wrong encoding on older mac models
       BufferedWriter fileWriter = new BufferedWriter(
-            new OutputStreamWriter(new FileOutputStream(path), StandardCharsets.UTF_8));
+          new OutputStreamWriter(new FileOutputStream(path), StandardCharsets.UTF_8));
       fileWriter.write(userArray.toJSONString());
       fileWriter.close();
-    } 
-    catch (FileNotFoundException e) {
+    } catch (FileNotFoundException e) {
       createFile();
       e.printStackTrace();
-    } 
-    catch (IOException e) {
+    } catch (IOException e) {
       e.printStackTrace();
-      }
-   }
+    }
+  }
 
   public void createFile() {
     try {
@@ -75,21 +75,20 @@ public class FileHandler {
       if (file.createNewFile()) {
         System.out.println("File created");
       }
-      } 
-    catch (Exception e) {
+    } catch (Exception e) {
       e.printStackTrace();
     }
 
-   }
+  }
 
   /**
    * Loads users from the JSON file. Will makes necessary checks for bot users to
    * differentiate between normal users and bot users.
    *
    * @return list of users
-  */
+   */
   public List<User> readUsers() {
-    
+
     try (BufferedReader fileReader = new BufferedReader(new InputStreamReader(new FileInputStream(path), "UTF-8"))) {
       ArrayList<User> users = new ArrayList<>();
       JSONArray userArray = (JSONArray) parser.parse(fileReader);
@@ -109,46 +108,42 @@ public class FileHandler {
         if (isBot) {
           boolean isLikeBack = Boolean.parseBoolean(String.valueOf(userData.get("isLikeBack")));
           users.add(new BotUser(name, age, userInformation, email, isLikeBack));
-        } 
-        else {
+        } else {
           String password = String.valueOf(userData.get("password"));
           users.add(new User(name, age, userInformation, alreadyMatched, email, password));
-         }
-         }
-        return users;
-      } 
-      catch (FileNotFoundException e) {
-        createFile();
-        return null;
-      } 
-      catch (IOException e) {
-        e.printStackTrace();
-      } 
-      catch (ParseException e) {
-        return null;
+        }
       }
+      return users;
+    } catch (FileNotFoundException e) {
+      createFile();
       return null;
-   }
+    } catch (IOException e) {
+      e.printStackTrace();
+    } catch (ParseException e) {
+      return null;
+    }
+    return null;
+  }
 
   /**
    * Parses a JSONArray into a List of Strings.
    *
    * @param jsonArray
    * @return List of user Emails
-  */
+   */
   public List<String> parseJSONList(JSONArray jsonArray) {
     List<String> list = new ArrayList<>();
     for (Object object : jsonArray) {
       list.add(String.valueOf(object));
     }
     return list;
-   }
+  }
 
   /**
    *
    * @param mail of a user
    * @return user if mail exists in JSON file, null otherwise
-  */
+   */
   public User getUser(String mail) {
     List<User> users = readUsers();
     for (User user : users) {

@@ -1,10 +1,11 @@
 package ui;
 
+import core.BotUser;
+import core.Exciter;
+import core.User;
+import java.util.stream.Stream;
 import javafx.scene.shape.Circle;
 import javafx.stage.Stage;
-
-import java.util.stream.Stream;
-
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -12,9 +13,6 @@ import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
 import org.testfx.framework.junit5.ApplicationTest;
 
-import core.BotUser;
-import core.Exciter;
-import core.User;
 
 /*TestFx App Test*/
 

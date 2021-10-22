@@ -1,22 +1,19 @@
 package ui;
 
-import javafx.stage.Stage;
-import json.FileHandler;
-
+import core.BotUser;
+import core.Exciter;
+import core.User;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 import java.util.stream.Stream;
-
+import javafx.stage.Stage;
+import json.FileHandler;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
 import org.testfx.framework.junit5.ApplicationTest;
-
-import core.BotUser;
-import core.Exciter;
-import core.User;
 
 /*TestFx App Test*/
 

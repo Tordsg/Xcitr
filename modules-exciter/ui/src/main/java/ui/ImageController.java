@@ -1,13 +1,11 @@
 package ui;
 
-import core.*;
+import core.User;
 import java.io.File;
 import java.util.HashMap;
 import javafx.scene.image.Image;
 import javafx.scene.paint.ImagePattern;
-import org.apache.commons.io.*;
-
-
+import org.apache.commons.io.FileUtils;
 
 /**
  * Controller for uploading of pictures in the application.
@@ -22,21 +20,20 @@ public class ImageController {
   File[] directoryListing = dir.listFiles();
 
   public ImageController() throws NullPointerException {
-    this.defaultImage = new ImagePattern(
-                new Image(this.getClass().getResourceAsStream("Images/defaultPicture.png")));
-    if(directoryListing != null){
+    this.defaultImage = new ImagePattern(new Image(this.getClass().getResourceAsStream("Images/defaultPicture.png")));
+    if (directoryListing != null) {
       for (File file : directoryListing) {
         try {
           if (getFileExtension(file).equals(".jpg")) {
             userImages.put(Integer.valueOf(file.getName().substring(0, file.getName().indexOf('.'))),
-            new ImagePattern(new Image(file.toURI().toString())));
+                new ImagePattern(new Image(file.toURI().toString())));
           }
         } catch (Exception e) {
-        e.printStackTrace();
+          e.printStackTrace();
+        }
       }
     }
   }
-}
 
   private String getFileExtension(File file) {
     String extension = "";
@@ -45,8 +42,7 @@ public class ImageController {
         String name = file.getName();
         extension = name.substring(name.lastIndexOf("."));
       }
-    }
-    catch (Exception e) {
+    } catch (Exception e) {
       e.printStackTrace();
     }
     return extension;
@@ -55,28 +51,28 @@ public class ImageController {
   public ImagePattern getImage(User user) {
     if (userImages.containsKey(user.getImageHashCode())) {
       return userImages.get(user.getImageHashCode());
-    }
-    else {
+    } else {
       return defaultImage;
     }
   }
+
   /**
-   * Uploas a image.
+   * Uploads a image.
+   *
    * @param user
    * @param file
    * @return
    */
 
   public boolean uploadPicture(User user, File file) {
-    //Only jpg files are allowed
-    //No null checks since it's handled by SecondaryController
+    // Only jpg files are allowed
+    // No null checks since it's handled by SecondaryController
     try {
       Image image = new Image(file.toURI().toString());
       FileUtils.copyFile(file, new File(path + user.getImageHashCode() + ".jpg"));
       userImages.put(user.getImageHashCode(), new ImagePattern(image));
       return true;
-    }
-    catch (Exception e) {
+    } catch (Exception e) {
       e.printStackTrace();
     }
     return false;
