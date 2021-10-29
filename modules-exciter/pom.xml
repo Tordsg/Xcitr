@@ -84,7 +84,7 @@
                         </execution>
                     </executions>
                 </plugin>
-                
+
                 <!-- Run the spotbugs code quality tool -->
                 <plugin>
                     <groupId>com.github.spotbugs</groupId>
@@ -106,7 +106,7 @@
                     </executions>
                 </plugin>
 
-             
+
 
                 <!-- Configure jacoco code coverage -->
                 <plugin>
@@ -156,5 +156,6 @@
         <module>core</module>
         <module>ui</module>
         <module>json</module>
+        <module>restServer</module>
     </modules>
 </project>
