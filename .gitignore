@@ -6,6 +6,7 @@ modules-exciter/.vscode/tasks.json
 modules-exciter/core/target
 modules-exciter/json/target
 modules-exciter/ui/target
+modules-exciter/user/target
 modules-exciter/restServer/target
 
 modules-exciter/.project

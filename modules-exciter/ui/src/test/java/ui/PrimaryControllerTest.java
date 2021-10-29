@@ -1,8 +1,8 @@
 package ui;
 
-import core.BotUser;
+import user.BotUser;
 import core.Exciter;
-import core.User;
+import user.User;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 import java.util.stream.Stream;

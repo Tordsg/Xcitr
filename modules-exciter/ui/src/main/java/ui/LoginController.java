@@ -1,7 +1,7 @@
 package ui;
 
 import core.Exciter;
-import core.User;
+import user.User;
 import java.io.IOException;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;

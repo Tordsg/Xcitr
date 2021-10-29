@@ -16,7 +16,7 @@ import org.junit.jupiter.params.provider.MethodSource;
 import org.testfx.framework.junit5.ApplicationTest;
 
 import core.Exciter;
-import core.User;
+import user.User;
 
 /*TestFx App Test*/
 

@@ -1,4 +1,5 @@
 module exciter.ui {
+    requires exciter.user;
     requires exciter.core;
     requires exciter.json;
     requires javafx.controls;

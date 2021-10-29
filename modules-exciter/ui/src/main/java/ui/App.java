@@ -1,7 +1,7 @@
 package ui;
 
-import core.Exciter;
-import core.User;
+import core.*;
+import user.User;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;

@@ -1,7 +1,7 @@
 package ui;
 
 import core.Exciter;
-import core.User;
+import user.User;
 import java.util.List;
 import java.util.stream.Stream;
 import javafx.scene.control.TextArea;

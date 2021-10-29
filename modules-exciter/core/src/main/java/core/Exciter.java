@@ -6,6 +6,9 @@ import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;
 import java.util.stream.Collectors;
 
+import user.User;
+import user.BotUser;
+
 /**
  * The main logic class.
  */

@@ -1,7 +1,6 @@
 package json;
 
-import core.BotUser;
-import core.User;
+
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
@@ -17,7 +16,10 @@ import java.util.List;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
-import org.json.simple.parser.ParseException; 
+import org.json.simple.parser.ParseException;
+
+import user.User;
+import user.BotUser;
 
 public class FileHandler {
 

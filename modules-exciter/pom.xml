@@ -157,5 +157,6 @@
         <module>ui</module>
         <module>json</module>
         <module>restServer</module>
+        <module>user</module>
     </modules>
 </project>

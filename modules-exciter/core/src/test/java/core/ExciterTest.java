@@ -6,6 +6,9 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import user.BotUser;
+import user.User;
+
 public class ExciterTest {
 
     private Exciter exciter;

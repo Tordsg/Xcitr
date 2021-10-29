@@ -9,6 +9,8 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 
 import core.*;
+import user.User;
+import user.BotUser;
 
 public class JsonTest {
 

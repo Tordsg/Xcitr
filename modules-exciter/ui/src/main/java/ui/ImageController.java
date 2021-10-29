@@ -1,6 +1,6 @@
 package ui;
 
-import core.User;
+import user.User;
 import java.io.File;
 import java.util.HashMap;
 import javafx.scene.image.Image;

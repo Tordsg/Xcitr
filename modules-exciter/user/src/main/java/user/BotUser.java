@@ -1,4 +1,4 @@
-package core;
+package user;
 
 /**
  * This class makes randomusers that are shown as matches.
