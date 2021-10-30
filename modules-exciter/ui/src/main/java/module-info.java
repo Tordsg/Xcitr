@@ -1,4 +1,5 @@
 module exciter.ui {
+    requires okhttp3;
     requires exciter.user;
     requires exciter.core;
     requires exciter.json;
