@@ -27,6 +27,8 @@ import javafx.scene.text.Text;
 import javafx.util.Duration;
 import json.FileHandler;
 
+import okhttp3.*;
+
 public class PrimaryController implements Initializable {
   @FXML
   private Rectangle leftPicture, rightPicture;
@@ -50,6 +52,15 @@ public class PrimaryController implements Initializable {
   private void switchToSecondary() throws IOException {
     saveUserData();
     App.setRoot("profile");
+  }
+
+  // I guess this is how you're supposes to do it?
+  public Response getUserData(String url) throws IOException {
+    OkHttpClient client = new OkHttpClient();
+    Request request = new Request.Builder()
+        .url(url)
+        .build();
+    return client.newCall(request).execute();
   }
 
   @FXML
