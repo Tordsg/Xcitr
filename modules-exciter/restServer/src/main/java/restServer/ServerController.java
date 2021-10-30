@@ -3,30 +3,32 @@ package restServer;
 import java.util.ArrayList;
 
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import core.Exciter;
 import user.User;
 
+
 @RestController
 public class ServerController {
 
-    private final Exciter excite;
-
-    ServerController(Exciter excite) {
-        this.excite = excite;
-    }
+    private Exciter excite = ExciterApplication.excite;
 
     @GetMapping(value ="/user")
-    public User getCurrentUser(){
+    public @ResponseBody User CurrentUser(){
         return excite.getCurrentUser();
     }
 
     @GetMapping(value ="/onScreenUsers")
-        public ArrayList<User> getOnScreenUsers(){
-            return excite.getOnScreenUsers();
-        }
+    public ArrayList<User> getOnScreenUsers(){
+        return excite.getOnScreenUsers();
+    }
+
+    @GetMapping(value ="/hei")
+    public String hei(){
+        return "hei";
+    }
 
    /* @Deprecated
     }
