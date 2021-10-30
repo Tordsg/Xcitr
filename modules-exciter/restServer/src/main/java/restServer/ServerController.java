@@ -33,11 +33,12 @@ public class ServerController {
         excite.getCurrentUser().fireOnLike(excite.getOnScreenUser1());
         return excite.getOnScreenUserLikeCount(excite.getOnScreenUser1());
     }
-    @PostMapping(value ="/onScreenUsers")
-    public int likedOnScreenUser2(){
-        excite.getCurrentUser().fireOnLike(excite.getOnScreenUser2());
-        return excite.getOnScreenUserLikeCount(excite.getOnScreenUser2());
-    }
+    //This method makes app crash
+    // @PostMapping(value ="/onScreenUsers")
+    // public int likedOnScreenUser2(){
+    //     excite.getCurrentUser().fireOnLike(excite.getOnScreenUser2());
+    //     return excite.getOnScreenUserLikeCount(excite.getOnScreenUser2());
+    // }
 
     @GetMapping(value ="/matches")
     public @ResponseBody List<String> getMatches(){
@@ -66,7 +67,7 @@ public class ServerController {
         for (User user : excite.getAllUsers()) {
             if(user.getEmail().equals(email)){
                 excite.setCurrentUser(user);
-            }   
+            }
         }
         return excite.getCurrentUser();
 
