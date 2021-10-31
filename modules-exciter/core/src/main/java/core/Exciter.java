@@ -142,6 +142,15 @@ public class Exciter {
     return allUsers.stream().filter(u -> u.getEmail().equals(email)).findFirst().orElse(null);
   }
 
+  public void clearUser(User user) {
+    User localUser = allUsers.stream().filter(u -> u.getEmail().equals(user.getEmail())).findFirst().orElse(null);
+    allUsers.remove(localUser);
+    if (user.getEmail().equals(currentUser.getEmail())) {
+      currentUser = new User("admin", 18,
+          "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut", "admin@mail");
+    }
+  }
+
   /**
    * @param user
    * @return number of likes in a row by current user
