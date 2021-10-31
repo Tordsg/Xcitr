@@ -156,7 +156,7 @@
         <module>core</module>
         <module>ui</module>
         <module>json</module>
-        <module>restServer</module>
+        <module>restserver</module>
         <module>user</module>
     </modules>
 </project>
