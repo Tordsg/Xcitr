@@ -1,4 +1,4 @@
-module restserver {
+open module restserver {
     requires okhttp3;
     requires spring.boot;
     requires spring.boot.autoconfigure;
@@ -9,5 +9,4 @@ module restserver {
     requires transitive exciter.json;
     requires transitive exciter.user;
     exports restserver;
-    opens restserver;
 }
