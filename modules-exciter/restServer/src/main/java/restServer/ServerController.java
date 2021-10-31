@@ -9,7 +9,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.server.ResponseStatusException;
 
 import core.Exciter;
 import user.User;
@@ -39,14 +38,14 @@ public class ServerController {
             return excite.discardSecond();
         }
         else {
-            throw new ResponseStatusException(null, "Client discarded illegal user");
+            return false;
         }
     }
 
     @PostMapping(value ="/createAccount")
     public boolean createAccount(@RequestBody User user){
         if(excite.getUserByEmail(user.getEmail()) != null){
-            throw new ResponseStatusException(null, "User already exists");
+            return false;
         }
         excite.setCurrentUser(user);
         return true;
