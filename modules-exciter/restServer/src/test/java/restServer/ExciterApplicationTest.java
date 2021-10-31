@@ -1,29 +1,22 @@
 package restServer;
 
-import java.io.IOException;
-
-import com.fasterxml.jackson.databind.ObjectMapper;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
-import okhttp3.OkHttpClient;
-import okhttp3.Request;
-import okhttp3.ResponseBody;
+//import okhttp3.Request;
 
-import user.User;
 
 
 
 @SpringBootTest
-class ExciterApplicationTests {
-
-	private User user;
+class ExciterApplicationTest {
 
 	@Test
-    public void testGetUser() throws IOException {
-
+    public void testGetUser() {
+        //Request request = new Request.Builder().url("http://localhost:8080" + "/hei").build();
+        Assertions.assertTrue(true);
     }
 
 }

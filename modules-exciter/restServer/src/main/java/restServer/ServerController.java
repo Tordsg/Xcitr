@@ -6,8 +6,10 @@ import java.util.List;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.server.ResponseStatusException;
 
 import core.Exciter;
 import user.User;
@@ -28,10 +30,26 @@ public class ServerController {
         return excite.getOnScreenUsers();
     }
 
-    @PostMapping(value ="/onScreenUsers")
-    public int likedOnScreenUser1(){
-        excite.getCurrentUser().fireOnLike(excite.getOnScreenUser1());
-        return excite.getOnScreenUserLikeCount(excite.getOnScreenUser1());
+    @PostMapping(value ="/onScreenUsers/{mail}")
+    public boolean discardUser(@RequestParam("mail") String mail){
+        if (excite.getOnScreenUser1().equals(excite.getUserByEmail(mail))) {
+            return excite.discardFirst();
+        }
+        else if (excite.getOnScreenUser2().equals(excite.getUserByEmail(mail))) {
+            return excite.discardSecond();
+        }
+        else {
+            throw new ResponseStatusException(null, "Client discarded illegal user");
+        }
+    }
+
+    @PostMapping(value ="/createAccount")
+    public boolean createAccount(@RequestBody User user){
+        if(excite.getUserByEmail(user.getEmail()) != null){
+            throw new ResponseStatusException(null, "User already exists");
+        }
+        excite.setCurrentUser(user);
+        return true;
     }
     //This method makes app crash
     // @PostMapping(value ="/onScreenUsers")

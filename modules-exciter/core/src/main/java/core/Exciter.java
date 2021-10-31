@@ -138,6 +138,10 @@ public class Exciter {
     return onScreenUser2;
   }
 
+  public User getUserByEmail(String email) {
+    return allUsers.stream().filter(u -> u.getEmail().equals(email)).findFirst().orElse(null);
+  }
+
   /**
    * @param user
    * @return number of likes in a row by current user
