@@ -1,3 +1,3 @@
-module exciter.user {
+open module exciter.user {
     exports user;
 }

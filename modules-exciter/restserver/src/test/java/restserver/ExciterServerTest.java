@@ -7,7 +7,11 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.web.server.LocalServerPort;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import core.Exciter;
 import okhttp3.MediaType;
@@ -18,13 +22,18 @@ import okhttp3.Response;
 import okhttp3.ResponseBody;
 import user.User;
 
-@SpringBootTest(classes = ExciterApplication.class)
+@ExtendWith(SpringExtension.class)
+@ContextConfiguration(classes = {ExciterApplication.class, ServerController.class})
+@SpringBootTest( webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 public class ExciterServerTest {
 
     OkHttpClient client = new OkHttpClient();
     ObjectMapper mapper = new ObjectMapper();
     Exciter exciter = ExciterApplication.excite;
     User user = new User("test", 22, "test@mail");
+
+    @LocalServerPort
+    int port;
 
     @BeforeEach
     public void setup() {
@@ -33,20 +42,22 @@ public class ExciterServerTest {
 
     @Test
     public void testConnection() {
-        Request requets = new Request.Builder().url("http://localhost:8080/user").build();
+        Request requets = new Request.Builder().url("http://localhost:"+port+"/user").build();
         try {
             Response response = client.newCall(requets).execute();
+            System.out.println(response.body().string());
             Assertions.assertEquals(200, response.code());
 
         } catch (Exception e) {
             // TODO: handle exception
+            e.printStackTrace();
         }
     }
 
     @Test
     public void testGetUser() {
         exciter.setCurrentUser(user);
-        Request requets = new Request.Builder().url("http://localhost:8080/user").build();
+        Request requets = new Request.Builder().url("http://localhost:"+port+"/user").build();
         try {
             ResponseBody response = client.newCall(requets).execute().body();
             User newUser = mapper.readValue(response.string(), User.class);
@@ -61,7 +72,7 @@ public class ExciterServerTest {
         try {
             String sendString = mapper.writeValueAsString(user);
             MediaType mediaType = MediaType.parse("application/json");
-            Request requets = new Request.Builder().url("http://localhost:8080/createAccount").post(RequestBody.create(sendString, mediaType)).build();
+            Request requets = new Request.Builder().url("http://localhost:"+port+"/createAccount").post(RequestBody.create(sendString, mediaType)).build();
             Response response = client.newCall(requets).execute();
             ResponseBody responseBody = response.body();
             Assertions.assertEquals(user.getName(), exciter.getCurrentUser().getName());
@@ -78,7 +89,7 @@ public class ExciterServerTest {
         try {
             String sendString = mapper.writeValueAsString(user);
             MediaType mediaType = MediaType.parse("application/json");
-            Request requets = new Request.Builder().url("http://localhost:8080/createAccount").post(RequestBody.create(sendString, mediaType)).build();
+            Request requets = new Request.Builder().url("http://localhost:"+port+"/createAccount").post(RequestBody.create(sendString, mediaType)).build();
             Response response = client.newCall(requets).execute();
             ResponseBody responseBody = response.body();
             Assertions.assertNotEquals(user.getName(), exciter.getCurrentUser().getName());
