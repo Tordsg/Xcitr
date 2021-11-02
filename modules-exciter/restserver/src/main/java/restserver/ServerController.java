@@ -47,6 +47,10 @@ public class ServerController {
         if(excite.getUserByEmail(user.getEmail()) != null){
             return false;
         }
+        System.out.println(user);
+        System.out.println(user.getName());
+        System.out.println(user.getAge());
+        System.out.println(user.getEmail());
         excite.setCurrentUser(user);
         return true;
     }

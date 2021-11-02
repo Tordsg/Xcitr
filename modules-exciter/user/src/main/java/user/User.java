@@ -7,10 +7,12 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+
 /**
  * This class configure a user.
  */
-
+@JsonDeserialize(using = UserDeserializer.class)
 public class User {
 
   private String name;
@@ -86,6 +88,9 @@ public class User {
     this.name = name;
     setAge(age);
     setEmail(email);
+  }
+
+  public User() {
   }
 
   public String getName() {

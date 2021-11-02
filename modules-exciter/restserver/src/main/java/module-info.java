@@ -7,6 +7,6 @@ open module restserver {
     requires spring.beans;
     requires transitive exciter.core;
     requires transitive exciter.json;
-    requires transitive exciter.user;
+    requires exciter.user;
     exports restserver;
 }

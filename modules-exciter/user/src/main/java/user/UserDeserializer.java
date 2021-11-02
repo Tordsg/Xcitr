@@ -13,24 +13,24 @@ import com.fasterxml.jackson.databind.node.TextNode;
 
 public class UserDeserializer extends StdDeserializer<User>{
 
-    public UserDeserializer() { 
-        this(null); 
-    } 
+    public UserDeserializer() {
+        this(null);
+    }
 
-    public UserDeserializer(Class<?> vc) { 
-        super(vc); 
+    public UserDeserializer(Class<?> vc) {
+        super(vc);
     }
 
     @Override
-    public User deserialize(JsonParser jp, DeserializationContext ctxt) 
+    public User deserialize(JsonParser jp, DeserializationContext ctxt)
       throws IOException, JsonProcessingException {
         JsonNode node = jp.getCodec().readTree(jp);
-        return deserialize(node); 
+        return deserialize(node);
     }
 
     public User deserialize(JsonNode node) {
         if(node instanceof ObjectNode objectNode){
-            User user = null;
+            User user = new User();
             JsonNode nameNode = objectNode.get("name");
             if (nameNode instanceof TextNode) {
                 user.setName(nameNode.asText());
