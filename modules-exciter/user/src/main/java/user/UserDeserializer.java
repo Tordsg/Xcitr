@@ -47,6 +47,11 @@ public class UserDeserializer extends StdDeserializer<User>{
               if (userInfoNode instanceof TextNode) {
                 user.setUserInformation(userInfoNode.asText());
               }
+              JsonNode passwordNode = objectNode.get("password");
+              if (passwordNode instanceof TextNode) {
+                user.setPassword(passwordNode.asText());
+              }
+
 
 
               return user;
