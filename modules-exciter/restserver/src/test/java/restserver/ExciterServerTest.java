@@ -71,18 +71,24 @@ public class ExciterServerTest {
     @Test
     public void testPostCreateUser()
     {
+        Request request = null;
+        Response response = null;
+        ResponseBody responseBody = null;
+        String responseBodyString = null;
         try {
             String sendString = mapper.writeValueAsString(user);
             MediaType mediaType = MediaType.parse("application/json");
-            Request requets = new Request.Builder().url("http://localhost:"+port+"/createAccount").post(RequestBody.create(sendString, mediaType)).build();
-            Response response = client.newCall(requets).execute();
-            ResponseBody responseBody = response.body();
-            Assertions.assertEquals(user.getName(), exciter.getCurrentUser().getName());
-            Assertions.assertTrue(response.isSuccessful());
-            Assertions.assertEquals(responseBody.string(), "true");
+            request = new Request.Builder().url("http://localhost:"+port+"/createAccount").post(RequestBody.create(sendString, mediaType)).build();
+            response = client.newCall(request).execute();
+            responseBody = response.body();
+            responseBodyString = responseBody.string();
+
         } catch (IOException e) {
             e.printStackTrace();
         }
+        Assertions.assertEquals(user.getName(), exciter.getCurrentUser().getName());
+        Assertions.assertTrue(response.isSuccessful());
+        Assertions.assertEquals(responseBodyString, "true");
     }
 
 }
