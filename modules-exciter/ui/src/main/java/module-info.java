@@ -6,6 +6,6 @@ module exciter.ui {
     requires javafx.controls;
     requires javafx.fxml;
     requires org.apache.commons.io;
-    requires jackson.databind;
+    requires com.fasterxml.jackson.databind;
     opens ui to javafx.graphics, javafx.fxml;
 }
