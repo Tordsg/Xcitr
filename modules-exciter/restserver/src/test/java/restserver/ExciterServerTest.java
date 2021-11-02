@@ -68,38 +68,21 @@ public class ExciterServerTest {
         Assertions.assertEquals(user.getName(), newUser.getName());
     }
 
-    // @Test
-    // public void testPostCreateUser()
-    // {
-    //     try {
-    //         String sendString = mapper.writeValueAsString(user);
-    //         MediaType mediaType = MediaType.parse("application/json");
-    //         Request requets = new Request.Builder().url("http://localhost:"+port+"/createAccount").post(RequestBody.create(sendString, mediaType)).build();
-    //         Response response = client.newCall(requets).execute();
-    //         ResponseBody responseBody = response.body();
-    //         Assertions.assertEquals(user.getName(), exciter.getCurrentUser().getName());
-    //         Assertions.assertTrue(response.isSuccessful());
-    //         Assertions.assertEquals(responseBody.string(), "true");
-    //     } catch (IOException e) {
-    //         e.printStackTrace();
-    //     }
-    // }
-
-    // @Test
-    // public void testFalseCreateUser(){
-    //     exciter.setCurrentUser(user);
-    //     try {
-    //         String sendString = mapper.writeValueAsString(user);
-    //         MediaType mediaType = MediaType.parse("application/json");
-    //         Request requets = new Request.Builder().url("http://localhost:"+port+"/createAccount").post(RequestBody.create(sendString, mediaType)).build();
-    //         Response response = client.newCall(requets).execute();
-    //         ResponseBody responseBody = response.body();
-    //         Assertions.assertNotEquals(user.getName(), exciter.getCurrentUser().getName());
-    //         Assertions.assertTrue(response.isSuccessful());
-    //         Assertions.assertEquals(responseBody.string(), "false");
-    //     } catch (IOException e) {
-    //         e.printStackTrace();
-    //     }
-    // }
+    @Test
+    public void testPostCreateUser()
+    {
+        try {
+            String sendString = mapper.writeValueAsString(user);
+            MediaType mediaType = MediaType.parse("application/json");
+            Request requets = new Request.Builder().url("http://localhost:"+port+"/createAccount").post(RequestBody.create(sendString, mediaType)).build();
+            Response response = client.newCall(requets).execute();
+            ResponseBody responseBody = response.body();
+            Assertions.assertEquals(user.getName(), exciter.getCurrentUser().getName());
+            Assertions.assertTrue(response.isSuccessful());
+            Assertions.assertEquals(responseBody.string(), "true");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 
 }
