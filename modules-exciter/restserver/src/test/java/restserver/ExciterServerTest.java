@@ -77,6 +77,7 @@ public class ExciterServerTest {
         Response response = null;
         ResponseBody responseBody = null;
         String responseBodyString = null;
+        User newUser = new User("Nottest", 22, "Nottest@mail");
         try {
             String sendString = mapper.writeValueAsString(user);
             MediaType mediaType = MediaType.parse("application/json");
@@ -84,11 +85,12 @@ public class ExciterServerTest {
             response = client.newCall(request).execute();
             responseBody = response.body();
             responseBodyString = responseBody.string();
+            newUser = mapper.readValue(responseBodyString, User.class);
 
         } catch (IOException e) {
             e.printStackTrace();
         }
-        Assertions.assertEquals(user.getName(), exciter.getCurrentUser().getName());
+        Assertions.assertEquals(newUser.getName(), exciter.getCurrentUser().getName());
         Assertions.assertTrue(response.isSuccessful());
     }
 
