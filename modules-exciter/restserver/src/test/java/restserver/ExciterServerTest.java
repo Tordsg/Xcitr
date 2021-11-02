@@ -23,8 +23,8 @@ import okhttp3.ResponseBody;
 import user.User;
 
 @ExtendWith(SpringExtension.class)
-@ContextConfiguration(classes = {ExciterApplication.class, ServerController.class})
-@SpringBootTest( webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
+@ContextConfiguration(classes = { ExciterApplication.class, ServerController.class })
+@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 public class ExciterServerTest {
 
     OkHttpClient client = new OkHttpClient();
@@ -37,12 +37,13 @@ public class ExciterServerTest {
 
     @BeforeEach
     public void setup() {
+        user = new User("test", 22, "test@mail");
         exciter.clearUser(user);
     }
 
     @Test
     public void testConnection() {
-        Request requets = new Request.Builder().url("http://localhost:"+port+"/user").build();
+        Request requets = new Request.Builder().url("http://localhost:" + port + "/user").build();
 
         try {
             Response response = client.newCall(requets).execute();
@@ -58,7 +59,7 @@ public class ExciterServerTest {
     @Test
     public void testGetUser() {
         exciter.setCurrentUser(user);
-        Request requets = new Request.Builder().url("http://localhost:"+port+"/user").build();
+        Request requets = new Request.Builder().url("http://localhost:" + port + "/user").build();
         User newUser = null;
         try {
             ResponseBody response = client.newCall(requets).execute().body();
@@ -71,6 +72,7 @@ public class ExciterServerTest {
     @Test
     public void testPostCreateUser()
     {
+        user.addMatch("Fiona@mail");
         Request request = null;
         Response response = null;
         ResponseBody responseBody = null;
@@ -88,7 +90,31 @@ public class ExciterServerTest {
         }
         Assertions.assertEquals(user.getName(), exciter.getCurrentUser().getName());
         Assertions.assertTrue(response.isSuccessful());
-        Assertions.assertEquals(responseBodyString, "true");
+    }
+
+    @Test
+    public void testPostCreateUserFail(){
+        exciter.setCurrentUser(user);
+        Request request = null;
+        Response response = null;
+        ResponseBody responseBody = null;
+        String responseBodyString = null;
+        User newUser = new User("test", 22, "test@mail");
+        try {
+            String sendString = mapper.writeValueAsString(user);
+            MediaType mediaType = MediaType.parse("application/json");
+            request = new Request.Builder().url("http://localhost:"+port+"/createAccount").post(RequestBody.create(sendString, mediaType)).build();
+            response = client.newCall(request).execute();
+            responseBody = response.body();
+            responseBodyString = responseBody.string();
+            newUser = mapper.readValue(responseBodyString, User.class);
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        //TODO this method should not be allowed
+        Assertions.assertTrue(responseBodyString.isEmpty());
+
     }
 
 }

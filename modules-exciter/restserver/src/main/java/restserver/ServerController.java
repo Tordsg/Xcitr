@@ -43,16 +43,17 @@ public class ServerController {
     }
 
     @PostMapping(value ="/createAccount")
-    public boolean createAccount(@RequestBody User user){
+    public User createAccount(@RequestBody User user){
         if(excite.getUserByEmail(user.getEmail()) != null){
-            return false;
+            return null;
         }
         System.out.println(user);
         System.out.println(user.getName());
         System.out.println(user.getAge());
         System.out.println(user.getEmail());
+        System.out.println(user.getMatches());
         excite.setCurrentUser(user);
-        return true;
+        return user;
     }
     //This method makes app crash
     // @PostMapping(value ="/onScreenUsers")

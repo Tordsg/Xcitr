@@ -19,22 +19,6 @@
         </dependency>
 
 
-        <!-- https://mvnrepository.com/artifact/com.fasterxml.jackson.core/jackson-core -->
-        <dependency>
-            <groupId>com.fasterxml.jackson.core</groupId>
-            <artifactId>jackson-core</artifactId>
-        </dependency>
-        <!-- https://mvnrepository.com/artifact/com.fasterxml.jackson.core/jackson-databind -->
-        <dependency>
-            <groupId>com.fasterxml.jackson.core</groupId>
-            <artifactId>jackson-databind</artifactId>
-        </dependency>
-        
-        <dependency>
-            <groupId>com.fasterxml.jackson.core</groupId>
-            <artifactId>jackson-annotations</artifactId>
-            <version>2.9.6</version>
-        </dependency>
 
         <!-- junit testing with jupiter -->
         <dependency>
@@ -67,10 +51,10 @@
             </plugin>
 
             <!-- Run the spotbugs code quality tool -->
-            <plugin>
+            <!-- <plugin>
                 <groupId>com.github.spotbugs</groupId>
                 <artifactId>spotbugs-maven-plugin</artifactId>
-            </plugin>
+            </plugin> -->
 
 
             <plugin>

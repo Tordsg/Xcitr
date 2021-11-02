@@ -139,7 +139,11 @@ public class Exciter {
   }
 
   public User getUserByEmail(String email) {
-    return allUsers.stream().filter(u -> u.getEmail().equals(email)).findFirst().orElse(null);
+    User temp = allUsers.stream().filter(u -> u.getEmail().equals(email)).findFirst().orElse(null);
+    if (temp == null) {
+      return currentUser.getEmail().equals(email) ? currentUser : null;
+    }
+    return temp;
   }
 
   public void clearUser(User user) {
