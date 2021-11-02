@@ -7,6 +7,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.DeserializationContext;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.deser.std.StdDeserializer;
+import com.fasterxml.jackson.databind.node.ArrayNode;
 import com.fasterxml.jackson.databind.node.IntNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.fasterxml.jackson.databind.node.TextNode;
@@ -42,6 +43,14 @@ public class UserDeserializer extends StdDeserializer<User>{
               JsonNode emailNode = objectNode.get("email");
               if (emailNode instanceof TextNode) {
                 user.setEmail(emailNode.asText());
+              }
+              ArrayNode matchNode = (ArrayNode) objectNode.get("matches");
+              if (matchNode instanceof ArrayNode) {
+                for (JsonNode string : matchNode) {
+                  if (string instanceof TextNode) {
+                    user.addMatch(string.asText());
+                  }
+                }
               }
               JsonNode userInfoNode = objectNode.get("userInformation");
               if (userInfoNode instanceof TextNode) {

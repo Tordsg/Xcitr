@@ -180,6 +180,10 @@ public class User {
     this.addUserOnMatch(match);
   }
 
+  public void addMatch(String matches) {
+    this.matches.add(matches);
+  }
+
   public List<String> getMatches() {
     return new ArrayList<>(matches);
   }
