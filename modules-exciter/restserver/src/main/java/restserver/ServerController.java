@@ -70,11 +70,13 @@ public class ServerController {
     }
 
 
-    @RequestMapping(value = "/login/{mail}/{password}")
+    @PostMapping(value = "/login/{mail}")
     @ResponseBody
-    public User setLoginUser(@PathVariable("mail") String email, @PathVariable("password") String password) {
+    public User setLoginUser(@PathVariable("mail") String email, @RequestBody String password) {
+        System.out.println(password);
+        System.out.println(excite.getUserByEmail(email).getPassword());
         if (excite.getUserByEmail(email) != null) {
-            if (excite.getUserByEmail(email).getPassword().equals(password)) {
+            if (excite.getUserByEmail(email).getPassword().equals(password.replace("\"", ""))) {
                 excite.setCurrentUser(excite.getUserByEmail(email));
                 return excite.getCurrentUser();
             } else {

@@ -135,7 +135,9 @@ public class ExciterServerTest {
         usersToAdd.add(addUser);
         exciter.addUsers(usersToAdd);
         try {
-            request = new Request.Builder().url("http://localhost:" + port + "/login/Per@mail/" + password).build();
+            String sendString = mapper.writeValueAsString(password);
+            MediaType mediaType = MediaType.parse("application/json");
+            request = new Request.Builder().url("http://localhost:" + port + "/login/Per@mail").post(RequestBody.create(sendString,mediaType)).build();
             response = client.newCall(request).execute();
             responseBody = response.body();
             responseBodyString = responseBody.string();
