@@ -73,11 +73,6 @@ public class ServerController {
         return excite.getCurrentUserMatches();
     }
 
-    @GetMapping(value ="/hei")
-    public String hei(){
-        return "hei";
-    }
-
     @PostMapping(value = "/signup")
     public User createUser(@RequestBody User newUser){
         excite.setCurrentUser(newUser);
