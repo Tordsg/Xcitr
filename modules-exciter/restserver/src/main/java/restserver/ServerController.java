@@ -86,18 +86,18 @@ public class ServerController {
 
     @PostMapping(value = "/login")
     public User setLoginUser(@RequestBody String email){
-        for (User user : excite.getAllUsers()) {
-            if(user.getEmail().equals(email)){
-                excite.setCurrentUser(user);
-            }
+        if(excite.getUserByEmail(email) != null){
+            excite.setCurrentUser(excite.getUserByEmail(email));
+            return excite.getCurrentUser();
+
         }
-        return excite.getCurrentUser();
+        return null;
 
     }
 
     @PostMapping(value="/user")
-    public User updateUserInfo(@RequestBody User currrentUser){
+    public User updateUserInfo(@RequestBody User user){
+        excite.setCurrentUser(user);
         return excite.getCurrentUser();
     }
 }
-
