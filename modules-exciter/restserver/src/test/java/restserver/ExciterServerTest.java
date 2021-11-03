@@ -117,8 +117,8 @@ public class ExciterServerTest {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        //TODO this method should not be allowed
-        Assertions.assertTrue(responseBodyString.isEmpty());
+        Assertions.assertEquals(400, response.code());
+        Assertions.assertNotEquals(newUser, exciter.getCurrentUser());
 
     }
 
