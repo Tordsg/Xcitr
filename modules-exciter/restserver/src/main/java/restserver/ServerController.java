@@ -73,8 +73,6 @@ public class ServerController {
     @PostMapping(value = "/login/{mail}")
     @ResponseBody
     public User setLoginUser(@PathVariable("mail") String email, @RequestBody String password) {
-        System.out.println(password);
-        System.out.println(excite.getUserByEmail(email).getPassword());
         if (excite.getUserByEmail(email) != null) {
             if (excite.getUserByEmail(email).getPassword().equals(password.replace("\"", ""))) {
                 excite.setCurrentUser(excite.getUserByEmail(email));

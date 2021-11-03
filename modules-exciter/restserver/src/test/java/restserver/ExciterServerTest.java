@@ -49,7 +49,6 @@ public class ExciterServerTest {
 
         try {
             Response response = client.newCall(requets).execute();
-            System.out.println(response.body().string());
             Assertions.assertEquals(200, response.code());
 
         } catch (Exception e) {
@@ -141,7 +140,6 @@ public class ExciterServerTest {
             response = client.newCall(request).execute();
             responseBody = response.body();
             responseBodyString = responseBody.string();
-            System.out.println(responseBodyString);
             newUser = mapper.readValue(responseBodyString, User.class);
 
         } catch (IOException e) {
@@ -208,16 +206,5 @@ public class ExciterServerTest {
         }
 
     }
-
-    // @Test
-    // public void testUserPatch() {
-    //     try {
-    //         Request request = new Request.Builder().url("http://localhost:" + port + "/user/patch").build();
-    //         Response response = client.newCall(request).execute();
-    //         Assertions.assertEquals(200, response.code());
-    //     } catch (Exception e) {
-    //         e.printStackTrace();
-    //     }
-    // }
 
 }
