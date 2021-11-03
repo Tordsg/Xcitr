@@ -1,9 +1,12 @@
 package restserver;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import org.assertj.core.util.Arrays;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -117,6 +120,31 @@ public class ExciterServerTest {
         //TODO this method should not be allowed
         Assertions.assertTrue(responseBodyString.isEmpty());
 
+    }
+
+    @Test
+    public void testPostLogin(){
+        Request request = null;
+        Response response = null;
+        ResponseBody responseBody = null;
+        String responseBodyString = null;
+        User newUser = new User("test", 22, "test@mail");
+        List<User> usersToAdd = new ArrayList<User>();
+        usersToAdd.add(newUser);
+        try {
+            String sendString = "test@mail";
+            MediaType mediaType = MediaType.parse("application/json");
+            request = new Request.Builder().url("http://localhost:"+port+"/login").post(RequestBody.create(sendString, mediaType)).build();
+            response = client.newCall(request).execute();
+            responseBody = response.body();
+            responseBodyString = responseBody.string();
+            newUser = mapper.readValue(responseBodyString, User.class);
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        Assertions.assertEquals(user.getName(), newUser.getName());
+        Assertions.assertTrue(response.isSuccessful());
     }
 
 }
