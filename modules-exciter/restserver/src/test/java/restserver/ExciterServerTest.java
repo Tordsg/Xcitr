@@ -130,16 +130,17 @@ public class ExciterServerTest {
         String responseBodyString = null;
         User newUser = null;
         User addUser = new User("Per", 17, "Per@mail");
+        addUser.setPassword("test");
+        String password = User.MD5Hash("test");
         List<User> usersToAdd = new ArrayList<User>();
         usersToAdd.add(addUser);
         exciter.addUsers(usersToAdd);
         try {
-            String sendString = "Per@mail";
-            MediaType mediaType = MediaType.parse("application/json");
-            request = new Request.Builder().url("http://localhost:"+port+"/login").post(RequestBody.create(sendString, mediaType)).build();
+            request = new Request.Builder().url("http://localhost:"+port+"/login/Per@mail/"+password).build();
             response = client.newCall(request).execute();
             responseBody = response.body();
             responseBodyString = responseBody.string();
+            System.out.println(responseBodyString);
             newUser = mapper.readValue(responseBodyString, User.class);
 
         } catch (IOException e) {

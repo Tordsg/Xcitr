@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -16,38 +17,35 @@ import org.springframework.web.bind.annotation.RestController;
 import core.Exciter;
 import user.User;
 
-
 @RestController
 public class ServerController {
 
     private Exciter excite = ExciterApplication.excite;
 
-    @GetMapping(value ="/user")
-    public @ResponseBody User CurrentUser(){
+    @GetMapping(value = "/user")
+    public @ResponseBody User CurrentUser() {
         return excite.getCurrentUser();
     }
 
-    @GetMapping(value ="/onScreenUsers")
-    public @ResponseBody ArrayList<User> getOnScreenUsers(){
+    @GetMapping(value = "/onScreenUsers")
+    public @ResponseBody ArrayList<User> getOnScreenUsers() {
         return excite.getOnScreenUsers();
     }
 
-    @PostMapping(value ="/onScreenUsers/{mail}")
-    public boolean discardUser(@RequestParam("mail") String mail){
+    @PostMapping(value = "/onScreenUsers/{mail}")
+    public boolean discardUser(@RequestParam("mail") String mail) {
         if (excite.getOnScreenUser1().equals(excite.getUserByEmail(mail))) {
             return excite.discardFirst();
-        }
-        else if (excite.getOnScreenUser2().equals(excite.getUserByEmail(mail))) {
+        } else if (excite.getOnScreenUser2().equals(excite.getUserByEmail(mail))) {
             return excite.discardSecond();
-        }
-        else {
+        } else {
             return false;
         }
     }
 
-    @PostMapping(value ="/createAccount")
-    public User createAccount(@RequestBody User user){
-        if(excite.getUserByEmail(user.getEmail()) != null){
+    @PostMapping(value = "/createAccount")
+    public User createAccount(@RequestBody User user) {
+        if (excite.getUserByEmail(user.getEmail()) != null) {
             throw new IllegalArgumentException("User already exists");
         }
         excite.setCurrentUser(user);
@@ -60,47 +58,47 @@ public class ServerController {
     public String handleIllegalArgumentException(IllegalArgumentException e) {
         return e.getMessage();
     }
-    //This method makes app crash
+    // This method makes app crash
     // @PostMapping(value ="/onScreenUsers")
     // public int likedOnScreenUser2(){
-    //     excite.getCurrentUser().fireOnLike(excite.getOnScreenUser2());
-    //     return excite.getOnScreenUserLikeCount(excite.getOnScreenUser2());
+    // excite.getCurrentUser().fireOnLike(excite.getOnScreenUser2());
+    // return excite.getOnScreenUserLikeCount(excite.getOnScreenUser2());
     // }
 
-    @GetMapping(value ="/matches")
-    public @ResponseBody List<String> getMatches(){
+    @GetMapping(value = "/matches")
+    public @ResponseBody List<String> getMatches() {
         return excite.getCurrentUserMatches();
     }
 
-    @PostMapping(value ="/matches")
-    public List<String> updateMatches(@RequestBody User match){
+    @PostMapping(value = "/matches")
+    public List<String> updateMatches(@RequestBody User match) {
         excite.getCurrentUser().addUserOnMatch(match);
         return excite.getCurrentUserMatches();
     }
 
     @PostMapping(value = "/signup")
-    public User createUser(@RequestBody User newUser){
+    public User createUser(@RequestBody User newUser) {
         excite.setCurrentUser(newUser);
         return excite.getCurrentUser();
     }
 
-    @RequestMapping(value = "/login({mail}/{password}")
-    public User setLoginUser(@RequestParam("mail") String email, @RequestParam("password") String password){
-        if(excite.getUserByEmail(email) != null){
-            if(excite.getUserByEmail(email).getPassword().equals(password)){
+    @RequestMapping(value = "/login/{mail}/{password}")
+    @ResponseBody
+    public User setLoginUser(@PathVariable("mail") String email, @PathVariable("password") String password) {
+        if (excite.getUserByEmail(email) != null) {
+            if (excite.getUserByEmail(email).getPassword().equals(password)) {
                 excite.setCurrentUser(excite.getUserByEmail(email));
                 return excite.getCurrentUser();
-            }else {
+            } else {
                 throw new IllegalArgumentException("Wrong password");
             }
 
         }
         throw new IllegalArgumentException("User does not exist");
-
     }
 
-    @PostMapping(value="/user")
-    public User updateUserInfo(@RequestBody User user){
+    @PostMapping(value = "/user")
+    public User updateUserInfo(@RequestBody User user) {
         excite.setCurrentUser(user);
         return excite.getCurrentUser();
     }
