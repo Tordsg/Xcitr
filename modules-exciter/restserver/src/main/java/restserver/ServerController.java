@@ -9,7 +9,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
@@ -32,14 +31,15 @@ public class ServerController {
         return excite.getOnScreenUsers();
     }
 
-    @PostMapping(value = "/onScreenUsers/{mail}")
-    public boolean discardUser(@RequestParam("mail") String mail) {
+    @RequestMapping(value = "/onScreenUsers/{mail}")
+    @ResponseBody
+    public User discardUser(@PathVariable("mail") String mail) {
         if (excite.getOnScreenUser1().equals(excite.getUserByEmail(mail))) {
-            return excite.discardFirst();
+            return excite.getOnScreenUser1();
         } else if (excite.getOnScreenUser2().equals(excite.getUserByEmail(mail))) {
-            return excite.discardSecond();
+            return excite.getOnScreenUser2();
         } else {
-            return false;
+            throw new IllegalArgumentException(String.format("User %s is not not avaliable at this moment", mail));
         }
     }
 
@@ -58,16 +58,15 @@ public class ServerController {
     public String handleIllegalArgumentException(IllegalArgumentException e) {
         return e.getMessage();
     }
-    // This method makes app crash
-    // @PostMapping(value ="/onScreenUsers")
-    // public int likedOnScreenUser2(){
-    // excite.getCurrentUser().fireOnLike(excite.getOnScreenUser2());
-    // return excite.getOnScreenUserLikeCount(excite.getOnScreenUser2());
-    // }
 
-    @GetMapping(value = "/matches")
-    public @ResponseBody List<String> getMatches() {
-        return excite.getCurrentUserMatches();
+
+    @GetMapping(value = "user/matches")
+    public @ResponseBody List<User> getMatches() {
+        List<User> matches = new ArrayList<>();
+        for(String string : excite.getCurrentUser().getMatches()) {
+            matches.add(excite.getUserByEmail(string));
+        }
+        return matches;
     }
 
 

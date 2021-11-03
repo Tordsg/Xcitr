@@ -6,7 +6,6 @@ import java.util.List;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-import org.assertj.core.util.Arrays;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -177,19 +176,21 @@ public class ExciterServerTest {
     }
     @Test
     public void testGetMatches(){
-        List<String> matches = new ArrayList<String>();
-        matches.add("Mari");
-        matches.add("Lisa");
-        User testUser = new User("Ludde", 19, "Hei", matches, "Ludde@mail");
+        User testUser = new User("Ludde", 19, "Ludde@mail");
+        testUser.addMatch("Diana@mail");
+        testUser.addMatch("Jane@mail");
         exciter.setCurrentUser(testUser);
-        Request requets = new Request.Builder().url("http://localhost:" + port + "/matches").build();
-        List<String> matchesFromServer = null;
+        Request requets = new Request.Builder().url("http://localhost:" + port + "/user/matches").build();
+        List<User> matchesFromServer = new ArrayList<>();
         try {
             ResponseBody response = client.newCall(requets).execute().body();
-            matchesFromServer = mapper.readValue(response.string(), List.class);
+           matchesFromServer = mapper.readValue(response.string(), mapper.getTypeFactory().constructCollectionType(List.class, User.class));
         } catch (Exception e) {
+            e.printStackTrace();
         }
-        Assertions.assertEquals(testUser.getMatches(), matchesFromServer);
+        for (User user : matchesFromServer) {
+            Assertions.assertTrue(testUser.getMatches().contains(user.getEmail()));
+        }
 
     }
 
