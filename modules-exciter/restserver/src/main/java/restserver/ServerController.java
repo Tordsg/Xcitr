@@ -3,11 +3,13 @@ package restserver;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import core.Exciter;
@@ -45,15 +47,17 @@ public class ServerController {
     @PostMapping(value ="/createAccount")
     public User createAccount(@RequestBody User user){
         if(excite.getUserByEmail(user.getEmail()) != null){
-            return null;
+            throw new IllegalArgumentException("User already exists");
         }
-        System.out.println(user);
-        System.out.println(user.getName());
-        System.out.println(user.getAge());
-        System.out.println(user.getEmail());
-        System.out.println(user.getMatches());
         excite.setCurrentUser(user);
         return user;
+    }
+
+    @ExceptionHandler(IllegalArgumentException.class)
+    @ResponseStatus(value = org.springframework.http.HttpStatus.BAD_REQUEST)
+    @ResponseBody
+    public String handleIllegalArgumentException(IllegalArgumentException e) {
+        return e.getMessage();
     }
     //This method makes app crash
     // @PostMapping(value ="/onScreenUsers")
