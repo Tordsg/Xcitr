@@ -29,6 +29,9 @@ public class UserDeserializer extends StdDeserializer<User> {
   }
 
   public User deserialize(JsonNode node) {
+    if (node == null){
+      return null;
+    }
     if (node instanceof ObjectNode objectNode) {
       User user = new User();
       JsonNode nameNode = objectNode.get("name");
