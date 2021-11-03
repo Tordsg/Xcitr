@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
@@ -83,14 +84,18 @@ public class ServerController {
         return excite.getCurrentUser();
     }
 
-    @PostMapping(value = "/login")
-    public User setLoginUser(@RequestBody String email){
+    @RequestMapping(value = "/login({mail}/{password}")
+    public User setLoginUser(@RequestParam("mail") String email, @RequestParam("password") String password){
         if(excite.getUserByEmail(email) != null){
-            excite.setCurrentUser(excite.getUserByEmail(email));
-            return excite.getCurrentUser();
+            if(excite.getUserByEmail(email).getPassword().equals(password)){
+                excite.setCurrentUser(excite.getUserByEmail(email));
+                return excite.getCurrentUser();
+            }else {
+                throw new IllegalArgumentException("Wrong password");
+            }
 
         }
-        return null;
+        throw new IllegalArgumentException("User does not exist");
 
     }
 
