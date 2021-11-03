@@ -22,6 +22,7 @@ import okhttp3.Request;
 import okhttp3.RequestBody;
 import okhttp3.Response;
 import okhttp3.ResponseBody;
+import user.BotUser;
 import user.User;
 
 @ExtendWith(SpringExtension.class)
@@ -136,7 +137,8 @@ public class ExciterServerTest {
         try {
             String sendString = mapper.writeValueAsString(password);
             MediaType mediaType = MediaType.parse("application/json");
-            request = new Request.Builder().url("http://localhost:" + port + "/login/Per@mail").post(RequestBody.create(sendString,mediaType)).build();
+            request = new Request.Builder().url("http://localhost:" + port + "/login/Per@mail")
+                    .post(RequestBody.create(sendString, mediaType)).build();
             response = client.newCall(request).execute();
             responseBody = response.body();
             responseBodyString = responseBody.string();
@@ -204,7 +206,41 @@ public class ExciterServerTest {
         for (User user : matchesFromServer) {
             Assertions.assertTrue(testUser.getMatches().contains(user.getEmail()));
         }
+    }
 
+    @Test
+    public void testDiscardAndMatch() {
+        exciter.setCurrentUser(user);
+        BotUser botUser = new BotUser("Will", 22, "will@mail", true);
+        User haveMatchedUser = new User("false", 22, "false@mail");
+        exciter.addUsers(List.of(botUser));
+        exciter.setOnScreenUser1(botUser);
+        Request request = null;
+        Response response = null;
+        ResponseBody responseBody = null;
+        String responseBodyString = null;
+        try {
+            User discardUser = exciter.getOnScreenUser2();
+            MediaType mediaType = MediaType.parse("application/json");
+            for (int i = 0; i < 3; i++) {
+                String sendString = mapper.writeValueAsString(discardUser);
+                request = new Request.Builder().url("http://localhost:" + port + "/discard")
+                        .post(RequestBody.create(sendString, mediaType)).build();
+                response = client.newCall(request).execute();
+                discardUser = exciter.getOnScreenUser2();
+            }
+            request = new Request.Builder().url("http://localhost:" + port + "/user/matches").build();
+            response = client.newCall(request).execute();
+            responseBody = response.body();
+            responseBodyString = responseBody.string();
+            System.out.println(responseBodyString);
+            List<User> haveMatchedUsers = mapper.readValue(responseBodyString,
+                    mapper.getTypeFactory().constructCollectionType(List.class, User.class));
+            haveMatchedUser = haveMatchedUsers.get(0);
+        } catch (Exception e) {
+        }
+        Assertions.assertTrue(user.getMatches().contains(botUser.getEmail()));
+        Assertions.assertEquals(botUser.getEmail(), haveMatchedUser.getEmail());
     }
 
 }
