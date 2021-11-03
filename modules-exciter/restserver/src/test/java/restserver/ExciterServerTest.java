@@ -233,7 +233,6 @@ public class ExciterServerTest {
             response = client.newCall(request).execute();
             responseBody = response.body();
             responseBodyString = responseBody.string();
-            System.out.println(responseBodyString);
             List<User> haveMatchedUsers = mapper.readValue(responseBodyString,
                     mapper.getTypeFactory().constructCollectionType(List.class, User.class));
             haveMatchedUser = haveMatchedUsers.get(0);
