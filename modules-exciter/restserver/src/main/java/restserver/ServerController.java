@@ -1,6 +1,7 @@
 package restserver;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -14,12 +15,14 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import core.Exciter;
+import json.FileHandler;
 import user.User;
 
 @RestController
 public class ServerController {
 
     private Exciter excite = ExciterApplication.excite;
+    private FileHandler fileHandler = new FileHandler();
 
     @GetMapping(value = "/user")
     public @ResponseBody User CurrentUser() {
@@ -48,6 +51,7 @@ public class ServerController {
         if (excite.getUserByEmail(user.getEmail()) != null) {
             throw new IllegalArgumentException("User already exists");
         }
+        fileHandler.saveUser(Arrays.asList(user));
         excite.setCurrentUser(user);
         return user;
     }
