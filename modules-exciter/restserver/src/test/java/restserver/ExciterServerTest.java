@@ -174,5 +174,22 @@ public class ExciterServerTest {
         Assertions.assertTrue(response.isSuccessful());
 
     }
+    @Test
+    public void testGetMatches(){
+        List<String> matches = new ArrayList<String>();
+        matches.add("Mari");
+        matches.add("Lisa");
+        User testUser = new User("Ludde", 19, "Hei", matches, "Ludde@mail");
+        exciter.setCurrentUser(testUser);
+        Request requets = new Request.Builder().url("http://localhost:" + port + "/matches").build();
+        List<String> matchesFromServer = null;
+        try {
+            ResponseBody response = client.newCall(requets).execute().body();
+            matchesFromServer = mapper.readValue(response.string(), List.class);
+        } catch (Exception e) {
+        }
+        Assertions.assertEquals(testUser.getMatches(), matchesFromServer);
+
+    }
 
 }
