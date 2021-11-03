@@ -72,7 +72,6 @@ public class ExciterServerTest {
 
     @Test
     public void testPostCreateUser() {
-        user.addMatch("Fiona@mail");
         Request request = null;
         Response response = null;
         ResponseBody responseBody = null;
@@ -111,6 +110,7 @@ public class ExciterServerTest {
             response = client.newCall(request).execute();
             responseBody = response.body();
             responseBodyString = responseBody.string();
+            // mapper should give out errors
             newUser = mapper.readValue(responseBodyString, User.class);
 
         } catch (IOException e) {
@@ -156,8 +156,9 @@ public class ExciterServerTest {
         ResponseBody responseBody = null;
         String responseBodyString = null;
         User updatedUser = new User("Oliver", 22, "test@mail");
-        exciter.setCurrentUser(user);
+        exciter.setCurrentUser(updatedUser);
         User newUser = null;
+        User newUser2 = null;
         try {
             String sendString = mapper.writeValueAsString(updatedUser);
             MediaType mediaType = MediaType.parse("application/json");
@@ -167,12 +168,21 @@ public class ExciterServerTest {
             responseBody = response.body();
             responseBodyString = responseBody.string();
             newUser = mapper.readValue(responseBodyString, User.class);
+            updatedUser.setUserInformation("likes response code 200");
+            sendString = mapper.writeValueAsString(updatedUser);
+            request = new Request.Builder().url("http://localhost:" + port + "/user")
+                    .post(RequestBody.create(sendString, mediaType)).build();
+            response = client.newCall(request).execute();
+            responseBody = response.body();
+            responseBodyString = responseBody.string();
+            newUser2 = mapper.readValue(responseBodyString, User.class);
 
         } catch (IOException e) {
             e.printStackTrace();
         }
-        Assertions.assertEquals(updatedUser.getName(), newUser.getName());
-        Assertions.assertTrue(response.isSuccessful());
+        Assertions.assertNull(newUser.getUserInformation());
+        Assertions.assertNotEquals(newUser.getUserInformation(), newUser2.getUserInformation());
+        Assertions.assertEquals("likes response code 200", newUser2.getUserInformation());
 
     }
 
@@ -196,5 +206,16 @@ public class ExciterServerTest {
         }
 
     }
+
+    // @Test
+    // public void testUserPatch() {
+    //     try {
+    //         Request request = new Request.Builder().url("http://localhost:" + port + "/user/patch").build();
+    //         Response response = client.newCall(request).execute();
+    //         Assertions.assertEquals(200, response.code());
+    //     } catch (Exception e) {
+    //         e.printStackTrace();
+    //     }
+    // }
 
 }

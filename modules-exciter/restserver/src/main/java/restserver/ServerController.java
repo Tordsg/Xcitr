@@ -87,7 +87,22 @@ public class ServerController {
 
     @PostMapping(value = "/user")
     public User updateUserInfo(@RequestBody User user) {
-        excite.setCurrentUser(user);
+        if(!user.getEmail().equals(excite.getCurrentUser().getEmail())) {
+            throw new IllegalAccessError("You are not allowed to change this user");
+        }
+        excite.getCurrentUser().setName(user.getName());
+        if(user.getPassword() != null) {
+            excite.getCurrentUser().setPassword(user.getPassword());
+        }
+        excite.getCurrentUser().setAge(user.getAge());
+        excite.getCurrentUser().setUserInformation(user.getUserInformation());
         return excite.getCurrentUser();
+    }
+
+    @ExceptionHandler(IllegalAccessError.class)
+    @ResponseStatus(value = org.springframework.http.HttpStatus.FORBIDDEN)
+    @ResponseBody
+    public String handleIllegalAccessError(IllegalAccessError e) {
+        return e.getMessage();
     }
 }
