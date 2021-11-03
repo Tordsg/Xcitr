@@ -128,9 +128,35 @@ public class ExciterServerTest {
         Response response = null;
         ResponseBody responseBody = null;
         String responseBodyString = null;
-        User newUser = new User("test", 22, "test@mail");
+        User newUser = null;
+        User addUser = new User("Per", 17, "Per@mail");
         List<User> usersToAdd = new ArrayList<User>();
-        usersToAdd.add(newUser);
+        usersToAdd.add(addUser);
+        exciter.addUsers(usersToAdd);
+        try {
+            String sendString = "Per@mail";
+            MediaType mediaType = MediaType.parse("application/json");
+            request = new Request.Builder().url("http://localhost:"+port+"/login").post(RequestBody.create(sendString, mediaType)).build();
+            response = client.newCall(request).execute();
+            responseBody = response.body();
+            responseBodyString = responseBody.string();
+            newUser = mapper.readValue(responseBodyString, User.class);
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        Assertions.assertEquals(addUser.getName(), newUser.getName());
+        Assertions.assertTrue(response.isSuccessful());
+    }
+
+    @Test
+    public void testUpdateUserInfo(){
+        Request request = null;
+        Response response = null;
+        ResponseBody responseBody = null;
+        String responseBodyString = null;
+        User newUser = new User("test", 22, "test@mail");
+
         try {
             String sendString = "test@mail";
             MediaType mediaType = MediaType.parse("application/json");
@@ -145,6 +171,7 @@ public class ExciterServerTest {
         }
         Assertions.assertEquals(user.getName(), newUser.getName());
         Assertions.assertTrue(response.isSuccessful());
+
     }
 
 }
