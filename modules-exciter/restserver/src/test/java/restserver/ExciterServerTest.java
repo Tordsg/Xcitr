@@ -71,8 +71,7 @@ public class ExciterServerTest {
     }
 
     @Test
-    public void testPostCreateUser()
-    {
+    public void testPostCreateUser() {
         user.addMatch("Fiona@mail");
         Request request = null;
         Response response = null;
@@ -82,7 +81,8 @@ public class ExciterServerTest {
         try {
             String sendString = mapper.writeValueAsString(user);
             MediaType mediaType = MediaType.parse("application/json");
-            request = new Request.Builder().url("http://localhost:"+port+"/createAccount").post(RequestBody.create(sendString, mediaType)).build();
+            request = new Request.Builder().url("http://localhost:" + port + "/createAccount")
+                    .post(RequestBody.create(sendString, mediaType)).build();
             response = client.newCall(request).execute();
             responseBody = response.body();
             responseBodyString = responseBody.string();
@@ -96,7 +96,7 @@ public class ExciterServerTest {
     }
 
     @Test
-    public void testPostCreateUserFail(){
+    public void testPostCreateUserFail() {
         exciter.setCurrentUser(user);
         Request request = null;
         Response response = null;
@@ -106,7 +106,8 @@ public class ExciterServerTest {
         try {
             String sendString = mapper.writeValueAsString(user);
             MediaType mediaType = MediaType.parse("application/json");
-            request = new Request.Builder().url("http://localhost:"+port+"/createAccount").post(RequestBody.create(sendString, mediaType)).build();
+            request = new Request.Builder().url("http://localhost:" + port + "/createAccount")
+                    .post(RequestBody.create(sendString, mediaType)).build();
             response = client.newCall(request).execute();
             responseBody = response.body();
             responseBodyString = responseBody.string();
@@ -121,7 +122,7 @@ public class ExciterServerTest {
     }
 
     @Test
-    public void testPostLogin(){
+    public void testPostLogin() {
         Request request = null;
         Response response = null;
         ResponseBody responseBody = null;
@@ -134,7 +135,7 @@ public class ExciterServerTest {
         usersToAdd.add(addUser);
         exciter.addUsers(usersToAdd);
         try {
-            request = new Request.Builder().url("http://localhost:"+port+"/login/Per@mail/"+password).build();
+            request = new Request.Builder().url("http://localhost:" + port + "/login/Per@mail/" + password).build();
             response = client.newCall(request).execute();
             responseBody = response.body();
             responseBodyString = responseBody.string();
@@ -149,7 +150,7 @@ public class ExciterServerTest {
     }
 
     @Test
-    public void testUpdateUserInfo(){
+    public void testUpdateUserInfo() {
         Request request = null;
         Response response = null;
         ResponseBody responseBody = null;
@@ -160,7 +161,8 @@ public class ExciterServerTest {
         try {
             String sendString = mapper.writeValueAsString(updatedUser);
             MediaType mediaType = MediaType.parse("application/json");
-            request = new Request.Builder().url("http://localhost:"+port+"/user").post(RequestBody.create(sendString, mediaType)).build();
+            request = new Request.Builder().url("http://localhost:" + port + "/user")
+                    .post(RequestBody.create(sendString, mediaType)).build();
             response = client.newCall(request).execute();
             responseBody = response.body();
             responseBodyString = responseBody.string();
@@ -173,8 +175,9 @@ public class ExciterServerTest {
         Assertions.assertTrue(response.isSuccessful());
 
     }
+
     @Test
-    public void testGetMatches(){
+    public void testGetMatches() {
         User testUser = new User("Ludde", 19, "Ludde@mail");
         testUser.addMatch("Diana@mail");
         testUser.addMatch("Jane@mail");
@@ -183,7 +186,8 @@ public class ExciterServerTest {
         List<User> matchesFromServer = new ArrayList<>();
         try {
             ResponseBody response = client.newCall(requets).execute().body();
-           matchesFromServer = mapper.readValue(response.string(), mapper.getTypeFactory().constructCollectionType(List.class, User.class));
+            matchesFromServer = mapper.readValue(response.string(),
+                    mapper.getTypeFactory().constructCollectionType(List.class, User.class));
         } catch (Exception e) {
             e.printStackTrace();
         }
