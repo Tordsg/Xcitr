@@ -53,7 +53,6 @@ public class ExciterServerTest {
             Assertions.assertEquals(200, response.code());
 
         } catch (Exception e) {
-            // TODO: handle exception
             e.printStackTrace();
         }
     }
