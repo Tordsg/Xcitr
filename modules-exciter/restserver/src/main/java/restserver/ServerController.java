@@ -70,17 +70,6 @@ public class ServerController {
         return excite.getCurrentUserMatches();
     }
 
-    @PostMapping(value = "/matches")
-    public List<String> updateMatches(@RequestBody User match) {
-        excite.getCurrentUser().addUserOnMatch(match);
-        return excite.getCurrentUserMatches();
-    }
-
-    @PostMapping(value = "/signup")
-    public User createUser(@RequestBody User newUser) {
-        excite.setCurrentUser(newUser);
-        return excite.getCurrentUser();
-    }
 
     @RequestMapping(value = "/login/{mail}/{password}")
     @ResponseBody
