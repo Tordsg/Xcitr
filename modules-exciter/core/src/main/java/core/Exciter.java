@@ -110,7 +110,7 @@ public class Exciter {
     return userWhoLikes.checkIfMatch(userWhoIsLiked);
   }
 
-  public List<String> getCurrentUserMatches(User user) {
+  public List<String> getUserMatches(User user) {
     return user.getMatches();
   }
 
