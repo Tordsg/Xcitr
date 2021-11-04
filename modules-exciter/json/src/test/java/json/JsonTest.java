@@ -27,7 +27,6 @@ public class JsonTest {
         fileHandler.createFile();
         fileHandler.saveUser(exciter.getAllUsers());
         user = new User("Ola Nordmann", 26, "Fiskesprett på søndager", "ola@mail");
-        exciter.setCurrentUser(user);
         users.add(user);
     }
 
@@ -42,9 +41,8 @@ public class JsonTest {
 
     @Test
     public void readMatches() {
-        exciter.setOnScreenUser1(botUser);
         for (int i = 0; i < 3; i++) {
-            exciter.discardSecond();
+            exciter.likePerson(user, botUser);
         }
         fileHandler.saveUser(users);
         User userReadFromFile = fileHandler.readUsers().get(0);
