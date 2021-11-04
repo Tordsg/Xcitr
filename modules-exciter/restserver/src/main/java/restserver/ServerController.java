@@ -36,16 +36,13 @@ public class ServerController {
         return excite.getOnScreenUsers();
     }
 
-    @RequestMapping(value = "/onScreenUsers/{mail}")
+    @RequestMapping(value = "/{userMail}/onScreenUsers/{mail}")
     @ResponseBody
-    public User discardUser(@PathVariable("mail") String mail) {
-        if (excite.getOnScreenUser1().equals(excite.getUserByEmail(mail))) {
-            return excite.getOnScreenUser1();
-        } else if (excite.getOnScreenUser2().equals(excite.getUserByEmail(mail))) {
-            return excite.getOnScreenUser2();
-        } else {
-            throw new IllegalArgumentException(String.format("User %s is not not avaliable at this moment", mail));
-        }
+    public User discardUser(@PathVariable("userMail") String usermail, @PathVariable("mail") ) {
+
+
+
+   
     }
 
     @PostMapping(value = "/createAccount")
