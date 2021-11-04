@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import javax.websocket.server.PathParam;
+
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -24,9 +26,9 @@ public class ServerController {
     private Exciter excite = ExciterApplication.excite;
     private FileHandler fileHandler = new FileHandler();
 
-    @GetMapping(value = "/user")
-    public @ResponseBody User CurrentUser() {
-        return excite.getCurrentUser();
+    @GetMapping(value = "/user/{mail}")
+    public @ResponseBody User CurrentUser(@PathVariable("mail") String mail) {
+        return fileHandler.getUser(mail);
     }
 
     @GetMapping(value = "/onScreenUsers")
@@ -48,11 +50,10 @@ public class ServerController {
 
     @PostMapping(value = "/createAccount")
     public User createAccount(@RequestBody User user) {
-        if (excite.getUserByEmail(user.getEmail()) != null) {
+        if (fileHandler.getUser(user.getEmail()) != null) {
             throw new IllegalArgumentException("User already exists");
         }
         fileHandler.saveUser(Arrays.asList(user));
-        excite.setCurrentUser(user);
         return user;
     }
 
@@ -63,12 +64,16 @@ public class ServerController {
         return e.getMessage();
     }
 
-    @GetMapping(value = "/user/matches")
-    public @ResponseBody List<User> getMatches() {
+    @GetMapping(value = "/user/matches/{mail}")
+    public @ResponseBody List<User> getMatches(@PathVariable("mail") String email) {
         List<User> matches = new ArrayList<>();
-        for (String string : excite.getCurrentUser().getMatches()) {
-            matches.add(excite.getUserByEmail(string));
-        }
+        User thisUser = fileHandler.getUser(email);
+        List<String> matchesEmail = thisUser.getMatches();
+        for (User user : fileHandler.readUsers()) {
+            if(matchesEmail.contains(user.getEmail())){
+                matches.add(user);
+            }
+         }
         return matches;
     }
 
@@ -77,8 +82,7 @@ public class ServerController {
     public User setLoginUser(@PathVariable("mail") String email, @RequestBody String password) {
         if (excite.getUserByEmail(email) != null) {
             if (excite.getUserByEmail(email).getPassword().equals(password.replace("\"", ""))) {
-                excite.setCurrentUser(excite.getUserByEmail(email));
-                return excite.getCurrentUser();
+                return fileHandler.getUser(email);
             } else {
                 throw new IllegalArgumentException("Wrong password");
             }
@@ -87,18 +91,17 @@ public class ServerController {
         throw new IllegalArgumentException("User does not exist");
     }
 
-    @PostMapping(value = "/user")
-    public User updateUserInfo(@RequestBody User user) {
-        if (!user.getEmail().equals(excite.getCurrentUser().getEmail())) {
-            throw new IllegalAccessError("You are not allowed to change this user");
-        }
-        excite.getCurrentUser().setName(user.getName());
+    @PostMapping(value = "/user/{mail}")
+    public User updateUserInfo(@PathVariable("mail") User user) {
+        User thisUser = fileHandler.getUser(user.getEmail());
+        thisUser.setName(user.getName());
         if (user.getPassword() != null) {
-            excite.getCurrentUser().setPassword(user.getPassword());
+            thisUser.setPassword(user.getPassword());
         }
-        excite.getCurrentUser().setAge(user.getAge());
-        excite.getCurrentUser().setUserInformation(user.getUserInformation());
-        return excite.getCurrentUser();
+        thisUser.setAge(user.getAge());
+        thisUser.setUserInformation(user.getUserInformation());
+        
+        return thisUser;
     }
 
     @ExceptionHandler(IllegalAccessError.class)
