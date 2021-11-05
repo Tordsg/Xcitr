@@ -174,7 +174,9 @@ public class User {
 
   public void setPassword(String password) {
     this.password = MD5Hash(password);
-    ;
+  }
+  public void setPasswordNoHash(String password){
+    this.password = password;
   }
 
   /**
