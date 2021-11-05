@@ -1,1 +1,98 @@
-[{"isBot":true,"password":null,"isLikeBack":true,"userInformation":null,"name":"John","matches":[],"age":22,"email":"John@mail"},{"isBot":true,"password":null,"isLikeBack":true,"userInformation":null,"name":"Jane","matches":[],"age":31,"email":"Jane@mail"},{"isBot":true,"password":null,"isLikeBack":false,"userInformation":null,"name":"Joe","matches":[],"age":19,"email":"Joe@mail"},{"isBot":true,"password":null,"isLikeBack":false,"userInformation":null,"name":"Derik","matches":[],"age":27,"email":"Derik@mail"},{"isBot":true,"password":null,"isLikeBack":false,"userInformation":null,"name":"Diana","matches":[],"age":23,"email":"Diana@mail"},{"isBot":true,"password":null,"isLikeBack":true,"userInformation":null,"name":"Dani","matches":[],"age":25,"email":"Dani@mail"},{"isBot":false,"password":null,"userInformation":null,"name":"Roger","matches":[],"age":25,"email":"Roger@mail"},{"isBot":false,"password":"null","userInformation":"Fiskesprett på søndager","name":"Ola Nordmann","matches":[],"age":26,"email":"ola@mail"},{"isBot":false,"password":"9ed734ffe2a74b304e5e7034c46efa98","userInformation":"null","name":"Ulf","matches":[],"age":20,"email":"ulf@mail"},{"isBot":false,"password":"098f6bcd4621d373cade4e832627b4f6","userInformation":"guitar player","name":"test","matches":[],"age":20,"email":"test@mail"}]
+[
+    {
+        "isBot": true,
+        "password": null,
+        "isLikeBack": true,
+        "userInformation": null,
+        "name": "John",
+        "matches": [],
+        "age": 22,
+        "email": "John@mail"
+    },
+    {
+        "isBot": true,
+        "password": null,
+        "isLikeBack": true,
+        "userInformation": null,
+        "name": "Jane",
+        "matches": [],
+        "age": 31,
+        "email": "Jane@mail"
+    },
+    {
+        "isBot": true,
+        "password": null,
+        "isLikeBack": false,
+        "userInformation": null,
+        "name": "Joe",
+        "matches": [],
+        "age": 19,
+        "email": "Joe@mail"
+    },
+    {
+        "isBot": true,
+        "password": null,
+        "isLikeBack": false,
+        "userInformation": null,
+        "name": "Derik",
+        "matches": [],
+        "age": 27,
+        "email": "Derik@mail"
+    },
+    {
+        "isBot": true,
+        "password": null,
+        "isLikeBack": false,
+        "userInformation": null,
+        "name": "Diana",
+        "matches": [],
+        "age": 23,
+        "email": "Diana@mail"
+    },
+    {
+        "isBot": true,
+        "password": null,
+        "isLikeBack": true,
+        "userInformation": null,
+        "name": "Dani",
+        "matches": [],
+        "age": 25,
+        "email": "Dani@mail"
+    },
+    {
+        "isBot": false,
+        "password": null,
+        "userInformation": null,
+        "name": "Roger",
+        "matches": [],
+        "age": 25,
+        "email": "Roger@mail"
+    },
+    {
+        "isBot": false,
+        "password": "null",
+        "userInformation": "Fiskesprett på søndager",
+        "name": "Ola Nordmann",
+        "matches": [],
+        "age": 26,
+        "email": "ola@mail"
+    },
+    {
+        "isBot": false,
+        "password": "9ed734ffe2a74b304e5e7034c46efa98",
+        "userInformation": "null",
+        "name": "Ulf",
+        "matches": [],
+        "age": 20,
+        "email": "ulf@mail"
+    },
+    {
+        "isBot": false,
+        "password": "098f6bcd4621d373cade4e832627b4f6",
+        "userInformation": "guitar player",
+        "name": "test",
+        "matches": [],
+        "age": 20,
+        "email": "test@mail"
+    }
+]
