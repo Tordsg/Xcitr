@@ -13,6 +13,8 @@ import java.io.OutputStreamWriter;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
+
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
@@ -150,6 +152,16 @@ public class FileHandler {
     List<User> users = readUsers();
     for (User user : users) {
       if (user.getEmail().equals(mail)) {
+        return user;
+      }
+    }
+    return null;
+  }
+
+  public User getUserById(UUID id) {
+    List<User> users = readUsers();
+    for (User user : users) {
+      if (user.getId().equals(id)) {
         return user;
       }
     }
