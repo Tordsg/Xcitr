@@ -30,8 +30,8 @@ public class ServerController {
     }
 
     @GetMapping(value = "/user")
-    public @ResponseBody User CurrentUser(@RequestHeader("Authorization") String id) {
-        User user = fileHandler.getUserById(UUID.fromString(id.split(" ")[1]));
+    public @ResponseBody User CurrentUser(@RequestHeader("Authorization") UUID id) {
+        User user = excite.getUserById(id);
         if(user == null) {
             throw new IllegalArgumentException("User does not exist");
         }
@@ -61,9 +61,9 @@ public class ServerController {
     }
 
     @GetMapping(value = "/user/matches")
-    public @ResponseBody List<User> getMatches(@RequestHeader("Authorization") String id) {
+    public @ResponseBody List<User> getMatches(@RequestHeader("Authorization") UUID id) {
         List<User> matches = new ArrayList<>();
-        User thisUser = fileHandler.getUserById(UUID.fromString(id.split(" ")[1]));
+        User thisUser = excite.getUserById(id);
         List<String> matchesEmail = thisUser.getMatches();
         for (User user : excite.getAllUsers()) {
             if(matchesEmail.contains(user.getEmail())){
@@ -75,11 +75,11 @@ public class ServerController {
 
     @PostMapping(value = "/login")
     @ResponseBody
-    public User setLoginUser(@RequestHeader("Authorization") String id, @RequestBody String password) {
-        User user = fileHandler.getUserById(UUID.fromString(id.split(" ")[1]));
+    public User setLoginUser(@RequestHeader("Authorization") UUID id, @RequestBody String password) {
+        User user = fileHandler.getUserById(id);
         if (user != null) {
             if (user.getPassword().equals(password.replace("\"", ""))) {
-                return fileHandler.getUserById(UUID.fromString(id.split(" ")[1]));
+                return fileHandler.getUserById(id);
             } else {
                 throw new IllegalArgumentException("Wrong password");
             }
@@ -89,8 +89,8 @@ public class ServerController {
     }
 
     @PostMapping(value = "/user/update")
-    public User updateUserInfo(@RequestHeader("Authorization") String id, @RequestBody User user) {
-        if(!id.equals(user.getId().toString())) {
+    public User updateUserInfo(@RequestHeader("Authorization") UUID id, @RequestBody User user) {
+        if(excite.getUserById(id) == null) {
             throw new IllegalAccessError("You do not have permission to update this user");
         }
         User thisUser = excite.getUserByEmail(user.getEmail());

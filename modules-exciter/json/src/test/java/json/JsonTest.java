@@ -3,6 +3,7 @@ package json;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
+import java.util.UUID;
 import java.util.ArrayList;
 
 import org.junit.jupiter.api.Assertions;
@@ -77,6 +78,15 @@ public class JsonTest {
         // Second checks when file is not empty but does not contain the user
         fileHandler.saveUser(users);
         Assertions.assertNull(fileHandler.getUser("404notfound@mail"));
+    }
+
+    @Test
+    public void testFindUserById(){
+        User idUser = new User("Ola Nordmann", 26, "olanrtre@mail");
+        idUser.setId(UUID.randomUUID());
+        exciter.addUser(idUser);
+        fileHandler.saveUser(exciter.getAllUsers());
+        Assertions.assertEquals(idUser.getName(), fileHandler.getUserById(idUser.getId()).getName());
     }
 
 }

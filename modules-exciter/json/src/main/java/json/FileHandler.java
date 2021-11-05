@@ -50,7 +50,7 @@ public class FileHandler {
         userData.put("isBot", false);
         userData.put("password", user.getPassword());
       }
-      userData.put("UUID", user.getId());
+      userData.put("UUID", String.valueOf(user.getId()));
       userData.put("name", user.getName());
       userData.put("age", user.getAge());
       userData.put("matches", user.getMatches());
@@ -104,8 +104,10 @@ public class FileHandler {
         JSONObject userData = (JSONObject) user;
         String idString = String.valueOf(userData.get("UUID"));
         UUID id = null;
-        if (idString != "null") {
+        if (!idString.equals("null")) {
+          System.out.println("here " + idString);
           id = UUID.fromString(idString);
+          System.out.println(id.toString());
         }
         String name = String.valueOf(userData.get("name"));
         int age = Integer.parseInt(String.valueOf(userData.get("age")));
@@ -120,6 +122,7 @@ public class FileHandler {
           boolean isLikeBack = Boolean.parseBoolean(String.valueOf(userData.get("isLikeBack")));
           users.add(new BotUser(name, age, userInformation, email, isLikeBack));
         } else if (id != null) {
+          System.out.println("here " + email);
           users.add(new User(id, name, age, userInformation, alreadyMatched, email, password));
         } else {
           users.add(new User(name, age, userInformation, alreadyMatched, email, password));
@@ -169,6 +172,9 @@ public class FileHandler {
   public User getUserById(UUID id) {
     List<User> users = readUsers();
     for (User user : users) {
+      if(user.getId() == null) {
+        continue;
+      }
       if (user.getId().equals(id)) {
         return user;
       }

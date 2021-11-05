@@ -2,6 +2,7 @@ package core;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 import java.util.stream.Collectors;
 
 import user.BotUser;
@@ -72,6 +73,10 @@ public class Exciter {
 
   public User getUserByEmail(String email) {
     return allUsers.stream().filter(u -> u.getEmail().equals(email)).findFirst().orElse(null);
+  }
+
+  public User getUserById(UUID id) {
+    return allUsers.stream().filter(u -> u.getId() != null && u.getId().equals(id)).findFirst().orElse(null);
   }
 
   public void clearUser(User user) {

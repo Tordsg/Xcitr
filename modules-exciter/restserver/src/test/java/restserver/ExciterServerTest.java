@@ -3,6 +3,7 @@ package restserver;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -16,6 +17,7 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import core.Exciter;
+import json.FileHandler;
 import okhttp3.MediaType;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
@@ -33,6 +35,7 @@ public class ExciterServerTest {
     OkHttpClient client = new OkHttpClient();
     ObjectMapper mapper = new ObjectMapper();
     Exciter exciter = ExciterApplication.excite;
+    FileHandler fileHandler = new FileHandler();
     User user = new User("test", 22, "test@mail");
 
     @LocalServerPort
@@ -59,16 +62,19 @@ public class ExciterServerTest {
 
     @Test
     public void testGetUser() {
-        exciter.addUsers(List.of(user));
+        User getUser = new User("test", 22, "testnr2@mail");
+        getUser.setId(UUID.randomUUID());
+        exciter.addUser(getUser);
+        fileHandler.saveUser(exciter.getAllUsers());
         Request requets = new Request.Builder().url("http://localhost:" + port + "/user")
-                .header("Authorization", "Bearer: " + user.getEmail()).build();
+                .header("Authorization", getUser.getId().toString()).build();
         User newUser = null;
         try {
             ResponseBody response = client.newCall(requets).execute().body();
             newUser = mapper.readValue(response.string(), User.class);
         } catch (Exception e) {
         }
-        Assertions.assertEquals(user.getName(), newUser.getName());
+        Assertions.assertEquals(getUser.getName(), newUser.getName());
     }
 
     @Test
@@ -201,7 +207,7 @@ public class ExciterServerTest {
     }
 
     @Test
-    public void emulateMatch(){
+    public void emulateMatch() {
 
     }
 
