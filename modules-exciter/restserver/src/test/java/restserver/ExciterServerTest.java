@@ -44,19 +44,18 @@ public class ExciterServerTest {
         exciter.clearUser(user);
     }
 
-    // @Test
-    // public void testConnection() {
-    // Request requets = new Request.Builder().url("http://localhost:" + port +
-    // "/user").build();
+    @Test
+    public void testConnection() {
+        Request requets = new Request.Builder().url("http://localhost:" + port).build();
 
-    // try {
-    // Response response = client.newCall(requets).execute();
-    // Assertions.assertEquals(200, response.code());
+        try {
+            Response response = client.newCall(requets).execute();
+            Assertions.assertEquals(200, response.code());
 
-    // } catch (Exception e) {
-    // e.printStackTrace();
-    // }
-    // }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 
     @Test
     public void testGetUser() {
