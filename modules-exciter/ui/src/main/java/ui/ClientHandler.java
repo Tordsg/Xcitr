@@ -21,7 +21,6 @@ public class ClientHandler {
 
     public boolean pingServer() {
         Request requets = new Request.Builder().url(url).build();
-
         Response response = null;
         try {
             response = client.newCall(requets).execute();
@@ -34,17 +33,15 @@ public class ClientHandler {
         return false;
     }
 
-    //TODO add support for multiple users
-    public User discardCard(User current, User liked, User discard){
+    // TODO add support for multiple users
+    public User discardCard(User current, User liked, User discard) {
         MediaType mediaType = MediaType.parse("application/json");
-        String sendString;
-        Request request;
         User user = null;
         try {
-            sendString = mapper.writeValueAsString(List.of(liked,discard));
-            request = new Request.Builder().url(url+"/like")
-                                .header("Authorization", current.getId().toString())
-                                .post(RequestBody.create(sendString, mediaType)).build();
+            String sendString = mapper.writeValueAsString(List.of(liked, discard));
+            Request request = new Request.Builder().url(url + "/like")
+                    .header("Authorization", current.getId().toString()).post(RequestBody.create(sendString, mediaType))
+                    .build();
             ResponseBody response = client.newCall(request).execute().body();
             user = mapper.readValue(response.string(), User.class);
         } catch (IOException e) {
@@ -55,15 +52,12 @@ public class ClientHandler {
 
     public User createAccount(User user, String password) {
         MediaType mediaType = MediaType.parse("application/json");
-        String sendString;
-        Request request;
         String hashedPassword = User.MD5Hash(password);
         User returnUser = null;
         try {
-            sendString = mapper.writeValueAsString(user);
-            request = new Request.Builder().url(url+"/createAccount")
-                                .header("Pass", hashedPassword)
-                                .post(RequestBody.create(sendString, mediaType)).build();
+            String sendString = mapper.writeValueAsString(user);
+            Request request = new Request.Builder().url(url + "/createAccount").header("Pass", hashedPassword)
+                    .post(RequestBody.create(sendString, mediaType)).build();
             ResponseBody response = client.newCall(request).execute().body();
             returnUser = mapper.readValue(response.string(), User.class);
         } catch (IOException e) {
@@ -74,14 +68,42 @@ public class ClientHandler {
 
     public User signIn(String mail, String password) {
         MediaType mediaType = MediaType.parse("application/json");
-        String sendString;
-        Request request;
+        User returnUser = null;
+        String sendPassword = User.MD5Hash(password);
+        try {
+            String sendString = mapper.writeValueAsString(sendPassword);
+            Request request = new Request.Builder().url(url + "/signIn").header("mail", mail)
+                    .post(RequestBody.create(sendString, mediaType)).build();
+            ResponseBody response = client.newCall(request).execute().body();
+            returnUser = mapper.readValue(response.string(), User.class);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return returnUser;
+    }
+
+    public List<User> getMatches(User user) {
+        List<User> returnUser = null;
+        try {
+            Request request = new Request.Builder().url(url + "/user/matches")
+                    .header("Authorization", user.getId().toString()).build();
+            ResponseBody response = client.newCall(request).execute().body();
+            returnUser = mapper.readValue(response.string(),
+                    mapper.getTypeFactory().constructCollectionType(List.class, User.class));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return returnUser;
+    }
+
+    public User updateInformation(User user) {
+        MediaType mediaType = MediaType.parse("application/json");
         User returnUser = null;
         try {
-            sendString = mapper.writeValueAsString(new User(mail));
-            request = new Request.Builder().url(url+"/signIn")
-                                .header("Pass", User.MD5Hash(password))
-                                .post(RequestBody.create(sendString, mediaType)).build();
+            String sendString = mapper.writeValueAsString(user);
+            Request request = new Request.Builder().url(url + "/user/update")
+                    .header("Authorization", user.getId().toString()).post(RequestBody.create(sendString, mediaType))
+                    .build();
             ResponseBody response = client.newCall(request).execute().body();
             returnUser = mapper.readValue(response.string(), User.class);
         } catch (IOException e) {
