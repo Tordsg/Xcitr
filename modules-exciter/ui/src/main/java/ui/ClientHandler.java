@@ -1,5 +1,10 @@
 package ui;
 
+import java.io.IOException;
+import java.util.List;
+
+import com.fasterxml.jackson.databind.ObjectMapper;
+
 import okhttp3.MediaType;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
@@ -8,28 +13,11 @@ import okhttp3.Response;
 import okhttp3.ResponseBody;
 import user.User;
 
-import java.io.IOException;
-import java.util.List;
-
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
-
 public class ClientHandler {
     OkHttpClient client = new OkHttpClient();
     ObjectMapper mapper = new ObjectMapper();
     User user;
     String url = "http://localhost:8080";
-
-    public User getCurrentUser() {
-        Request request = new Request.Builder().url(url + "/user").build();
-        try {
-            ResponseBody response = client.newCall(request).execute().body();
-            User newUser = mapper.readValue(response.string(), User.class);
-            return newUser;
-        } catch (Exception e) {
-        }
-        return null;
-    }
 
     public boolean pingServer() {
         Request requets = new Request.Builder().url(url).build();
@@ -54,7 +42,7 @@ public class ClientHandler {
         User user = null;
         try {
             sendString = mapper.writeValueAsString(List.of(liked,discard));
-            request = new Request.Builder().url(url)
+            request = new Request.Builder().url(url+"/like")
                                 .header("Authorization", current.getId().toString())
                                 .post(RequestBody.create(sendString, mediaType)).build();
             ResponseBody response = client.newCall(request).execute().body();
@@ -65,6 +53,41 @@ public class ClientHandler {
         return user;
     }
 
-    public User createAccount()
+    public User createAccount(User user, String password) {
+        MediaType mediaType = MediaType.parse("application/json");
+        String sendString;
+        Request request;
+        String hashedPassword = User.MD5Hash(password);
+        User returnUser = null;
+        try {
+            sendString = mapper.writeValueAsString(user);
+            request = new Request.Builder().url(url+"/createAccount")
+                                .header("Pass", hashedPassword)
+                                .post(RequestBody.create(sendString, mediaType)).build();
+            ResponseBody response = client.newCall(request).execute().body();
+            returnUser = mapper.readValue(response.string(), User.class);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return returnUser;
+    }
+
+    public User signIn(String mail, String password) {
+        MediaType mediaType = MediaType.parse("application/json");
+        String sendString;
+        Request request;
+        User returnUser = null;
+        try {
+            sendString = mapper.writeValueAsString(new User(mail));
+            request = new Request.Builder().url(url+"/signIn")
+                                .header("Pass", User.MD5Hash(password))
+                                .post(RequestBody.create(sendString, mediaType)).build();
+            ResponseBody response = client.newCall(request).execute().body();
+            returnUser = mapper.readValue(response.string(), User.class);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return returnUser;
+    }
 
 }
