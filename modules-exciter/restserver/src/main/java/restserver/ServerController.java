@@ -30,7 +30,7 @@ public class ServerController {
     }
 
     @GetMapping(value = "/user")
-    public @ResponseBody User CurrentUser(@RequestHeader("Authorization") UUID id) {
+    public User CurrentUser(@RequestHeader("Authorization") UUID id) {
         User user = excite.getUserById(id);
         if(user == null) {
             throw new IllegalArgumentException("User does not exist");
@@ -55,13 +55,12 @@ public class ServerController {
 
     @ExceptionHandler(IllegalArgumentException.class)
     @ResponseStatus(value = org.springframework.http.HttpStatus.BAD_REQUEST)
-    @ResponseBody
     public String handleIllegalArgumentException(IllegalArgumentException e) {
         return e.getMessage();
     }
 
     @GetMapping(value = "/user/matches")
-    public @ResponseBody List<User> getMatches(@RequestHeader("Authorization") UUID id) {
+    public List<User> getMatches(@RequestHeader("Authorization") UUID id) {
         List<User> matches = new ArrayList<>();
         User thisUser = excite.getUserById(id);
         List<String> matchesEmail = thisUser.getMatches();
@@ -74,7 +73,6 @@ public class ServerController {
     }
 
     @PostMapping(value = "/login")
-    @ResponseBody
     public User setLoginUser(@RequestHeader("mail") String mail, @RequestBody String password) {
         User user = excite.getUserByEmail(mail);
         if (user != null) {
@@ -95,29 +93,30 @@ public class ServerController {
         }
         User thisUser = excite.getUserByEmail(user.getEmail());
         thisUser.setName(user.getName());
-        if (user.getPassword() != null) {
-            thisUser.setPassword(user.getPassword());
-        }
         thisUser.setAge(user.getAge());
         thisUser.setUserInformation(user.getUserInformation());
 
         return thisUser;
     }
+    @PostMapping(value = "/user/update/password")
+    public User updateUserPassword(@RequestHeader("Authorization") UUID id, @RequestBody String password) {
+        if(excite.getUserById(id) == null) {
+            throw new IllegalAccessError("You do not have permission to update this user");
+        }
+        User thisUser = excite.getUserById(id);
+        thisUser.setPasswordNoHash(password);
+        return thisUser;
+    }
 
     @ExceptionHandler(IllegalAccessError.class)
     @ResponseStatus(value = org.springframework.http.HttpStatus.FORBIDDEN)
-    @ResponseBody
     public String handleIllegalAccessError(IllegalAccessError e) {
         return e.getMessage();
     }
 
     @PostMapping(value = "/like")
-    @ResponseBody
     public User likeUser(@RequestHeader("Authorization") UUID id, @RequestBody List<User> users) {
         User thisUser = excite.getUserById(id);
-        System.out.println("here " + thisUser.getEmail());
-        System.out.println(users.get(0).getEmail());
-        System.out.println(users.get(1).getEmail());
         if(excite.getUserByEmail(users.get(0).getEmail()) == null ||
             excite.getUserByEmail(users.get(1).getEmail()) == null ||
             excite.getUserByEmail(thisUser.getEmail()) == null) {
