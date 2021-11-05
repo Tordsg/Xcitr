@@ -42,7 +42,6 @@ public class ServerController {
     @PostMapping(value = "/createAccount")
     public User createAccount(@RequestBody User user) {
         if (excite.getUserByEmail(user.getEmail()) != null) {
-            System.out.println("here");
             throw new IllegalArgumentException("User already exists");
         }
         user.setId(UUID.randomUUID());
@@ -113,8 +112,11 @@ public class ServerController {
 
     @PostMapping(value = "/like")
     @ResponseBody
-    public User likeUser(@RequestHeader("Authorization") String id, @RequestBody List<User> users) {
-        User thisUser = fileHandler.getUserById(UUID.fromString(id.split(" ")[1]));
+    public User likeUser(@RequestHeader("Authorization") UUID id, @RequestBody List<User> users) {
+        User thisUser = excite.getUserById(id);
+        System.out.println("here " + thisUser.getEmail());
+        System.out.println(users.get(0).getEmail());
+        System.out.println(users.get(1).getEmail());
         if(excite.getUserByEmail(users.get(0).getEmail()) == null ||
             excite.getUserByEmail(users.get(1).getEmail()) == null ||
             excite.getUserByEmail(thisUser.getEmail()) == null) {

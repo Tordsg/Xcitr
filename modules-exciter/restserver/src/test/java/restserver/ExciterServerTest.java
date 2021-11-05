@@ -212,7 +212,32 @@ public class ExciterServerTest {
 
     @Test
     public void emulateMatch() {
+        BotUser botuser1 = new BotUser("Bot", 18, "Boten@mail",true);
+        BotUser botuser2 = new BotUser("Botto", 18, "Botto@mail",false);
+        exciter.addUsers(List.of(botuser1, botuser2));
+        user.setId(UUID.randomUUID());
+        exciter.addUser(user);
+        Response response = null;
+        List<User> matchesFromServer = new ArrayList<>();
+        try {
+            MediaType mediaType = MediaType.parse("application/json");
+            String sendString = mapper.writeValueAsString(List.of(botuser1, botuser2));
+            for (int i = 0; i < 3; i++) {
+                Request request = new Request.Builder().url("http://localhost:" + port + "/like")
+                        .header("Authorization", user.getId().toString())
+                        .post(RequestBody.create(sendString,mediaType)).build();
+                response = client.newCall(request).execute();
+            }
+            Request request = new Request.Builder().url("http://localhost:" + port + "/user/matches")
+                    .header("Authorization", user.getId().toString()).build();
+            ResponseBody responseBody = client.newCall(request).execute().body();
+            matchesFromServer = mapper.readValue(responseBody.string(),
+                    mapper.getTypeFactory().constructCollectionType(List.class, User.class));
 
+        } catch (IOException e) {
+        }
+        Assertions.assertEquals(200, response.code());
+        Assertions.assertTrue(matchesFromServer.get(0).getEmail().equals(botuser1.getEmail()));
     }
 
 }
