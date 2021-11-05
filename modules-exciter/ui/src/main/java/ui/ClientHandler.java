@@ -112,4 +112,21 @@ public class ClientHandler {
         return returnUser;
     }
 
+    public User updatePassword(User user, String password) {
+        MediaType mediaType = MediaType.parse("application/json");
+        User returnUser = null;
+        String sendPassword = User.MD5Hash(password);
+        try {
+            String sendString = mapper.writeValueAsString(sendPassword);
+            Request request = new Request.Builder().url(url + "/user/update/password")
+                    .header("Authorization", user.getId().toString())
+                    .post(RequestBody.create(sendString, mediaType))
+                    .build();
+            ResponseBody response = client.newCall(request).execute().body();
+            returnUser = mapper.readValue(response.string(), User.class);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return returnUser;
+    }
 }
