@@ -1,6 +1,7 @@
 package core;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.UUID;
 import java.util.stream.Collectors;
@@ -69,6 +70,17 @@ public class Exciter {
   public User getNextRandomUser(List<User> users) {
     List<User> tmp = allUsers.stream().filter(user -> !users.contains(user)).collect(Collectors.toList());
     return tmp.get((int) (Math.random() * tmp.size()));
+  }
+
+  public List<User> getTwoUniqueUsers(User user) {
+    List<User> tmp = allUsers.stream().filter(u -> !u.equals(user)).collect(Collectors.toList());
+    return pickNRandom(tmp, 2);
+  }
+
+  private static List<User> pickNRandom(List<User> lst, int n) {
+    List<User> copy = new ArrayList<>(lst);
+    Collections.shuffle(copy);
+    return n > copy.size() ? copy.subList(0, copy.size()) : copy.subList(0, n);
   }
 
   public User getUserByEmail(String email) {

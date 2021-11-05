@@ -9,7 +9,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -19,7 +18,6 @@ import user.User;
 
 @RestController
 public class ServerController {
-
 
     private Exciter excite = ExciterApplication.excite;
     private FileHandler fileHandler = new FileHandler();
@@ -32,12 +30,11 @@ public class ServerController {
     @GetMapping(value = "/user")
     public User CurrentUser(@RequestHeader("Authorization") UUID id) {
         User user = excite.getUserById(id);
-        if(user == null) {
+        if (user == null) {
             throw new IllegalArgumentException("User does not exist");
         }
         return user;
     }
-
 
     @PostMapping(value = "/createAccount")
     public User createAccount(@RequestBody User user, @RequestHeader("Pass") String pass) {
@@ -65,10 +62,10 @@ public class ServerController {
         User thisUser = excite.getUserById(id);
         List<String> matchesEmail = thisUser.getMatches();
         for (User user : excite.getAllUsers()) {
-            if(matchesEmail.contains(user.getEmail())){
+            if (matchesEmail.contains(user.getEmail())) {
                 matches.add(user);
             }
-         }
+        }
         return matches;
     }
 
@@ -88,7 +85,7 @@ public class ServerController {
 
     @PostMapping(value = "/user/update")
     public User updateUserInfo(@RequestHeader("Authorization") UUID id, @RequestBody User user) {
-        if(excite.getUserById(id) == null) {
+        if (excite.getUserById(id) == null) {
             throw new IllegalAccessError("You do not have permission to update this user");
         }
         User thisUser = excite.getUserByEmail(user.getEmail());
@@ -98,9 +95,10 @@ public class ServerController {
 
         return thisUser;
     }
+
     @PostMapping(value = "/user/update/password")
     public User updateUserPassword(@RequestHeader("Authorization") UUID id, @RequestBody String password) {
-        if(excite.getUserById(id) == null) {
+        if (excite.getUserById(id) == null) {
             throw new IllegalAccessError("You do not have permission to update this user");
         }
         User thisUser = excite.getUserById(id);
@@ -117,18 +115,26 @@ public class ServerController {
     @PostMapping(value = "/like")
     public User likeUser(@RequestHeader("Authorization") UUID id, @RequestBody List<User> users) {
         User thisUser = excite.getUserById(id);
-        if(excite.getUserByEmail(users.get(0).getEmail()) == null ||
-            excite.getUserByEmail(users.get(1).getEmail()) == null ||
-            excite.getUserByEmail(thisUser.getEmail()) == null) {
+        if (excite.getUserByEmail(users.get(0).getEmail()) == null
+                || excite.getUserByEmail(users.get(1).getEmail()) == null
+                || excite.getUserByEmail(thisUser.getEmail()) == null) {
             throw new IllegalArgumentException("User does not exist");
         }
         excite.likePerson(thisUser, excite.getUserByEmail(users.get(0).getEmail()));
         excite.resetLikes(thisUser, excite.getUserByEmail(users.get(1).getEmail()));
-        List<User> tmp = List.of(thisUser,
-                     excite.getUserByEmail(users.get(0).getEmail()),
-                     excite.getUserByEmail(users.get(1).getEmail()));
+        List<User> tmp = List.of(thisUser, excite.getUserByEmail(users.get(0).getEmail()),
+                excite.getUserByEmail(users.get(1).getEmail()));
         return excite.getNextRandomUser(tmp);
 
+    }
+
+    @GetMapping(value = "/two")
+    public List<User> getTwoUsers(@RequestHeader("Authorization") UUID id) {
+        User thisUser = excite.getUserById(id);
+        if (thisUser == null) {
+            throw new IllegalArgumentException("User does not exist");
+        }
+        return excite.getTwoUniqueUsers(thisUser);
     }
 
 }
