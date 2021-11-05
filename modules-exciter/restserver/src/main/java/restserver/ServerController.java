@@ -3,6 +3,7 @@ package restserver;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.UUID;
 
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -19,6 +20,7 @@ import user.User;
 
 @RestController
 public class ServerController {
+    
 
     private Exciter excite = ExciterApplication.excite;
     private FileHandler fileHandler = new FileHandler();
@@ -29,8 +31,8 @@ public class ServerController {
     }
 
     @GetMapping(value = "/user")
-    public @ResponseBody User CurrentUser(@RequestHeader("Authorization") String auth) {
-        User user = fileHandler.getUser(auth.split(" ")[1]);
+    public @ResponseBody User CurrentUser(@RequestHeader("Authorization") UUID id) {
+        User user = fileHandler.getUserById(id);
         if(user == null) {
             throw new IllegalArgumentException("User does not exist");
         }
@@ -44,6 +46,7 @@ public class ServerController {
             System.out.println("here");
             throw new IllegalArgumentException("User already exists");
         }
+        user.setId(UUID.randomUUID());
         excite.addUser(user);
         List<User> tmp = excite.getAllUsers();
         tmp.add(user);
@@ -59,9 +62,9 @@ public class ServerController {
     }
 
     @GetMapping(value = "/user/matches")
-    public @ResponseBody List<User> getMatches(@RequestHeader("Authorization") String auth) {
+    public @ResponseBody List<User> getMatches(@RequestHeader("Authorization") UUID id) {
         List<User> matches = new ArrayList<>();
-        User thisUser = excite.getUserByEmail(auth.split(" ")[1]);
+        User thisUser = fileHandler.getUserById(id);
         List<String> matchesEmail = thisUser.getMatches();
         for (User user : excite.getAllUsers()) {
             if(matchesEmail.contains(user.getEmail())){
@@ -73,11 +76,11 @@ public class ServerController {
 
     @PostMapping(value = "/login")
     @ResponseBody
-    public User setLoginUser(@RequestHeader("Authorization") String auth, @RequestBody String password) {
-        User user = excite.getUserByEmail(auth.split(" ")[1]);
+    public User setLoginUser(@RequestHeader("Authorization") UUID id, @RequestBody String password) {
+        User user = fileHandler.getUserById(id);
         if (user != null) {
             if (user.getPassword().equals(password.replace("\"", ""))) {
-                return excite.getUserByEmail(auth.split(" ")[1]);
+                return fileHandler.getUserById(id);
             } else {
                 throw new IllegalArgumentException("Wrong password");
             }
@@ -87,8 +90,8 @@ public class ServerController {
     }
 
     @PostMapping(value = "/user/update")
-    public User updateUserInfo(@RequestHeader("Authorization") String auth, @RequestBody User user) {
-        if(!auth.split(" ")[1].equals(user.getEmail())) {
+    public User updateUserInfo(@RequestHeader("Authorization") UUID id, @RequestBody User user) {
+        if(!id.equals(user.getId())) {
             throw new IllegalAccessError("You do not have permission to update this user");
         }
         User thisUser = excite.getUserByEmail(user.getEmail());
@@ -111,8 +114,8 @@ public class ServerController {
 
     @PostMapping(value = "/like")
     @ResponseBody
-    public User likeUser(@RequestHeader("Authorization") String auth, @RequestBody List<User> users) {
-        User thisUser = excite.getUserByEmail(auth.split(" ")[1]);
+    public User likeUser(@RequestHeader("Authorization") UUID id, @RequestBody List<User> users) {
+        User thisUser = fileHandler.getUserById(id);
         if(excite.getUserByEmail(users.get(0).getEmail()) == null ||
             excite.getUserByEmail(users.get(1).getEmail()) == null ||
             excite.getUserByEmail(thisUser.getEmail()) == null) {
