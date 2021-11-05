@@ -30,6 +30,28 @@ public class User {
   /**
    * Constructor for User class.
    *
+   * @param id
+   * @param name
+   * @param age
+   * @param userInformation
+   * @param matches
+   * @param email
+   * @param password
+   * @apiNote This constructor is to only be used by the filehandler class.
+   */
+
+  public User(UUID id,String name, int age, String userInformation, List<String> matches, String email, String password) {
+    this.userInformation = userInformation;
+    this.matches = matches;
+    setId(id);
+    setName(name);
+    setEmail(email);
+    this.password = password;
+    setAge(age);
+  }
+  /**
+   * Constructor for User class.
+   *
    * @param name
    * @param age
    * @param userInformation

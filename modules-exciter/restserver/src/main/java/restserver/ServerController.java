@@ -1,7 +1,6 @@
 package restserver;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.UUID;
 
@@ -32,7 +31,7 @@ public class ServerController {
 
     @GetMapping(value = "/user")
     public @ResponseBody User CurrentUser(@RequestHeader("Authorization") String id) {
-        User user = fileHandler.getUserById(UUID.fromString(id.split(" ")[1]);
+        User user = fileHandler.getUserById(UUID.fromString(id.split(" ")[1]));
         if(user == null) {
             throw new IllegalArgumentException("User does not exist");
         }
@@ -64,7 +63,7 @@ public class ServerController {
     @GetMapping(value = "/user/matches")
     public @ResponseBody List<User> getMatches(@RequestHeader("Authorization") String id) {
         List<User> matches = new ArrayList<>();
-        User thisUser = fileHandler.getUserById(UUID.fromString(id.split(" ")[1]);
+        User thisUser = fileHandler.getUserById(UUID.fromString(id.split(" ")[1]));
         List<String> matchesEmail = thisUser.getMatches();
         for (User user : excite.getAllUsers()) {
             if(matchesEmail.contains(user.getEmail())){
