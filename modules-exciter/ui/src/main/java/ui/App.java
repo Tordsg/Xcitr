@@ -20,8 +20,6 @@ public class App extends Application {
 
   private static Scene scene;
   private static Stage stage;
-  static final Exciter exciter = new Exciter();
-  private FileHandler fileHandler = new FileHandler();
 
   @Override
   public void start(Stage stage) throws IOException {
