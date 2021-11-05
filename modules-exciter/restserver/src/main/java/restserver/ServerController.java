@@ -67,12 +67,13 @@ public class ServerController {
         return matches;
     }
 
-    @PostMapping(value = "/login/{mail}")
+    @PostMapping(value = "/login")
     @ResponseBody
-    public User setLoginUser(@PathVariable("mail") String email, @RequestBody String password) {
-        if (excite.getUserByEmail(email) != null) {
-            if (excite.getUserByEmail(email).getPassword().equals(password.replace("\"", ""))) {
-                return fileHandler.getUser(email);
+    public User setLoginUser(@RequestHeader("Authorization") String auth, @RequestBody String password) {
+        User user = excite.getUserByEmail(auth.split(" ")[1]);
+        if (user != null) {
+            if (user.getPassword().equals(password.replace("\"", ""))) {
+                return excite.getUserByEmail(auth.split(" ")[1]);
             } else {
                 throw new IllegalArgumentException("Wrong password");
             }
@@ -81,9 +82,12 @@ public class ServerController {
         throw new IllegalArgumentException("User does not exist");
     }
 
-    @PostMapping(value = "/user/{mail}")
-    public User updateUserInfo(@PathVariable("mail") User user) {
-        User thisUser = fileHandler.getUser(user.getEmail());
+    @PostMapping(value = "/user/update")
+    public User updateUserInfo(@RequestHeader("Authorization") String auth, @RequestBody User user) {
+        if(!auth.split(" ")[1].equals(user.getEmail())) {
+            throw new IllegalAccessError("You do not have permission to update this user");
+        }
+        User thisUser = excite.getUserByEmail(user.getEmail());
         thisUser.setName(user.getName());
         if (user.getPassword() != null) {
             thisUser.setPassword(user.getPassword());

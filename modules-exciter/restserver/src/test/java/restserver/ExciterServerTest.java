@@ -46,15 +46,16 @@ public class ExciterServerTest {
 
     // @Test
     // public void testConnection() {
-    //     Request requets = new Request.Builder().url("http://localhost:" + port + "/user").build();
+    // Request requets = new Request.Builder().url("http://localhost:" + port +
+    // "/user").build();
 
-    //     try {
-    //         Response response = client.newCall(requets).execute();
-    //         Assertions.assertEquals(200, response.code());
+    // try {
+    // Response response = client.newCall(requets).execute();
+    // Assertions.assertEquals(200, response.code());
 
-    //     } catch (Exception e) {
-    //         e.printStackTrace();
-    //     }
+    // } catch (Exception e) {
+    // e.printStackTrace();
+    // }
     // }
 
     @Test
@@ -112,125 +113,127 @@ public class ExciterServerTest {
         Assertions.assertEquals(400, response.code());
     }
 
-    // @Test
-    // public void testPostLogin() {
-    //     Request request = null;
-    //     Response response = null;
-    //     ResponseBody responseBody = null;
-    //     String responseBodyString = null;
-    //     User newUser = null;
-    //     User addUser = new User("Per", 17, "Per@mail");
-    //     addUser.setPassword("test");
-    //     String password = User.MD5Hash("test");
-    //     List<User> usersToAdd = new ArrayList<User>();
-    //     usersToAdd.add(addUser);
-    //     exciter.addUsers(usersToAdd);
-    //     try {
-    //         String sendString = mapper.writeValueAsString(password);
-    //         MediaType mediaType = MediaType.parse("application/json");
-    //         request = new Request.Builder().url("http://localhost:" + port + "/login/Per@mail")
-    //                 .post(RequestBody.create(sendString, mediaType)).build();
-    //         response = client.newCall(request).execute();
-    //         responseBody = response.body();
-    //         responseBodyString = responseBody.string();
-    //         newUser = mapper.readValue(responseBodyString, User.class);
+    @Test
+    public void testPostLogin() {
+        Request request = null;
+        Response response = null;
+        ResponseBody responseBody = null;
+        String responseBodyString = null;
+        User newUser = new User("NotPer", 17, "NotPer@mail");
+        User addUser = new User("Per", 17, "Per@mail");
+        addUser.setPassword("test");
+        String password = User.MD5Hash("test");
+        exciter.addUser(addUser);
+        try {
+            String sendString = mapper.writeValueAsString(password);
+            MediaType mediaType = MediaType.parse("application/json");
+            request = new Request.Builder().url("http://localhost:" + port + "/login")
+                    .header("Authorization", "Bearer: " + addUser.getEmail())
+                    .post(RequestBody.create(sendString, mediaType)).build();
+            response = client.newCall(request).execute();
+            responseBody = response.body();
+            responseBodyString = responseBody.string();
+            newUser = mapper.readValue(responseBodyString, User.class);
 
-    //     } catch (IOException e) {
-    //         e.printStackTrace();
-    //     }
-    //     Assertions.assertEquals(addUser.getName(), newUser.getName());
-    //     Assertions.assertTrue(response.isSuccessful());
-    // }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        Assertions.assertEquals(addUser.getName(), newUser.getName());
+        Assertions.assertTrue(response.isSuccessful());
+    }
 
-    // @Test
-    // public void testUpdateUserInfo() {
-    //     Request request = null;
-    //     Response response = null;
-    //     ResponseBody responseBody = null;
-    //     String responseBodyString = null;
-    //     User updatedUser = new User("Oliver", 22, "test@mail");
-    //     exciter.setCurrentUser(updatedUser);
-    //     User newUser = null;
-    //     User newUser2 = null;
-    //     try {
-    //         String sendString = mapper.writeValueAsString(updatedUser);
-    //         MediaType mediaType = MediaType.parse("application/json");
-    //         request = new Request.Builder().url("http://localhost:" + port + "/user")
-    //                 .post(RequestBody.create(sendString, mediaType)).build();
-    //         response = client.newCall(request).execute();
-    //         responseBody = response.body();
-    //         responseBodyString = responseBody.string();
-    //         newUser = mapper.readValue(responseBodyString, User.class);
-    //         updatedUser.setUserInformation("likes response code 200");
-    //         sendString = mapper.writeValueAsString(updatedUser);
-    //         request = new Request.Builder().url("http://localhost:" + port + "/user")
-    //                 .post(RequestBody.create(sendString, mediaType)).build();
-    //         response = client.newCall(request).execute();
-    //         responseBody = response.body();
-    //         responseBodyString = responseBody.string();
-    //         newUser2 = mapper.readValue(responseBodyString, User.class);
+    @Test
+    public void testUpdateUserInfo() {
+        Request request = null;
+        Response response = null;
+        ResponseBody responseBody = null;
+        String responseBodyString = null;
+        User updatedUser = new User("Oliver", 22, "test@mail");
+        exciter.addUser(updatedUser);
+        User newUser = null;
+        User newUser2 = null;
+        try {
+            String sendString = mapper.writeValueAsString(updatedUser);
+            MediaType mediaType = MediaType.parse("application/json");
+            request = new Request.Builder().url("http://localhost:" + port + "/user/update")
+                    .header("Authorization", "Bearer: " + updatedUser.getEmail())
+                    .post(RequestBody.create(sendString, mediaType)).build();
+            response = client.newCall(request).execute();
+            responseBody = response.body();
+            responseBodyString = responseBody.string();
+            newUser = mapper.readValue(responseBodyString, User.class);
+            updatedUser.setUserInformation("likes response code 200");
+            sendString = mapper.writeValueAsString(updatedUser);
+            request = new Request.Builder().url("http://localhost:" + port + "/user/update")
+                    .header("Authorization", "Bearer: " + updatedUser.getEmail())
+                    .post(RequestBody.create(sendString, mediaType)).build();
+            response = client.newCall(request).execute();
+            responseBody = response.body();
+            responseBodyString = responseBody.string();
+            newUser2 = mapper.readValue(responseBodyString, User.class);
 
-    //     } catch (IOException e) {
-    //         e.printStackTrace();
-    //     }
-    //     Assertions.assertNull(newUser.getUserInformation());
-    //     Assertions.assertNotEquals(newUser.getUserInformation(), newUser2.getUserInformation());
-    //     Assertions.assertEquals("likes response code 200", newUser2.getUserInformation());
-
-    // }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        Assertions.assertNull(newUser.getUserInformation());
+        Assertions.assertNotEquals(newUser.getUserInformation(), newUser2.getUserInformation());
+        Assertions.assertEquals("likes response code 200", newUser2.getUserInformation());
+    }
 
     // @Test
     // public void testGetMatches() {
-    //     User testUser = new User("Ludde", 19, "Ludde@mail");
-    //     testUser.addMatch("Diana@mail");
-    //     testUser.addMatch("Jane@mail");
-    //     exciter.setCurrentUser(testUser);
-    //     Request requets = new Request.Builder().url("http://localhost:" + port + "/user/matches").build();
-    //     List<User> matchesFromServer = new ArrayList<>();
-    //     try {
-    //         ResponseBody response = client.newCall(requets).execute().body();
-    //         matchesFromServer = mapper.readValue(response.string(),
-    //                 mapper.getTypeFactory().constructCollectionType(List.class, User.class));
-    //     } catch (Exception e) {
-    //         e.printStackTrace();
-    //     }
-    //     for (User user : matchesFromServer) {
-    //         Assertions.assertTrue(testUser.getMatches().contains(user.getEmail()));
-    //     }
+    // User testUser = new User("Ludde", 19, "Ludde@mail");
+    // testUser.addMatch("Diana@mail");
+    // testUser.addMatch("Jane@mail");
+    // exciter.setCurrentUser(testUser);
+    // Request requets = new Request.Builder().url("http://localhost:" + port +
+    // "/user/matches").build();
+    // List<User> matchesFromServer = new ArrayList<>();
+    // try {
+    // ResponseBody response = client.newCall(requets).execute().body();
+    // matchesFromServer = mapper.readValue(response.string(),
+    // mapper.getTypeFactory().constructCollectionType(List.class, User.class));
+    // } catch (Exception e) {
+    // e.printStackTrace();
+    // }
+    // for (User user : matchesFromServer) {
+    // Assertions.assertTrue(testUser.getMatches().contains(user.getEmail()));
+    // }
     // }
 
     // @Test
     // public void testDiscardAndMatch() {
-    //     exciter.setCurrentUser(user);
-    //     BotUser botUser = new BotUser("Will", 22, "will@mail", true);
-    //     User haveMatchedUser = new User("false", 22, "false@mail");
-    //     exciter.addUsers(List.of(botUser));
-    //     exciter.setOnScreenUser1(botUser);
-    //     Request request = null;
-    //     Response response = null;
-    //     ResponseBody responseBody = null;
-    //     String responseBodyString = null;
-    //     try {
-    //         User discardUser = exciter.getOnScreenUser2();
-    //         MediaType mediaType = MediaType.parse("application/json");
-    //         for (int i = 0; i < 3; i++) {
-    //             String sendString = mapper.writeValueAsString(discardUser);
-    //             request = new Request.Builder().url("http://localhost:" + port + "/discard")
-    //                     .post(RequestBody.create(sendString, mediaType)).build();
-    //             response = client.newCall(request).execute();
-    //             discardUser = exciter.getOnScreenUser2();
-    //         }
-    //         request = new Request.Builder().url("http://localhost:" + port + "/user/matches").build();
-    //         response = client.newCall(request).execute();
-    //         responseBody = response.body();
-    //         responseBodyString = responseBody.string();
-    //         List<User> haveMatchedUsers = mapper.readValue(responseBodyString,
-    //                 mapper.getTypeFactory().constructCollectionType(List.class, User.class));
-    //         haveMatchedUser = haveMatchedUsers.get(0);
-    //     } catch (Exception e) {
-    //     }
-    //     Assertions.assertTrue(user.getMatches().contains(botUser.getEmail()));
-    //     Assertions.assertEquals(botUser.getEmail(), haveMatchedUser.getEmail());
+    // exciter.setCurrentUser(user);
+    // BotUser botUser = new BotUser("Will", 22, "will@mail", true);
+    // User haveMatchedUser = new User("false", 22, "false@mail");
+    // exciter.addUsers(List.of(botUser));
+    // exciter.setOnScreenUser1(botUser);
+    // Request request = null;
+    // Response response = null;
+    // ResponseBody responseBody = null;
+    // String responseBodyString = null;
+    // try {
+    // User discardUser = exciter.getOnScreenUser2();
+    // MediaType mediaType = MediaType.parse("application/json");
+    // for (int i = 0; i < 3; i++) {
+    // String sendString = mapper.writeValueAsString(discardUser);
+    // request = new Request.Builder().url("http://localhost:" + port + "/discard")
+    // .post(RequestBody.create(sendString, mediaType)).build();
+    // response = client.newCall(request).execute();
+    // discardUser = exciter.getOnScreenUser2();
+    // }
+    // request = new Request.Builder().url("http://localhost:" + port +
+    // "/user/matches").build();
+    // response = client.newCall(request).execute();
+    // responseBody = response.body();
+    // responseBodyString = responseBody.string();
+    // List<User> haveMatchedUsers = mapper.readValue(responseBodyString,
+    // mapper.getTypeFactory().constructCollectionType(List.class, User.class));
+    // haveMatchedUser = haveMatchedUsers.get(0);
+    // } catch (Exception e) {
+    // }
+    // Assertions.assertTrue(user.getMatches().contains(botUser.getEmail()));
+    // Assertions.assertEquals(botUser.getEmail(), haveMatchedUser.getEmail());
     // }
 
 }
