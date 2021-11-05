@@ -52,6 +52,7 @@ public class FileHandler {
       userData.put("name", user.getName());
       userData.put("age", user.getAge());
       userData.put("matches", user.getMatches());
+      userData.put("likes", user.getLikedUsers());
       userData.put("userInformation", user.getUserInformation());
       userData.put("email", user.getEmail());
       userArray.add(userData);

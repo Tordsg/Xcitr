@@ -45,7 +45,9 @@ public class ServerController {
             throw new IllegalArgumentException("User already exists");
         }
         excite.addUser(user);
-        fileHandler.saveUser(Arrays.asList(user));
+        List<User> tmp = excite.getAllUsers();
+        tmp.add(user);
+        fileHandler.saveUser(tmp);
         return user;
     }
 
