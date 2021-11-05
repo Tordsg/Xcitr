@@ -54,12 +54,12 @@ public class ServerController {
         return e.getMessage();
     }
 
-    @GetMapping(value = "/user/matches/{mail}")
-    public @ResponseBody List<User> getMatches(@PathVariable("mail") String email) {
+    @GetMapping(value = "/user/matches")
+    public @ResponseBody List<User> getMatches(@RequestHeader("Authorization") String auth) {
         List<User> matches = new ArrayList<>();
-        User thisUser = fileHandler.getUser(email);
+        User thisUser = excite.getUserByEmail(auth.split(" ")[1]);
         List<String> matchesEmail = thisUser.getMatches();
-        for (User user : fileHandler.readUsers()) {
+        for (User user : excite.getAllUsers()) {
             if(matchesEmail.contains(user.getEmail())){
                 matches.add(user);
             }
@@ -105,18 +105,4 @@ public class ServerController {
         return e.getMessage();
     }
 
-    // @PostMapping(value = "/discard")
-    // @ResponseBody
-    // public User discardUser(@RequestBody User user) {
-    //     if (user.getEmail().equals(excite.getOnScreenUser1().getEmail())) {
-    //         excite.discardFirst();
-    //         return excite.getOnScreenUser1();
-    //     } else if (user.getEmail().equals(excite.getOnScreenUser2().getEmail())) {
-    //         excite.discardSecond();
-    //         return excite.getOnScreenUser2();
-    //     } else {
-    //         throw new IllegalArgumentException(
-    //                 String.format("User %s is not not avaliable at this moment", user.getEmail()));
-    //     }
-    // }
 }
