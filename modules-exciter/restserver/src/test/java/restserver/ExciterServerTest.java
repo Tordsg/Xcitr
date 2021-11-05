@@ -88,8 +88,7 @@ public class ExciterServerTest {
         try {
             String sendString = mapper.writeValueAsString(user);
             MediaType mediaType = MediaType.parse("application/json");
-            request = new Request.Builder().url("http://localhost:" + port + "/createAccount")
-                    .header("Pass", password)
+            request = new Request.Builder().url("http://localhost:" + port + "/createAccount").header("Pass", password)
                     .post(RequestBody.create(sendString, mediaType)).build();
             response = client.newCall(request).execute();
             responseBody = response.body();
@@ -137,8 +136,7 @@ public class ExciterServerTest {
             String sendString = mapper.writeValueAsString(password);
             MediaType mediaType = MediaType.parse("application/json");
             request = new Request.Builder().url("http://localhost:" + port + "/login")
-                    .header("mail", addUser.getEmail()).post(RequestBody.create(sendString, mediaType))
-                    .build();
+                    .header("mail", addUser.getEmail()).post(RequestBody.create(sendString, mediaType)).build();
             response = client.newCall(request).execute();
             responseBody = response.body();
             responseBodyString = responseBody.string();
@@ -240,6 +238,26 @@ public class ExciterServerTest {
         }
         Assertions.assertEquals(200, response.code());
         Assertions.assertTrue(matchesFromServer.get(0).getEmail().equals(botuser1.getEmail()));
+    }
+
+    @Test
+    public void getTwoUsers() {
+        user.setId(UUID.randomUUID());
+        exciter.addUser(user);
+        Request request = null;
+        Response response = null;
+        List<User> users = new ArrayList<>();
+        try {
+            request = new Request.Builder().url("http://localhost:" + port + "/two")
+                    .header("Authorization", user.getId().toString()).build();
+            response = client.newCall(request).execute();
+            users = mapper.readValue(response.body().string(),
+                    mapper.getTypeFactory().constructCollectionType(List.class, User.class));
+        } catch (Exception e) {
+            // TODO: handle exception
+        }
+        Assertions.assertNotNull(users.get(0).getEmail());
+        Assertions.assertNotNull(users.get(1).getEmail());
     }
 
 }
