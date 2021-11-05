@@ -42,13 +42,17 @@ public class PrimaryController implements Initializable {
   private Pane leftCard, rightCard, refresh, scorePane;
 
   private ClientHandler clientHandler = new ClientHandler();
+  private User user = App.user;
+
+  private List<User> users = clientHandler.getTwoUsers(user);
+  private User user1 = users.get(0);
+  private User user2 = users.get(1);
   // Static since it's shared by the SecondaryController
   protected final static ImageController imageController = new ImageController();
   private List<User> displayUsers;
 
   @FXML
   private void switchToSecondary() throws IOException {
-    saveUserData();
     App.setRoot("profile");
   }
 
@@ -63,7 +67,6 @@ public class PrimaryController implements Initializable {
 
   @FXML
   private void switchToMatch() throws IOException {
-    saveUserData();
     // MatchController.matches = excite.getCurrentUserMatches();
     App.setRoot("match");
   }
@@ -78,10 +81,11 @@ public class PrimaryController implements Initializable {
   }
 
   void onDiscardLeftCard() {
-    if (excite.discardFirst()) {
-      cardLiked(rightCard, leftCard);
-      return;
-    }
+    User newUser = clientHandler.discardCard(user, user2, user1);
+    // if (//TODO) {
+    //   cardLiked(rightCard, leftCard);
+    //   return;
+    // }
     leftCard.setDisable(true);
     rightCard.setDisable(true);
     refresh.setDisable(true);

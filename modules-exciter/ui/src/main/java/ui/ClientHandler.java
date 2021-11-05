@@ -119,11 +119,25 @@ public class ClientHandler {
         try {
             String sendString = mapper.writeValueAsString(sendPassword);
             Request request = new Request.Builder().url(url + "/user/update/password")
-                    .header("Authorization", user.getId().toString())
-                    .post(RequestBody.create(sendString, mediaType))
+                    .header("Authorization", user.getId().toString()).post(RequestBody.create(sendString, mediaType))
                     .build();
             ResponseBody response = client.newCall(request).execute().body();
             returnUser = mapper.readValue(response.string(), User.class);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return returnUser;
+    }
+
+    public List<User> getTwoUsers(User user) {
+        List<User> returnUser = null;
+        try {
+            Request request = new Request.Builder().url(url + "/two")
+                    .header("Authorization", user.getId().toString())
+                    .build();
+            ResponseBody response = client.newCall(request).execute().body();
+            returnUser = mapper.readValue(response.string(),
+                    mapper.getTypeFactory().constructCollectionType(List.class, User.class));
         } catch (IOException e) {
             e.printStackTrace();
         }
