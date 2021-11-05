@@ -1,6 +1,7 @@
 package user;
 
 import java.io.IOException;
+import java.util.UUID;
 
 import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -61,6 +62,10 @@ public class UserDeserializer extends StdDeserializer<User> {
       JsonNode passwordNode = objectNode.get("password");
       if (passwordNode instanceof TextNode) {
         user.setPassword(passwordNode.asText());
+      }
+      JsonNode userIdNode = objectNode.get("id");
+      if (userIdNode instanceof TextNode) {
+        user.setId(UUID.fromString(userIdNode.asText()));
       }
 
       return user;

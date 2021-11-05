@@ -99,6 +99,7 @@ public class ExciterServerTest {
         }
         Assertions.assertEquals(newUser.getName(), user.getName());
         Assertions.assertTrue(response.isSuccessful());
+        Assertions.assertNotNull(newUser.getId());
     }
 
     @Test
