@@ -76,10 +76,10 @@ public class ServerController {
     @PostMapping(value = "/login")
     @ResponseBody
     public User setLoginUser(@RequestHeader("Authorization") UUID id, @RequestBody String password) {
-        User user = fileHandler.getUserById(id);
+        User user = excite.getUserById(id);
         if (user != null) {
             if (user.getPassword().equals(password.replace("\"", ""))) {
-                return fileHandler.getUserById(id);
+                return excite.getUserById(id);
             } else {
                 throw new IllegalArgumentException("Wrong password");
             }
