@@ -6,6 +6,7 @@ import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.UUID;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
@@ -16,6 +17,7 @@ import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 @JsonDeserialize(using = UserDeserializer.class)
 public class User {
 
+  private UUID id;
   private String name;
   private int age;
   private String userInformation;
@@ -108,6 +110,14 @@ public class User {
     }
     this.name = name;
 
+  }
+
+  public void setId(UUID id){
+    this.id = id;
+  }
+
+  public UUID getId(){
+    return id;
   }
 
   public int getAge() {
