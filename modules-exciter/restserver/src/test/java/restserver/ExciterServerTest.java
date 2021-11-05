@@ -84,10 +84,12 @@ public class ExciterServerTest {
         ResponseBody responseBody = null;
         String responseBodyString = null;
         User newUser = new User("Nottest", 22, "Nottest@mail");
+        String password = User.MD5Hash("test");
         try {
             String sendString = mapper.writeValueAsString(user);
             MediaType mediaType = MediaType.parse("application/json");
             request = new Request.Builder().url("http://localhost:" + port + "/createAccount")
+                    .header("Pass", password)
                     .post(RequestBody.create(sendString, mediaType)).build();
             response = client.newCall(request).execute();
             responseBody = response.body();

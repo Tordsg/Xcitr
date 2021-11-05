@@ -40,10 +40,11 @@ public class ServerController {
 
 
     @PostMapping(value = "/createAccount")
-    public User createAccount(@RequestBody User user) {
+    public User createAccount(@RequestBody User user, @RequestHeader("Pass") String pass) {
         if (excite.getUserByEmail(user.getEmail()) != null) {
             throw new IllegalArgumentException("User already exists");
         }
+        user.setPasswordNoHash(pass);
         user.setId(UUID.randomUUID());
         excite.addUser(user);
         List<User> tmp = excite.getAllUsers();
