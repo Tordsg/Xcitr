@@ -107,4 +107,22 @@ public class ServerController {
         return e.getMessage();
     }
 
+    @PostMapping(value = "/like")
+    @ResponseBody
+    public User likeUser(@RequestHeader("Authorization") String auth, @RequestBody List<User> users) {
+        User thisUser = excite.getUserByEmail(auth.split(" ")[1]);
+        if(excite.getUserByEmail(users.get(0).getEmail()) == null ||
+            excite.getUserByEmail(users.get(1).getEmail()) == null ||
+            excite.getUserByEmail(thisUser.getEmail()) == null) {
+            throw new IllegalArgumentException("User does not exist");
+        }
+        excite.likePerson(thisUser, excite.getUserByEmail(users.get(0).getEmail()));
+        excite.resetLikes(thisUser, excite.getUserByEmail(users.get(1).getEmail()));
+        List<User> tmp = List.of(thisUser,
+                     excite.getUserByEmail(users.get(0).getEmail()),
+                     excite.getUserByEmail(users.get(1).getEmail()));
+        return excite.getNextRandomUser(tmp);
+
+    }
+
 }

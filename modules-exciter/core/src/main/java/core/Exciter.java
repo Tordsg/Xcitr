@@ -24,10 +24,10 @@ public class Exciter {
   }
 
   public void addUser(User user) {
-    if(!allUsers.contains(user)) {
+    if (!allUsers.contains(user)) {
       allUsers.add(user);
     }
-    //Should this throw exception?
+    // Should this throw exception?
   }
 
   /**
@@ -66,7 +66,8 @@ public class Exciter {
    * @return new user that is not on screen
    */
   public User getNextRandomUser(List<User> users) {
-    return allUsers.stream().filter(user -> !users.contains(user)).findFirst().get();
+    List<User> tmp = allUsers.stream().filter(user -> !users.contains(user)).collect(Collectors.toList());
+    return tmp.get((int) (Math.random() * tmp.size()));
   }
 
   public User getUserByEmail(String email) {
@@ -115,6 +116,10 @@ public class Exciter {
       userWhoIsLiked.fireOnLike(userWhoLikes);
     }
     return userWhoLikes.checkIfMatch(userWhoIsLiked);
+  }
+
+  public void resetLikes(User user, User userToReset) {
+    user.resetUserMatch(userToReset);
   }
 
   public List<String> getUserMatches(User user) {

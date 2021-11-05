@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
 /**
@@ -21,6 +22,7 @@ public class User {
   private String email;
   private HashMap<User, Integer> likedUsers = new HashMap<>();
   private List<String> matches = new ArrayList<>();
+  @JsonIgnore
   private String password = null;
 
   /**

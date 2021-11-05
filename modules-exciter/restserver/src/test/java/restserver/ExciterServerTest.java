@@ -200,4 +200,9 @@ public class ExciterServerTest {
         }
     }
 
+    @Test
+    public void emulateMatch(){
+
+    }
+
 }
