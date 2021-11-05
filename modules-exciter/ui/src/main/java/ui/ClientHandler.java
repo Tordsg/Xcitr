@@ -66,7 +66,7 @@ public class ClientHandler {
         return returnUser;
     }
 
-    public User signIn(String mail, String password) {
+    public User login(String mail, String password) {
         MediaType mediaType = MediaType.parse("application/json");
         User returnUser = null;
         String sendPassword = User.MD5Hash(password);

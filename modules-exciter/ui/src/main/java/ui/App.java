@@ -1,17 +1,14 @@
 package ui;
 
-import core.*;
-import user.User;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
+
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Scene;
 import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
-import json.FileHandler;
+import user.User;
 
 /**
  * JavaFX App.
@@ -20,12 +17,11 @@ public class App extends Application {
 
   private static Scene scene;
   private static Stage stage;
+  //Enables controller to share user data
+  protected static User user = null;
 
   @Override
   public void start(Stage stage) throws IOException {
-    if (fileHandler.readUsers() != null) {
-      exciter.addUsers(fileHandler.readUsers());
-    }
     setStage(stage);
     setScene(new Scene(loadFxml("login")));
     stage.setScene(scene);
@@ -43,17 +39,8 @@ public class App extends Application {
     App.stage = stage;
   }
 
-  /**
-   * Makes saving the state of the app interaction free.
-   */
-
   @Override
   public void stop() throws Exception {
-    List<User> users = new ArrayList<>();
-    users.addAll(exciter.getAllUsers());
-    users.add(exciter.getCurrentUser());
-
-    fileHandler.saveUser(users);
     super.stop();
   }
 

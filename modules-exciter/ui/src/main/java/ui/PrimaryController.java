@@ -1,6 +1,5 @@
 package ui;
 
-import core.Exciter;
 import user.User;
 import java.io.IOException;
 import java.net.URL;
@@ -25,7 +24,6 @@ import javafx.scene.shape.Circle;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
 import javafx.util.Duration;
-import json.FileHandler;
 
 import okhttp3.*;
 
@@ -42,8 +40,8 @@ public class PrimaryController implements Initializable {
   private Group matchButton;
   @FXML
   private Pane leftCard, rightCard, refresh, scorePane;
-  private Exciter excite = App.exciter;
-  protected final static FileHandler fileHandler = LoginController.fileHandler;
+
+  private ClientHandler clientHandler = new ClientHandler();
   // Static since it's shared by the SecondaryController
   protected final static ImageController imageController = new ImageController();
   private List<User> displayUsers;
@@ -68,22 +66,6 @@ public class PrimaryController implements Initializable {
     saveUserData();
     // MatchController.matches = excite.getCurrentUserMatches();
     App.setRoot("match");
-  }
-
-  /**
-   * Saves the userdata and store it in a JSON file.
-   */
-
-  @FXML
-  public void saveUserData() {
-    fileHandler.createFile();
-    List<User> users = excite.getAllUsers();
-    boolean hasUser = users.stream().anyMatch(e -> e.getClass().getName().equals("core.User"));
-    if (!hasUser) {
-      users.add(excite.getCurrentUser());
-    }
-
-    fileHandler.saveUser(users);
   }
 
   private void hoverButton(Node n) {

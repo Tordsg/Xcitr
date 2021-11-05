@@ -1,24 +1,24 @@
 package ui;
 
-import core.Exciter;
-import user.User;
 import java.io.IOException;
 import java.net.URL;
-import java.util.List;
 import java.util.ResourceBundle;
+
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.text.Text;
-import json.FileHandler;
+import user.User;
 
 /**
  * Controller for signup.fxml.
  */
 
 public class SignUpController {
+
+  private ClientHandler clientHandler = new ClientHandler();
 
   @FXML
   private ResourceBundle resources;
@@ -47,8 +47,6 @@ public class SignUpController {
   @FXML
   private Text fromSignupToLogin;
 
-  FileHandler fileHandler = LoginController.fileHandler;
-  private Exciter excite = App.exciter;
   private User userXcitr;
 
   @FXML
@@ -74,32 +72,19 @@ public class SignUpController {
 
     try {
       userXcitr = new User(nameReg, Integer.parseInt(ageReg), emailReg);
-      userXcitr.setPassword(passwordReg);
-      saveUser(userXcitr);
-      excite.setCurrentUser(userXcitr);
-      excite.removeFromAllUsers(userXcitr);
-
+      User user = clientHandler.createAccount(userXcitr, passwordReg);
+      App.user = user;
       switchToPrimary();
 
     } catch (IllegalArgumentException e) {
       errorLabel.setText(e.getMessage());
     }
 
-    excite.setCurrentUser(userXcitr);
-    excite.removeFromAllUsers(userXcitr);
-
     switchToPrimary();
   }
 
   private void switchToPrimary() throws IOException {
     App.setRoot("primary");
-  }
-
-  void saveUser(User user) {
-    fileHandler.createFile();
-    List<User> users = excite.getAllUsers();
-    excite.setCurrentUser(user);
-    fileHandler.saveUser(users);
   }
 
 }

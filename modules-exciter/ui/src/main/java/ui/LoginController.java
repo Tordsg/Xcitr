@@ -1,6 +1,5 @@
 package ui;
 
-import core.Exciter;
 import user.User;
 import java.io.IOException;
 import javafx.fxml.FXML;
@@ -9,7 +8,6 @@ import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
 import javafx.scene.text.Text;
-import json.FileHandler;
 
 /**
  * Controller for login.fxml
@@ -17,8 +15,7 @@ import json.FileHandler;
 
 public class LoginController {
 
-  protected final static FileHandler fileHandler = new FileHandler();
-  private Exciter xcitr = App.exciter;
+  private ClientHandler clientHandler = new ClientHandler();
 
   @FXML
   private TextField emailLogin;
@@ -60,17 +57,16 @@ public class LoginController {
     String email = emailLogin.getText();
     String password = passwordLogin.getText();
 
-    // long sentence
-    for (User user : fileHandler.readUsers()) {
-      if (email.equals(user.getEmail()) && User.MD5Hash(password).equals(user.getPassword())) {
-        xcitr.setCurrentUser(user);
-        switchToPrimary();
-      }
+    User user = clientHandler.login(email, password);
+    if (user == null) {
+      errorMessage.setText("Wrong password or email");
+      errorMessage.setVisible(true);
+      passwordLogin.clear();
+      emailLogin.clear();
+    } else {
+      App.user = user;
+      switchToPrimary();
     }
-
-    errorMessage.setVisible(true);
-    passwordLogin.clear();
-    emailLogin.clear();
   }
 
   private void switchToPrimary() throws IOException {

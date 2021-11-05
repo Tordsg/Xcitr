@@ -1,13 +1,9 @@
 package ui;
 
-import core.Exciter;
-import user.User;
-import java.io.File;
 import java.io.IOException;
 import java.net.URL;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.ResourceBundle;
+
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -19,6 +15,7 @@ import javafx.scene.effect.Lighting;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.stage.FileChooser;
+import user.User;
 
 /**
  * Controller for secondary.fxml.
@@ -26,7 +23,10 @@ import javafx.stage.FileChooser;
 
 public class SecondaryController implements Initializable {
 
-  private Exciter excite = App.exciter;
+  private ClientHandler clientHandler = new ClientHandler();
+
+  private User user = App.user;
+
   private FileChooser fileChooser = new FileChooser();
   private ImageController imageController = PrimaryController.imageController;
   @FXML
@@ -39,7 +39,6 @@ public class SecondaryController implements Initializable {
   private PasswordField password;
   @FXML
   private Pane pane;
-  json.FileHandler fileHandler = PrimaryController.fileHandler;
   private Pane lastPane = null;
 
   @FXML
@@ -61,31 +60,32 @@ public class SecondaryController implements Initializable {
    * @throws IOException
    */
 
-  @FXML
-  private void uploadPicture() throws IOException {
-    File file = fileChooser.showOpenDialog(null);
-    if (file != null && getFileExtension(file).equals(".jpg")) {
-      imageController.uploadPicture(excite.getCurrentUser(), file);
-    }
-    updatePreview();
-  }
+   //TODO make this method viable again
+  // @FXML
+  // private void uploadPicture() throws IOException {
+  //   File file = fileChooser.showOpenDialog(null);
+  //   if (file != null && getFileExtension(file).equals(".jpg")) {
+  //     imageController.uploadPicture(excite.getCurrentUser(), file);
+  //   }
+  //   updatePreview();
+  // }
 
-  private String getFileExtension(File file) {
-    String extension = "";
-    try {
-      if (file.exists()) {
-        String name = file.getName();
-        extension = name.substring(name.lastIndexOf("."));
-      }
-    } catch (Exception e) {
-      e.printStackTrace();
-    }
-    return extension;
-  }
+  // private String getFileExtension(File file) {
+  //   String extension = "";
+  //   try {
+  //     if (file.exists()) {
+  //       String name = file.getName();
+  //       extension = name.substring(name.lastIndexOf("."));
+  //     }
+  //   } catch (Exception e) {
+  //     e.printStackTrace();
+  //   }
+  //   return extension;
+  // }
 
   @FXML
   void updatePreview() {
-    User currentUser = excite.getCurrentUser();
+    User currentUser = App.user;
     Pane currentPane = MatchController.createCard(currentUser);
     if (pane.getChildren().contains(lastPane)) {
       pane.getChildren().remove(lastPane);
@@ -102,24 +102,36 @@ public class SecondaryController implements Initializable {
    * @throws IOException
    */
 
-  @FXML
-  public void signOut() throws IOException {
-    fileHandler.createFile();
-    List<User> users = new ArrayList<>();
-    users.addAll(excite.getAllUsers());
-    users.add(excite.getCurrentUser());
-    fileHandler.saveUser(users);
-    App.setRoot("login");
-  }
+   //TODO make this method viable again
+  // @FXML
+  // public void signOut() throws IOException {
+  //   fileHandler.createFile();
+  //   List<User> users = new ArrayList<>();
+  //   users.addAll(excite.getAllUsers());
+  //   users.add(excite.getCurrentUser());
+  //   fileHandler.saveUser(users);
+  //   App.setRoot("login");
+  // }
 
   @FXML
   void save() {
-    excite.getCurrentUser().setAge(Integer.parseInt(age.getText()));
-    excite.getCurrentUser().setName(name.getText());
+    user.setAge(Integer.parseInt(age.getText()));
+    user.setName(name.getText());
     if (!password.getText().equals("")) {
-      excite.getCurrentUser().setPassword(password.getText());
+      user.setPassword(password.getText());
     }
-    excite.getCurrentUser().setUserInformation(bio.getText());
+    user.setUserInformation(bio.getText());
+    User infoUser = clientHandler.updateInformation(user);
+    if(infoUser != null) {
+      user.setName(infoUser.getName());
+      user.setAge(infoUser.getAge());
+      user.setUserInformation(infoUser.getUserInformation());
+    }
+    User passUser = clientHandler.updatePassword(user, user.getPassword());
+    if(passUser != null) {
+      user.setPasswordNoHash(passUser.getPassword());
+    }
+    App.user = user;
     updatePreview();
   }
 
@@ -128,9 +140,9 @@ public class SecondaryController implements Initializable {
    */
   @Override
   public void initialize(URL location, ResourceBundle resources) {
-    name.setText(excite.getCurrentUser().getName());
-    bio.setText(excite.getCurrentUser().getUserInformation());
-    age.setText(Integer.toString(excite.getCurrentUser().getAge()));
+    name.setText(user.getName());
+    bio.setText(user.getUserInformation());
+    age.setText(Integer.toString(user.getAge()));
     hoverButton(upload);
     hoverButton(backButton);
     hoverButton(signOut);

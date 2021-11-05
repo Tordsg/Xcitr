@@ -1,12 +1,10 @@
 package ui;
 
-import core.Exciter;
 import user.User;
 import java.io.IOException;
 import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
-import java.util.stream.Collectors;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -43,9 +41,9 @@ public class MatchController implements Initializable {
   AnchorPane anchorPane;
 
   protected final static ImageController imageController = PrimaryController.imageController;
-  private Exciter exciter = App.exciter;
-  private List<User> matches = exciter.getAllUsers().stream()
-      .filter(a -> exciter.getCurrentUserMatches().contains(a.getEmail())).collect(Collectors.toList());
+  private ClientHandler clientHandler = new ClientHandler();
+  private User user = App.user;
+  private List<User> matches = clientHandler.getMatches(user);
 
   public void switchToPrimary() throws IOException {
     App.setRoot("primary");
