@@ -137,7 +137,7 @@ public class ExciterServerTest {
             String sendString = mapper.writeValueAsString(password);
             MediaType mediaType = MediaType.parse("application/json");
             request = new Request.Builder().url("http://localhost:" + port + "/login")
-                    .header("Authorization", addUser.getId().toString()).post(RequestBody.create(sendString, mediaType))
+                    .header("mail", addUser.getEmail()).post(RequestBody.create(sendString, mediaType))
                     .build();
             response = client.newCall(request).execute();
             responseBody = response.body();

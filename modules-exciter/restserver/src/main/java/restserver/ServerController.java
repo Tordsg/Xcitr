@@ -75,11 +75,11 @@ public class ServerController {
 
     @PostMapping(value = "/login")
     @ResponseBody
-    public User setLoginUser(@RequestHeader("Authorization") UUID id, @RequestBody String password) {
-        User user = excite.getUserById(id);
+    public User setLoginUser(@RequestHeader("mail") String mail, @RequestBody String password) {
+        User user = excite.getUserByEmail(mail);
         if (user != null) {
             if (user.getPassword().equals(password.replace("\"", ""))) {
-                return excite.getUserById(id);
+                return excite.getUserByEmail(mail);
             } else {
                 throw new IllegalArgumentException("Wrong password");
             }
