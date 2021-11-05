@@ -23,6 +23,13 @@ public class Exciter {
     addSomePlaceholderUsers();
   }
 
+  public void addUser(User user) {
+    if(!allUsers.contains(user)) {
+      allUsers.add(user);
+    }
+    //Should this throw exception?
+  }
+
   /**
    * Will check that users to be added does not exist in the list.
    *
