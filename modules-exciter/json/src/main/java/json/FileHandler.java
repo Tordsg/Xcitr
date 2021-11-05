@@ -105,9 +105,7 @@ public class FileHandler {
         String idString = String.valueOf(userData.get("UUID"));
         UUID id = null;
         if (!idString.equals("null")) {
-          System.out.println("here " + idString);
           id = UUID.fromString(idString);
-          System.out.println(id.toString());
         }
         String name = String.valueOf(userData.get("name"));
         int age = Integer.parseInt(String.valueOf(userData.get("age")));
@@ -122,7 +120,6 @@ public class FileHandler {
           boolean isLikeBack = Boolean.parseBoolean(String.valueOf(userData.get("isLikeBack")));
           users.add(new BotUser(name, age, userInformation, email, isLikeBack));
         } else if (id != null) {
-          System.out.println("here " + email);
           users.add(new User(id, name, age, userInformation, alreadyMatched, email, password));
         } else {
           users.add(new User(name, age, userInformation, alreadyMatched, email, password));
