@@ -135,8 +135,8 @@ public class ExciterServerTest {
             String sendString = mapper.writeValueAsString(password);
             MediaType mediaType = MediaType.parse("application/json");
             request = new Request.Builder().url("http://localhost:" + port + "/login")
-                    .header("Authorization", addUser.getId().toString())
-                    .post(RequestBody.create(sendString, mediaType)).build();
+                    .header("Authorization", addUser.getId().toString()).post(RequestBody.create(sendString, mediaType))
+                    .build();
             response = client.newCall(request).execute();
             responseBody = response.body();
             responseBodyString = responseBody.string();
@@ -164,7 +164,7 @@ public class ExciterServerTest {
             String sendString = mapper.writeValueAsString(updatedUser);
             MediaType mediaType = MediaType.parse("application/json");
             request = new Request.Builder().url("http://localhost:" + port + "/user/update")
-                    .header("Authorization",  updatedUser.getId().toString())
+                    .header("Authorization", updatedUser.getId().toString())
                     .post(RequestBody.create(sendString, mediaType)).build();
             response = client.newCall(request).execute();
             responseBody = response.body();
@@ -173,7 +173,7 @@ public class ExciterServerTest {
             updatedUser.setUserInformation("likes response code 200");
             sendString = mapper.writeValueAsString(updatedUser);
             request = new Request.Builder().url("http://localhost:" + port + "/user/update")
-                    .header("Authorization",  updatedUser.getId().toString())
+                    .header("Authorization", updatedUser.getId().toString())
                     .post(RequestBody.create(sendString, mediaType)).build();
             response = client.newCall(request).execute();
             responseBody = response.body();
@@ -212,8 +212,8 @@ public class ExciterServerTest {
 
     @Test
     public void emulateMatch() {
-        BotUser botuser1 = new BotUser("Bot", 18, "Boten@mail",true);
-        BotUser botuser2 = new BotUser("Botto", 18, "Botto@mail",false);
+        BotUser botuser1 = new BotUser("Bot", 18, "Boten@mail", true);
+        BotUser botuser2 = new BotUser("Botto", 18, "Botto@mail", false);
         exciter.addUsers(List.of(botuser1, botuser2));
         user.setId(UUID.randomUUID());
         exciter.addUser(user);
@@ -225,7 +225,7 @@ public class ExciterServerTest {
             for (int i = 0; i < 3; i++) {
                 Request request = new Request.Builder().url("http://localhost:" + port + "/like")
                         .header("Authorization", user.getId().toString())
-                        .post(RequestBody.create(sendString,mediaType)).build();
+                        .post(RequestBody.create(sendString, mediaType)).build();
                 response = client.newCall(request).execute();
             }
             Request request = new Request.Builder().url("http://localhost:" + port + "/user/matches")
