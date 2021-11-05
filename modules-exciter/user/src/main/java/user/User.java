@@ -6,21 +6,49 @@ import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.UUID;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
 /**
  * This class configure a user.
  */
-
+@JsonDeserialize(using = UserDeserializer.class)
 public class User {
 
+  private UUID id;
   private String name;
   private int age;
   private String userInformation;
   private String email;
   private HashMap<User, Integer> likedUsers = new HashMap<>();
   private List<String> matches = new ArrayList<>();
+  @JsonIgnore
   private String password = null;
 
+  /**
+   * Constructor for User class.
+   *
+   * @param id
+   * @param name
+   * @param age
+   * @param userInformation
+   * @param matches
+   * @param email
+   * @param password
+   * @apiNote This constructor is to only be used by the filehandler class.
+   */
+
+  public User(UUID id,String name, int age, String userInformation, List<String> matches, String email, String password) {
+    this.userInformation = userInformation;
+    this.matches = matches;
+    setId(id);
+    setName(name);
+    setEmail(email);
+    this.password = password;
+    setAge(age);
+  }
   /**
    * Constructor for User class.
    *
@@ -88,6 +116,9 @@ public class User {
     setEmail(email);
   }
 
+  public User() {
+  }
+
   public String getName() {
     return this.name;
   }
@@ -101,6 +132,14 @@ public class User {
     }
     this.name = name;
 
+  }
+
+  public void setId(UUID id){
+    this.id = id;
+  }
+
+  public UUID getId(){
+    return id;
   }
 
   public int getAge() {
@@ -173,6 +212,10 @@ public class User {
 
   public void fireOnLike(User match) {
     this.addUserOnMatch(match);
+  }
+
+  public void addMatch(String matches) {
+    this.matches.add(matches);
   }
 
   public List<String> getMatches() {

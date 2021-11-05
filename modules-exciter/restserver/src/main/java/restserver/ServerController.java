@@ -2,97 +2,133 @@ package restserver;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
+import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import core.Exciter;
+import json.FileHandler;
 import user.User;
-
 
 @RestController
 public class ServerController {
 
+
     private Exciter excite = ExciterApplication.excite;
+    private FileHandler fileHandler = new FileHandler();
 
-    @GetMapping(value ="/user")
-    public @ResponseBody User CurrentUser(){
-        return excite.getCurrentUser();
+    @GetMapping("/")
+    public String index() {
+        return "Hello World! Welcome to Exciter";
     }
 
-    @GetMapping(value ="/onScreenUsers")
-    public @ResponseBody ArrayList<User> getOnScreenUsers(){
-        return excite.getOnScreenUsers();
-    }
-
-    @PostMapping(value ="/onScreenUsers/{mail}")
-    public boolean discardUser(@RequestParam("mail") String mail){
-        if (excite.getOnScreenUser1().equals(excite.getUserByEmail(mail))) {
-            return excite.discardFirst();
+    @GetMapping(value = "/user")
+    public @ResponseBody User CurrentUser(@RequestHeader("Authorization") UUID id) {
+        User user = excite.getUserById(id);
+        if(user == null) {
+            throw new IllegalArgumentException("User does not exist");
         }
-        else if (excite.getOnScreenUser2().equals(excite.getUserByEmail(mail))) {
-            return excite.discardSecond();
+        return user;
+    }
+
+
+    @PostMapping(value = "/createAccount")
+    public User createAccount(@RequestBody User user) {
+        if (excite.getUserByEmail(user.getEmail()) != null) {
+            throw new IllegalArgumentException("User already exists");
         }
-        else {
-            return false;
-        }
+        user.setId(UUID.randomUUID());
+        excite.addUser(user);
+        List<User> tmp = excite.getAllUsers();
+        tmp.add(user);
+        fileHandler.saveUser(tmp);
+        return user;
     }
 
-    @PostMapping(value ="/createAccount")
-    public boolean createAccount(@RequestBody User user){
-        if(excite.getUserByEmail(user.getEmail()) != null){
-            return false;
-        }
-        excite.setCurrentUser(user);
-        return true;
-    }
-    //This method makes app crash
-    // @PostMapping(value ="/onScreenUsers")
-    // public int likedOnScreenUser2(){
-    //     excite.getCurrentUser().fireOnLike(excite.getOnScreenUser2());
-    //     return excite.getOnScreenUserLikeCount(excite.getOnScreenUser2());
-    // }
-
-    @GetMapping(value ="/matches")
-    public @ResponseBody List<String> getMatches(){
-        return excite.getCurrentUserMatches();
+    @ExceptionHandler(IllegalArgumentException.class)
+    @ResponseStatus(value = org.springframework.http.HttpStatus.BAD_REQUEST)
+    @ResponseBody
+    public String handleIllegalArgumentException(IllegalArgumentException e) {
+        return e.getMessage();
     }
 
-    @PostMapping(value ="/matches")
-    public List<String> updateMatches(@RequestBody User match){
-        excite.getCurrentUser().addUserOnMatch(match);
-        return excite.getCurrentUserMatches();
-    }
-
-    @GetMapping(value ="/hei")
-    public String hei(){
-        return "hei";
-    }
-
-    @PostMapping(value = "/signup")
-    public User createUser(@RequestBody User newUser){
-        excite.setCurrentUser(newUser);
-        return excite.getCurrentUser();
+    @GetMapping(value = "/user/matches")
+    public @ResponseBody List<User> getMatches(@RequestHeader("Authorization") UUID id) {
+        List<User> matches = new ArrayList<>();
+        User thisUser = excite.getUserById(id);
+        List<String> matchesEmail = thisUser.getMatches();
+        for (User user : excite.getAllUsers()) {
+            if(matchesEmail.contains(user.getEmail())){
+                matches.add(user);
+            }
+         }
+        return matches;
     }
 
     @PostMapping(value = "/login")
-    public User setLoginUser(@RequestBody String email){
-        for (User user : excite.getAllUsers()) {
-            if(user.getEmail().equals(email)){
-                excite.setCurrentUser(user);
+    @ResponseBody
+    public User setLoginUser(@RequestHeader("Authorization") UUID id, @RequestBody String password) {
+        User user = excite.getUserById(id);
+        if (user != null) {
+            if (user.getPassword().equals(password.replace("\"", ""))) {
+                return excite.getUserById(id);
+            } else {
+                throw new IllegalArgumentException("Wrong password");
             }
+
         }
-        return excite.getCurrentUser();
+        throw new IllegalArgumentException("User does not exist");
+    }
+
+    @PostMapping(value = "/user/update")
+    public User updateUserInfo(@RequestHeader("Authorization") UUID id, @RequestBody User user) {
+        if(excite.getUserById(id) == null) {
+            throw new IllegalAccessError("You do not have permission to update this user");
+        }
+        User thisUser = excite.getUserByEmail(user.getEmail());
+        thisUser.setName(user.getName());
+        if (user.getPassword() != null) {
+            thisUser.setPassword(user.getPassword());
+        }
+        thisUser.setAge(user.getAge());
+        thisUser.setUserInformation(user.getUserInformation());
+
+        return thisUser;
+    }
+
+    @ExceptionHandler(IllegalAccessError.class)
+    @ResponseStatus(value = org.springframework.http.HttpStatus.FORBIDDEN)
+    @ResponseBody
+    public String handleIllegalAccessError(IllegalAccessError e) {
+        return e.getMessage();
+    }
+
+    @PostMapping(value = "/like")
+    @ResponseBody
+    public User likeUser(@RequestHeader("Authorization") UUID id, @RequestBody List<User> users) {
+        User thisUser = excite.getUserById(id);
+        System.out.println("here " + thisUser.getEmail());
+        System.out.println(users.get(0).getEmail());
+        System.out.println(users.get(1).getEmail());
+        if(excite.getUserByEmail(users.get(0).getEmail()) == null ||
+            excite.getUserByEmail(users.get(1).getEmail()) == null ||
+            excite.getUserByEmail(thisUser.getEmail()) == null) {
+            throw new IllegalArgumentException("User does not exist");
+        }
+        excite.likePerson(thisUser, excite.getUserByEmail(users.get(0).getEmail()));
+        excite.resetLikes(thisUser, excite.getUserByEmail(users.get(1).getEmail()));
+        List<User> tmp = List.of(thisUser,
+                     excite.getUserByEmail(users.get(0).getEmail()),
+                     excite.getUserByEmail(users.get(1).getEmail()));
+        return excite.getNextRandomUser(tmp);
 
     }
 
-    @PostMapping(value="/user")
-    public User updateUserInfo(@RequestBody User currrentUser){
-        return excite.getCurrentUser();
-    }
 }
-

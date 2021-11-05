@@ -3,6 +3,7 @@ package json;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
+import java.util.UUID;
 import java.util.ArrayList;
 
 import org.junit.jupiter.api.Assertions;
@@ -27,7 +28,6 @@ public class JsonTest {
         fileHandler.createFile();
         fileHandler.saveUser(exciter.getAllUsers());
         user = new User("Ola Nordmann", 26, "Fiskesprett på søndager", "ola@mail");
-        exciter.setCurrentUser(user);
         users.add(user);
     }
 
@@ -42,9 +42,8 @@ public class JsonTest {
 
     @Test
     public void readMatches() {
-        exciter.setOnScreenUser1(botUser);
         for (int i = 0; i < 3; i++) {
-            exciter.discardSecond();
+            exciter.likePerson(user, botUser);
         }
         fileHandler.saveUser(users);
         User userReadFromFile = fileHandler.readUsers().get(0);
@@ -79,6 +78,15 @@ public class JsonTest {
         // Second checks when file is not empty but does not contain the user
         fileHandler.saveUser(users);
         Assertions.assertNull(fileHandler.getUser("404notfound@mail"));
+    }
+
+    @Test
+    public void testFindUserById(){
+        User idUser = new User("Ola Nordmann", 26, "olanrtre@mail");
+        idUser.setId(UUID.randomUUID());
+        exciter.addUser(idUser);
+        fileHandler.saveUser(exciter.getAllUsers());
+        Assertions.assertEquals(idUser.getName(), fileHandler.getUserById(idUser.getId()).getName());
     }
 
 }

@@ -1,6 +1,5 @@
 package json;
 
-
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
@@ -13,6 +12,8 @@ import java.io.OutputStreamWriter;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
+
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
@@ -49,9 +50,11 @@ public class FileHandler {
         userData.put("isBot", false);
         userData.put("password", user.getPassword());
       }
+      userData.put("UUID", String.valueOf(user.getId()));
       userData.put("name", user.getName());
       userData.put("age", user.getAge());
       userData.put("matches", user.getMatches());
+      userData.put("likes", user.getLikedUsers());
       userData.put("userInformation", user.getUserInformation());
       userData.put("email", user.getEmail());
       userArray.add(userData);
@@ -99,6 +102,11 @@ public class FileHandler {
       }
       for (Object user : userArray) {
         JSONObject userData = (JSONObject) user;
+        String idString = String.valueOf(userData.get("UUID"));
+        UUID id = null;
+        if (!idString.equals("null")) {
+          id = UUID.fromString(idString);
+        }
         String name = String.valueOf(userData.get("name"));
         int age = Integer.parseInt(String.valueOf(userData.get("age")));
 
@@ -107,11 +115,13 @@ public class FileHandler {
         String userInformation = String.valueOf(userData.get("userInformation"));
         String email = String.valueOf(userData.get("email"));
         boolean isBot = Boolean.parseBoolean(String.valueOf(userData.get("isBot")));
+        String password = String.valueOf(userData.get("password"));
         if (isBot) {
           boolean isLikeBack = Boolean.parseBoolean(String.valueOf(userData.get("isLikeBack")));
           users.add(new BotUser(name, age, userInformation, email, isLikeBack));
+        } else if (id != null) {
+          users.add(new User(id, name, age, userInformation, alreadyMatched, email, password));
         } else {
-          String password = String.valueOf(userData.get("password"));
           users.add(new User(name, age, userInformation, alreadyMatched, email, password));
         }
       }
@@ -150,6 +160,19 @@ public class FileHandler {
     List<User> users = readUsers();
     for (User user : users) {
       if (user.getEmail().equals(mail)) {
+        return user;
+      }
+    }
+    return null;
+  }
+
+  public User getUserById(UUID id) {
+    List<User> users = readUsers();
+    for (User user : users) {
+      if(user.getId() == null) {
+        continue;
+      }
+      if (user.getId().equals(id)) {
         return user;
       }
     }
