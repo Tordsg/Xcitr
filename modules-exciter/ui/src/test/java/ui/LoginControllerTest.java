@@ -3,7 +3,6 @@ package ui;
 import javafx.scene.control.TextField;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
-import json.FileHandler;
 
 import java.util.List;
 import java.util.stream.Stream;
@@ -15,7 +14,6 @@ import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
 import org.testfx.framework.junit5.ApplicationTest;
 
-import core.Exciter;
 import user.User;
 
 /*TestFx App Test*/
@@ -23,9 +21,7 @@ import user.User;
 public class LoginControllerTest extends ApplicationTest {
 
   private App app = new App();
-  private Exciter exciter = App.exciter;
   private User testUser = new User("rolf", 22, "test@mail");
-  private FileHandler fileHandler = new FileHandler();
 
   @Override
   public void start(Stage stage) throws Exception {
@@ -36,9 +32,6 @@ public class LoginControllerTest extends ApplicationTest {
   public void setUp() {
     app = new App();
     testUser.setPassword("test");
-    List<User> users = exciter.getAllUsers();
-    users.add(testUser);
-    fileHandler.saveUser(users);
   }
 
   @ParameterizedTest
@@ -74,7 +67,6 @@ public class LoginControllerTest extends ApplicationTest {
       write("test");
       clickOn("#login");
 
-      Assertions.assertEquals(exciter.getCurrentUser().getEmail(), testUser.getEmail());
 
     }
     else {

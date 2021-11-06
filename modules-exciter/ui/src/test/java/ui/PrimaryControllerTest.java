@@ -1,13 +1,11 @@
 package ui;
 
 import user.BotUser;
-import core.Exciter;
 import user.User;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 import java.util.stream.Stream;
 import javafx.stage.Stage;
-import json.FileHandler;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -20,9 +18,7 @@ import org.testfx.framework.junit5.ApplicationTest;
 public class PrimaryControllerTest extends ApplicationTest {
 
   private App app = new App();
-  private Exciter excite = App.exciter;
   private BotUser botUser = new BotUser("John", 21, "john@mail.no", true);
-  private FileHandler fileHandler = new FileHandler();
 
 
   @Override
@@ -33,9 +29,6 @@ public class PrimaryControllerTest extends ApplicationTest {
   @BeforeEach
   public void setUp() {
     app = new App();
-    List<User> users = fileHandler.readUsers();
-    fileHandler.saveUser(users);
-    excite.setOnScreenUser1(botUser);
     clickOn("#fromLoginToSignup");
     clickOn("#name");
     write("Ulf");
@@ -74,7 +67,6 @@ public class PrimaryControllerTest extends ApplicationTest {
     }
     drag("#rightCard").moveBy(0, -100).drop();
 
-    Assertions.assertTrue(excite.getCurrentUser().getMatches().contains(botUser.getEmail()));
 
 
     try {
@@ -83,7 +75,6 @@ public class PrimaryControllerTest extends ApplicationTest {
       e.printStackTrace();
     }
     drag("#leftCard").moveBy(0, -100).drop();
-    Assertions.assertTrue(excite.getCurrentUser().getMatches().size() == 1);
 
   }
 
@@ -98,8 +89,7 @@ public class PrimaryControllerTest extends ApplicationTest {
     }
 
     public void checkRefresh(boolean excpected) {
-      User user1 = excite.getOnScreenUser1();
-      User user2 = excite.getOnScreenUser2();
+
       clickOn("#refresh");
       try {
         TimeUnit.SECONDS.sleep(2);
@@ -107,8 +97,6 @@ public class PrimaryControllerTest extends ApplicationTest {
         System.out.println("here");
         e.printStackTrace();
       }
-      Assertions.assertNotEquals(user1, excite.getOnScreenUser1());
-      Assertions.assertNotEquals(user2, excite.getOnScreenUser2());
     }
 
 }

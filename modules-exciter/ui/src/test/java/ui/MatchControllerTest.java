@@ -1,7 +1,6 @@
 package ui;
 
 import user.BotUser;
-import core.Exciter;
 import user.User;
 import java.util.stream.Stream;
 import javafx.scene.shape.Circle;
@@ -19,7 +18,6 @@ import org.testfx.framework.junit5.ApplicationTest;
 public class MatchControllerTest extends ApplicationTest {
 
   private App app = new App();
-  private Exciter excite = App.exciter;
   private MatchController controller;
   private BotUser botUser = new BotUser("John", 21, "john@mail.no", true);
 
@@ -45,7 +43,6 @@ public class MatchControllerTest extends ApplicationTest {
     clickOn("#passwordSignup");
     write("ulf");
     clickOn("#createAccount");
-    excite.setOnScreenUser1(botUser);
   }
 
   @ParameterizedTest
@@ -65,11 +62,9 @@ public class MatchControllerTest extends ApplicationTest {
   // and you actually call the click, lookup, whatever methods
   private void checkResult(boolean excpected) {
     if(excpected){
-      User user = excite.getOnScreenUser1();
       clickOn("#matchButton");
-      Assertions.assertTrue(excite.getCurrentUserMatches().isEmpty());
+
       clickOn("#button");
-      Assertions.assertEquals(user,excite.getOnScreenUser1());
     }
     else{
     Circle profile = lookup("#profile").query();

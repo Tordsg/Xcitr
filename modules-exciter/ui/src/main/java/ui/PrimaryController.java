@@ -45,24 +45,14 @@ public class PrimaryController implements Initializable {
   private User user = App.user;
 
   private List<User> users = clientHandler.getTwoUsers(user);
-  private User user1 = users.get(0);
-  private User user2 = users.get(1);
+  private User leftUser = users.get(0);
+  private User rightUser = users.get(1);
   // Static since it's shared by the SecondaryController
   protected final static ImageController imageController = new ImageController();
-  private List<User> displayUsers;
 
   @FXML
   private void switchToSecondary() throws IOException {
     App.setRoot("profile");
-  }
-
-  // I guess this is how you're supposes to do it?
-  public Response getUserData(String url) throws IOException {
-    OkHttpClient client = new OkHttpClient();
-    Request request = new Request.Builder()
-        .url(url)
-        .build();
-    return client.newCall(request).execute();
   }
 
   @FXML
@@ -81,10 +71,10 @@ public class PrimaryController implements Initializable {
   }
 
   void onDiscardLeftCard() {
-    User newUser = clientHandler.discardCard(user, user2, user1);
+    User newUser = clientHandler.discardCard(user, rightUser, leftUser);
     // if (//TODO) {
-    //   cardLiked(rightCard, leftCard);
-    //   return;
+    // cardLiked(rightCard, leftCard);
+    // return;
     // }
     leftCard.setDisable(true);
     rightCard.setDisable(true);
@@ -102,10 +92,11 @@ public class PrimaryController implements Initializable {
     leftCard.setDisable(true);
     rightCard.setDisable(true);
     refresh.setDisable(true);
-    if (excite.discardSecond()) {
-      cardLiked(leftCard, rightCard);
-      return;
-    }
+    User newUser = clientHandler.discardCard(user, leftUser, rightUser);
+    // if (excite.discardSecond()) {
+    // cardLiked(leftCard, rightCard);
+    // return;
+    // }
     TranslateTransition tt1 = translateCardY(rightCard, rightCard.getLayoutY() - 55, -400, true);
     TranslateTransition tt2 = translateCardY(rightCard, 400, 0, false);
     FadeTransition ft1 = animateScore("rightCard", true);
@@ -172,12 +163,12 @@ public class PrimaryController implements Initializable {
     FadeTransition ft = new FadeTransition(Duration.millis(100), scorePane);
     if (discardedCard.equals("rightCard")) {
       ft.getNode().setLayoutX(82.5);
-      int count = excite.getOnScreenUserLikeCount(excite.getOnScreenUser1());
-      scoreNumber.setText(String.valueOf(count));
+      // int count = excite.getOnScreenUserLikeCount(excite.getOnScreenUser1());
+      scoreNumber.setText(String.valueOf(1));
     } else {
       ft.getNode().setLayoutX(352.5);
-      int count = excite.getOnScreenUserLikeCount(excite.getOnScreenUser2());
-      scoreNumber.setText(String.valueOf(count));
+      // int count = excite.getOnScreenUserLikeCount(excite.getOnScreenUser2());
+      scoreNumber.setText(String.valueOf(1));
     }
     if (begin) {
       ft.setFromValue(0);
@@ -198,7 +189,9 @@ public class PrimaryController implements Initializable {
 
   @FXML
   void refresh() {
-    excite.refreshUsers();
+    List<User> users = clientHandler.getTwoUsers(user);
+    leftUser = users.get(0);
+    rightUser = users.get(1);
     scorePane.setDisable(true);
     leftCard.setDisable(true);
     rightCard.setDisable(true);
@@ -222,11 +215,13 @@ public class PrimaryController implements Initializable {
    */
 
   public void setNextUsers() {
-    displayUsers = excite.getOnScreenUsers();
-    leftPicture.setFill(imageController.getImage(excite.getOnScreenUser1()));
-    rightPicture.setFill(imageController.getImage(excite.getOnScreenUser2()));
-    User user1 = displayUsers.get(0);
-    User user2 = displayUsers.get(1);
+    List<User> users = clientHandler.getTwoUsers(user);
+    leftUser = users.get(0);
+    rightUser = users.get(1);
+    leftPicture.setFill(imageController.getImage(leftUser));
+    rightPicture.setFill(imageController.getImage(rightUser));
+    User user1 = users.get(0);
+    User user2 = users.get(1);
     Name1.setText(user1.getName());
     Age1.setText(String.valueOf(user1.getAge()));
     Name2.setText(user2.getName());
@@ -235,9 +230,12 @@ public class PrimaryController implements Initializable {
 
   @Override
   public void initialize(URL location, ResourceBundle resources) {
-    leftPicture.setFill(imageController.getImage(excite.getOnScreenUser1()));
-    rightPicture.setFill(imageController.getImage(excite.getOnScreenUser2()));
-    profile.setFill(new ImagePattern(imageController.getImage(excite.getCurrentUser()).getImage(), 0, 0, 1, 1.4, true));
+    List<User> users = clientHandler.getTwoUsers(user);
+    leftUser = users.get(0);
+    rightUser = users.get(1);
+    leftPicture.setFill(imageController.getImage(leftUser));
+    rightPicture.setFill(imageController.getImage(rightUser));
+    profile.setFill(new ImagePattern(imageController.getImage(user).getImage(), 0, 0, 1, 1.4, true));
     dragY(leftCard);
     dragY(rightCard);
     hoverButton(refresh);
