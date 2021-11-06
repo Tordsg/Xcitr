@@ -58,7 +58,7 @@ public class LoginController {
     String password = passwordLogin.getText();
 
     User user = clientHandler.login(email, password);
-    if (user == null) {
+    if (user.getEmail() == null) {
       errorMessage.setText("Wrong password or email");
       errorMessage.setVisible(true);
       passwordLogin.clear();

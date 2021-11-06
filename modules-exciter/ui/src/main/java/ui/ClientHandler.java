@@ -72,7 +72,7 @@ public class ClientHandler {
         String sendPassword = User.MD5Hash(password);
         try {
             String sendString = mapper.writeValueAsString(sendPassword);
-            Request request = new Request.Builder().url(url + "/signIn").header("mail", mail)
+            Request request = new Request.Builder().url(url + "/login").header("mail", mail)
                     .post(RequestBody.create(sendString, mediaType)).build();
             ResponseBody response = client.newCall(request).execute().body();
             returnUser = mapper.readValue(response.string(), User.class);
