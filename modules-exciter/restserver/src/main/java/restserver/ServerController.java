@@ -44,9 +44,7 @@ public class ServerController {
         user.setPasswordNoHash(pass);
         user.setId(UUID.randomUUID());
         excite.addUser(user);
-        List<User> tmp = excite.getAllUsers();
-        tmp.add(user);
-        fileHandler.saveUser(tmp);
+        fileHandler.saveUser(excite.getAllUsers());
         return user;
     }
 
