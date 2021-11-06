@@ -1,5 +1,6 @@
 package ui;
 
+import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -61,27 +62,27 @@ public class SecondaryController implements Initializable {
    */
 
    //TODO make this method viable again
-  // @FXML
-  // private void uploadPicture() throws IOException {
-  //   File file = fileChooser.showOpenDialog(null);
-  //   if (file != null && getFileExtension(file).equals(".jpg")) {
-  //     imageController.uploadPicture(excite.getCurrentUser(), file);
-  //   }
-  //   updatePreview();
-  // }
+  @FXML
+  private void uploadPicture() throws IOException {
+    File file = fileChooser.showOpenDialog(null);
+    if (file != null && getFileExtension(file).equals(".jpg")) {
+      imageController.uploadPicture(user, file);
+    }
+    updatePreview();
+  }
 
-  // private String getFileExtension(File file) {
-  //   String extension = "";
-  //   try {
-  //     if (file.exists()) {
-  //       String name = file.getName();
-  //       extension = name.substring(name.lastIndexOf("."));
-  //     }
-  //   } catch (Exception e) {
-  //     e.printStackTrace();
-  //   }
-  //   return extension;
-  // }
+  private String getFileExtension(File file) {
+    String extension = "";
+    try {
+      if (file.exists()) {
+        String name = file.getName();
+        extension = name.substring(name.lastIndexOf("."));
+      }
+    } catch (Exception e) {
+      e.printStackTrace();
+    }
+    return extension;
+  }
 
   @FXML
   void updatePreview() {
@@ -102,32 +103,28 @@ public class SecondaryController implements Initializable {
    * @throws IOException
    */
 
-   //TODO make this method viable again
-  // @FXML
-  // public void signOut() throws IOException {
-  //   fileHandler.createFile();
-  //   List<User> users = new ArrayList<>();
-  //   users.addAll(excite.getAllUsers());
-  //   users.add(excite.getCurrentUser());
-  //   fileHandler.saveUser(users);
-  //   App.setRoot("login");
-  // }
+
+  @FXML
+  public void signOut() throws IOException {
+    App.setRoot("login");
+  }
 
   @FXML
   void save() {
     user.setAge(Integer.parseInt(age.getText()));
     user.setName(name.getText());
-    if (!password.getText().equals("")) {
-      user.setPassword(password.getText());
-    }
     user.setUserInformation(bio.getText());
     User infoUser = clientHandler.updateInformation(user);
+    User passUser = null;
     if(infoUser != null) {
       user.setName(infoUser.getName());
       user.setAge(infoUser.getAge());
       user.setUserInformation(infoUser.getUserInformation());
     }
-    User passUser = clientHandler.updatePassword(user, user.getPassword());
+    if (!password.getText().equals("")) {
+      user.setPassword(password.getText());
+      passUser = clientHandler.updatePassword(user, user.getPassword());
+    }
     if(passUser != null) {
       user.setPasswordNoHash(passUser.getPassword());
     }

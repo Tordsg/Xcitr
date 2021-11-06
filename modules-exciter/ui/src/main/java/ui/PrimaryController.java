@@ -230,6 +230,7 @@ public class PrimaryController implements Initializable {
 
   @Override
   public void initialize(URL location, ResourceBundle resources) {
+    user = App.user;
     List<User> users = clientHandler.getTwoUsers(user);
     leftUser = users.get(0);
     rightUser = users.get(1);

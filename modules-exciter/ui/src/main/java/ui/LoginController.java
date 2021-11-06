@@ -64,6 +64,7 @@ public class LoginController {
       passwordLogin.clear();
       emailLogin.clear();
     } else {
+      System.out.println(user.getId());
       App.user = user;
       switchToPrimary();
     }
