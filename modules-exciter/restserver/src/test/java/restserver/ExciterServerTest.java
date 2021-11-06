@@ -146,6 +146,7 @@ public class ExciterServerTest {
             e.printStackTrace();
         }
         Assertions.assertEquals(addUser.getName(), newUser.getName());
+        Assertions.assertEquals(addUser.getId(), newUser.getId());
         Assertions.assertTrue(response.isSuccessful());
     }
 
