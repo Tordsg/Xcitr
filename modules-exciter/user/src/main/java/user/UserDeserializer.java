@@ -70,11 +70,11 @@ public class UserDeserializer extends StdDeserializer<User> {
       JsonNode likedUserNode = objectNode.get("likedUsers");
       if (likedUserNode instanceof ArrayNode) {
         for (JsonNode likedUser : likedUserNode) {
-          if ((likedUser instanceof ObjectNode) && (likedUser instanceof IntNode)) {
+          if ((likedUser instanceof TextNode) && (likedUser instanceof IntNode)) {
             String key = likedUser.get("key").asText();
             int value = likedUser.get("value").asInt();
             for (int index = 0; index < value; index++) {
-              user.addMatch(key);
+              user.fireOnLike(key);
               
             }
           }
