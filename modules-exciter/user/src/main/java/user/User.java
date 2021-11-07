@@ -40,7 +40,7 @@ public class User {
    * @apiNote This constructor is to only be used by the filehandler class.
    */
 
-  public User(UUID id,String name, int age, String userInformation, List<String> matches, String email, String password) {
+  public User(UUID id,String name, int age, String userInformation, List<String> matches, String email, String password, HashMap<String, Integer> likedUsers) {
     this.userInformation = userInformation;
     this.matches = matches;
     setId(id);
@@ -48,6 +48,7 @@ public class User {
     setEmail(email);
     this.password = password;
     setAge(age);
+    this.likedUsers = likedUsers;
   }
   /**
    * Constructor for User class.
