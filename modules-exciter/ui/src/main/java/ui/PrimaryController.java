@@ -77,8 +77,8 @@ public class PrimaryController implements Initializable {
     leftCard.setDisable(true);
     rightCard.setDisable(true);
     refresh.setDisable(true);
-    TranslateTransition tt1 = translateCardY(leftCard, leftCard.getLayoutY() - 55, -400, true);
-    TranslateTransition tt2 = translateCardY(leftCard, 400, 0, false);
+    TranslateTransition tt1 = translateCardY(leftCard, leftCard.getLayoutY() - 55, -400, true,0);
+    TranslateTransition tt2 = translateCardY(leftCard, 400, 0, false,0);
     FadeTransition ft1 = animateScore("leftCard", true);
     FadeTransition ft2 = animateScore("leftCard", false);
     ParallelTransition pt1 = new ParallelTransition(tt1, ft1);
@@ -94,8 +94,8 @@ public class PrimaryController implements Initializable {
     // cardLiked(leftCard, rightCard);
     // return;
     // }
-    TranslateTransition tt1 = translateCardY(rightCard, rightCard.getLayoutY() - 55, -400, true);
-    TranslateTransition tt2 = translateCardY(rightCard, 400, 0, false);
+    TranslateTransition tt1 = translateCardY(rightCard, rightCard.getLayoutY() - 55, -400, true,1 );
+    TranslateTransition tt2 = translateCardY(rightCard, 400, 0, false,1);
     FadeTransition ft1 = animateScore("rightCard", true);
     FadeTransition ft2 = animateScore("rightCard", false);
     ParallelTransition pt1 = new ParallelTransition(tt1, ft1);
@@ -103,14 +103,14 @@ public class PrimaryController implements Initializable {
     st.play();
   }
 
-  public void cardLiked(Pane likedcard, Pane discardedcard) {
+  public void cardLiked(Pane likedcard, Pane discardedcard, int state) {
     TranslateTransition ttScore = new TranslateTransition(Duration.millis(Math.abs(-likedcard.getLayoutX() - 300)),
         scorePane);
     ttScore.setFromX(0);
     ttScore.setToX(-likedcard.getLayoutX() - 300);
     ttScore.setCycleCount(1);
     ttScore.setAutoReverse(true);
-    TranslateTransition tt = translateCardY(likedcard, 400, 0, false);
+    TranslateTransition tt = translateCardY(likedcard, 400, 0, false, state);
     tt.setFromX(0);
     tt.setToX(0);
     TranslateTransition ttCard = new TranslateTransition(Duration.millis(Math.abs(-likedcard.getLayoutX() - 300)),
@@ -120,24 +120,24 @@ public class PrimaryController implements Initializable {
     ttCard.setCycleCount(1);
     ttCard.setAutoReverse(true);
     ttCard.setOnFinished(e -> {
-      setNextUsers();
+      setNextUsers(state);
     });
     FadeTransition ft = animateScore(discardedcard.getId(), false);
     ft.setOnFinished(e -> {
       ft.getNode().setTranslateX(0);
       ft.getNode().setLayoutX(-200);
     });
-    TranslateTransition firstTT = translateCardY(discardedcard, discardedcard.getLayoutY() - 55, -400, false);
+    TranslateTransition firstTT = translateCardY(discardedcard, discardedcard.getLayoutY() - 55, -400, false, state);
     firstTT.setOnFinished(e -> e.consume());
     SequentialTransition st = new SequentialTransition(
         new ParallelTransition(firstTT, animateScore(discardedcard.getId(), true)),
         new ParallelTransition(ttScore, ttCard),
-        new ParallelTransition(translateCardY(discardedcard, 400, 0, false), tt, ft));
+        new ParallelTransition(translateCardY(discardedcard, 400, 0, false,state), tt, ft));
     scoreNumber.setText("3");
     st.play();
   }
 
-  public TranslateTransition translateCardY(Pane pane, double start, double end, boolean updateOnFinish) {
+  public TranslateTransition translateCardY(Pane pane, double start, double end, boolean updateOnFinish, int state) {
     TranslateTransition tt = new TranslateTransition(Duration.millis(Math.abs(start - end)), pane);
     tt.setFromY(start);
     tt.setToY(end);
@@ -145,7 +145,7 @@ public class PrimaryController implements Initializable {
     tt.setAutoReverse(true);
     pane.setLayoutY(55);
     if (updateOnFinish) {
-      tt.setOnFinished(e -> setNextUsers());
+      tt.setOnFinished(e -> setNextUsers(state));
     } else {
       tt.setOnFinished(e -> {
         leftCard.setDisable(false);
@@ -197,10 +197,10 @@ public class PrimaryController implements Initializable {
     leftCard.setDisable(true);
     rightCard.setDisable(true);
     refresh.setDisable(true);
-    TranslateTransition ltt1 = translateCardY(leftCard, leftCard.getLayoutY() - 55, -400, true);
-    TranslateTransition ltt2 = translateCardY(leftCard, 400, 0, false);
-    TranslateTransition rtt1 = translateCardY(rightCard, rightCard.getLayoutY() - 55, -400, true);
-    TranslateTransition rtt2 = translateCardY(rightCard, 400, 0, false);
+    TranslateTransition ltt1 = translateCardY(leftCard, leftCard.getLayoutY() - 55, -400, true,0);
+    TranslateTransition ltt2 = translateCardY(leftCard, 400, 0, false,0);
+    TranslateTransition rtt1 = translateCardY(rightCard, rightCard.getLayoutY() - 55, -400, true,1);
+    TranslateTransition rtt2 = translateCardY(rightCard, 400, 0, false,1);
     ParallelTransition pt1 = new ParallelTransition(ltt1, rtt1);
     ParallelTransition pt2 = new ParallelTransition(ltt2, rtt2);
     SequentialTransition st = new SequentialTransition(pt1, pt2);
@@ -215,11 +215,20 @@ public class PrimaryController implements Initializable {
    * Sets which users that will be on the matchcards.
    */
 
-  public void setNextUsers() {
+  public void setNextUsers(int state) {
     try {
+
+      if(state==0){
+      leftUser = clientHandler.discardCard(user, rightUser, leftUser);
+      }
+      else if(state==1){
+      rightUser = clientHandler.discardCard(user, leftUser, rightUser);
+      }
+    else{
       List<User> users = clientHandler.getTwoUsers(user);
       leftUser = users.get(0);
       rightUser = users.get(1);
+    }
     } catch (ServerException | IndexOutOfBoundsException e) {
       // TODO: handle exception
     }
@@ -249,7 +258,7 @@ public class PrimaryController implements Initializable {
     hoverButton(refresh);
     hoverButton(matchButton);
     hoverButton(profile);
-    setNextUsers();
+    setNextUsers(2);
   }
 
   double dY = 0;
@@ -292,7 +301,7 @@ public class PrimaryController implements Initializable {
               onDiscardRightCard();
             }
           } else {
-            translateCardY(e, e.getLayoutY() - 55, 0, false).play();
+            translateCardY(e, e.getLayoutY() - 55, 0, false,0).play();
           }
           dragged = false;
         }
