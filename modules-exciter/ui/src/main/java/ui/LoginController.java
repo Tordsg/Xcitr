@@ -2,6 +2,8 @@ package ui;
 
 import user.User;
 import java.io.IOException;
+import java.rmi.ServerException;
+
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.PasswordField;
@@ -57,16 +59,16 @@ public class LoginController {
     String email = emailLogin.getText();
     String password = passwordLogin.getText();
 
-    User user = clientHandler.login(email, password);
-    if (user.getEmail() == null) {
-      errorMessage.setText("Wrong password or email");
+    try {
+      User user = clientHandler.login(email, password);
+      App.user = user;
+      switchToPrimary();
+
+    } catch (ServerException e) {
+      errorMessage.setText(e.getMessage());
       errorMessage.setVisible(true);
       passwordLogin.clear();
       emailLogin.clear();
-    } else {
-      System.out.println(user.getId());
-      App.user = user;
-      switchToPrimary();
     }
   }
 

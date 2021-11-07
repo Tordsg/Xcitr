@@ -3,6 +3,8 @@ package ui;
 import user.User;
 import java.io.IOException;
 import java.net.URL;
+import java.rmi.ServerException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 import javafx.event.EventHandler;
@@ -43,7 +45,7 @@ public class MatchController implements Initializable {
   protected final static ImageController imageController = PrimaryController.imageController;
   private ClientHandler clientHandler = new ClientHandler();
   private User user = App.user;
-  private List<User> matches = clientHandler.getMatches(user);
+  private List<User> matches = new ArrayList<>();
 
   public void switchToPrimary() throws IOException {
     App.setRoot("primary");
@@ -54,6 +56,11 @@ public class MatchController implements Initializable {
    */
 
   public void initialize(URL arg0, ResourceBundle arg1) {
+    try {
+      matches = clientHandler.getMatches(user);
+    } catch (ServerException e) {
+      //TODO add message
+    }
     hoverButton(button);
     if (matches != null && !matches.isEmpty()) {
       matches.forEach(e -> hBox.getChildren().add(createCard(e)));

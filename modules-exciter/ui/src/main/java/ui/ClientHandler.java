@@ -1,6 +1,7 @@
 package ui;
 
 import java.io.IOException;
+import java.rmi.ServerException;
 import java.util.List;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -34,113 +35,147 @@ public class ClientHandler {
     }
 
     // TODO add support for multiple users
-    public User discardCard(User current, User liked, User discard) {
+    public User discardCard(User current, User liked, User discard) throws ServerException {
         MediaType mediaType = MediaType.parse("application/json");
         User user = null;
+        Response response = null;
         try {
             String sendString = mapper.writeValueAsString(List.of(liked, discard));
             Request request = new Request.Builder().url(url + "/like")
                     .header("Authorization", current.getId().toString()).post(RequestBody.create(sendString, mediaType))
                     .build();
-            ResponseBody response = client.newCall(request).execute().body();
-            user = mapper.readValue(response.string(), User.class);
+            response = client.newCall(request).execute();
+            ResponseBody body = response.body();
+            user = mapper.readValue(body.string(), User.class);
         } catch (IOException e) {
             e.printStackTrace();
         }
-        return user;
+        if (response.code() == 200) {
+            return user;
+        }
+        throw new ServerException("Error: " + response.code());
     }
 
-    public User createAccount(User user, String password) {
+    public User createAccount(User user, String password) throws ServerException {
         MediaType mediaType = MediaType.parse("application/json");
         String hashedPassword = User.MD5Hash(password);
         User returnUser = null;
+        Response response = null;
         try {
             String sendString = mapper.writeValueAsString(user);
             Request request = new Request.Builder().url(url + "/createAccount").header("Pass", hashedPassword)
                     .post(RequestBody.create(sendString, mediaType)).build();
-            ResponseBody response = client.newCall(request).execute().body();
-            returnUser = mapper.readValue(response.string(), User.class);
+            response = client.newCall(request).execute();
+            ResponseBody body = response.body();
+            returnUser = mapper.readValue(body.string(), User.class);
         } catch (IOException e) {
             e.printStackTrace();
         }
-        return returnUser;
+        if (response.code() == 200) {
+            return returnUser;
+        }
+        throw new ServerException("Could not create account");
     }
 
-    public User login(String mail, String password) {
+    public User login(String mail, String password) throws ServerException {
         MediaType mediaType = MediaType.parse("application/json");
         User returnUser = null;
         String sendPassword = User.MD5Hash(password);
+        Response response = null;
         try {
             String sendString = mapper.writeValueAsString(sendPassword);
             Request request = new Request.Builder().url(url + "/login").header("mail", mail)
                     .post(RequestBody.create(sendString, mediaType)).build();
-            ResponseBody response = client.newCall(request).execute().body();
-            returnUser = mapper.readValue(response.string(), User.class);
+            response = client.newCall(request).execute();
+            ResponseBody body = response.body();
+            returnUser = mapper.readValue(body.string(), User.class);
         } catch (IOException e) {
             e.printStackTrace();
         }
-        return returnUser;
+        if (response.code() == 200) {
+            return returnUser;
+        }
+        throw new ServerException("Could not login");
     }
 
-    public List<User> getMatches(User user) {
+    public List<User> getMatches(User user) throws ServerException {
         List<User> returnUser = null;
+        Response response = null;
         try {
             Request request = new Request.Builder().url(url + "/user/matches")
                     .header("Authorization", user.getId().toString()).build();
-            ResponseBody response = client.newCall(request).execute().body();
-            returnUser = mapper.readValue(response.string(),
+            response = client.newCall(request).execute();
+            ResponseBody body = response.body();
+            returnUser = mapper.readValue(body.string(),
                     mapper.getTypeFactory().constructCollectionType(List.class, User.class));
         } catch (IOException e) {
             e.printStackTrace();
         }
-        return returnUser;
+        if (response.code() == 200) {
+            return returnUser;
+        }
+        throw new ServerException("Could not get matches");
     }
 
-    public User updateInformation(User user) {
+    public User updateInformation(User user) throws ServerException {
         MediaType mediaType = MediaType.parse("application/json");
         User returnUser = null;
+        Response response = null;
         try {
             String sendString = mapper.writeValueAsString(user);
             Request request = new Request.Builder().url(url + "/user/update")
                     .header("Authorization", user.getId().toString()).post(RequestBody.create(sendString, mediaType))
                     .build();
-            ResponseBody response = client.newCall(request).execute().body();
-            returnUser = mapper.readValue(response.string(), User.class);
+            response = client.newCall(request).execute();
+            ResponseBody body = response.body();
+            returnUser = mapper.readValue(body.string(), User.class);
         } catch (IOException e) {
             e.printStackTrace();
         }
-        return returnUser;
+        if (response.code() == 200) {
+            return returnUser;
+        }
+        throw new ServerException("Could not update information");
     }
 
-    public User updatePassword(User user, String password) {
+    public User updatePassword(User user, String password) throws ServerException {
         MediaType mediaType = MediaType.parse("application/json");
         User returnUser = null;
         String sendPassword = User.MD5Hash(password);
+        Response response = null;
         try {
             String sendString = mapper.writeValueAsString(sendPassword);
             Request request = new Request.Builder().url(url + "/user/update/password")
                     .header("Authorization", user.getId().toString()).post(RequestBody.create(sendString, mediaType))
                     .build();
-            ResponseBody response = client.newCall(request).execute().body();
-            returnUser = mapper.readValue(response.string(), User.class);
+            response = client.newCall(request).execute();
+            ResponseBody body = response.body();
+            returnUser = mapper.readValue(body.string(), User.class);
         } catch (IOException e) {
             e.printStackTrace();
         }
-        return returnUser;
+        if (response.code() == 200) {
+            return returnUser;
+        }
+        throw new ServerException("Could not update password");
     }
 
-    public List<User> getTwoUsers(User user) {
+    public List<User> getTwoUsers(User user) throws ServerException {
         List<User> returnUser = null;
+        Response response = null;
         try {
-            Request request = new Request.Builder().url(url + "/two")
-                    .header("Authorization", user.getId().toString())
+            Request request = new Request.Builder().url(url + "/two").header("Authorization", user.getId().toString())
                     .build();
-            ResponseBody response = client.newCall(request).execute().body();
-            returnUser = mapper.readValue(response.string(),
+            response = client.newCall(request).execute();
+            ResponseBody body = response.body();
+            returnUser = mapper.readValue(body.string(),
                     mapper.getTypeFactory().constructCollectionType(List.class, User.class));
         } catch (IOException e) {
             e.printStackTrace();
         }
-        return returnUser;
+        if (response.code() == 200) {
+            return returnUser;
+        }
+        throw new ServerException("Could not get two users");
     }
 }

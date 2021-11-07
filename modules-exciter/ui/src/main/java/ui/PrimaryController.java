@@ -2,6 +2,7 @@ package ui;
 
 import java.io.IOException;
 import java.net.URL;
+import java.rmi.ServerException;
 import java.util.List;
 import java.util.ResourceBundle;
 
@@ -43,9 +44,8 @@ public class PrimaryController implements Initializable {
   private ClientHandler clientHandler = new ClientHandler();
   private User user = App.user;
 
-  private List<User> users = clientHandler.getTwoUsers(user);
-  private User leftUser = users.get(0);
-  private User rightUser = users.get(1);
+  private User leftUser;
+  private User rightUser;
   // Static since it's shared by the SecondaryController
   protected final static ImageController imageController = new ImageController();
 
@@ -70,7 +70,6 @@ public class PrimaryController implements Initializable {
   }
 
   void onDiscardLeftCard() {
-    User newUser = clientHandler.discardCard(user, rightUser, leftUser);
     // if (//TODO) {
     // cardLiked(rightCard, leftCard);
     // return;
@@ -91,7 +90,6 @@ public class PrimaryController implements Initializable {
     leftCard.setDisable(true);
     rightCard.setDisable(true);
     refresh.setDisable(true);
-    User newUser = clientHandler.discardCard(user, leftUser, rightUser);
     // if (excite.discardSecond()) {
     // cardLiked(leftCard, rightCard);
     // return;
@@ -188,9 +186,13 @@ public class PrimaryController implements Initializable {
 
   @FXML
   void refresh() {
-    List<User> users = clientHandler.getTwoUsers(user);
-    leftUser = users.get(0);
-    rightUser = users.get(1);
+    try {
+      List<User> users = clientHandler.getTwoUsers(user);
+      leftUser = users.get(0);
+      rightUser = users.get(1);
+    } catch (ServerException | IndexOutOfBoundsException e) {
+      // TODO: handle exception
+    }
     scorePane.setDisable(true);
     leftCard.setDisable(true);
     rightCard.setDisable(true);
@@ -214,25 +216,31 @@ public class PrimaryController implements Initializable {
    */
 
   public void setNextUsers() {
-    List<User> users = clientHandler.getTwoUsers(user);
-    leftUser = users.get(0);
-    rightUser = users.get(1);
+    try {
+      List<User> users = clientHandler.getTwoUsers(user);
+      leftUser = users.get(0);
+      rightUser = users.get(1);
+    } catch (ServerException | IndexOutOfBoundsException e) {
+      // TODO: handle exception
+    }
     leftPicture.setFill(imageController.getImage(leftUser));
     rightPicture.setFill(imageController.getImage(rightUser));
-    User user1 = users.get(0);
-    User user2 = users.get(1);
-    Name1.setText(user1.getName());
-    Age1.setText(String.valueOf(user1.getAge()));
-    Name2.setText(user2.getName());
-    Age2.setText(String.valueOf(user2.getAge()));
+    Name1.setText(leftUser.getName());
+    Age1.setText(String.valueOf(leftUser.getAge()));
+    Name2.setText(rightUser.getName());
+    Age2.setText(String.valueOf(rightUser.getAge()));
   }
 
   @Override
   public void initialize(URL location, ResourceBundle resources) {
     user = App.user;
-    List<User> users = clientHandler.getTwoUsers(user);
-    leftUser = users.get(0);
-    rightUser = users.get(1);
+    try {
+      List<User> users = clientHandler.getTwoUsers(user);
+      leftUser = users.get(0);
+      rightUser = users.get(1);
+    } catch (ServerException | IndexOutOfBoundsException e) {
+      // TODO: handle exception
+    }
     leftPicture.setFill(imageController.getImage(leftUser));
     rightPicture.setFill(imageController.getImage(rightUser));
     profile.setFill(new ImagePattern(imageController.getImage(user).getImage(), 0, 0, 1, 1.4, true));

@@ -3,6 +3,7 @@ package ui;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
+import java.rmi.ServerException;
 import java.util.ResourceBundle;
 
 import javafx.event.EventHandler;
@@ -114,21 +115,21 @@ public class SecondaryController implements Initializable {
     user.setAge(Integer.parseInt(age.getText()));
     user.setName(name.getText());
     user.setUserInformation(bio.getText());
-    User infoUser = clientHandler.updateInformation(user);
-    User passUser = null;
-    if(infoUser != null) {
-      user.setName(infoUser.getName());
-      user.setAge(infoUser.getAge());
-      user.setUserInformation(infoUser.getUserInformation());
+    try {
+      User infoUser = clientHandler.updateInformation(user);
+      App.user = infoUser;
+    } catch (ServerException e) {
+      //TODO: handle exception
     }
+
     if (!password.getText().equals("")) {
-      user.setPassword(password.getText());
-      passUser = clientHandler.updatePassword(user, user.getPassword());
+      try {
+        User passUser = clientHandler.updatePassword(user, password.getText());
+        App.user = passUser;
+      } catch (Exception e) {
+        //TODO: handle exception
+      }
     }
-    if(passUser != null) {
-      user.setPasswordNoHash(passUser.getPassword());
-    }
-    App.user = user;
     updatePreview();
   }
 
