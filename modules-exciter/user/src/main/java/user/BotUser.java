@@ -18,7 +18,7 @@ public class BotUser extends User {
   }
 
   @Override
-  public void fireOnLike(User match) {
+  public void fireOnLike(String match) {
     if (likeBack) {
       super.fireOnLike(match);
     }
