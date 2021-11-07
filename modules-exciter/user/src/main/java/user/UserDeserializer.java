@@ -67,6 +67,19 @@ public class UserDeserializer extends StdDeserializer<User> {
       if (userIdNode instanceof TextNode) {
         user.setId(UUID.fromString(userIdNode.asText()));
       }
+      JsonNode likedUserNode = objectNode.get("likedUsers");
+      if (likedUserNode instanceof ArrayNode) {
+        for (JsonNode likedUser : likedUserNode) {
+          if ((likedUser instanceof ObjectNode) && (likedUser instanceof IntNode)) {
+            String key = likedUser.get("key").asText();
+            int value = likedUser.get("value").asInt();
+            for (int index = 0; index < value; index++) {
+              user.addMatch(key);
+              
+            }
+          }
+        }
+      }
 
       return user;
     }
