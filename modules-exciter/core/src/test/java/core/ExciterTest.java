@@ -25,7 +25,7 @@ public class ExciterTest {
     @Test
     public void likeFirst() {
         exciter.likePerson(user, botUser);
-        Assertions.assertTrue(user.getLikedUsers().containsKey(botUser));
+        Assertions.assertTrue(user.getLikedUsers().containsKey(botUser.getEmail()));
     }
 
     @Test
@@ -52,5 +52,22 @@ public class ExciterTest {
         exciter.addUsers(testUsers);
         Assertions.assertEquals(count + 5, exciter.getAllUsers().size());
     }
+
+    @Test 
+    public void testGetUserByEmail(){
+        exciter.addUser(user);
+        Assertions.assertEquals(user, exciter.getUserByEmail(user.getEmail()));
+    }
+
+    @Test
+    public void testClearUser(){
+        exciter.addUser(user);
+        Assertions.assertTrue(exciter.getAllUsers().contains(user));
+        exciter.clearUser(user);
+        Assertions.assertFalse(exciter.getAllUsers().contains(user));
+
+    }
+
+
 
 }

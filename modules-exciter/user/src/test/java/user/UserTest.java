@@ -1,5 +1,8 @@
 package user;
 
+import java.util.Arrays;
+import java.util.HashMap;
+
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -53,5 +56,23 @@ public class UserTest {
     @Test
     public void testIllegalEmail(){
         Assertions.assertThrows(IllegalArgumentException.class, () -> user.setEmail("noe.mail"));
+    }
+
+    @Test 
+    public void testLikeUser(){
+        user.fireOnLike(botUser.getEmail());
+        user.fireOnLike(botUser.getEmail());
+        user.fireOnLike(botUser.getEmail());
+        HashMap<String, Integer> likedUser = new HashMap<>();
+        likedUser.put(botUser.getEmail(), 3);
+        Assertions.assertEquals(likedUser, user.getLikedUsers());
+
+    }
+
+    @Test
+    public void testAddMatch(){
+        user.addMatch(botUser.getEmail());
+        Assertions.assertEquals(Arrays.asList(botUser.getEmail()), user.getMatches());
+
     }
 }
