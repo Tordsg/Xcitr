@@ -11,8 +11,13 @@ import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
+
+import com.fasterxml.jackson.databind.JsonNode;
 
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
@@ -116,11 +121,12 @@ public class FileHandler {
         String email = String.valueOf(userData.get("email"));
         boolean isBot = Boolean.parseBoolean(String.valueOf(userData.get("isBot")));
         String password = String.valueOf(userData.get("password"));
+        HashMap<String, Integer> likedUser = parseJSONMap((JSONObject) userData.get("likedUsers"));
         if (isBot) {
           boolean isLikeBack = Boolean.parseBoolean(String.valueOf(userData.get("isLikeBack")));
           users.add(new BotUser(name, age, userInformation, email, isLikeBack));
         } else if (id != null) {
-          users.add(new User(id, name, age, userInformation, alreadyMatched, email, password));
+          users.add(new User(id, name, age, userInformation, alreadyMatched, email, password, likedUser));
         } else {
           users.add(new User(name, age, userInformation, alreadyMatched, email, password));
         }
@@ -143,13 +149,34 @@ public class FileHandler {
    * @param jsonArray
    * @return List of user Emails
    */
-  public List<String> parseJSONList(JSONArray jsonArray) {
+  public static List<String> parseJSONList(JSONArray jsonArray) {
     List<String> list = new ArrayList<>();
     for (Object object : jsonArray) {
       list.add(String.valueOf(object));
     }
     return list;
   }
+  public static HashMap<String, Integer> parseJSONMap(JSONObject jsonObj) {
+    HashMap<String, Integer> map = new HashMap<String, Integer>();
+    if( jsonObj == null){
+      return null;
+    }
+    Iterator<String> keys = ((Map) jsonObj).keySet().iterator();
+    
+    while(keys.hasNext()) {
+      String key = keys.next();
+      if (jsonObj.get(key) instanceof JSONObject) {
+        map.put(key, (Integer) jsonObj.get(key));
+          
+    }
+  }
+  return map;
+
+  }
+
+
+
+    
 
   /**
    *
@@ -177,6 +204,11 @@ public class FileHandler {
       }
     }
     return null;
+  }
+
+  public HashMap<String, Integer> getLikedUsers(UUID id){
+    User user = getUserById(id);
+    return user.getLikedUsers();
   }
 
 }
