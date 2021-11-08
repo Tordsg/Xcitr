@@ -83,19 +83,23 @@
                   <SVGPath content="M483.927 212.664L66.967 25.834C30.95 9.695-7.905 42.023 1.398 80.368l21.593 89.001            c3.063 12.622 11.283 23.562 22.554 30.014l83.685 47.915c6.723 3.85 6.738 13.546 0 17.405l-83.684 47.915            c-11.271 6.452-19.491 17.393-22.554 30.015l-21.594 89c-9.283 38.257 29.506 70.691 65.569 54.534l416.961-186.83            C521.383 282.554 521.333 229.424 483.927 212.664z M359.268 273.093l-147.519 66.1c-9.44 4.228-20.521 0.009-24.752-9.435            c-4.231-9.44-0.006-20.523 9.434-24.752l109.37-49.006l-109.37-49.006c-9.44-4.231-13.665-15.313-9.434-24.752            c4.229-9.44 15.309-13.666 24.752-9.435l147.519 66.101C373.996 245.505 374.007 266.49 359.268 273.093zM483.927 212.664L66.967 25.834C30.95 9.695-7.905 42.023 1.398 80.368l21.593 89.001            c3.063 12.622 11.283 23.562 22.554 30.014l83.685 47.915c6.723 3.85 6.738 13.546 0 17.405l-83.684 47.915            c-11.271 6.452-19.491 17.393-22.554 30.015l-21.594 89c-9.283 38.257 29.506 70.691 65.569 54.534l416.961-186.83            C521.383 282.554 521.333 229.424 483.927 212.664z M359.268 273.093l-147.519 66.1c-9.44 4.228-20.521 0.009-24.752-9.435            c-4.231-9.44-0.006-20.523 9.434-24.752l109.37-49.006l-109.37-49.006c-9.44-4.231-13.665-15.313-9.434-24.752            c4.229-9.44 15.309-13.666 24.752-9.435l147.519 66.101C373.996 245.505 374.007 266.49 359.268 273.093z" fill="WHITE" layoutX="-248.0" layoutY="-248.0" scaleX="0.03" scaleY="0.03" />
                </children>
             </Group>
+            <TextField fx:id="textInput" layoutX="10.0" layoutY="398.0" prefHeight="26.0" prefWidth="266.0" style="-fx-background-color: #e6e6e6e6;" />
             <AnchorPane fx:id="profilePane" maxHeight="-Infinity" minHeight="-Infinity" prefHeight="62.0" prefWidth="320.0" style="-fx-background-color: white;">
                <children>
                   <HBox alignment="CENTER_LEFT" layoutX="-1.0" layoutY="7.0" spacing="15.0">
                      <children>
-                        <Circle fill="DODGERBLUE" radius="24.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0">
+                        <Group>
+                           <children>
+                              <Circle fx:id="chatPic" fill="DODGERBLUE" layoutX="7.0" layoutY="7.0" onMouseClicked="#animateProfile" radius="24.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" />
+                           </children>
                            <effect>
-                              <DropShadow offsetX="2.0" offsetY="2.0">
+                              <DropShadow offsetX="5.0" offsetY="5.0">
                                  <color>
                                     <Color opacity="0.5" />
                                  </color>
                               </DropShadow>
                            </effect>
-                        </Circle>
+                        </Group>
                         <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Navn" wrappingWidth="238.39573618552208">
                            <font>
                               <Font size="26.0" />
@@ -124,7 +128,6 @@
                   </DropShadow>
                </effect>
             </VBox>
-            <TextField fx:id="textInput" layoutX="10.0" layoutY="398.0" prefHeight="26.0" prefWidth="266.0" style="-fx-background-color: #e6e6e6e6;" />
          </children>
          <effect>
             <DropShadow offsetX="2.0" offsetY="2.0">

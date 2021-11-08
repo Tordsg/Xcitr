@@ -7,6 +7,14 @@ import java.rmi.ServerException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
+
+import javafx.animation.Interpolator;
+import javafx.animation.KeyFrame;
+import javafx.animation.KeyValue;
+import javafx.animation.SequentialTransition;
+import javafx.animation.Timeline;
+import javafx.animation.Transition;
+import javafx.animation.TranslateTransition;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -32,6 +40,7 @@ import javafx.scene.shape.Rectangle;
 import javafx.scene.shape.StrokeType;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
+import javafx.util.Duration;
 
 /**
  * Controller for match.fxml.
@@ -46,6 +55,8 @@ public class MatchController implements Initializable {
   Group backButton, sendButton;
   @FXML
   AnchorPane anchorPane, profilePane;
+  @FXML
+  Circle chatPic;
 
   protected final static ImageController imageController = PrimaryController.imageController;
   private ClientHandler clientHandler = new ClientHandler();
@@ -67,7 +78,7 @@ public class MatchController implements Initializable {
     }
     hoverButton(backButton);
     hoverButton(sendButton);
-    hoverButton(profilePane);
+    hoverButton(chatPic);
     HBox one = createMessage("halllllllllaaaaaa heiii", false);
     HBox two = createMessage("a", true);
     HBox three = createMessage("Hei jeg synes du virker som en veldig artig person. Noen ganger tenker jeg at du ikke tenker like mye på andre som du egentlig burde ha gjort.", true);
@@ -90,9 +101,12 @@ public class MatchController implements Initializable {
       matchBox.setOnScroll(new EventHandler<ScrollEvent>() {
         @Override
         public void handle(ScrollEvent event) {
+          if(matchBox.getLayoutY()+event.getDeltaY()/2<=62){
+          matchBox.setLayoutY(matchBox.getLayoutY() + event.getDeltaY()/2);
+        } if(matchBox.getLayoutY() + matchBox.getHeight()+ event.getDeltaY()/2 >=420){
           matchBox.setLayoutY(matchBox.getLayoutY() + event.getDeltaY()/2);
         }
-      });
+        }});
       textBox.setOnScroll(new EventHandler<ScrollEvent>() {
         @Override
         public void handle(ScrollEvent event) {
@@ -190,5 +204,36 @@ public class MatchController implements Initializable {
     label.setPrefWidth(200);
     label.setMaxWidth(label.getPrefWidth());
     return group;
+  }
+  @FXML
+  public void animateProfile(){
+    chatPic.setDisable(true);
+    if(profilePane.getPrefHeight()!=430){
+    KeyValue kv = new KeyValue(profilePane.prefHeightProperty(), 430, Interpolator.EASE_BOTH);
+    Timeline timeline = new Timeline(new KeyFrame(Duration.millis(300), kv));
+    Pane pane = SecondaryController.createCard(user);
+    profilePane.getChildren().add(pane);
+    pane.setLayoutY(70);
+    TranslateTransition tt = new TranslateTransition(Duration.millis(300), pane);
+    tt.setFromX(400);
+    tt.setToX(45);
+    SequentialTransition st = new SequentialTransition(timeline,tt);
+    st.setOnFinished(e -> chatPic.setDisable(false));
+    st.play();
+    } else {
+      KeyValue kv = new KeyValue(profilePane.prefHeightProperty(), 62, Interpolator.EASE_BOTH);
+      Timeline timeline = new Timeline(new KeyFrame(Duration.millis(300), kv));
+      Pane pane;
+      pane = (Pane) profilePane.getChildren().get(1);
+      TranslateTransition tt = new TranslateTransition(Duration.millis(300), pane);
+      tt.setFromX(45);
+      tt.setToX(400);
+      tt.setOnFinished(e -> {
+        profilePane.getChildren().remove(pane);
+        chatPic.setDisable(false);
+      });
+      SequentialTransition st = new SequentialTransition(tt,timeline);
+      st.play();
+    }
   }
 }
