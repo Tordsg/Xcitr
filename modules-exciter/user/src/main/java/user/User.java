@@ -258,6 +258,11 @@ public class User {
       likedUsers.put(email, 0);
     }
   }
+  public void resetUserMatchToOne(String email) {
+    if (likedUsers.containsKey(email)) {
+      likedUsers.put(email, 1);
+    }
+  }
 
   /**
    *

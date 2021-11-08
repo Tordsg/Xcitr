@@ -83,6 +83,10 @@ public class Exciter {
     return n > copy.size() ? copy.subList(0, copy.size()) : copy.subList(0, n);
   }
 
+  public List<User> getUsersFromList(List<String> emails) {
+    return allUsers.stream().filter(user -> emails.contains(user.getEmail())).collect(Collectors.toList());
+  }
+
   public User getUserByEmail(String email) {
     return allUsers.stream().filter(u -> u.getEmail().equals(email)).findFirst().orElse(null);
   }
@@ -131,6 +135,9 @@ public class Exciter {
     userWhoLikes.fireOnLike(userWhoIsLiked.getEmail());
     if (userWhoIsLiked instanceof BotUser) {
       userWhoIsLiked.fireOnLike(userWhoLikes.getEmail());
+    }
+    if(userWhoLikes.getLikedUsers().containsKey(userWhoIsLiked.getEmail()) && userWhoLikes.getLikedUsers().get(userWhoIsLiked.getEmail()) > 3) {
+      userWhoLikes.resetUserMatchToOne(userWhoIsLiked.getEmail());
     }
     return userWhoLikes.checkIfMatch(userWhoIsLiked);
   }
