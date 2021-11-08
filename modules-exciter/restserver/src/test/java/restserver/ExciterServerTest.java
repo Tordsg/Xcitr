@@ -319,7 +319,7 @@ public class ExciterServerTest {
 
     @Test
     public void testMessage() {
-        User user1 = new User("Ludde", 19, "Ludde@mail");
+        User user1 = new User("Ludde", 19, "Luddefem@mail");
         User user2 = new User("Ludde", 19, "Ludde2@mail");
         user1.setId(UUID.randomUUID());
         String string = "Hej";
