@@ -12,6 +12,7 @@ import okhttp3.Request;
 import okhttp3.RequestBody;
 import okhttp3.Response;
 import okhttp3.ResponseBody;
+import user.Chat;
 import user.User;
 
 public class ClientHandler {
@@ -199,8 +200,8 @@ public class ClientHandler {
             MediaType mediaType = MediaType.parse("application/json");
             String sendString = mapper.writeValueAsString(users);
             Request request = new Request.Builder().url(url + "/user/new")
-                    .header("Authorization", user.getId().toString())
-                    .post(RequestBody.create(sendString, mediaType)).build();
+                    .header("Authorization", user.getId().toString()).post(RequestBody.create(sendString, mediaType))
+                    .build();
             Response response = client.newCall(request).execute();
             ResponseBody body = response.body();
             if (body != null) {
@@ -213,5 +214,27 @@ public class ClientHandler {
             e.printStackTrace();
         }
         throw new ServerException("Could not get user");
+    }
+
+    public Chat sendMessage(User user, User receiver, String message) throws ServerException {
+        MediaType mediaType = MediaType.parse("application/json");
+        try {
+            String sendString = mapper.writeValueAsString(message);
+            Request request = new Request.Builder().url(url + "/chat")
+                    .header("Authorization", user.getId().toString())
+                    .header("mail", receiver.getEmail())
+                    .post(RequestBody.create(sendString, mediaType)).build();
+            Response response = client.newCall(request).execute();
+            ResponseBody body = response.body();
+            if (body != null) {
+                Chat returnChat = mapper.readValue(body.string(), Chat.class);
+                if (response.code() == 200 && returnChat != null) {
+                    return returnChat;
+                }
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        throw new ServerException("Could not send message");
     }
 }
