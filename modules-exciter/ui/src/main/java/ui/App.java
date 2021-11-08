@@ -18,7 +18,7 @@ public class App extends Application {
   private static Scene scene;
   private static Stage stage;
   //Enables controller to share user data
-  protected static User user;
+  private static User user;
 
   @Override
   public void start(Stage stage) throws IOException {
@@ -37,6 +37,14 @@ public class App extends Application {
 
   private static void setStage(Stage stage) {
     App.stage = stage;
+  }
+
+  public static void setUser(User user) {
+    App.user = user;
+  }
+
+  public static User getUser() {
+    return user;
   }
 
   @Override

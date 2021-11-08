@@ -42,7 +42,7 @@ public class PrimaryController implements Initializable {
   private Pane leftCard, rightCard, refresh, scorePane;
 
   private ClientHandler clientHandler = new ClientHandler();
-  private User user = App.user;
+  private User user = App.getUser();
 
   private User leftUser;
   private User rightUser;
@@ -248,7 +248,7 @@ public class PrimaryController implements Initializable {
 
   @Override
   public void initialize(URL location, ResourceBundle resources) {
-    user = App.user;
+    user = App.getUser();
     try {
       List<User> users = clientHandler.getTwoUsers(user);
       leftUser = users.get(0);

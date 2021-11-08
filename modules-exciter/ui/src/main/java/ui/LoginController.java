@@ -73,7 +73,7 @@ public class LoginController {
   }
 
   private static void changeUser(User user) {
-    App.user = user;
+    App.setUser(user);
   }
 
   private void switchToPrimary() throws IOException {

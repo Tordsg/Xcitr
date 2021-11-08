@@ -73,7 +73,7 @@ public class SignUpController {
     try {
       userXcitr = new User(nameReg, Integer.parseInt(ageReg), emailReg);
       User user = clientHandler.createAccount(userXcitr, passwordReg);
-      App.user = user;
+      App.setUser(user);
       switchToPrimary();
 
     } catch (IllegalArgumentException e) {

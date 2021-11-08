@@ -44,7 +44,7 @@ public class MatchController implements Initializable {
 
   protected final static ImageController imageController = PrimaryController.imageController;
   private ClientHandler clientHandler = new ClientHandler();
-  private User user = App.user;
+  private User user = App.getUser();
   private List<User> matches = new ArrayList<>();
 
   public void switchToPrimary() throws IOException {
