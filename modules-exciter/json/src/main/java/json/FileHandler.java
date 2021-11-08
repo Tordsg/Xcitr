@@ -12,20 +12,16 @@ import java.io.OutputStreamWriter;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
-import java.util.Map;
 import java.util.UUID;
-
-import com.fasterxml.jackson.databind.JsonNode;
 
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 
-import user.User;
 import user.BotUser;
+import user.User;
 
 public class FileHandler {
 
@@ -121,7 +117,7 @@ public class FileHandler {
         String email = String.valueOf(userData.get("email"));
         boolean isBot = Boolean.parseBoolean(String.valueOf(userData.get("isBot")));
         String password = String.valueOf(userData.get("password"));
-        HashMap<String, Integer> likedUser = parseJSONMap((JSONObject) userData.get("likedUsers"));
+        HashMap<String, Integer> likedUser = parseJSONMap((JSONObject) userData.get("likes"));
         if (isBot) {
           boolean isLikeBack = Boolean.parseBoolean(String.valueOf(userData.get("isLikeBack")));
           users.add(new BotUser(name, age, userInformation, email, isLikeBack));
@@ -156,27 +152,20 @@ public class FileHandler {
     }
     return list;
   }
+
+  @SuppressWarnings("unchecked")
   public static HashMap<String, Integer> parseJSONMap(JSONObject jsonObj) {
-    HashMap<String, Integer> map = new HashMap<String, Integer>();
-    if( jsonObj == null){
+    HashMap<String, Object> map = new HashMap<>();
+    HashMap<String, Integer> map2 = new HashMap<>();
+    if (jsonObj == null) {
       return null;
     }
-    Iterator<String> keys = ((Map) jsonObj).keySet().iterator();
-    
-    while(keys.hasNext()) {
-      String key = keys.next();
-      if (jsonObj.get(key) instanceof JSONObject) {
-        map.put(key, (Integer) jsonObj.get(key));
-          
+    map = (HashMap<String,Object>) jsonObj;
+    for (String key : map.keySet()) {
+      map2.put(key, ((Long) map.get(key)).intValue());
     }
+    return map2;
   }
-  return map;
-
-  }
-
-
-
-    
 
   /**
    *
@@ -196,7 +185,7 @@ public class FileHandler {
   public User getUserById(UUID id) {
     List<User> users = readUsers();
     for (User user : users) {
-      if(user.getId() == null) {
+      if (user.getId() == null) {
         continue;
       }
       if (user.getId().equals(id)) {
@@ -206,7 +195,7 @@ public class FileHandler {
     return null;
   }
 
-  public HashMap<String, Integer> getLikedUsers(UUID id){
+  public HashMap<String, Integer> getLikedUsers(UUID id) {
     User user = getUserById(id);
     return user.getLikedUsers();
   }

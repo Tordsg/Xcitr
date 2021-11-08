@@ -211,6 +211,9 @@ public class User {
     return this.password;
   }
 
+  public void setLikedUsers(HashMap<String, Integer> likedUsers) {
+    this.likedUsers = likedUsers;
+  }
   public HashMap<String, Integer> getLikedUsers() {
     return new HashMap<>(likedUsers);
   }
@@ -253,6 +256,11 @@ public class User {
   public void resetUserMatch(String email) {
     if (likedUsers.containsKey(email)) {
       likedUsers.put(email, 0);
+    }
+  }
+  public void resetUserMatchToOne(String email) {
+    if (likedUsers.containsKey(email)) {
+      likedUsers.put(email, 1);
     }
   }
 

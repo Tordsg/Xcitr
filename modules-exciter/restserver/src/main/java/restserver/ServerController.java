@@ -3,6 +3,7 @@ package restserver;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -146,6 +147,19 @@ public class ServerController {
             return thisUser.getLikedUsers().get(likeUser.getEmail());
         }
         return 0;
+    }
+
+    @PostMapping(value = "/user/new")
+    public User postMethodName(@RequestHeader("Authorization") UUID id, @RequestBody List<User> users) {
+        User thisUser = excite.getUserById(id);
+        List<String> list = users.stream().map(User::getEmail).collect(Collectors.toList());
+        List<User> tmp = excite.getUsersFromList(list);
+        tmp.add(thisUser);
+        if (tmp.contains(null)) {
+            throw new IllegalArgumentException("User does not exist");
+        }
+        User returnUser = excite.getNextRandomUser(tmp);
+        return returnUser;
     }
 
 }

@@ -1,12 +1,15 @@
 package user;
 
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.UUID;
 
 import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.DeserializationContext;
 import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.deser.std.StdDeserializer;
 import com.fasterxml.jackson.databind.node.ArrayNode;
 import com.fasterxml.jackson.databind.node.IntNode;
@@ -14,6 +17,8 @@ import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.fasterxml.jackson.databind.node.TextNode;
 
 public class UserDeserializer extends StdDeserializer<User> {
+
+  private ObjectMapper mapper = new ObjectMapper();
 
   public UserDeserializer() {
     this(null);
@@ -68,17 +73,9 @@ public class UserDeserializer extends StdDeserializer<User> {
         user.setId(UUID.fromString(userIdNode.asText()));
       }
       JsonNode likedUserNode = objectNode.get("likedUsers");
-      if (likedUserNode instanceof ArrayNode) {
-        for (JsonNode likedUser : likedUserNode) {
-          if ((likedUser instanceof TextNode) && (likedUser instanceof IntNode)) {
-            String key = likedUser.get("key").asText();
-            int value = likedUser.get("value").asInt();
-            for (int index = 0; index < value; index++) {
-              user.fireOnLike(key);
-              
-            }
-          }
-        }
+      HashMap<String, Integer> result = mapper.convertValue(likedUserNode, new TypeReference<HashMap<String, Integer>>(){});
+      if(result != null){
+        user.setLikedUsers(result);
       }
 
       return user;
