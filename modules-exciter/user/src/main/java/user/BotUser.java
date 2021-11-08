@@ -13,7 +13,9 @@ public class BotUser extends User {
     "Hei",
     "Hva skjer?",
     "Hmm, er egentlig opptatt....",
-    "Tar du med kikkert så vi kan se på damer? ;P"
+    "Tar du med kikkert så vi kan se på damer? ;P",
+    "Wow det å matche med deg gjorde dagen min!",
+    "Gjorde det vondt når du falt ned fra himmelen"
   );
 
   public BotUser(String name, int age, String email, boolean likeback) {
