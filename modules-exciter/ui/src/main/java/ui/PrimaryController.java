@@ -166,12 +166,20 @@ public class PrimaryController implements Initializable {
     FadeTransition ft = new FadeTransition(Duration.millis(100), scorePane);
     if (discardedCard.equals("rightCard")) {
       ft.getNode().setLayoutX(82.5);
-      // int count = excite.getOnScreenUserLikeCount(excite.getOnScreenUser1());
-      scoreNumber.setText(String.valueOf(1));
+      Integer count = null;
+      try {
+        count = clientHandler.getUserLikeCount(user, leftUser);
+      } catch (ServerException e) {
+      }
+      if(count != null) scoreNumber.setText(count.toString());
     } else {
       ft.getNode().setLayoutX(352.5);
-      // int count = excite.getOnScreenUserLikeCount(excite.getOnScreenUser2());
-      scoreNumber.setText(String.valueOf(1));
+      Integer count = null;
+      try {
+        count = clientHandler.getUserLikeCount(user, rightUser);
+      } catch (ServerException e) {
+      }
+      if(count != null) scoreNumber.setText(count.toString());
     }
     if (begin) {
       ft.setFromValue(0);
