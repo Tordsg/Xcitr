@@ -181,4 +181,14 @@ public class ServerController {
         return chat;
     }
 
+    @GetMapping(value = "/message")
+    public Chat getChat(@RequestHeader("Authorization") UUID id, @RequestHeader("mail") String mail) {
+        User user = excite.getUserById(id);
+        User user2 = excite.getUserByEmail(mail);
+        Chat chat = messageHandler.getChat(user.getEmail(), mail);
+        if(user == null || user2 == null || chat == null){
+            throw new IllegalArgumentException("User or chat does not exist");
+        }
+        return chat;
+    }
 }
