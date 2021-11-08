@@ -1,10 +1,10 @@
 package ui;
 
-import user.User;
 import java.io.IOException;
 import java.net.URL;
 import java.rmi.ServerException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.ResourceBundle;
 
@@ -13,7 +13,6 @@ import javafx.animation.KeyFrame;
 import javafx.animation.KeyValue;
 import javafx.animation.SequentialTransition;
 import javafx.animation.Timeline;
-import javafx.animation.Transition;
 import javafx.animation.TranslateTransition;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -21,26 +20,23 @@ import javafx.fxml.Initializable;
 import javafx.geometry.Pos;
 import javafx.scene.Group;
 import javafx.scene.Node;
-import javafx.scene.control.ContentDisplay;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.effect.DropShadow;
 import javafx.scene.effect.Lighting;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.input.ScrollEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
-import javafx.scene.paint.Paint;
 import javafx.scene.shape.Circle;
-import javafx.scene.shape.Line;
 import javafx.scene.shape.Rectangle;
-import javafx.scene.shape.StrokeType;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.util.Duration;
+import user.Chat;
+import user.User;
 
 /**
  * Controller for match.fxml.
@@ -79,12 +75,15 @@ public class MatchController implements Initializable {
     hoverButton(backButton);
     hoverButton(sendButton);
     hoverButton(chatPic);
-    HBox one = createMessage("halllllllllaaaaaa heiii", false);
-    HBox two = createMessage("a", true);
-    HBox three = createMessage("Hei jeg synes du virker som en veldig artig person. Noen ganger tenker jeg at du ikke tenker like mye på andre som du egentlig burde ha gjort.", true);
-    textBox.getChildren().add(one);
-    textBox.getChildren().add(two);
-    textBox.getChildren().add(three);
+    if(!matches.isEmpty()){
+      fillChat(user, matches.get(0));
+    }
+    // HBox one = createMessage("halllllllllaaaaaa heiii", false);
+    // HBox two = createMessage("a", true);
+    // HBox three = createMessage("Hei jeg synes du virker som en veldig artig person. Noen ganger tenker jeg at du ikke tenker like mye på andre som du egentlig burde ha gjort.", true);
+    // textBox.getChildren().add(one);
+    // textBox.getChildren().add(two);
+    // textBox.getChildren().add(three);
     if (matches != null && !matches.isEmpty()) {
       matches.forEach(e -> matchBox.getChildren().add(createMatchCard(e)));
       matchBox.getChildren().forEach(e -> hoverButton(e));
@@ -125,12 +124,18 @@ public class MatchController implements Initializable {
   public void sendMessage(){
     if(textInput.getText().equals(""))return;
     HBox hBox = createMessage(textInput.getText(),true);
+    try {
+      clientHandler.sendMessage(user, matches.get(0), textInput.getText());
+    } catch (ServerException e) {
+      //TODO add error message to screen
+      e.printStackTrace();
+    }
     textBox.getChildren().add(hBox);
     textInput.clear();
     if(textBox.getLayoutY() + textBox.getHeight()<393){
       textBox.setLayoutY(393-textBox.getHeight());
     }
-    
+
   }
   private HBox createMessage(String string, Boolean isCurrentUser){
     HBox hBox = new HBox();
@@ -234,6 +239,23 @@ public class MatchController implements Initializable {
       });
       SequentialTransition st = new SequentialTransition(tt,timeline);
       st.play();
+    }
+  }
+
+  private void fillChat(User user, User user1) {
+    try {
+      Chat messages = clientHandler.getChat(user, user1);
+      for(HashMap<String,String> map : messages.getMessages()){
+        if(map.containsKey(user1.getEmail())){
+          HBox hBox = createMessage(map.get(user1.getEmail()).replace("\"",""),false);
+          textBox.getChildren().add(hBox);
+        } else {
+          HBox hBox = createMessage(map.get(user.getEmail()).replace("\"",""),true);
+          textBox.getChildren().add(hBox);
+        }
+      }
+    } catch (ServerException e) {
+      e.printStackTrace();
     }
   }
 }
