@@ -94,6 +94,7 @@ public class ServerController {
         thisUser.setName(user.getName());
         thisUser.setAge(user.getAge());
         thisUser.setUserInformation(user.getUserInformation());
+        fileHandler.saveUser(excite.getAllUsers());
 
         return thisUser;
     }
@@ -104,7 +105,8 @@ public class ServerController {
             throw new IllegalAccessError("You do not have permission to update this user");
         }
         User thisUser = excite.getUserById(id);
-        thisUser.setPasswordNoHash(password);
+        thisUser.setPasswordNoHash(password.replace("\"", ""));
+        fileHandler.saveUser(excite.getAllUsers());
         return thisUser;
     }
 
