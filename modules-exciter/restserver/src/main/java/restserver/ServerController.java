@@ -186,8 +186,11 @@ public class ServerController {
         User user = excite.getUserById(id);
         User user2 = excite.getUserByEmail(mail);
         Chat chat = messageHandler.getChat(user.getEmail(), mail);
-        if(user == null || user2 == null || chat == null){
+        if(user == null || user2 == null){
             throw new IllegalArgumentException("User or chat does not exist");
+        }
+        if(chat == null){
+            chat = new Chat(user.getEmail(), mail);
         }
         return chat;
     }
