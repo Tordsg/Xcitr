@@ -61,7 +61,7 @@ public class LoginController {
 
     try {
       User user = clientHandler.login(email, password);
-      App.user = user;
+      changeUser(user);
       switchToPrimary();
 
     } catch (ServerException e) {
@@ -70,6 +70,10 @@ public class LoginController {
       passwordLogin.clear();
       emailLogin.clear();
     }
+  }
+
+  private static void changeUser(User user) {
+    App.user = user;
   }
 
   private void switchToPrimary() throws IOException {

@@ -18,7 +18,7 @@ public class App extends Application {
   private static Scene scene;
   private static Stage stage;
   //Enables controller to share user data
-  protected static User user = null;
+  protected static User user;
 
   @Override
   public void start(Stage stage) throws IOException {
