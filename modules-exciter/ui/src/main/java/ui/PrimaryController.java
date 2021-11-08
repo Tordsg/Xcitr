@@ -70,15 +70,21 @@ public class PrimaryController implements Initializable {
   }
 
   void onDiscardLeftCard() {
-    // if (//TODO) {
-    // cardLiked(rightCard, leftCard);
-    // return;
-    // }
+    int likeCount = 0;
+    try {
+      likeCount = clientHandler.getUserLikeCount(user, rightUser);
+    } catch (ServerException e) {
+      e.printStackTrace();
+    }
+    if (likeCount == 3) {
+      cardLiked(rightCard, leftCard,1);
+      return;
+    }
     leftCard.setDisable(true);
     rightCard.setDisable(true);
     refresh.setDisable(true);
-    TranslateTransition tt1 = translateCardY(leftCard, leftCard.getLayoutY() - 55, -400, true,0);
-    TranslateTransition tt2 = translateCardY(leftCard, 400, 0, false,0);
+    TranslateTransition tt1 = translateCardY(leftCard, leftCard.getLayoutY() - 55, -400, true, 0);
+    TranslateTransition tt2 = translateCardY(leftCard, 400, 0, false, 0);
     FadeTransition ft1 = animateScore("leftCard", true);
     FadeTransition ft2 = animateScore("leftCard", false);
     ParallelTransition pt1 = new ParallelTransition(tt1, ft1);
@@ -94,8 +100,8 @@ public class PrimaryController implements Initializable {
     // cardLiked(leftCard, rightCard);
     // return;
     // }
-    TranslateTransition tt1 = translateCardY(rightCard, rightCard.getLayoutY() - 55, -400, true,1 );
-    TranslateTransition tt2 = translateCardY(rightCard, 400, 0, false,1);
+    TranslateTransition tt1 = translateCardY(rightCard, rightCard.getLayoutY() - 55, -400, true, 1);
+    TranslateTransition tt2 = translateCardY(rightCard, 400, 0, false, 1);
     FadeTransition ft1 = animateScore("rightCard", true);
     FadeTransition ft2 = animateScore("rightCard", false);
     ParallelTransition pt1 = new ParallelTransition(tt1, ft1);
@@ -132,7 +138,7 @@ public class PrimaryController implements Initializable {
     SequentialTransition st = new SequentialTransition(
         new ParallelTransition(firstTT, animateScore(discardedcard.getId(), true)),
         new ParallelTransition(ttScore, ttCard),
-        new ParallelTransition(translateCardY(discardedcard, 400, 0, false,state), tt, ft));
+        new ParallelTransition(translateCardY(discardedcard, 400, 0, false, state), tt, ft));
     scoreNumber.setText("3");
     st.play();
   }
@@ -197,10 +203,10 @@ public class PrimaryController implements Initializable {
     leftCard.setDisable(true);
     rightCard.setDisable(true);
     refresh.setDisable(true);
-    TranslateTransition ltt1 = translateCardY(leftCard, leftCard.getLayoutY() - 55, -400, true,0);
-    TranslateTransition ltt2 = translateCardY(leftCard, 400, 0, false,0);
-    TranslateTransition rtt1 = translateCardY(rightCard, rightCard.getLayoutY() - 55, -400, true,1);
-    TranslateTransition rtt2 = translateCardY(rightCard, 400, 0, false,1);
+    TranslateTransition ltt1 = translateCardY(leftCard, leftCard.getLayoutY() - 55, -400, true, 0);
+    TranslateTransition ltt2 = translateCardY(leftCard, 400, 0, false, 0);
+    TranslateTransition rtt1 = translateCardY(rightCard, rightCard.getLayoutY() - 55, -400, true, 1);
+    TranslateTransition rtt2 = translateCardY(rightCard, 400, 0, false, 1);
     ParallelTransition pt1 = new ParallelTransition(ltt1, rtt1);
     ParallelTransition pt2 = new ParallelTransition(ltt2, rtt2);
     SequentialTransition st = new SequentialTransition(pt1, pt2);
@@ -218,17 +224,15 @@ public class PrimaryController implements Initializable {
   public void setNextUsers(int state) {
     try {
 
-      if(state==0){
-      leftUser = clientHandler.discardCard(user, rightUser, leftUser);
+      if (state == 0) {
+        leftUser = clientHandler.discardCard(user, rightUser, leftUser);
+      } else if (state == 1) {
+        rightUser = clientHandler.discardCard(user, leftUser, rightUser);
+      } else {
+        List<User> users = clientHandler.getTwoUsers(user);
+        leftUser = users.get(0);
+        rightUser = users.get(1);
       }
-      else if(state==1){
-      rightUser = clientHandler.discardCard(user, leftUser, rightUser);
-      }
-    else{
-      List<User> users = clientHandler.getTwoUsers(user);
-      leftUser = users.get(0);
-      rightUser = users.get(1);
-    }
     } catch (ServerException | IndexOutOfBoundsException e) {
       // TODO: handle exception
     }
@@ -301,7 +305,7 @@ public class PrimaryController implements Initializable {
               onDiscardRightCard();
             }
           } else {
-            translateCardY(e, e.getLayoutY() - 55, 0, false,0).play();
+            translateCardY(e, e.getLayoutY() - 55, 0, false, 0).play();
           }
           dragged = false;
         }

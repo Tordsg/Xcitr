@@ -178,4 +178,23 @@ public class ClientHandler {
         }
         throw new ServerException("Could not get two users");
     }
+
+    public int getUserLikeCount(User user, User liked) throws ServerException {
+        int returnInt = 0;
+        Response response = null;
+        try {
+            Request request = new Request.Builder().url(url + "/user/likes")
+                    .header("Authorization", user.getId().toString())
+                    .header("mail", liked.getEmail()).build();
+            response = client.newCall(request).execute();
+            ResponseBody body = response.body();
+            returnInt = mapper.readValue(body.string(), int.class);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        if (response.code() == 200) {
+            return returnInt;
+        }
+        throw new ServerException("Could not get user count");
+    }
 }
