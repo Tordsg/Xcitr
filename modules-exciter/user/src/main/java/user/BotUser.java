@@ -13,7 +13,8 @@ public class BotUser extends User {
     "Hei",
     "Hva skjer?",
     "Hmm, er egentlig opptatt....",
-    "Tar du med kikkert så vi kan se på damer? ;P"
+    "Jeg har ost og vin, hva med fredag?",
+    "Du, meg, rumba med gunn?"
   );
 
   public BotUser(String name, int age, String email, boolean likeback) {
