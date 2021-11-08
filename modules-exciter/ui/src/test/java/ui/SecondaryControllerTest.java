@@ -1,11 +1,9 @@
 package ui;
 
-import user.User;
-import java.util.List;
+
 import java.util.stream.Stream;
 import javafx.scene.control.TextArea;
 import javafx.stage.Stage;
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;

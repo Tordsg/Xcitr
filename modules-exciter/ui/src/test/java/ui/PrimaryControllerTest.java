@@ -1,12 +1,9 @@
 package ui;
 
-import user.BotUser;
-import user.User;
-import java.util.List;
+
 import java.util.concurrent.TimeUnit;
 import java.util.stream.Stream;
 import javafx.stage.Stage;
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
@@ -18,7 +15,7 @@ import org.testfx.framework.junit5.ApplicationTest;
 public class PrimaryControllerTest extends ApplicationTest {
 
   private App app = new App();
-  private BotUser botUser = new BotUser("John", 21, "john@mail.no", true);
+
 
 
   @Override

@@ -4,7 +4,6 @@ import javafx.scene.control.TextField;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
-import java.util.List;
 import java.util.stream.Stream;
 
 import org.junit.jupiter.api.Assertions;
