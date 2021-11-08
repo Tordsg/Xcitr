@@ -135,10 +135,10 @@ public class ServerController {
         return excite.getTwoUniqueUsers(thisUser);
     }
 
-    @PostMapping(value = "/user/likes")
-    public int getLikes(@RequestHeader("Authorization") UUID id, @RequestBody User user) {
+    @GetMapping(value = "/user/likes")
+    public int getLikes(@RequestHeader("Authorization") UUID id, @RequestHeader("mail") String user) {
         User thisUser = excite.getUserById(id);
-        User likeUser = excite.getUserByEmail(user.getEmail());
+        User likeUser = excite.getUserByEmail(user);
         if (thisUser == null || likeUser == null) {
             throw new IllegalArgumentException("User does not exist");
         }

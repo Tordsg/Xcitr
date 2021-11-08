@@ -273,13 +273,12 @@ public class ExciterServerTest {
             MediaType mediaType = MediaType.parse("application/json");
             String sendString = mapper.writeValueAsString(botuser);
             Request request = new Request.Builder().url("http://localhost:" + port + "/user/likes")
-                    .post(RequestBody.create(sendString, mediaType))
+                    .header("mail", botuser.getEmail())
                     .header("Authorization", user.getId().toString())
                     .build();
             response = client.newCall(request).execute();
             ResponseBody responseBody = response.body();
             testInt = mapper.readValue(responseBody.string(), Integer.class);
-            System.out.println(testInt);
         } catch (IOException e) {
             //TODO: handle exception
         }
