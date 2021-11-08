@@ -15,6 +15,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import core.Exciter;
 import json.FileHandler;
+import json.MessageHandler;
+import user.Chat;
 import user.User;
 
 @RestController
@@ -22,6 +24,7 @@ public class ServerController {
 
     private Exciter excite = ExciterApplication.excite;
     private FileHandler fileHandler = new FileHandler();
+    private MessageHandler messageHandler = new MessageHandler();
 
     @GetMapping("/")
     public String index() {
@@ -160,6 +163,22 @@ public class ServerController {
         }
         User returnUser = excite.getNextRandomUser(tmp);
         return returnUser;
+    }
+
+    @PostMapping(value = "/message")
+    public Chat sendChat(@RequestHeader("Authorization") UUID id,@RequestHeader("mail") String mail, @RequestBody String message) {
+        User user = excite.getUserById(id);
+        User user2 = excite.getUserByEmail(mail);
+        Chat chat = messageHandler.getChat(user.getEmail(), mail);
+        if(user == null || user2 == null){
+            throw new IllegalArgumentException("User does not exist");
+        }
+        if (chat == null) {
+            chat = new Chat(user.getEmail(), mail);
+        }
+        chat.sendMeesage(user.getEmail(), message);
+        messageHandler.saveChat(chat);
+        return chat;
     }
 
 }
