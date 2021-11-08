@@ -102,7 +102,7 @@ public class Exciter {
    */
 
   public int getLikeCount(User user, User userToCheckAgainst) {
-    if (user.getLikedUsers().containsKey(this.getUserByEmail(userToCheckAgainst.getEmail()))) {
+    if (user.getLikedUsers().containsKey(this.getUserByEmail(userToCheckAgainst.getEmail()).getEmail())) {
       return user.getLikedUsers().size();
     }
     return 0;
@@ -128,15 +128,15 @@ public class Exciter {
    */
 
   public boolean likePerson(User userWhoLikes, User userWhoIsLiked) {
-    userWhoLikes.fireOnLike(userWhoIsLiked);
+    userWhoLikes.fireOnLike(userWhoIsLiked.getEmail());
     if (userWhoIsLiked instanceof BotUser) {
-      userWhoIsLiked.fireOnLike(userWhoLikes);
+      userWhoIsLiked.fireOnLike(userWhoLikes.getEmail());
     }
     return userWhoLikes.checkIfMatch(userWhoIsLiked);
   }
 
   public void resetLikes(User user, User userToReset) {
-    user.resetUserMatch(userToReset);
+    user.resetUserMatch(userToReset.getEmail());
   }
 
   public List<String> getUserMatches(User user) {

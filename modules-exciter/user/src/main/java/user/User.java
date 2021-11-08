@@ -22,7 +22,7 @@ public class User {
   private int age;
   private String userInformation;
   private String email;
-  private HashMap<User, Integer> likedUsers = new HashMap<>();
+  private HashMap<String, Integer> likedUsers = new HashMap<>();
   private List<String> matches = new ArrayList<>();
   @JsonIgnore
   private String password = null;
@@ -40,7 +40,7 @@ public class User {
    * @apiNote This constructor is to only be used by the filehandler class.
    */
 
-  public User(UUID id,String name, int age, String userInformation, List<String> matches, String email, String password) {
+  public User(UUID id,String name, int age, String userInformation, List<String> matches, String email, String password, HashMap<String, Integer> likedUsers) {
     this.userInformation = userInformation;
     this.matches = matches;
     setId(id);
@@ -48,6 +48,7 @@ public class User {
     setEmail(email);
     this.password = password;
     setAge(age);
+    this.likedUsers = likedUsers;
   }
   /**
    * Constructor for User class.
@@ -208,11 +209,11 @@ public class User {
     return this.password;
   }
 
-  public HashMap<User, Integer> getLikedUsers() {
+  public HashMap<String, Integer> getLikedUsers() {
     return new HashMap<>(likedUsers);
   }
 
-  public void fireOnLike(User match) {
+  public void fireOnLike(String match) {
     this.addUserOnMatch(match);
   }
 
@@ -224,7 +225,7 @@ public class User {
     return new ArrayList<>(matches);
   }
 
-  public boolean containsPreviousMatch(User match) {
+  public boolean containsPreviousMatch(String match) {
     return likedUsers.containsKey(match);
   }
 
@@ -235,7 +236,7 @@ public class User {
    *
    */
 
-  public void addUserOnMatch(User match) {
+  public void addUserOnMatch(String match) {
     if (!likedUsers.containsKey(match)) {
       likedUsers.put(match, 1);
     } else {
@@ -247,9 +248,9 @@ public class User {
    * If a user is liked sufficiently, like count resets to 0.
    */
 
-  public void resetUserMatch(User user) {
-    if (likedUsers.containsKey(user)) {
-      likedUsers.put(user, 0);
+  public void resetUserMatch(String email) {
+    if (likedUsers.containsKey(email)) {
+      likedUsers.put(email, 0);
     }
   }
 
@@ -261,11 +262,11 @@ public class User {
    */
 
   public boolean checkIfMatch(User user) {
-    if (haveLikedUser(user) && user.haveLikedUser(this) && !matches.contains(user.getEmail())) {
+    if (haveLikedUser(user.getEmail()) && user.haveLikedUser(this.getEmail()) && !matches.contains(user.getEmail())) {
       matches.add(user.getEmail());
       user.matches.add(this.getEmail());
     }
-    return haveLikedUser(user) && user.haveLikedUser(this);
+    return haveLikedUser(user.getEmail()) && user.haveLikedUser(this.getEmail());
   }
 
   /**
@@ -276,11 +277,11 @@ public class User {
    *
    */
 
-  public boolean haveLikedUser(User user) {
-    if (!likedUsers.containsKey(user)) {
+  public boolean haveLikedUser(String email) {
+    if (!likedUsers.containsKey(email)) {
       return false;
     }
-    return likedUsers.get(user) >= 3;
+    return likedUsers.get(email) >= 3;
   }
 
   public int getImageHashCode() {
