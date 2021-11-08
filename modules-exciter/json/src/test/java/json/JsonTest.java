@@ -89,5 +89,17 @@ public class JsonTest {
         Assertions.assertEquals(idUser.getName(), fileHandler.getUserById(idUser.getId()).getName());
     }
 
+    @Test
+    public void testLikeCounter(){
+        User idUser = new User("Ola Nordmann", 26, "olanrtre@mail");
+        idUser.setId(UUID.randomUUID());
+        BotUser botUser = new BotUser("bot", 24, "bot@mail", true);
+        exciter.addUsers(List.of(idUser, botUser));
+        idUser.fireOnLike(botUser.getEmail());
+        fileHandler.saveUser(exciter.getAllUsers());
+        Assertions.assertEquals(1, fileHandler.getUserById(idUser.getId()).getLikedUsers().get(botUser.getEmail()));
+
+    }
+
 
 }
