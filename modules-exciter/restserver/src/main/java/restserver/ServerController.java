@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 import core.Exciter;
 import json.FileHandler;
 import json.MessageHandler;
+import user.BotUser;
 import user.Chat;
 import user.User;
 
@@ -177,6 +178,9 @@ public class ServerController {
             chat = new Chat(user.getEmail(), mail);
         }
         chat.sendMeesage(user.getEmail(), message);
+        if(user2 instanceof BotUser) {
+            chat.sendMeesage(mail, ((BotUser) user2).reply());
+        }
         messageHandler.saveChat(chat);
         return chat;
     }

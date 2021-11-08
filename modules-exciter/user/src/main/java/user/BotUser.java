@@ -1,11 +1,20 @@
 package user;
 
+import java.util.List;
+
 /**
  * This class makes randomusers that are shown as matches.
  */
 
 public class BotUser extends User {
   private boolean likeBack;
+  private List<String> replies = List.of(
+    "Heisann",
+    "Hei",
+    "Hva skjer?",
+    "Hmm, er egentlig opptatt....",
+    "Tar du med kikkert så vi kan se på damer? ;P"
+  );
 
   public BotUser(String name, int age, String email, boolean likeback) {
     super(name, age, email);
@@ -26,6 +35,10 @@ public class BotUser extends User {
 
   public boolean isLikeBack() {
     return likeBack;
+  }
+
+  public String reply() {
+    return replies.get((int) (Math.random() * replies.size()));
   }
 
 }
