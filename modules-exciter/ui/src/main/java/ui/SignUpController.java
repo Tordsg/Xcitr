@@ -1,7 +1,9 @@
 package ui;
 
 import java.io.IOException;
+import java.net.ConnectException;
 import java.net.URL;
+import java.rmi.ServerException;
 import java.util.ResourceBundle;
 
 import javafx.fxml.FXML;
@@ -76,11 +78,15 @@ public class SignUpController {
       App.setUser(user);
       switchToPrimary();
 
-    } catch (IllegalArgumentException e) {
+    } catch(IllegalArgumentException e){
       errorLabel.setText(e.getMessage());
     }
-
-    switchToPrimary();
+     catch (ServerException e) {
+      errorLabel.setText(e.getMessage());
+    }
+    catch (ConnectException e){
+      errorLabel.setText(e.getMessage());
+    }
   }
 
   private void switchToPrimary() throws IOException {

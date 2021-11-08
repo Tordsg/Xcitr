@@ -1,9 +1,9 @@
 package ui;
 
 import java.io.IOException;
+import java.net.ConnectException;
 import java.rmi.ServerException;
 import java.util.List;
-
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import okhttp3.MediaType;
@@ -33,6 +33,7 @@ public class ClientHandler {
         return false;
     }
 
+
     public User discardCard(User current, User liked, User discard) throws ServerException {
         MediaType mediaType = MediaType.parse("application/json");
         try {
@@ -54,7 +55,7 @@ public class ClientHandler {
         throw new ServerException("Server error");
     }
 
-    public User createAccount(User user, String password) throws ServerException {
+    public User createAccount(User user, String password) throws ServerException, ConnectException {
         MediaType mediaType = MediaType.parse("application/json");
         String hashedPassword = User.MD5Hash(password);
         try {
@@ -69,13 +70,17 @@ public class ClientHandler {
                     return returnUser;
                 }
             }
-        } catch (IOException e) {
+        } catch(ConnectException e){
+            e.printStackTrace();
+            throw new ConnectException("Server is not on");
+        }
+        catch (IOException e) {
             e.printStackTrace();
         }
         throw new ServerException("Could not create account");
     }
 
-    public User login(String mail, String password) throws ServerException {
+    public User login(String mail, String password) throws ServerException, ConnectException {
         MediaType mediaType = MediaType.parse("application/json");
         String sendPassword = User.MD5Hash(password);
         try {
@@ -90,7 +95,11 @@ public class ClientHandler {
                     return returnUser;
                 }
             }
-        } catch (IOException e) {
+        } catch(ConnectException e){
+            e.printStackTrace();
+            throw new ConnectException("Server is not on");
+        }
+        catch (IOException e) {
             e.printStackTrace();
         }
         throw new ServerException("Could not login");

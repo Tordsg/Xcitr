@@ -2,6 +2,7 @@ package ui;
 
 import user.User;
 import java.io.IOException;
+import java.net.ConnectException;
 import java.rmi.ServerException;
 
 import javafx.fxml.FXML;
@@ -70,6 +71,11 @@ public class LoginController {
       passwordLogin.clear();
       emailLogin.clear();
     }
+    catch (ConnectException e){
+      errorMessage.setText(e.getMessage());
+      errorMessage.setVisible(true);
+    }
+
   }
 
   private static void changeUser(User user) {
