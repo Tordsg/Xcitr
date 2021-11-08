@@ -220,10 +220,26 @@ public class ClientHandler {
         MediaType mediaType = MediaType.parse("application/json");
         try {
             String sendString = mapper.writeValueAsString(message);
-            Request request = new Request.Builder().url(url + "/chat")
-                    .header("Authorization", user.getId().toString())
-                    .header("mail", receiver.getEmail())
-                    .post(RequestBody.create(sendString, mediaType)).build();
+            Request request = new Request.Builder().url(url + "/message").header("Authorization", user.getId().toString())
+                    .header("mail", receiver.getEmail()).post(RequestBody.create(sendString, mediaType)).build();
+            Response response = client.newCall(request).execute();
+            ResponseBody body = response.body();
+            if (body != null) {
+                Chat returnChat = mapper.readValue(body.string(), Chat.class);
+                if (response.code() == 200 && returnChat != null) {
+                    return returnChat;
+                }
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        throw new ServerException("Could not send message");
+    }
+
+    public Chat getChat(User user, User user2) throws ServerException {
+        try {
+            Request request = new Request.Builder().url(url + "/message").header("Authorization", user.getId().toString())
+                    .header("mail", user2.getEmail()).build();
             Response response = client.newCall(request).execute();
             ResponseBody body = response.body();
             if (body != null) {

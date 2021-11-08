@@ -2,12 +2,13 @@
 
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.Group?>
+<?import javafx.scene.control.TextField?>
 <?import javafx.scene.effect.DropShadow?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
 <?import javafx.scene.paint.Color?>
-<?import javafx.scene.paint.LinearGradient?>
-<?import javafx.scene.paint.Stop?>
 <?import javafx.scene.shape.Circle?>
 <?import javafx.scene.shape.Line?>
 <?import javafx.scene.shape.Rectangle?>
@@ -15,34 +16,19 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane fx:id = "anchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="430.0" prefWidth="640.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ui.MatchController">
+<AnchorPane fx:id="anchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="430.0" prefWidth="640.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ui.MatchController">
    <children>
-      <Rectangle height="430.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="640.0">
-         <fill>
-            <LinearGradient endX="1.0" endY="1.0">
-               <stops>
-                  <Stop>
-                     <color>
-                        <Color red="0.3843137323856354" green="0.9137254953384399" blue="0.9450980424880981" />
-                     </color>
-                  </Stop>
-                  <Stop offset="0.007532956685499058">
-                     <color>
-                        <Color red="0.3843137323856354" green="0.9137254953384399" blue="0.9450980424880981" />
-                     </color>
-                  </Stop>
-                  <Stop offset="1.0">
-                     <color>
-                        <Color red="0.2666666805744171" green="0.7333333492279053" blue="0.8784313797950745" />
-                     </color>
-                  </Stop>
-               </stops>
-            </LinearGradient>
-         </fill>
-      </Rectangle>
-      <Group fx:id="button" layoutX="21.0" layoutY="16.0" onMousePressed="#switchToPrimary">
+      <Rectangle fill="#35d7ff" height="430.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="640.0" />
+      <VBox fx:id="matchBox" layoutX="15.0" layoutY="62.0" prefHeight="349.0" prefWidth="281.0" spacing="10.0">
+         <padding>
+            <Insets top="10.0" />
+         </padding>
+      </VBox>
+      <Rectangle fill="#35d7ff" height="62.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="320.0" />
+      <Line endX="100.0" layoutX="162.0" layoutY="61.0" startX="-100.0" />
+      <Group fx:id="backButton" layoutX="9.0" layoutY="10.0" onMousePressed="#switchToPrimary">
          <children>
-            <Circle fill="WHITE" layoutX="28.0" layoutY="19.0" radius="23.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0">
+            <Circle fill="WHITE" layoutX="28.0" layoutY="20.0" radius="23.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0">
                <effect>
                   <DropShadow blurType="TWO_PASS_BOX" offsetX="2.0" offsetY="2.0">
                      <color>
@@ -53,16 +39,103 @@
             <SVGPath content="M23 13.5C23.8284 13.5 24.5 12.8284 24.5 12C24.5 11.1716 23.8284 10.5 23 10.5L23 13.5ZM0.93934 10.9393C0.353553 11.5251 0.353553 12.4749 0.93934 13.0607L10.4853 22.6066C11.0711 23.1924 12.0208 23.1924 12.6066 22.6066C13.1924 22.0208 13.1924 21.0711 12.6066 20.4853L4.12132 12L12.6066 3.51472C13.1924 2.92893 13.1924 1.97918 12.6066 1.3934C12.0208 0.807612 11.0711 0.807612 10.4853 1.3934L0.93934 10.9393ZM23 10.5L2 10.5L2 13.5L23 13.5L23 10.5Z" fill="#00a3fe" layoutX="16.0" layoutY="7.0" />
          </children>
       </Group>
-      <Text fill="WHITE" layoutX="231.0" layoutY="54.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Matches">
+      <Text fill="WHITE" layoutX="85.0" layoutY="47.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Matches" wrappingWidth="157.40904695697128">
          <font>
-            <Font size="48.0" />
+            <Font size="42.0" />
          </font>
       </Text>
-      <Line endX="620.0" endY="75.0" startX="20.0" startY="75.0" stroke="WHITE" strokeLineCap="ROUND" strokeLineJoin="ROUND" strokeWidth="3.0" />
       <HBox fx:id="hBox" layoutX="20.0" layoutY="85.0">
          <opaqueInsets>
             <Insets />
          </opaqueInsets>
       </HBox>
+      <Pane layoutX="320.0" prefHeight="430.0" prefWidth="320.0" style="-fx-background-color: white;">
+         <children>
+            <Rectangle fill="WHITE" height="53.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" visible="false" width="322.0">
+               <effect>
+                  <DropShadow height="30.18" offsetY="5.0" radius="7.045" width="0.0">
+                     <color>
+                        <Color opacity="0.20000000298023224" />
+                     </color>
+                  </DropShadow>
+               </effect>
+            </Rectangle>
+            <VBox fx:id="textBox" layoutY="63.0" prefHeight="330.0" prefWidth="320.0" spacing="15.0">
+               <children>
+                  <Group />
+               </children>
+               <padding>
+                  <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+               </padding>
+            </VBox>
+            <Rectangle fill="WHITE" height="42.0" layoutY="388.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="320.0" />
+            <Group fx:id="sendButton" layoutX="291.0" layoutY="401.0" onMouseClicked="#sendMessage">
+               <children>
+                  <Circle fill="#3ab3ff" layoutX="7.0" layoutY="7.0" radius="15.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0">
+                     <effect>
+                        <DropShadow offsetX="2.0" offsetY="2.0">
+                           <color>
+                              <Color opacity="0.5" />
+                           </color>
+                        </DropShadow>
+                     </effect>
+                  </Circle>
+                  <SVGPath content="M483.927 212.664L66.967 25.834C30.95 9.695-7.905 42.023 1.398 80.368l21.593 89.001            c3.063 12.622 11.283 23.562 22.554 30.014l83.685 47.915c6.723 3.85 6.738 13.546 0 17.405l-83.684 47.915            c-11.271 6.452-19.491 17.393-22.554 30.015l-21.594 89c-9.283 38.257 29.506 70.691 65.569 54.534l416.961-186.83            C521.383 282.554 521.333 229.424 483.927 212.664z M359.268 273.093l-147.519 66.1c-9.44 4.228-20.521 0.009-24.752-9.435            c-4.231-9.44-0.006-20.523 9.434-24.752l109.37-49.006l-109.37-49.006c-9.44-4.231-13.665-15.313-9.434-24.752            c4.229-9.44 15.309-13.666 24.752-9.435l147.519 66.101C373.996 245.505 374.007 266.49 359.268 273.093zM483.927 212.664L66.967 25.834C30.95 9.695-7.905 42.023 1.398 80.368l21.593 89.001            c3.063 12.622 11.283 23.562 22.554 30.014l83.685 47.915c6.723 3.85 6.738 13.546 0 17.405l-83.684 47.915            c-11.271 6.452-19.491 17.393-22.554 30.015l-21.594 89c-9.283 38.257 29.506 70.691 65.569 54.534l416.961-186.83            C521.383 282.554 521.333 229.424 483.927 212.664z M359.268 273.093l-147.519 66.1c-9.44 4.228-20.521 0.009-24.752-9.435            c-4.231-9.44-0.006-20.523 9.434-24.752l109.37-49.006l-109.37-49.006c-9.44-4.231-13.665-15.313-9.434-24.752            c4.229-9.44 15.309-13.666 24.752-9.435l147.519 66.101C373.996 245.505 374.007 266.49 359.268 273.093z" fill="WHITE" layoutX="-248.0" layoutY="-248.0" scaleX="0.03" scaleY="0.03" />
+               </children>
+            </Group>
+            <TextField fx:id="textInput" layoutX="10.0" layoutY="398.0" prefHeight="26.0" prefWidth="266.0" style="-fx-background-color: #e6e6e6e6;" />
+            <AnchorPane fx:id="profilePane" maxHeight="-Infinity" minHeight="-Infinity" prefHeight="62.0" prefWidth="320.0" style="-fx-background-color: white;">
+               <children>
+                  <HBox alignment="CENTER_LEFT" layoutX="-1.0" layoutY="7.0" spacing="15.0">
+                     <children>
+                        <Group>
+                           <children>
+                              <Circle fx:id="chatPic" fill="DODGERBLUE" layoutX="7.0" layoutY="7.0" onMouseClicked="#animateProfile" radius="24.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" />
+                           </children>
+                           <effect>
+                              <DropShadow offsetX="5.0" offsetY="5.0">
+                                 <color>
+                                    <Color opacity="0.5" />
+                                 </color>
+                              </DropShadow>
+                           </effect>
+                        </Group>
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Navn" wrappingWidth="238.39573618552208">
+                           <font>
+                              <Font size="26.0" />
+                           </font>
+                        </Text>
+                     </children>
+                     <padding>
+                        <Insets left="10.0" />
+                     </padding>
+                  </HBox>
+               </children>
+               <effect>
+                  <DropShadow offsetY="5.0" radius="4.75" width="0.0">
+                     <color>
+                        <Color opacity="0.20000000298023224" />
+                     </color>
+                  </DropShadow>
+               </effect>
+            </AnchorPane>
+            <VBox prefHeight="59.0" prefWidth="323.0" style="-fx-background-color: white;" visible="false">
+               <effect>
+                  <DropShadow offsetY="5.0" radius="4.75" width="0.0">
+                     <color>
+                        <Color opacity="0.20000000298023224" />
+                     </color>
+                  </DropShadow>
+               </effect>
+            </VBox>
+         </children>
+         <effect>
+            <DropShadow offsetX="2.0" offsetY="2.0">
+               <color>
+                  <Color opacity="0.5" />
+               </color>
+            </DropShadow>
+         </effect>
+      </Pane>
    </children>
 </AnchorPane>
