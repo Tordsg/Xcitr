@@ -53,6 +53,8 @@ public class MatchController implements Initializable {
   AnchorPane anchorPane, profilePane;
   @FXML
   Circle chatPic;
+  @FXML
+  Text nameUser;
 
   private int chatId;
 
@@ -79,15 +81,9 @@ public class MatchController implements Initializable {
     hoverButton(chatPic);
     if (!matches.isEmpty()) {
       fillChat(user, matches.get(0));
+      nameUser.setText(matches.get(0).getName());
     }
-    // HBox one = createMessage("halllllllllaaaaaa heiii", false);
-    // HBox two = createMessage("a", true);
-    // HBox three = createMessage("Hei jeg synes du virker som en veldig artig
-    // person. Noen ganger tenker jeg at du ikke tenker like mye på andre som du
-    // egentlig burde ha gjort.", true);
-    // textBox.getChildren().add(one);
-    // textBox.getChildren().add(two);
-    // textBox.getChildren().add(three);
+
     if (matches != null && !matches.isEmpty()) {
       matches.forEach(e -> matchBox.getChildren().add(createMatchCard(e)));
       matchBox.getChildren().forEach(e -> hoverButton(e));
@@ -192,6 +188,7 @@ public class MatchController implements Initializable {
   private void clickButton(Node n, User user1, int i) {
     n.setOnMouseClicked(e -> {
       chatId = i;
+      nameUser.setText(user1.getName());
       textBox.getChildren().clear();
       fillChat(user, user1);
     });
