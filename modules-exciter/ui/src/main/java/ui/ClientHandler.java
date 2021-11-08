@@ -193,4 +193,25 @@ public class ClientHandler {
         }
         throw new ServerException("Could not get user count");
     }
+
+    public User getUser(User user, List<User> users) throws ServerException {
+        try {
+            MediaType mediaType = MediaType.parse("application/json");
+            String sendString = mapper.writeValueAsString(users);
+            Request request = new Request.Builder().url(url + "/user/new")
+                    .header("Authorization", user.getId().toString())
+                    .post(RequestBody.create(sendString, mediaType)).build();
+            Response response = client.newCall(request).execute();
+            ResponseBody body = response.body();
+            if (body != null) {
+                User returnUser = mapper.readValue(body.string(), User.class);
+                if (response.code() == 200 && returnUser != null) {
+                    return returnUser;
+                }
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        throw new ServerException("Could not get user");
+    }
 }
