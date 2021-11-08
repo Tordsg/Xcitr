@@ -27,7 +27,7 @@ public class SecondaryController implements Initializable {
 
   private ClientHandler clientHandler = new ClientHandler();
 
-  private User user = App.user;
+  private User user = App.getUser();
 
   private FileChooser fileChooser = new FileChooser();
   private ImageController imageController = PrimaryController.imageController;
@@ -87,7 +87,7 @@ public class SecondaryController implements Initializable {
 
   @FXML
   void updatePreview() {
-    User currentUser = App.user;
+    User currentUser = App.getUser();
     Pane currentPane = MatchController.createCard(currentUser);
     if (pane.getChildren().contains(lastPane)) {
       pane.getChildren().remove(lastPane);
@@ -117,7 +117,7 @@ public class SecondaryController implements Initializable {
     user.setUserInformation(bio.getText());
     try {
       User infoUser = clientHandler.updateInformation(user);
-      App.user = infoUser;
+      App.setUser(infoUser);
     } catch (ServerException e) {
       //TODO: handle exception
     }
@@ -125,7 +125,7 @@ public class SecondaryController implements Initializable {
     if (!password.getText().equals("")) {
       try {
         User passUser = clientHandler.updatePassword(user, password.getText());
-        App.user = passUser;
+        App.setUser(passUser);
       } catch (Exception e) {
         //TODO: handle exception
       }

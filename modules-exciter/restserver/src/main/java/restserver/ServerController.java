@@ -3,6 +3,7 @@ package restserver;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -14,6 +15,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import core.Exciter;
 import json.FileHandler;
+import json.MessageHandler;
+import user.Chat;
 import user.User;
 
 @RestController
@@ -21,6 +24,7 @@ public class ServerController {
 
     private Exciter excite = ExciterApplication.excite;
     private FileHandler fileHandler = new FileHandler();
+    private MessageHandler messageHandler = new MessageHandler();
 
     @GetMapping("/")
     public String index() {
@@ -146,6 +150,35 @@ public class ServerController {
             return thisUser.getLikedUsers().get(likeUser.getEmail());
         }
         return 0;
+    }
+
+    @PostMapping(value = "/user/new")
+    public User postMethodName(@RequestHeader("Authorization") UUID id, @RequestBody List<User> users) {
+        User thisUser = excite.getUserById(id);
+        List<String> list = users.stream().map(User::getEmail).collect(Collectors.toList());
+        List<User> tmp = excite.getUsersFromList(list);
+        tmp.add(thisUser);
+        if (tmp.contains(null)) {
+            throw new IllegalArgumentException("User does not exist");
+        }
+        User returnUser = excite.getNextRandomUser(tmp);
+        return returnUser;
+    }
+
+    @PostMapping(value = "/message")
+    public Chat sendChat(@RequestHeader("Authorization") UUID id,@RequestHeader("mail") String mail, @RequestBody String message) {
+        User user = excite.getUserById(id);
+        User user2 = excite.getUserByEmail(mail);
+        Chat chat = messageHandler.getChat(user.getEmail(), mail);
+        if(user == null || user2 == null){
+            throw new IllegalArgumentException("User does not exist");
+        }
+        if (chat == null) {
+            chat = new Chat(user.getEmail(), mail);
+        }
+        chat.sendMeesage(user.getEmail(), message);
+        messageHandler.saveChat(chat);
+        return chat;
     }
 
 }

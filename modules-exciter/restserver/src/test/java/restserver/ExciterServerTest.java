@@ -25,6 +25,7 @@ import okhttp3.RequestBody;
 import okhttp3.Response;
 import okhttp3.ResponseBody;
 import user.BotUser;
+import user.Chat;
 import user.User;
 
 @ExtendWith(SpringExtension.class)
@@ -270,20 +271,78 @@ public class ExciterServerTest {
         exciter.likePerson(user, botuser);
         Response response = null;
         try {
-            MediaType mediaType = MediaType.parse("application/json");
-            String sendString = mapper.writeValueAsString(botuser);
             Request request = new Request.Builder().url("http://localhost:" + port + "/user/likes")
-                    .header("mail", botuser.getEmail())
-                    .header("Authorization", user.getId().toString())
-                    .build();
+                    .header("mail", botuser.getEmail()).header("Authorization", user.getId().toString()).build();
             response = client.newCall(request).execute();
             ResponseBody responseBody = response.body();
             testInt = mapper.readValue(responseBody.string(), Integer.class);
         } catch (IOException e) {
-            //TODO: handle exception
+
         }
         Assertions.assertTrue(response.code() == 200);
         Assertions.assertEquals(1, testInt);
+    }
+
+    @Test
+    public void getNewUserFromList() {
+        User user1 = new User("Ludde", 19, "Ludde@mail");
+        User user2 = new User("Ludde", 19, "Ludde2@mail");
+        User user3 = new User("Ludde", 19, "Ludd3@mail");
+        User user4 = new User("Ludde", 19, "Ludd4@mail");
+        user1.setId(UUID.randomUUID());
+        user2.setId(UUID.randomUUID());
+        user3.setId(UUID.randomUUID());
+        user4.setId(UUID.randomUUID());
+        exciter.addUsers(List.of(user1, user2, user3, user4));
+        MediaType mediaType = MediaType.parse("application/json");
+        List<User> users = List.of(user2, user3, user4);
+        Response response = null;
+        User returnUser = null;
+        try {
+            String sendString = mapper.writeValueAsString(users);
+            Request request = new Request.Builder().url("http://localhost:" + port + "/user/new")
+                    .header("Authorization", user1.getId().toString()).post(RequestBody.create(sendString, mediaType))
+                    .build();
+            response = client.newCall(request).execute();
+            ResponseBody responseBody = response.body();
+            returnUser = mapper.readValue(responseBody.string(), User.class);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        Assertions.assertEquals(200, response.code());
+        Assertions.assertNotNull(returnUser);
+        Assertions.assertNotEquals(user1.getEmail(), returnUser.getEmail());
+        Assertions.assertNotEquals(user2.getEmail(), returnUser.getEmail());
+        Assertions.assertNotEquals(user3.getEmail(), returnUser.getEmail());
+        Assertions.assertNotEquals(user4.getEmail(), returnUser.getEmail());
+    }
+
+    @Test
+    public void testMessage() {
+        User user1 = new User("Ludde", 19, "Ludde@mail");
+        User user2 = new User("Ludde", 19, "Ludde2@mail");
+        user1.setId(UUID.randomUUID());
+        String string = "Hej";
+        exciter.addUsers(List.of(user1, user2));
+        Chat chat = null;
+        MediaType mediaType = MediaType.parse("application/json");
+        Response response = null;
+        try {
+            String sendString = mapper.writeValueAsString(string);
+            Request request = new Request.Builder().url("http://localhost:" + port + "/message")
+                    .header("Authorization", user1.getId().toString()).header("mail", user2.getEmail())
+                    .post(RequestBody.create(sendString, mediaType)).build();
+            response = client.newCall(request).execute();
+            ResponseBody responseBody = response.body();
+            chat = mapper.readValue(responseBody.string(), Chat.class);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        String output = chat.getMessages().get(0).get(user1.getEmail());
+        Assertions.assertEquals(output.replace("\"", ""), string);
+        Assertions.assertEquals(200, response.code());
+        Assertions.assertNotNull(chat);
+
     }
 
 }

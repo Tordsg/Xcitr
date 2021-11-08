@@ -42,11 +42,6 @@
             <artifactId>okhttp</artifactId>
             <version>4.9.1</version>
         </dependency>
-        <dependency>
-            <groupId>com.fasterxml.jackson.core</groupId>
-            <artifactId>jackson-databind</artifactId>
-            <version>2.13.0</version>
-        </dependency>
         <!-- https://mvnrepository.com/artifact/commons-io/commons-io -->
         <dependency>
             <groupId>commons-io</groupId>
@@ -115,7 +110,7 @@
                 <configuration>
                     <argLine>
                     @{jaCoCoArgLine} --add-opens exciter.ui/ui=ALL-UNNAMED --add-exports javafx.graphics/com.sun.javafx.application=ALL-UNNAMED
-                </argLine>
+</argLine>
                 </configuration>
             </plugin>
 
@@ -125,11 +120,10 @@
             </plugin>
 
             <!-- Run the spotbugs code quality tool -->
-            <!-- <plugin>
+            <plugin>
                 <groupId>com.github.spotbugs</groupId>
                 <artifactId>spotbugs-maven-plugin</artifactId>
-            </plugin> -->
-
+            </plugin>
 
 
             <plugin>
