@@ -270,8 +270,6 @@ public class ExciterServerTest {
         exciter.likePerson(user, botuser);
         Response response = null;
         try {
-            MediaType mediaType = MediaType.parse("application/json");
-            String sendString = mapper.writeValueAsString(botuser);
             Request request = new Request.Builder().url("http://localhost:" + port + "/user/likes")
                     .header("mail", botuser.getEmail())
                     .header("Authorization", user.getId().toString())
@@ -280,7 +278,7 @@ public class ExciterServerTest {
             ResponseBody responseBody = response.body();
             testInt = mapper.readValue(responseBody.string(), Integer.class);
         } catch (IOException e) {
-            //TODO: handle exception
+
         }
         Assertions.assertTrue(response.code() == 200);
         Assertions.assertEquals(1, testInt);
