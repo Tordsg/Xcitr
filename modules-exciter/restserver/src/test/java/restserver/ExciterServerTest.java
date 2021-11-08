@@ -261,4 +261,30 @@ public class ExciterServerTest {
         Assertions.assertNotNull(users.get(1).getEmail());
     }
 
+    @Test
+    public void testGetLike() {
+        user.setId(UUID.randomUUID());
+        BotUser botuser = new BotUser("Bot", 18, "Boten@mail", true);
+        Integer testInt = null;
+        exciter.addUsers(List.of(user, botuser));
+        exciter.likePerson(user, botuser);
+        Response response = null;
+        try {
+            MediaType mediaType = MediaType.parse("application/json");
+            String sendString = mapper.writeValueAsString(botuser);
+            Request request = new Request.Builder().url("http://localhost:" + port + "/user/likes")
+                    .post(RequestBody.create(sendString, mediaType))
+                    .header("Authorization", user.getId().toString())
+                    .build();
+            response = client.newCall(request).execute();
+            ResponseBody responseBody = response.body();
+            testInt = mapper.readValue(responseBody.string(), Integer.class);
+            System.out.println(testInt);
+        } catch (IOException e) {
+            //TODO: handle exception
+        }
+        Assertions.assertTrue(response.code() == 200);
+        Assertions.assertEquals(1, testInt);
+    }
+
 }
