@@ -17,15 +17,13 @@ import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
-import com.fasterxml.jackson.databind.JsonNode;
-
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 
-import user.User;
 import user.BotUser;
+import user.User;
 
 public class FileHandler {
 
@@ -162,12 +160,12 @@ public class FileHandler {
       return null;
     }
     Iterator<String> keys = ((Map) jsonObj).keySet().iterator();
-    
+
     while(keys.hasNext()) {
       String key = keys.next();
       if (jsonObj.get(key) instanceof JSONObject) {
         map.put(key, (Integer) jsonObj.get(key));
-          
+
     }
   }
   return map;
@@ -176,7 +174,7 @@ public class FileHandler {
 
 
 
-    
+
 
   /**
    *

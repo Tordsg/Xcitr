@@ -211,6 +211,9 @@ public class User {
     return this.password;
   }
 
+  public void setLikedUsers(HashMap<String, Integer> likedUsers) {
+    this.likedUsers = likedUsers;
+  }
   public HashMap<String, Integer> getLikedUsers() {
     return new HashMap<>(likedUsers);
   }
