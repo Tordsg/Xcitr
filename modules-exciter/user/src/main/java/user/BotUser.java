@@ -17,7 +17,10 @@ public class BotUser extends User {
     "Wow det å matche med deg gjorde dagen min!",
     "Gjorde det vondt når du falt ned fra himmelen",
     "Jeg har ost og vin, hva med fredag?",
-    "Du, meg, rumba med gunn?"
+    "Du, meg, rumba med gunn?",
+    "Der intet er, er selv keiserens krav forgjeves",
+    "Melk?",
+    "Er du et jordskjelv? For du ristet verden min"
   );
 
   public BotUser(String name, int age, String email, boolean likeback) {
