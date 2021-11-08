@@ -48,7 +48,9 @@ public class User {
     setEmail(email);
     this.password = password;
     setAge(age);
-    this.likedUsers = likedUsers;
+    if(likedUsers != null) {
+      this.likedUsers = likedUsers;
+    }
   }
   /**
    * Constructor for User class.
