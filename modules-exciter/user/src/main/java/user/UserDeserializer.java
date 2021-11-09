@@ -35,7 +35,7 @@ public class UserDeserializer extends StdDeserializer<User> {
   }
 
   public User deserialize(JsonNode node) {
-    if (node == null){
+    if (node == null) {
       return null;
     }
     if (node instanceof ObjectNode objectNode) {
@@ -53,12 +53,12 @@ public class UserDeserializer extends StdDeserializer<User> {
         user.setEmail(emailNode.asText());
       }
       ArrayNode matchNode = (ArrayNode) objectNode.get("matches");
-      if (matchNode instanceof ArrayNode) {
-        for (JsonNode string : matchNode) {
-          if (string instanceof TextNode) {
-            user.addMatch(string.asText());
-          }
+
+      for (JsonNode string : matchNode) {
+        if (string instanceof TextNode) {
+          user.addMatch(string.asText());
         }
+
       }
       JsonNode userInfoNode = objectNode.get("userInformation");
       if (userInfoNode instanceof TextNode) {
@@ -73,8 +73,10 @@ public class UserDeserializer extends StdDeserializer<User> {
         user.setId(UUID.fromString(userIdNode.asText()));
       }
       JsonNode likedUserNode = objectNode.get("likedUsers");
-      HashMap<String, Integer> result = mapper.convertValue(likedUserNode, new TypeReference<HashMap<String, Integer>>(){});
-      if(result != null){
+      HashMap<String, Integer> result = mapper.convertValue(likedUserNode,
+          new TypeReference<HashMap<String, Integer>>() {
+          });
+      if (result != null) {
         user.setLikedUsers(result);
       }
 
