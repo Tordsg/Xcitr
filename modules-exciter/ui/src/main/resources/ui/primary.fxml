@@ -172,5 +172,6 @@
             </SVGPath>
          </children>
       </Pane>
+      <Label fx:id="errorLabel" layoutX="211.0" layoutY="17.0" prefHeight="17.0" prefWidth="175.0" textFill="#ee0c0c" />
    </children>
 </AnchorPane>
