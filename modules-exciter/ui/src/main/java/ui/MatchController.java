@@ -127,7 +127,7 @@ public class MatchController implements Initializable {
 
   @FXML
   public void sendMessage() {
-    if (textInput.getText().equals(""))
+    if (textInput.getText().equals("") || matches == null || matches.isEmpty())
       return;
     HBox hBox = createMessage(textInput.getText(), true);
     try {
