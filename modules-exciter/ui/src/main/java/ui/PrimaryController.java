@@ -3,6 +3,7 @@ package ui;
 import java.io.IOException;
 import java.net.URL;
 import java.rmi.ServerException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 
@@ -71,6 +72,7 @@ public class PrimaryController implements Initializable {
 
   void onDiscardLeftCard() {
     int likeCount = 0;
+    User user2 = leftUser;
     try{
       leftUser = clientHandler.discardCard(user, rightUser, leftUser);
       likeCount = clientHandler.getUserLikeCount(user, rightUser);
@@ -78,6 +80,17 @@ public class PrimaryController implements Initializable {
       e.printStackTrace();
     }
     if (likeCount == 3) {
+      List<User> users = new ArrayList<User>();
+      users.add(user2);
+      users.add(user);
+      users.add(leftUser);
+      users.add(rightUser);
+      try {
+        rightUser = clientHandler.getUser(user,users);
+      } catch (ServerException e) {
+        // TODO Auto-generated catch block
+        e.printStackTrace();
+      }
       cardLiked(rightCard, leftCard);
       return;
     }
@@ -95,6 +108,7 @@ public class PrimaryController implements Initializable {
 
   void onDiscardRightCard() {
     int likeCount = 0;
+    User user2 = rightUser;
     try {
       rightUser = clientHandler.discardCard(user, leftUser, rightUser);
       likeCount = clientHandler.getUserLikeCount(user, leftUser);
@@ -102,6 +116,17 @@ public class PrimaryController implements Initializable {
       e.printStackTrace();
     }
     if (likeCount == 3) {
+      List<User> users = new ArrayList<User>();
+      users.add(user2);
+      users.add(user);
+      users.add(leftUser);
+      users.add(rightUser);
+      try {
+        rightUser = clientHandler.getUser(user,users);
+      } catch (ServerException e) {
+        // TODO Auto-generated catch block
+        e.printStackTrace();
+      }
       cardLiked(leftCard, rightCard);
       return;
     }

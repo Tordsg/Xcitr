@@ -49,7 +49,7 @@
             <Insets />
          </opaqueInsets>
       </HBox>
-      <Pane layoutX="320.0" prefHeight="430.0" prefWidth="320.0" style="-fx-background-color: white;">
+      <Pane fx:id="textPane" layoutX="320.0" prefHeight="430.0" prefWidth="320.0" style="-fx-background-color: white;">
          <children>
             <Rectangle fill="WHITE" height="53.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" visible="false" width="322.0">
                <effect>
@@ -60,7 +60,7 @@
                   </DropShadow>
                </effect>
             </Rectangle>
-            <VBox fx:id="textBox" layoutY="63.0" prefHeight="330.0" prefWidth="320.0" spacing="15.0">
+            <VBox fx:id="textBox" layoutY="63.0" prefWidth="320.0" spacing="15.0">
                <children>
                   <Group />
                </children>
@@ -100,7 +100,7 @@
                               </DropShadow>
                            </effect>
                         </Group>
-                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Navn" wrappingWidth="238.39573618552208" fx:id="nameUser">
+                        <Text fx:id="nameUser" strokeType="OUTSIDE" strokeWidth="0.0" text="Navn" wrappingWidth="238.39573618552208">
                            <font>
                               <Font size="26.0" />
                            </font>
