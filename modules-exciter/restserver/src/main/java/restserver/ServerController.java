@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 import core.Exciter;
 import json.FileHandler;
 import json.MessageHandler;
+import user.BotUser;
 import user.Chat;
 import user.User;
 
@@ -177,8 +178,24 @@ public class ServerController {
             chat = new Chat(user.getEmail(), mail);
         }
         chat.sendMeesage(user.getEmail(), message);
+        if(user2 instanceof BotUser) {
+            chat.sendMeesage(mail, ((BotUser) user2).reply());
+        }
         messageHandler.saveChat(chat);
         return chat;
     }
 
+    @GetMapping(value = "/message")
+    public Chat getChat(@RequestHeader("Authorization") UUID id, @RequestHeader("mail") String mail) {
+        User user = excite.getUserById(id);
+        User user2 = excite.getUserByEmail(mail);
+        Chat chat = messageHandler.getChat(user.getEmail(), mail);
+        if(user == null || user2 == null){
+            throw new IllegalArgumentException("User or chat does not exist");
+        }
+        if(chat == null){
+            chat = new Chat(user.getEmail(), mail);
+        }
+        return chat;
+    }
 }
