@@ -55,6 +55,8 @@ public class MatchController implements Initializable {
   Circle chatPic;
   @FXML
   Text nameUser;
+  @FXML
+  Label errorLabel;
 
   private int chatId;
 
@@ -75,6 +77,10 @@ public class MatchController implements Initializable {
     try {
       matches = clientHandler.getMatches(user);
     } catch (ServerException e) {
+      errorLabel.setText(e.getMessage());
+    }
+    catch (IOException e){
+      errorLabel.setText(e.getMessage());
     }
     hoverButton(backButton);
     hoverButton(sendButton);
@@ -133,8 +139,10 @@ public class MatchController implements Initializable {
     try {
       clientHandler.sendMessage(user, matches.get(chatId), textInput.getText());
     } catch (ServerException e) {
-      // TODO add error message to screen
-      e.printStackTrace();
+      errorLabel.setText(e.getMessage());
+    }
+    catch(IOException e){
+      errorLabel.setText(e.getMessage());
     }
     textBox.getChildren().add(hBox);
     textInput.clear();
@@ -274,7 +282,10 @@ public class MatchController implements Initializable {
         }
       }
     } catch (ServerException e) {
-      e.printStackTrace();
+      errorLabel.setText(e.getMessage());
+    }
+    catch(IOException e){
+      errorLabel.setText(e.getMessage());
     }
   }
 }

@@ -3,7 +3,6 @@ package ui;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
-import java.rmi.ServerException;
 import java.util.ResourceBundle;
 
 import javafx.event.EventHandler;
@@ -52,6 +51,8 @@ public class SecondaryController implements Initializable {
   @FXML
   private Pane pane;
   private Pane lastPane = null;
+  @FXML
+  private Label errorLabel;
 
   @FXML
   private void switchToPrimary() throws IOException {
@@ -204,16 +205,18 @@ public class SecondaryController implements Initializable {
     try {
       User infoUser = clientHandler.updateInformation(user);
       App.setUser(infoUser);
-    } catch (ServerException e) {
-      //TODO: handle exception
+    } catch (Exception e) {
+      errorLabel.setText(e.getMessage());
     }
+
+    
 
     if (!password.getText().equals("")) {
       try {
         User passUser = clientHandler.updatePassword(user, password.getText());
         App.setUser(passUser);
       } catch (Exception e) {
-        //TODO: handle exception
+        errorLabel.setText(e.getMessage());
       }
     }
     updatePreview();

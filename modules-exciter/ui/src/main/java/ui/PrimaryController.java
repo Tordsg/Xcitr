@@ -1,6 +1,7 @@
 package ui;
 
 import java.io.IOException;
+import java.net.ConnectException;
 import java.net.URL;
 import java.rmi.ServerException;
 import java.util.List;
@@ -33,7 +34,7 @@ public class PrimaryController implements Initializable {
   @FXML
   private Circle profile;
   @FXML
-  private Label Name1, Age1, Name2, Age2;
+  private Label Name1, Age1, Name2, Age2, errorLabel;
   @FXML
   private Text scoreNumber;
   @FXML
@@ -75,7 +76,14 @@ public class PrimaryController implements Initializable {
       leftUser = clientHandler.discardCard(user, rightUser, leftUser);
       likeCount = clientHandler.getUserLikeCount(user, rightUser);
     } catch (ServerException e) {
-      e.printStackTrace();
+      errorLabel.setText(e.getMessage());
+    }
+    catch (IOException e){
+      errorLabel.setText(e.getMessage());
+    }
+    if (likeCount == 3) {
+      cardLiked(leftCard, rightCard);
+      return;
     }
     if (likeCount == 3) {
       cardLiked(rightCard, leftCard);
@@ -99,7 +107,10 @@ public class PrimaryController implements Initializable {
       rightUser = clientHandler.discardCard(user, leftUser, rightUser);
       likeCount = clientHandler.getUserLikeCount(user, leftUser);
     } catch (ServerException e) {
-      e.printStackTrace();
+      errorLabel.setText(e.getMessage());
+    }
+    catch (IOException e){
+      errorLabel.setText(e.getMessage());
     }
     if (likeCount == 3) {
       cardLiked(leftCard, rightCard);
@@ -177,7 +188,11 @@ public class PrimaryController implements Initializable {
       Integer count = null;
       try {
         count = clientHandler.getUserLikeCount(user, leftUser);
-      } catch (ServerException e) {
+      } catch (ServerException e ) {
+        errorLabel.setText(e.getMessage());
+      }
+      catch (IOException e){
+        errorLabel.setText(e.getMessage());
       }
       if(count != null) scoreNumber.setText(count.toString());
     } else {
@@ -185,7 +200,8 @@ public class PrimaryController implements Initializable {
       Integer count = null;
       try {
         count = clientHandler.getUserLikeCount(user, rightUser);
-      } catch (ServerException e) {
+      } catch (ServerException | ConnectException e ) {
+        errorLabel.setText(e.getMessage());
       }
       if(count != null) scoreNumber.setText(count.toString());
     }
@@ -213,7 +229,11 @@ public class PrimaryController implements Initializable {
       leftUser = users.get(0);
       rightUser = users.get(1);
     } catch (ServerException | IndexOutOfBoundsException e) {
-      // TODO: handle exception
+      errorLabel.setText(e.getMessage());
+    }
+    catch (IOException e){
+      errorLabel.setText(e.getMessage());
+
     }
     scorePane.setDisable(true);
     leftCard.setDisable(true);
@@ -254,7 +274,11 @@ public class PrimaryController implements Initializable {
       leftUser = users.get(0);
       rightUser = users.get(1);
     } catch (ServerException | IndexOutOfBoundsException e) {
-      // TODO: handle exception
+      errorLabel.setText(e.getMessage());
+    }
+    catch(IOException e){
+      errorLabel.setText(e.getMessage());
+
     }
     leftPicture.setFill(imageController.getImage(leftUser));
     rightPicture.setFill(imageController.getImage(rightUser));

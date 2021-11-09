@@ -2,6 +2,7 @@
 
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.Group?>
+<?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.effect.DropShadow?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -100,7 +101,7 @@
                               </DropShadow>
                            </effect>
                         </Group>
-                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Navn" wrappingWidth="238.39573618552208" fx:id="nameUser">
+                        <Text fx:id="nameUser" strokeType="OUTSIDE" strokeWidth="0.0" text="Navn" wrappingWidth="238.39573618552208">
                            <font>
                               <Font size="26.0" />
                            </font>
@@ -137,5 +138,6 @@
             </DropShadow>
          </effect>
       </Pane>
+      <Label fx:id="errorLabel" layoutX="22.0" layoutY="402.0" prefHeight="17.0" prefWidth="219.0" textFill="#eb0b0b" />
    </children>
 </AnchorPane>
