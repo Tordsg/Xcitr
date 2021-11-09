@@ -79,7 +79,7 @@ public class MatchController implements Initializable {
     hoverButton(backButton);
     hoverButton(sendButton);
     hoverButton(chatPic);
-    if (!matches.isEmpty()) {
+    if (matches != null && !matches.isEmpty()) {
       fillChat(user, matches.get(0));
       nameUser.setText(matches.get(0).getName());
     }
