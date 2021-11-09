@@ -57,7 +57,6 @@ public class PrimaryController implements Initializable {
 
   @FXML
   private void switchToMatch() throws IOException {
-    // MatchController.matches = excite.getCurrentUserMatches();
     App.setRoot("match");
   }
 
@@ -80,10 +79,6 @@ public class PrimaryController implements Initializable {
     }
     catch (IOException e){
       errorLabel.setText(e.getMessage());
-    }
-    if (likeCount == 3) {
-      cardLiked(leftCard, rightCard);
-      return;
     }
     if (likeCount == 3) {
       cardLiked(rightCard, leftCard);
