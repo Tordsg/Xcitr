@@ -138,7 +138,10 @@ public class User {
 
   public void setName(String name) {
     if (name.length() < 2) {
-      throw new IllegalArgumentException("Name must be at least 2 letters");
+      throw new IllegalArgumentException("Name must be at least 2 characters");
+    }
+    if (name.length() > 20){
+      throw new IllegalArgumentException("Name cannot be longer than 20 characters");
     }
     if (!checkForLetters(name)) {
       throw new IllegalArgumentException("Name must only contain letters");
