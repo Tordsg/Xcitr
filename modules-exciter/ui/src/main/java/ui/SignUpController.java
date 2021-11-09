@@ -78,13 +78,7 @@ public class SignUpController {
       App.setUser(user);
       switchToPrimary();
 
-    } catch(IllegalArgumentException e){
-      errorLabel.setText(e.getMessage());
-    }
-     catch (ServerException e) {
-      errorLabel.setText(e.getMessage());
-    }
-    catch (ConnectException e){
+    } catch(IllegalArgumentException | ServerException | ConnectException e){
       errorLabel.setText(e.getMessage());
     }
   }

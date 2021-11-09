@@ -65,15 +65,11 @@ public class LoginController {
       changeUser(user);
       switchToPrimary();
 
-    } catch (ServerException e) {
+    } catch (ServerException | ConnectException e) {
       errorMessage.setText(e.getMessage());
       errorMessage.setVisible(true);
       passwordLogin.clear();
       emailLogin.clear();
-    }
-    catch (ConnectException e){
-      errorMessage.setText(e.getMessage());
-      errorMessage.setVisible(true);
     }
 
   }
