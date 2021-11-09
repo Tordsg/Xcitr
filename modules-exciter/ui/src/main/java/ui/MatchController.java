@@ -7,9 +7,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.ResourceBundle;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
-import java.util.concurrent.ThreadFactory;
 
 import javafx.animation.Interpolator;
 import javafx.animation.KeyFrame;
@@ -17,7 +14,6 @@ import javafx.animation.KeyValue;
 import javafx.animation.SequentialTransition;
 import javafx.animation.Timeline;
 import javafx.animation.TranslateTransition;
-import javafx.application.Platform;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -249,7 +245,7 @@ public class MatchController implements Initializable {
           ttIn.setToX(-320);
           ttIn.play();
       }
-      
+
     });
   }
   double height = 0;
