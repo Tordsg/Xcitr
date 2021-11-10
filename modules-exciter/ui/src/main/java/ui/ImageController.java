@@ -19,7 +19,7 @@ public class ImageController {
 
 
   public ImageController() throws NullPointerException {
-   for (int i = 0; i < 24; i++) {
+   for (int i = 0; i < 25; i++) {
      URL input = getClass().getResource("images/" + i + ".jpg");
      if(input == null) {
        throw new NullPointerException("Image not found");

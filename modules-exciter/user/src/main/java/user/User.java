@@ -328,7 +328,7 @@ public class User {
   }
 
   public void setImageId(int i) {
-    if (i < 0 || i > 24) {
+    if (i < 0 || i > 25) {
       throw new IllegalArgumentException("Image id must be between 0 and 24");
     }
     this.imageId = i;
