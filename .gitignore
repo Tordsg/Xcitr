@@ -6,6 +6,8 @@ modules-exciter/.vscode/tasks.json
 modules-exciter/core/target
 modules-exciter/json/target
 modules-exciter/ui/target
+modules-exciter/user/target
+modules-exciter/restServer/target
 
 modules-exciter/.project
 modules-exciter/.settings/org.eclipse.core.resources.prefs
@@ -28,3 +30,17 @@ modules-exciter/ui/.settings/org.eclipse.core.resources.prefs
 modules-exciter/ui/.settings/org.eclipse.jdt.apt.core.prefs
 modules-exciter/ui/.settings/org.eclipse.jdt.core.prefs
 modules-exciter/ui/.settings/org.eclipse.m2e.core.prefs
+modules-exciter/restserver/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst
+modules-exciter/restserver/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst
+modules-exciter/restServer/.classpath
+modules-exciter/restServer/.project
+modules-exciter/restServer/.settings/org.eclipse.core.resources.prefs
+modules-exciter/restServer/.settings/org.eclipse.jdt.apt.core.prefs
+modules-exciter/restServer/.settings/org.eclipse.jdt.core.prefs
+modules-exciter/restServer/.settings/org.eclipse.m2e.core.prefs
+modules-exciter/user/.classpath
+modules-exciter/user/.project
+modules-exciter/user/.settings/org.eclipse.core.resources.prefs
+modules-exciter/user/.settings/org.eclipse.jdt.apt.core.prefs
+modules-exciter/user/.settings/org.eclipse.jdt.core.prefs
+modules-exciter/user/.settings/org.eclipse.m2e.core.prefs

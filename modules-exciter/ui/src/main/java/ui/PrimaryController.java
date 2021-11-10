@@ -1,11 +1,12 @@
 package ui;
 
-import core.Exciter;
-import core.User;
 import java.io.IOException;
+import java.net.ConnectException;
 import java.net.URL;
+import java.rmi.ServerException;
 import java.util.List;
 import java.util.ResourceBundle;
+
 import javafx.animation.FadeTransition;
 import javafx.animation.ParallelTransition;
 import javafx.animation.RotateTransition;
@@ -25,7 +26,11 @@ import javafx.scene.shape.Circle;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
 import javafx.util.Duration;
-import json.FileHandler;
+import user.User;
+import javafx.stage.Stage;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 
 public class PrimaryController implements Initializable {
   @FXML
@@ -33,46 +38,42 @@ public class PrimaryController implements Initializable {
   @FXML
   private Circle profile;
   @FXML
-  private Label Name1, Age1, Name2, Age2;
+  private Label Name1, Age1, Name2, Age2, errorLabel;
   @FXML
   private Text scoreNumber;
   @FXML
   private Group matchButton;
   @FXML
   private Pane leftCard, rightCard, refresh, scorePane;
-  private Exciter excite = App.exciter;
-  protected final static FileHandler fileHandler = LoginController.fileHandler;
+
+  private ClientHandler clientHandler = new ClientHandler();
+  private User user = App.getUser();
+
+  private User leftUser;
+  private User rightUser;
   // Static since it's shared by the SecondaryController
   protected final static ImageController imageController = new ImageController();
-  private List<User> displayUsers;
 
   @FXML
-  private void switchToSecondary() throws IOException {
-    saveUserData();
-    App.setRoot("profile");
+  private void switchToSecondary(MouseEvent event) throws IOException {
+    FXMLLoader Loader = new FXMLLoader();
+    Loader.setLocation(getClass().getResource("profile.fxml"));
+    Parent p = Loader.load();
+    Scene  s = new Scene(p);
+    Stage window = (Stage)((Node)event.getSource()).getScene().getWindow();
+    window.setScene(s);
+    window.show();
   }
 
   @FXML
-  private void switchToMatch() throws IOException {
-    saveUserData();
-    // MatchController.matches = excite.getCurrentUserMatches();
-    App.setRoot("match");
-  }
-
-  /**
-   * Saves the userdata and store it in a JSON file.
-   */
-
-  @FXML
-  public void saveUserData() {
-    fileHandler.createFile();
-    List<User> users = excite.getAllUsers();
-    boolean hasUser = users.stream().anyMatch(e -> e.getClass().getName().equals("core.User"));
-    if (!hasUser) {
-      users.add(excite.getCurrentUser());
-    }
-
-    fileHandler.saveUser(users);
+  private void switchToMatch(MouseEvent event) throws IOException {
+    FXMLLoader Loader = new FXMLLoader();
+    Loader.setLocation(getClass().getResource("match.fxml"));
+    Parent p = Loader.load();
+    Scene  s = new Scene(p);
+    Stage window = (Stage)((Node)event.getSource()).getScene().getWindow();
+    window.setScene(s);
+    window.show();
   }
 
   private void hoverButton(Node n) {
@@ -85,7 +86,17 @@ public class PrimaryController implements Initializable {
   }
 
   void onDiscardLeftCard() {
-    if (excite.discardFirst()) {
+    int likeCount = 0;
+    try{
+      leftUser = clientHandler.discardCard(user, rightUser, leftUser);
+      likeCount = clientHandler.getUserLikeCount(user, rightUser);
+    } catch (ServerException e) {
+      errorLabel.setText(e.getMessage());
+    }
+    catch (IOException e){
+      errorLabel.setText(e.getMessage());
+    }
+    if (likeCount == 3) {
       cardLiked(rightCard, leftCard);
       return;
     }
@@ -102,13 +113,23 @@ public class PrimaryController implements Initializable {
   }
 
   void onDiscardRightCard() {
-    leftCard.setDisable(true);
-    rightCard.setDisable(true);
-    refresh.setDisable(true);
-    if (excite.discardSecond()) {
+    int likeCount = 0;
+    try {
+      rightUser = clientHandler.discardCard(user, leftUser, rightUser);
+      likeCount = clientHandler.getUserLikeCount(user, leftUser);
+    } catch (ServerException e) {
+      errorLabel.setText(e.getMessage());
+    }
+    catch (IOException e){
+      errorLabel.setText(e.getMessage());
+    }
+    if (likeCount == 3) {
       cardLiked(leftCard, rightCard);
       return;
     }
+    leftCard.setDisable(true);
+    rightCard.setDisable(true);
+    refresh.setDisable(true);
     TranslateTransition tt1 = translateCardY(rightCard, rightCard.getLayoutY() - 55, -400, true);
     TranslateTransition tt2 = translateCardY(rightCard, 400, 0, false);
     FadeTransition ft1 = animateScore("rightCard", true);
@@ -175,12 +196,25 @@ public class PrimaryController implements Initializable {
     FadeTransition ft = new FadeTransition(Duration.millis(100), scorePane);
     if (discardedCard.equals("rightCard")) {
       ft.getNode().setLayoutX(82.5);
-      int count = excite.getOnScreenUserLikeCount(excite.getOnScreenUser1());
-      scoreNumber.setText(String.valueOf(count));
+      Integer count = null;
+      try {
+        count = clientHandler.getUserLikeCount(user, leftUser);
+      } catch (ServerException e ) {
+        errorLabel.setText(e.getMessage());
+      }
+      catch (IOException e){
+        errorLabel.setText(e.getMessage());
+      }
+      if(count != null) scoreNumber.setText(count.toString());
     } else {
       ft.getNode().setLayoutX(352.5);
-      int count = excite.getOnScreenUserLikeCount(excite.getOnScreenUser2());
-      scoreNumber.setText(String.valueOf(count));
+      Integer count = null;
+      try {
+        count = clientHandler.getUserLikeCount(user, rightUser);
+      } catch (ServerException | ConnectException e ) {
+        errorLabel.setText(e.getMessage());
+      }
+      if(count != null) scoreNumber.setText(count.toString());
     }
     if (begin) {
       ft.setFromValue(0);
@@ -201,7 +235,17 @@ public class PrimaryController implements Initializable {
 
   @FXML
   void refresh() {
-    excite.refreshUsers();
+    try {
+      List<User> users = clientHandler.getTwoUsers(user);
+      leftUser = users.get(0);
+      rightUser = users.get(1);
+    } catch (ServerException | IndexOutOfBoundsException e) {
+      errorLabel.setText(e.getMessage());
+    }
+    catch (IOException e){
+      errorLabel.setText(e.getMessage());
+
+    }
     scorePane.setDisable(true);
     leftCard.setDisable(true);
     rightCard.setDisable(true);
@@ -225,22 +269,31 @@ public class PrimaryController implements Initializable {
    */
 
   public void setNextUsers() {
-    displayUsers = excite.getOnScreenUsers();
-    leftPicture.setFill(imageController.getImage(excite.getOnScreenUser1()));
-    rightPicture.setFill(imageController.getImage(excite.getOnScreenUser2()));
-    User user1 = displayUsers.get(0);
-    User user2 = displayUsers.get(1);
-    Name1.setText(user1.getName());
-    Age1.setText(String.valueOf(user1.getAge()));
-    Name2.setText(user2.getName());
-    Age2.setText(String.valueOf(user2.getAge()));
+    leftPicture.setFill(imageController.getImage(leftUser));
+    rightPicture.setFill(imageController.getImage(rightUser));
+    Name1.setText(leftUser.getName());
+    Age1.setText(String.valueOf(leftUser.getAge()));
+    Name2.setText(rightUser.getName());
+    Age2.setText(String.valueOf(rightUser.getAge()));
   }
 
   @Override
   public void initialize(URL location, ResourceBundle resources) {
-    leftPicture.setFill(imageController.getImage(excite.getOnScreenUser1()));
-    rightPicture.setFill(imageController.getImage(excite.getOnScreenUser2()));
-    profile.setFill(new ImagePattern(imageController.getImage(excite.getCurrentUser()).getImage(), 0, 0, 1, 1.4, true));
+    user = App.getUser();
+    try {
+      List<User> users = clientHandler.getTwoUsers(user);
+      leftUser = users.get(0);
+      rightUser = users.get(1);
+    } catch (ServerException | IndexOutOfBoundsException e) {
+      errorLabel.setText(e.getMessage());
+    }
+    catch(IOException e){
+      errorLabel.setText(e.getMessage());
+
+    }
+    leftPicture.setFill(imageController.getImage(leftUser));
+    rightPicture.setFill(imageController.getImage(rightUser));
+    profile.setFill(new ImagePattern(imageController.getImage(user).getImage(), 0, 0, 1, 1.4, true));
     dragY(leftCard);
     dragY(rightCard);
     hoverButton(refresh);

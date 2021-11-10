@@ -1,24 +1,38 @@
 package ui;
 
-import core.Exciter;
-import core.User;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.ResourceBundle;
+
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.geometry.Pos;
 import javafx.scene.Group;
+import javafx.scene.control.ContentDisplay;
+import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import javafx.scene.effect.DropShadow;
 import javafx.scene.effect.Lighting;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Line;
+import javafx.scene.shape.Rectangle;
+import javafx.scene.shape.StrokeType;
+import javafx.scene.text.Font;
+import javafx.scene.text.Text;
 import javafx.stage.FileChooser;
+import user.User;
+import javafx.stage.Stage;
+import javafx.scene.Node;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+
 
 /**
  * Controller for secondary.fxml.
@@ -26,9 +40,12 @@ import javafx.stage.FileChooser;
 
 public class SecondaryController implements Initializable {
 
-  private Exciter excite = App.exciter;
+  private ClientHandler clientHandler = new ClientHandler();
+
+  private User user = App.getUser();
+
   private FileChooser fileChooser = new FileChooser();
-  private ImageController imageController = PrimaryController.imageController;
+  private static ImageController imageController = PrimaryController.imageController;
   @FXML
   private Group upload, backButton, signOut, save;
   @FXML
@@ -39,12 +56,19 @@ public class SecondaryController implements Initializable {
   private PasswordField password;
   @FXML
   private Pane pane;
-  json.FileHandler fileHandler = PrimaryController.fileHandler;
   private Pane lastPane = null;
+  @FXML
+  private Label errorLabel;
 
   @FXML
-  private void switchToPrimary() throws IOException {
-    App.setRoot("primary");
+  private void switchToPrimary(MouseEvent event) throws IOException {
+    FXMLLoader Loader = new FXMLLoader();
+    Loader.setLocation(getClass().getResource("primary.fxml"));
+    Parent p = Loader.load();
+    Scene  s = new Scene(p);
+    Stage window = (Stage)((Node)event.getSource()).getScene().getWindow();
+    window.setScene(s);
+    window.show();
   }
 
   private void hoverButton(Group n) {
@@ -61,11 +85,12 @@ public class SecondaryController implements Initializable {
    * @throws IOException
    */
 
+   //TODO make this method viable again
   @FXML
   private void uploadPicture() throws IOException {
     File file = fileChooser.showOpenDialog(null);
     if (file != null && getFileExtension(file).equals(".jpg")) {
-      imageController.uploadPicture(excite.getCurrentUser(), file);
+      imageController.uploadPicture(user, file);
     }
     updatePreview();
   }
@@ -85,8 +110,8 @@ public class SecondaryController implements Initializable {
 
   @FXML
   void updatePreview() {
-    User currentUser = excite.getCurrentUser();
-    Pane currentPane = MatchController.createCard(currentUser);
+    User currentUser = App.getUser();
+    Pane currentPane = createCard(currentUser);
     if (pane.getChildren().contains(lastPane)) {
       pane.getChildren().remove(lastPane);
     }
@@ -96,30 +121,122 @@ public class SecondaryController implements Initializable {
     lastPane = currentPane;
     pane.requestFocus();
   }
+  protected static Pane createCard(User user) {
+    Pane pane = new Pane();
+    pane.setPrefHeight(338);
+    pane.setPrefWidth(245);
+    Rectangle rect = new Rectangle();
+    pane.getChildren().add(rect);
+    rect.setArcHeight(45);
+    rect.setArcWidth(45);
+    rect.setHeight(338);
+    rect.setWidth(225);
+    rect.setStrokeWidth(2);
+    rect.setStroke(Color.BLACK);
+    rect.setStrokeType(StrokeType.INSIDE);
+    rect.setFill(imageController.getImage(user));
+    Pane pane1 = new Pane();
+    pane.getChildren().add(pane1);
+    pane1.setCacheShape(false);
+    pane1.setLayoutY(217);
+    pane1.setPrefHeight(121);
+    pane1.setMinHeight(121);
+    pane1.setPrefWidth(225);
+    pane1.setStyle("""
+        -fx-background-color: rgba(255, 255, 255, .4);
+        -fx-background-radius: 0 0 22 22; -fx-border-radius: 0 0 21 21;
+        -fx-border-width: 0 2 2 2; -fx-border-color: black;
+        """);
+    Label age = new Label();
+    pane1.getChildren().add(age);
+    age.setAlignment(Pos.CENTER);
+    age.setContentDisplay(ContentDisplay.CENTER);
+    age.setLayoutX(170);
+    age.setLayoutY(-3);
+    age.setPrefHeight(45);
+    age.setPrefWidth(58);
+    age.setText(Integer.toString(user.getAge()));
+    age.setFont(new Font(30));
+    Label name = new Label();
+    pane1.getChildren().add(name);
+    name.setLayoutX(5);
+    name.setLayoutY(-3);
+    name.setPrefHeight(17);
+    name.setPrefWidth(160);
+    name.setText(user.getName());
+    name.setFont(new Font(30));
+    name.setOpacity(1);
+    Label email = new Label();
+    pane1.getChildren().add(email);
+    email.setOpacity(1);
+    email.setLayoutX(0);
+    email.setLayoutY(100);
+    email.setPrefHeight(12);
+    email.setPrefWidth(225);
+    email.setText(user.getEmail());
+    email.setFont(new Font(12));
+    email.setAlignment(Pos.CENTER);
+    Line line = new Line();
+    pane1.getChildren().add(line);
+    line.setOpacity(1);
+    line.setStartX(50);
+    line.setEndX(175);
+    line.setLayoutX(0);
+    line.setLayoutY(97);
+    Text text = new Text();
+    pane1.getChildren().add(text);
+    text.setOpacity(1);
+    text.setLayoutX(6);
+    text.setLayoutY(50);
+    text.setWrappingWidth(215);
+    text.setText(user.getUserInformation());
+    DropShadow effect = new DropShadow();
+    effect.setOffsetX(2);
+    effect.setOffsetY(2);
+    effect.setColor(new Color(0, 0, 0, 0.5));
+    pane.setEffect(effect);
+    return pane;
+  }
 
   /**
    * Signs out of the app and goes to the login-page.
    * @throws IOException
    */
 
+
   @FXML
-  public void signOut() throws IOException {
-    fileHandler.createFile();
-    List<User> users = new ArrayList<>();
-    users.addAll(excite.getAllUsers());
-    users.add(excite.getCurrentUser());
-    fileHandler.saveUser(users);
-    App.setRoot("login");
+  public void signOut(MouseEvent event) throws IOException {
+    FXMLLoader Loader = new FXMLLoader();
+    Loader.setLocation(getClass().getResource("login.fxml"));
+    Parent p = Loader.load();
+    Scene  s = new Scene(p);
+    Stage window = (Stage)((Node)event.getSource()).getScene().getWindow();
+    window.setScene(s);
+    window.show();
   }
 
   @FXML
   void save() {
-    excite.getCurrentUser().setAge(Integer.parseInt(age.getText()));
-    excite.getCurrentUser().setName(name.getText());
-    if (!password.getText().equals("")) {
-      excite.getCurrentUser().setPassword(password.getText());
+    user.setAge(Integer.parseInt(age.getText()));
+    user.setName(name.getText());
+    user.setUserInformation(bio.getText());
+    try {
+      User infoUser = clientHandler.updateInformation(user);
+      App.setUser(infoUser);
+    } catch (Exception e) {
+      errorLabel.setText(e.getMessage());
     }
-    excite.getCurrentUser().setUserInformation(bio.getText());
+
+    
+
+    if (!password.getText().equals("")) {
+      try {
+        User passUser = clientHandler.updatePassword(user, password.getText());
+        App.setUser(passUser);
+      } catch (Exception e) {
+        errorLabel.setText(e.getMessage());
+      }
+    }
     updatePreview();
   }
 
@@ -128,9 +245,9 @@ public class SecondaryController implements Initializable {
    */
   @Override
   public void initialize(URL location, ResourceBundle resources) {
-    name.setText(excite.getCurrentUser().getName());
-    bio.setText(excite.getCurrentUser().getUserInformation());
-    age.setText(Integer.toString(excite.getCurrentUser().getAge()));
+    name.setText(user.getName());
+    bio.setText(user.getUserInformation());
+    age.setText(Integer.toString(user.getAge()));
     hoverButton(upload);
     hoverButton(backButton);
     hoverButton(signOut);

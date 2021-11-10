@@ -1,15 +1,23 @@
 package ui;
 
-import core.Exciter;
-import core.User;
+import user.User;
 import java.io.IOException;
+import java.net.ConnectException;
+import java.rmi.ServerException;
+
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.text.Text;
-import json.FileHandler;
+import javafx.stage.Stage;
+import javafx.scene.Node;
 
 /**
  * Controller for login.fxml
@@ -17,8 +25,7 @@ import json.FileHandler;
 
 public class LoginController {
 
-  protected final static FileHandler fileHandler = new FileHandler();
-  private Exciter xcitr = App.exciter;
+  private ClientHandler clientHandler = new ClientHandler();
 
   @FXML
   private TextField emailLogin;
@@ -56,30 +63,43 @@ public class LoginController {
    */
 
   @FXML
-  public void handleLogin() throws IOException {
+  public void handleLogin(ActionEvent event) throws IOException {
     String email = emailLogin.getText();
     String password = passwordLogin.getText();
 
-    // long sentence
-    for (User user : fileHandler.readUsers()) {
-      if (email.equals(user.getEmail()) && User.MD5Hash(password).equals(user.getPassword())) {
-        xcitr.setCurrentUser(user);
-        switchToPrimary();
-      }
+    try {
+      User user = clientHandler.login(email, password);
+      changeUser(user);
+      FXMLLoader Loader = new FXMLLoader();
+      Loader.setLocation(getClass().getResource("primary.fxml"));
+      Parent p = Loader.load();
+      Scene  s = new Scene(p);
+      Stage window = (Stage)((Node)event.getSource()).getScene().getWindow();
+      window.setScene(s);
+      window.show();
+
+    } catch (ServerException | ConnectException e) {
+      errorMessage.setText(e.getMessage());
+      errorMessage.setVisible(true);
+      passwordLogin.clear();
+      emailLogin.clear();
     }
 
-    errorMessage.setVisible(true);
-    passwordLogin.clear();
-    emailLogin.clear();
   }
 
-  private void switchToPrimary() throws IOException {
-    App.setRoot("primary");
+  private static void changeUser(User user) {
+    App.setUser(user);
   }
 
   @FXML
-  void onSwitchToSignup() throws IOException {
-    App.setRoot("signup");
+  void onSwitchToSignup(MouseEvent event) throws IOException {
+    FXMLLoader Loader = new FXMLLoader();
+		Loader.setLocation(getClass().getResource("signup.fxml"));
+		Parent p = Loader.load();
+		Scene  s = new Scene(p);
+    Stage window = (Stage)((Node)event.getSource()).getScene().getWindow();
+		window.setScene(s);
+		window.show();
   }
 
 }
