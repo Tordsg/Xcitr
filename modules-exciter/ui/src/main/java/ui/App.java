@@ -22,8 +22,8 @@ public class App extends Application {
 
   @Override
   public void start(Stage stage) throws IOException {
-    setStage(stage);
-    setScene(new Scene(loadFxml("login")));
+    Parent parent = FXMLLoader.load(getClass().getResource("login.fxml"));
+    stage.setScene(new Scene(parent));
     stage.setScene(scene);
     stage.setResizable(false);
     stage.setTitle("citr");
@@ -31,13 +31,6 @@ public class App extends Application {
     stage.show();
   }
 
-  private static void setScene(Scene scene) {
-    App.scene = scene;
-  }
-
-  private static void setStage(Stage stage) {
-    App.stage = stage;
-  }
 
   public static void setUser(User user) {
     App.user = user;
@@ -51,7 +44,7 @@ public class App extends Application {
   public void stop() throws Exception {
     super.stop();
   }
-
+/*
   static void setRoot(String fxml) throws IOException {
     if (fxml.equals("primary") && scene.getWidth() < 600 || fxml.equals("login") && scene.getWidth() > 600) {
       stage.hide();
@@ -66,8 +59,8 @@ public class App extends Application {
     FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource(fxml + ".fxml"));
     return fxmlLoader.load();
   }
-
+*/
   public static void main(String[] args) {
-    launch();
+    launch(App.class, args);
   }
 }
