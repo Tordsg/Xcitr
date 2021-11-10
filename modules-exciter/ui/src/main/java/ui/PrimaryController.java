@@ -32,7 +32,7 @@ public class PrimaryController implements Initializable {
   @FXML
   private Rectangle leftPicture, rightPicture;
   @FXML
-  private Circle profile;
+  private Circle profile, notification;
   @FXML
   private Label Name1, Age1, Name2, Age2;
   @FXML
@@ -44,20 +44,20 @@ public class PrimaryController implements Initializable {
 
   private ClientHandler clientHandler = new ClientHandler();
   private User user = App.getUser();
-
+  private int numMatches = 0;
   private User leftUser;
   private User rightUser;
   // Static since it's shared by the SecondaryController
   protected final static ImageController imageController = new ImageController();
-
   @FXML
   private void switchToSecondary() throws IOException {
+    notification.setVisible(false);
     App.setRoot("profile");
   }
 
   @FXML
   private void switchToMatch() throws IOException {
-    // MatchController.matches = excite.getCurrentUserMatches();
+
     App.setRoot("match");
   }
 
@@ -122,8 +122,8 @@ public class PrimaryController implements Initializable {
       users.add(leftUser);
       users.add(rightUser);
       try {
-        rightUser = clientHandler.getUser(user,users);
-      } catch (ServerException e) {
+        leftUser = clientHandler.getUser(user,users);
+            } catch (ServerException e) {
         // TODO Auto-generated catch block
         e.printStackTrace();
       }
@@ -152,6 +152,18 @@ public class PrimaryController implements Initializable {
     TranslateTransition tt = translateCardY(likedcard, 400, 0, false);
     tt.setFromX(0);
     tt.setToX(0);
+    tt.setOnFinished(e -> {
+      try {
+        int num = clientHandler.getMatches(user).size();
+        if(num>numMatches){
+          numMatches = num;
+          notification.setVisible(true);
+        }
+      } catch (ServerException e1) {
+        // TODO Auto-generated catch block
+        e1.printStackTrace();
+      }
+    });
     TranslateTransition ttCard = new TranslateTransition(Duration.millis(Math.abs(-likedcard.getLayoutX() - 300)),
         likedcard);
     ttCard.setFromX(0);
@@ -275,6 +287,7 @@ public class PrimaryController implements Initializable {
   public void initialize(URL location, ResourceBundle resources) {
     user = App.getUser();
     try {
+      numMatches = clientHandler.getMatches(user).size();
       List<User> users = clientHandler.getTwoUsers(user);
       leftUser = users.get(0);
       rightUser = users.get(1);

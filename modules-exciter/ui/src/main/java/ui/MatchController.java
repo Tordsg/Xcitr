@@ -7,13 +7,14 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.ResourceBundle;
-
 import javafx.animation.Interpolator;
 import javafx.animation.KeyFrame;
 import javafx.animation.KeyValue;
+import javafx.animation.RotateTransition;
 import javafx.animation.SequentialTransition;
 import javafx.animation.Timeline;
 import javafx.animation.TranslateTransition;
+import javafx.application.Platform;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -48,7 +49,7 @@ public class MatchController implements Initializable {
   @FXML
   VBox matchBox, textBox;
   @FXML
-  Pane textPane;
+  Pane textPane, refresh;
   @FXML
   TextField textInput;
   @FXML
@@ -65,6 +66,7 @@ public class MatchController implements Initializable {
   protected final static ImageController imageController = PrimaryController.imageController;
   private ClientHandler clientHandler = new ClientHandler();
   private User user = App.getUser();
+  private User user1;
   private List<User> matches = new ArrayList<>();
 
   public void switchToPrimary() throws IOException {
@@ -137,7 +139,23 @@ public class MatchController implements Initializable {
           }});
     }
   }
-
+  @FXML
+  public void refresh(){
+    refresh.setDisable(true);
+    RotateTransition rt = new RotateTransition(Duration.millis(500), refresh);
+    rt.setFromAngle(0);
+    rt.setToAngle(360);
+    rt.setOnFinished(e -> {
+      refresh.setDisable(false);      
+      textBox.setLayoutY(393 - textBox.getHeight());
+    });
+    rt.play();
+    if(user1!=null){
+      textBox.getChildren().clear();
+      fillChat(user, user1);
+      textBox.setLayoutY(393);
+    }
+  }
   @FXML
   public void sendMessage() {
     if (textInput.getText().equals("") || matches == null || matches.isEmpty())
@@ -151,7 +169,7 @@ public class MatchController implements Initializable {
     }
     textInput.clear();
     textBox.getChildren().add(hBox);
-    if(textBox.getLayoutY() + textBox.getHeight() + height> 393) textBox.setLayoutY(393 - textBox.getHeight()- height);
+    textBox.setLayoutY(393 - textBox.getHeight()- height);
   }
 
   private HBox createMessage(String string, Boolean isCurrentUser) {
@@ -197,6 +215,7 @@ public class MatchController implements Initializable {
   }
   Group lastN = null;
   private void clickButton(Group n, User user1, int i) {
+    this.user1=user1;
     n.setOnMouseClicked(e -> {
       if(lastN!=null){
         if(lastN.equals(n))return;
@@ -215,7 +234,7 @@ public class MatchController implements Initializable {
         }});
       matchBox.getChildren().forEach(l -> l.setDisable(true));
       if(textPane.getTranslateX()==-320){
-        TranslateTransition ttOut = new TranslateTransition(Duration.millis(500), textPane);
+        TranslateTransition ttOut = new TranslateTransition(Duration.millis(400), textPane);
         ttOut.setFromX(-320);
         ttOut.setToX(0);
         ttOut.setOnFinished(t-> {
@@ -224,13 +243,17 @@ public class MatchController implements Initializable {
           textBox.getChildren().clear();
           textBox.setLayoutY(63);
           fillChat(user, user1);
+          textBox.setLayoutY(393);
           textInput.clear();
         });
-        TranslateTransition ttIn = new TranslateTransition(Duration.millis(500), textPane);
-        ttIn.setOnFinished(l -> matchBox.getChildren().forEach(h -> h.setDisable(false)));
+        TranslateTransition ttIn = new TranslateTransition(Duration.millis(400), textPane);
+        ttIn.setOnFinished(l -> {
+          matchBox.getChildren().forEach(h -> h.setDisable(false));
+          textBox.setLayoutY(393 - textBox.getHeight());
+        });
         ttIn.setFromX(0);
         ttIn.setToX(-320);
-        SequentialTransition st = new SequentialTransition(ttOut,new TranslateTransition(Duration.millis(300)),ttIn);
+        SequentialTransition st = new SequentialTransition(ttOut,new TranslateTransition(Duration.millis(200)),ttIn);
         st.play();
       } else{
           chatId = i;
@@ -238,14 +261,18 @@ public class MatchController implements Initializable {
           textBox.getChildren().clear();
           textBox.setLayoutY(63);
           fillChat(user, user1);
+          textBox.setLayoutY(393);
           textInput.clear();
-          TranslateTransition ttIn = new TranslateTransition(Duration.millis(500), textPane);
-          ttIn.setOnFinished(l -> matchBox.getChildren().forEach(h -> h.setDisable(false)));
+          TranslateTransition ttIn = new TranslateTransition(Duration.millis(400), textPane);
+          ttIn.setOnFinished(l -> {
+            matchBox.getChildren().forEach(h -> h.setDisable(false));
+            textBox.setLayoutY(393 - textBox.getHeight());
+      });
           ttIn.setFromX(0);
           ttIn.setToX(-320);
           ttIn.play();
       }
-
+      
     });
   }
   double height = 0;
@@ -323,10 +350,14 @@ public class MatchController implements Initializable {
       Chat messages = clientHandler.getChat(user, user1);
       for (HashMap<String, String> map : messages.getMessages()) {
         if (map.containsKey(user1.getEmail())) {
-          HBox hBox = createMessage(map.get(user1.getEmail()).replace("\"", ""), false);
+          String string = map.get(user1.getEmail());
+          String string2 = string.substring(0, string.length());
+          HBox hBox = createMessage(string2, false);
           textBox.getChildren().add(hBox);
         } else {
-          HBox hBox = createMessage(map.get(user.getEmail()).replace("\"", ""), true);
+          String string = map.get(user.getEmail());
+          String string2 = string.substring(1, string.length()-1);
+          HBox hBox = createMessage(string2, true);
           textBox.getChildren().add(hBox);
         }
       }
