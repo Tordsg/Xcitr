@@ -32,7 +32,7 @@ import javafx.scene.Node;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.event.ActionEvent;
+
 
 /**
  * Controller for secondary.fxml.
@@ -61,7 +61,7 @@ public class SecondaryController implements Initializable {
   private Label errorLabel;
 
   @FXML
-  private void switchToPrimary(ActionEvent event) throws IOException {
+  private void switchToPrimary(MouseEvent event) throws IOException {
     FXMLLoader Loader = new FXMLLoader();
     Loader.setLocation(getClass().getResource("primary.fxml"));
     Parent p = Loader.load();
@@ -205,7 +205,7 @@ public class SecondaryController implements Initializable {
 
 
   @FXML
-  public void signOut(ActionEvent event) throws IOException {
+  public void signOut(MouseEvent event) throws IOException {
     FXMLLoader Loader = new FXMLLoader();
     Loader.setLocation(getClass().getResource("login.fxml"));
     Parent p = Loader.load();

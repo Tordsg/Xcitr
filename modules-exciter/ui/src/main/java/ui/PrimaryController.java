@@ -28,7 +28,6 @@ import javafx.scene.text.Text;
 import javafx.util.Duration;
 import user.User;
 import javafx.stage.Stage;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -56,7 +55,7 @@ public class PrimaryController implements Initializable {
   protected final static ImageController imageController = new ImageController();
 
   @FXML
-  private void switchToSecondary(ActionEvent event) throws IOException {
+  private void switchToSecondary(MouseEvent event) throws IOException {
     FXMLLoader Loader = new FXMLLoader();
     Loader.setLocation(getClass().getResource("profile.fxml"));
     Parent p = Loader.load();
@@ -67,7 +66,7 @@ public class PrimaryController implements Initializable {
   }
 
   @FXML
-  private void switchToMatch(ActionEvent event) throws IOException {
+  private void switchToMatch(MouseEvent event) throws IOException {
     FXMLLoader Loader = new FXMLLoader();
     Loader.setLocation(getClass().getResource("match.fxml"));
     Parent p = Loader.load();

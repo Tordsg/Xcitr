@@ -24,6 +24,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.effect.DropShadow;
 import javafx.scene.effect.Lighting;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.input.ScrollEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
@@ -37,7 +38,6 @@ import javafx.scene.text.Text;
 import javafx.util.Duration;
 import user.Chat;
 import user.User;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -71,7 +71,7 @@ public class MatchController implements Initializable {
   private User user = App.getUser();
   private List<User> matches = new ArrayList<>();
 
-  public void switchToPrimary(ActionEvent event) throws IOException {
+  public void switchToPrimary(MouseEvent event) throws IOException {
     FXMLLoader Loader = new FXMLLoader();
     Loader.setLocation(getClass().getResource("primary.fxml"));
     Parent p = Loader.load();

@@ -15,6 +15,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import user.User;
@@ -67,7 +68,7 @@ public class SignUpController {
   }
 
   @FXML
-  void onSwitchToLogin(ActionEvent event) throws IOException {
+  void onSwitchToLogin(MouseEvent event) throws IOException {
     FXMLLoader Loader = new FXMLLoader();
     Loader.setLocation(getClass().getResource("login.fxml"));
     Parent p = Loader.load();
