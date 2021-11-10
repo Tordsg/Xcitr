@@ -27,6 +27,12 @@ import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.stage.FileChooser;
 import user.User;
+import javafx.stage.Stage;
+import javafx.scene.Node;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.event.ActionEvent;
 
 /**
  * Controller for secondary.fxml.
@@ -55,8 +61,14 @@ public class SecondaryController implements Initializable {
   private Label errorLabel;
 
   @FXML
-  private void switchToPrimary() throws IOException {
-    App.setRoot("primary");
+  private void switchToPrimary(ActionEvent event) throws IOException {
+    FXMLLoader Loader = new FXMLLoader();
+    Loader.setLocation(getClass().getResource("primary.fxml"));
+    Parent p = Loader.load();
+    Scene  s = new Scene(p);
+    Stage window = (Stage)((Node)event.getSource()).getScene().getWindow();
+    window.setScene(s);
+    window.show();
   }
 
   private void hoverButton(Group n) {
@@ -193,8 +205,14 @@ public class SecondaryController implements Initializable {
 
 
   @FXML
-  public void signOut() throws IOException {
-    App.setRoot("login");
+  public void signOut(ActionEvent event) throws IOException {
+    FXMLLoader Loader = new FXMLLoader();
+    Loader.setLocation(getClass().getResource("login.fxml"));
+    Parent p = Loader.load();
+    Scene  s = new Scene(p);
+    Stage window = (Stage)((Node)event.getSource()).getScene().getWindow();
+    window.setScene(s);
+    window.show();
   }
 
   @FXML

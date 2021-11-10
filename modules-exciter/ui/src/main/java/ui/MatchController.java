@@ -37,6 +37,12 @@ import javafx.scene.text.Text;
 import javafx.util.Duration;
 import user.Chat;
 import user.User;
+import javafx.event.ActionEvent;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.stage.Stage;
+
 
 /**
  * Controller for match.fxml.
@@ -65,8 +71,14 @@ public class MatchController implements Initializable {
   private User user = App.getUser();
   private List<User> matches = new ArrayList<>();
 
-  public void switchToPrimary() throws IOException {
-    App.setRoot("primary");
+  public void switchToPrimary(ActionEvent event) throws IOException {
+    FXMLLoader Loader = new FXMLLoader();
+    Loader.setLocation(getClass().getResource("primary.fxml"));
+    Parent p = Loader.load();
+    Scene  s = new Scene(p);
+    Stage window = (Stage)((Node)event.getSource()).getScene().getWindow();
+    window.setScene(s);
+    window.show();
   }
 
   /**

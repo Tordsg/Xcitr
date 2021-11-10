@@ -27,6 +27,11 @@ import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
 import javafx.util.Duration;
 import user.User;
+import javafx.stage.Stage;
+import javafx.event.ActionEvent;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 
 public class PrimaryController implements Initializable {
   @FXML
@@ -51,13 +56,25 @@ public class PrimaryController implements Initializable {
   protected final static ImageController imageController = new ImageController();
 
   @FXML
-  private void switchToSecondary() throws IOException {
-    App.setRoot("profile");
+  private void switchToSecondary(ActionEvent event) throws IOException {
+    FXMLLoader Loader = new FXMLLoader();
+    Loader.setLocation(getClass().getResource("profile.fxml"));
+    Parent p = Loader.load();
+    Scene  s = new Scene(p);
+    Stage window = (Stage)((Node)event.getSource()).getScene().getWindow();
+    window.setScene(s);
+    window.show();
   }
 
   @FXML
-  private void switchToMatch() throws IOException {
-    App.setRoot("match");
+  private void switchToMatch(ActionEvent event) throws IOException {
+    FXMLLoader Loader = new FXMLLoader();
+    Loader.setLocation(getClass().getResource("match.fxml"));
+    Parent p = Loader.load();
+    Scene  s = new Scene(p);
+    Stage window = (Stage)((Node)event.getSource()).getScene().getWindow();
+    window.setScene(s);
+    window.show();
   }
 
   private void hoverButton(Node n) {

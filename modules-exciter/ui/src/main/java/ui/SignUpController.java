@@ -6,13 +6,19 @@ import java.net.URL;
 import java.rmi.ServerException;
 import java.util.ResourceBundle;
 
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.text.Text;
+import javafx.stage.Stage;
 import user.User;
+import javafx.scene.Node;
 
 /**
  * Controller for signup.fxml.
@@ -61,12 +67,18 @@ public class SignUpController {
   }
 
   @FXML
-  void onSwitchToLogin() throws IOException {
-    App.setRoot("login");
+  void onSwitchToLogin(ActionEvent event) throws IOException {
+    FXMLLoader Loader = new FXMLLoader();
+    Loader.setLocation(getClass().getResource("login.fxml"));
+    Parent p = Loader.load();
+    Scene  s = new Scene(p);
+    Stage window = (Stage)((Node)event.getSource()).getScene().getWindow();
+    window.setScene(s);
+    window.show();
   }
 
   @FXML
-  void handleCreateAccount() throws IOException {
+  void handleCreateAccount(ActionEvent event) throws IOException {
     String nameReg = name.getText();
     String ageReg = age.getText();
     String emailReg = emailSignup.getText();
@@ -76,15 +88,17 @@ public class SignUpController {
       userXcitr = new User(nameReg, Integer.parseInt(ageReg), emailReg);
       User user = clientHandler.createAccount(userXcitr, passwordReg);
       App.setUser(user);
-      switchToPrimary();
-
+      FXMLLoader Loader = new FXMLLoader();
+      Loader.setLocation(getClass().getResource("primary.fxml"));
+      Parent p = Loader.load();
+      Scene  s = new Scene(p);
+      Stage window = (Stage)((Node)event.getSource()).getScene().getWindow();
+      window.setScene(s);
+      window.show();
     } catch(IllegalArgumentException | ServerException | ConnectException e){
       errorLabel.setText(e.getMessage());
     }
   }
 
-  private void switchToPrimary() throws IOException {
-    App.setRoot("primary");
-  }
 
 }

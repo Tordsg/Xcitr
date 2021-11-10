@@ -5,12 +5,18 @@ import java.io.IOException;
 import java.net.ConnectException;
 import java.rmi.ServerException;
 
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
 import javafx.scene.text.Text;
+import javafx.stage.Stage;
+import javafx.scene.Node;
 
 /**
  * Controller for login.fxml
@@ -56,14 +62,20 @@ public class LoginController {
    */
 
   @FXML
-  public void handleLogin() throws IOException {
+  public void handleLogin(ActionEvent event) throws IOException {
     String email = emailLogin.getText();
     String password = passwordLogin.getText();
 
     try {
       User user = clientHandler.login(email, password);
       changeUser(user);
-      switchToPrimary();
+      FXMLLoader Loader = new FXMLLoader();
+      Loader.setLocation(getClass().getResource("primary.fxml"));
+      Parent p = Loader.load();
+      Scene  s = new Scene(p);
+      Stage window = (Stage)((Node)event.getSource()).getScene().getWindow();
+      window.setScene(s);
+      window.show();
 
     } catch (ServerException | ConnectException e) {
       errorMessage.setText(e.getMessage());
@@ -78,13 +90,15 @@ public class LoginController {
     App.setUser(user);
   }
 
-  private void switchToPrimary() throws IOException {
-    App.setRoot("primary");
-  }
-
   @FXML
-  void onSwitchToSignup() throws IOException {
-    App.setRoot("signup");
+  void onSwitchToSignup(ActionEvent event) throws IOException {
+    FXMLLoader Loader = new FXMLLoader();
+		Loader.setLocation(getClass().getResource("signup.fxml"));
+		Parent p = Loader.load();
+		Scene  s = new Scene(p);
+    Stage window = (Stage)((Node)event.getSource()).getScene().getWindow();
+		window.setScene(s);
+		window.show();
   }
 
 }
