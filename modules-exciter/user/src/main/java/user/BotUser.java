@@ -23,14 +23,20 @@ public class BotUser extends User {
     "Er du et jordskjelv? For du ristet verden min"
   );
 
+  public BotUser(String name, int age, String email, boolean likeback, int imageId) {
+    super(name, age, email);
+    this.likeBack = likeback;
+    super.setImageId(imageId);
+  }
   public BotUser(String name, int age, String email, boolean likeback) {
     super(name, age, email);
     this.likeBack = likeback;
   }
 
-  public BotUser(String name, int age, String userInformation, String email, boolean likeback) {
+  public BotUser(String name, int age, String userInformation, String email, boolean likeback, int imageId) {
     super(name, age, userInformation, email);
     this.likeBack = likeback;
+    super.setImageId(imageId);
   }
 
   @Override

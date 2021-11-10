@@ -79,6 +79,10 @@ public class UserDeserializer extends StdDeserializer<User> {
       if (result != null) {
         user.setLikedUsers(result);
       }
+      JsonNode imageId = objectNode.get("imageId");
+      if (imageId instanceof IntNode) {
+        user.setImageId(imageId.asInt());
+      }
 
       return user;
     }

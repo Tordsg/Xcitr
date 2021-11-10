@@ -58,6 +58,7 @@ public class FileHandler {
       userData.put("likes", user.getLikedUsers());
       userData.put("userInformation", user.getUserInformation());
       userData.put("email", user.getEmail());
+      userData.put("imageid", user.getImageId());
       userArray.add(userData);
     }
     try {
@@ -118,12 +119,15 @@ public class FileHandler {
         boolean isBot = Boolean.parseBoolean(String.valueOf(userData.get("isBot")));
         String password = String.valueOf(userData.get("password"));
         HashMap<String, Integer> likedUser = parseJSONMap((JSONObject) userData.get("likes"));
+        Integer imageid = Integer
+            .parseInt(String.valueOf(userData.get("imageId") == null ? 0 : String.valueOf(userData.get("imageId"))));
         if (isBot) {
           boolean isLikeBack = Boolean.parseBoolean(String.valueOf(userData.get("isLikeBack")));
-          users.add(new BotUser(name, age, userInformation, email, isLikeBack));
+          users.add(new BotUser(name, age, userInformation, email, isLikeBack, imageid));
         } else if (id != null) {
-          users.add(new User(id, name, age, userInformation, alreadyMatched, email, password, likedUser));
+          users.add(new User(id, name, age, userInformation, alreadyMatched, email, password, likedUser, imageid));
         } else {
+          // If user haven't gotten an id yet, it will neither have a imageid
           users.add(new User(name, age, userInformation, alreadyMatched, email, password));
         }
       }
@@ -160,7 +164,7 @@ public class FileHandler {
     if (jsonObj == null) {
       return null;
     }
-    map = (HashMap<String,Object>) jsonObj;
+    map = (HashMap<String, Object>) jsonObj;
     for (String key : map.keySet()) {
       map2.put(key, ((Long) map.get(key)).intValue());
     }

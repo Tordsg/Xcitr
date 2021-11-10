@@ -26,6 +26,7 @@ public class User {
   private List<String> matches = new ArrayList<>();
   @JsonIgnore
   private String password = null;
+  private int imageId;
 
   /**
    * Constructor for User class.
@@ -40,7 +41,8 @@ public class User {
    * @apiNote This constructor is to only be used by the filehandler class.
    */
 
-  public User(UUID id,String name, int age, String userInformation, List<String> matches, String email, String password, HashMap<String, Integer> likedUsers) {
+  public User(UUID id, String name, int age, String userInformation, List<String> matches, String email,
+      String password, HashMap<String, Integer> likedUsers, int imageId) {
     this.userInformation = userInformation;
     this.matches = matches;
     setId(id);
@@ -48,10 +50,38 @@ public class User {
     setEmail(email);
     this.password = password;
     setAge(age);
-    if(likedUsers != null) {
+    if (likedUsers != null) {
+      this.likedUsers = likedUsers;
+    }
+    this.imageId = imageId;
+  }
+  /**
+   * Constructor for User class.
+   *
+   * @param id
+   * @param name
+   * @param age
+   * @param userInformation
+   * @param matches
+   * @param email
+   * @param password
+   * @apiNote This constructor is to only be used by the filehandler class.
+   */
+
+  public User(UUID id, String name, int age, String userInformation, List<String> matches, String email,
+      String password, HashMap<String, Integer> likedUsers) {
+    this.userInformation = userInformation;
+    this.matches = matches;
+    setId(id);
+    setName(name);
+    setEmail(email);
+    this.password = password;
+    setAge(age);
+    if (likedUsers != null) {
       this.likedUsers = likedUsers;
     }
   }
+
   /**
    * Constructor for User class.
    *
@@ -137,11 +167,11 @@ public class User {
 
   }
 
-  public void setId(UUID id){
+  public void setId(UUID id) {
     this.id = id;
   }
 
-  public UUID getId(){
+  public UUID getId() {
     return id;
   }
 
@@ -178,7 +208,8 @@ public class User {
   public void setPassword(String password) {
     this.password = MD5Hash(password);
   }
-  public void setPasswordNoHash(String password){
+
+  public void setPasswordNoHash(String password) {
     this.password = password;
   }
 
@@ -214,6 +245,7 @@ public class User {
   public void setLikedUsers(HashMap<String, Integer> likedUsers) {
     this.likedUsers = likedUsers;
   }
+
   public HashMap<String, Integer> getLikedUsers() {
     return new HashMap<>(likedUsers);
   }
@@ -258,6 +290,7 @@ public class User {
       likedUsers.put(email, 0);
     }
   }
+
   public void resetUserMatchToOne(String email) {
     if (likedUsers.containsKey(email)) {
       likedUsers.put(email, 1);
@@ -294,8 +327,15 @@ public class User {
     return likedUsers.get(email) >= 3;
   }
 
-  public int getImageHashCode() {
-    return this.email.hashCode();
+  public void setImageId(int i) {
+    if (i < 0 || i > 24) {
+      throw new IllegalArgumentException("Image id must be between 0 and 24");
+    }
+    this.imageId = i;
+  }
+
+  public int getImageId() {
+    return this.imageId;
   }
 
 }
