@@ -116,13 +116,14 @@
 						<goals>
 							<goal>repackage</goal>
 						</goals>
-					</execution>
+						<configuration>
+							 <classifier>exec</classifier>
+						</configuration>
+					 </execution>
 				</executions>
 				<configuration>
-					<descriptorRefs>
-					  <descriptorRef>jar-with-dependencies</descriptorRef>
-					</descriptorRefs>
-				  </configuration>
+					<mainClass>restserver.ExciterApplication</mainClass>
+				</configuration>
 			</plugin>
 			<!-- <plugin>
 				<groupId>com.github.spotbugs</groupId>
