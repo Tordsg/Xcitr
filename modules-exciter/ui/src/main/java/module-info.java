@@ -8,4 +8,5 @@ module exciter.ui {
     requires com.fasterxml.jackson.databind;
     requires com.fasterxml.jackson.core;
     opens ui to javafx.graphics, javafx.fxml;
+    exports ui;
 }
