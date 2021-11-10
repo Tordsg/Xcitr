@@ -137,21 +137,21 @@
                 <!-- Usage: mvn javafx:run -->
                 <configuration>
                     <!-- syntax: module-name/full-app-class-name -->
-                    <mainClass>exciter.ui/ui.App</mainClass>
+                    <mainClass>exciter.ui/ui.AppStarter</mainClass>
                 </configuration>
             </plugin>
-            <plugin>
+            <!-- <plugin>
                 <artifactId>maven-resources-plugin</artifactId>
                 <version>3.0.2</version>
                 <configuration>
-                    <outputDirectory>src/main/resources</outputDirectory>
+                    <outputDirectory>target/resources</outputDirectory>
                     <resources>
                         <resource>
-                            <directory>src/main/resources</directory>
+                            <directory>src/main/resources/</directory>
                         </resource>
                     </resources>
                 </configuration>
-            </plugin>
+            </plugin> -->
 
             <plugin>
                 <groupId>org.jacoco</groupId>

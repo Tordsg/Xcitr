@@ -1,8 +1,8 @@
 module exciter.ui {
     requires okhttp3;
-    requires exciter.user;
-    requires javafx.controls;
-    requires javafx.fxml;
+    requires transitive exciter.user;
+    requires transitive javafx.controls;
+    requires transitive javafx.fxml;
     requires java.rmi;
     requires org.apache.commons.io;
     requires com.fasterxml.jackson.databind;
