@@ -163,18 +163,6 @@
                     <mainClass>exciter.ui/ui.AppStarter</mainClass>
                 </configuration>
             </plugin>
-            <!-- <plugin>
-                <artifactId>maven-resources-plugin</artifactId>
-                <version>3.0.2</version>
-                <configuration>
-                    <outputDirectory>target/resources</outputDirectory>
-                    <resources>
-                        <resource>
-                            <directory>src/main/resources/</directory>
-                        </resource>
-                    </resources>
-                </configuration>
-            </plugin> -->
 
             <plugin>
                 <groupId>org.jacoco</groupId>
