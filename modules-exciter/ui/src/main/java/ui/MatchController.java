@@ -27,6 +27,7 @@ import javafx.scene.effect.DropShadow;
 import javafx.scene.effect.Lighting;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.input.ScrollEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
@@ -40,6 +41,11 @@ import javafx.scene.text.Text;
 import javafx.util.Duration;
 import user.Chat;
 import user.User;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.stage.Stage;
+
 
 /**
  * Controller for match.fxml.
@@ -60,6 +66,8 @@ public class MatchController implements Initializable {
   Circle chatPic;
   @FXML
   Text nameUser;
+  @FXML
+  Label errorLabel;
 
   private int chatId;
 
@@ -69,8 +77,14 @@ public class MatchController implements Initializable {
   private User user1;
   private List<User> matches = new ArrayList<>();
 
-  public void switchToPrimary() throws IOException {
-    App.setRoot("primary");
+  public void switchToPrimary(MouseEvent event) throws IOException {
+    FXMLLoader Loader = new FXMLLoader();
+    Loader.setLocation(getClass().getResource("primary.fxml"));
+    Parent p = Loader.load();
+    Scene  s = new Scene(p);
+    Stage window = (Stage)((Node)event.getSource()).getScene().getWindow();
+    window.setScene(s);
+    window.show();
   }
 
   /**
@@ -82,6 +96,10 @@ public class MatchController implements Initializable {
     try {
       matches = clientHandler.getMatches(user);
     } catch (ServerException e) {
+      errorLabel.setText(e.getMessage());
+    }
+    catch (IOException e){
+      errorLabel.setText(e.getMessage());
     }
     hoverButton(backButton);
     hoverButton(sendButton);
@@ -146,7 +164,7 @@ public class MatchController implements Initializable {
     rt.setFromAngle(0);
     rt.setToAngle(360);
     rt.setOnFinished(e -> {
-      refresh.setDisable(false);      
+      refresh.setDisable(false);
       textBox.setLayoutY(393 - textBox.getHeight());
     });
     rt.play();
@@ -164,8 +182,10 @@ public class MatchController implements Initializable {
     try {
       clientHandler.sendMessage(user, matches.get(chatId), textInput.getText());
     } catch (ServerException e) {
-      // TODO add error message to screen
-      //e.printStackTrace();
+      errorLabel.setText(e.getMessage());
+    }
+    catch(IOException e){
+      errorLabel.setText(e.getMessage());
     }
     textInput.clear();
     textBox.getChildren().add(hBox);
@@ -272,7 +292,7 @@ public class MatchController implements Initializable {
           ttIn.setToX(-320);
           ttIn.play();
       }
-      
+
     });
   }
   double height = 0;
@@ -362,7 +382,10 @@ public class MatchController implements Initializable {
         }
       }
     } catch (ServerException e) {
-      e.printStackTrace();
+      errorLabel.setText(e.getMessage());
+    }
+    catch(IOException e){
+      errorLabel.setText(e.getMessage());
     }
   }
 }

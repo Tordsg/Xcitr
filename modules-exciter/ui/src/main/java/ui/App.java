@@ -15,29 +15,20 @@ import user.User;
  */
 public class App extends Application {
 
-  private static Scene scene;
-  private static Stage stage;
   //Enables controller to share user data
   private static User user;
 
   @Override
   public void start(Stage stage) throws IOException {
-    setStage(stage);
-    setScene(new Scene(loadFxml("login")));
-    stage.setScene(scene);
+    Parent parent = FXMLLoader.load(getClass().getResource("login.fxml"));
+    stage.setScene(new Scene(parent));
     stage.setResizable(false);
     stage.setTitle("citr");
     stage.getIcons().add(new Image(App.class.getResourceAsStream("images/logo.png")));
     stage.show();
   }
 
-  private static void setScene(Scene scene) {
-    App.scene = scene;
-  }
-
-  private static void setStage(Stage stage) {
-    App.stage = stage;
-  }
+  
 
   public static void setUser(User user) {
     App.user = user;
@@ -52,22 +43,7 @@ public class App extends Application {
     super.stop();
   }
 
-  static void setRoot(String fxml) throws IOException {
-    if (fxml.equals("primary") && scene.getWidth() < 600 || fxml.equals("login") && scene.getWidth() > 600) {
-      stage.hide();
-      scene = new Scene(loadFxml(fxml));
-      stage.setScene(scene);
-      stage.show();
-    }
-      scene.setRoot(loadFxml(fxml));
-  }
-
-  private static Parent loadFxml(String fxml) throws IOException {
-    FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource(fxml + ".fxml"));
-    return fxmlLoader.load();
-  }
-
   public static void main(String[] args) {
-    launch();
+    launch(App.class, args);
   }
 }

@@ -1,11 +1,8 @@
 package ui;
 
-import user.BotUser;
-import user.User;
 import java.util.stream.Stream;
 import javafx.scene.shape.Circle;
 import javafx.stage.Stage;
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
@@ -19,7 +16,7 @@ public class MatchControllerTest extends ApplicationTest {
 
   private App app = new App();
   private MatchController controller;
-  private BotUser botUser = new BotUser("John", 21, "john@mail.no", true,1);
+
 
 
   @Override

@@ -1,6 +1,7 @@
 package ui;
 
 import java.io.IOException;
+import java.net.ConnectException;
 import java.net.URL;
 import java.rmi.ServerException;
 import java.util.ArrayList;
@@ -27,6 +28,10 @@ import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
 import javafx.util.Duration;
 import user.User;
+import javafx.stage.Stage;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 
 public class PrimaryController implements Initializable {
   @FXML
@@ -34,7 +39,7 @@ public class PrimaryController implements Initializable {
   @FXML
   private Circle profile, notification;
   @FXML
-  private Label Name1, Age1, Name2, Age2;
+  private Label Name1, Age1, Name2, Age2, errorLabel;
   @FXML
   private Text scoreNumber;
   @FXML
@@ -50,15 +55,25 @@ public class PrimaryController implements Initializable {
   // Static since it's shared by the SecondaryController
   protected final static ImageController imageController = new ImageController();
   @FXML
-  private void switchToSecondary() throws IOException {
-    notification.setVisible(false);
-    App.setRoot("profile");
+  private void switchToSecondary(MouseEvent event) throws IOException {
+    FXMLLoader Loader = new FXMLLoader();
+    Loader.setLocation(getClass().getResource("profile.fxml"));
+    Parent p = Loader.load();
+    Scene  s = new Scene(p);
+    Stage window = (Stage)((Node)event.getSource()).getScene().getWindow();
+    window.setScene(s);
+    window.show();
   }
 
   @FXML
-  private void switchToMatch() throws IOException {
-
-    App.setRoot("match");
+  private void switchToMatch(MouseEvent event) throws IOException {
+    FXMLLoader Loader = new FXMLLoader();
+    Loader.setLocation(getClass().getResource("match.fxml"));
+    Parent p = Loader.load();
+    Scene  s = new Scene(p);
+    Stage window = (Stage)((Node)event.getSource()).getScene().getWindow();
+    window.setScene(s);
+    window.show();
   }
 
   private void hoverButton(Node n) {
@@ -77,7 +92,10 @@ public class PrimaryController implements Initializable {
       leftUser = clientHandler.discardCard(user, rightUser, leftUser);
       likeCount = clientHandler.getUserLikeCount(user, rightUser);
     } catch (ServerException e) {
-      e.printStackTrace();
+      errorLabel.setText(e.getMessage());
+    }
+    catch (IOException e){
+      errorLabel.setText(e.getMessage());
     }
     if (likeCount == 3) {
       List<User> users = new ArrayList<User>();
@@ -113,7 +131,10 @@ public class PrimaryController implements Initializable {
       rightUser = clientHandler.discardCard(user, leftUser, rightUser);
       likeCount = clientHandler.getUserLikeCount(user, leftUser);
     } catch (ServerException e) {
-      e.printStackTrace();
+      errorLabel.setText(e.getMessage());
+    }
+    catch (IOException e){
+      errorLabel.setText(e.getMessage());
     }
     if (likeCount == 3) {
       List<User> users = new ArrayList<User>();
@@ -159,7 +180,7 @@ public class PrimaryController implements Initializable {
           numMatches = num;
           notification.setVisible(true);
         }
-      } catch (ServerException e1) {
+      } catch (ServerException | ConnectException e1) {
         // TODO Auto-generated catch block
         e1.printStackTrace();
       }
@@ -214,7 +235,11 @@ public class PrimaryController implements Initializable {
       Integer count = null;
       try {
         count = clientHandler.getUserLikeCount(user, leftUser);
-      } catch (ServerException e) {
+      } catch (ServerException e ) {
+        errorLabel.setText(e.getMessage());
+      }
+      catch (IOException e){
+        errorLabel.setText(e.getMessage());
       }
       if(count != null) scoreNumber.setText(count.toString());
     } else {
@@ -222,7 +247,8 @@ public class PrimaryController implements Initializable {
       Integer count = null;
       try {
         count = clientHandler.getUserLikeCount(user, rightUser);
-      } catch (ServerException e) {
+      } catch (ServerException | ConnectException e ) {
+        errorLabel.setText(e.getMessage());
       }
       if(count != null) scoreNumber.setText(count.toString());
     }
@@ -250,7 +276,11 @@ public class PrimaryController implements Initializable {
       leftUser = users.get(0);
       rightUser = users.get(1);
     } catch (ServerException | IndexOutOfBoundsException e) {
-      // TODO: handle exception
+      errorLabel.setText(e.getMessage());
+    }
+    catch (IOException e){
+      errorLabel.setText(e.getMessage());
+
     }
     scorePane.setDisable(true);
     leftCard.setDisable(true);
@@ -292,7 +322,11 @@ public class PrimaryController implements Initializable {
       leftUser = users.get(0);
       rightUser = users.get(1);
     } catch (ServerException | IndexOutOfBoundsException e) {
-      // TODO: handle exception
+      errorLabel.setText(e.getMessage());
+    }
+    catch(IOException e){
+      errorLabel.setText(e.getMessage());
+
     }
     leftPicture.setFill(imageController.getImage(leftUser));
     rightPicture.setFill(imageController.getImage(rightUser));

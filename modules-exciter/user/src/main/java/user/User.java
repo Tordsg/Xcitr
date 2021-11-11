@@ -144,7 +144,7 @@ public class User {
    * @param email
    */
   public User(String name, int age, String email) {
-    this.name = name;
+    setName(name);
     setAge(age);
     setEmail(email);
   }
@@ -156,11 +156,24 @@ public class User {
     return this.name;
   }
 
+
+  private boolean checkForLetters(String name) {
+    for(int i = 0; i < name.length(); i++ ) {
+      if(!(Character.isLetter(name.charAt(i))|| name.charAt(i)==' ' || name.charAt(i) == '-')){
+        return false;} 
+    }
+    return true; 
+  }
+
+
   public void setName(String name) {
     if (name.length() < 2) {
-      throw new IllegalArgumentException("Name must be at least 2 letters");
+      throw new IllegalArgumentException("Name must be at least 2 characters");
     }
-    if (!name.matches("^[ a-zA-Z]+$")) {
+    if (name.length() > 20){
+      throw new IllegalArgumentException("Name cannot be longer than 20 characters");
+    }
+    if (!checkForLetters(name)) {
       throw new IllegalArgumentException("Name must only contain letters");
     }
     this.name = name;

@@ -1,9 +1,9 @@
 package ui;
 
 import java.io.IOException;
+import java.net.ConnectException;
 import java.rmi.ServerException;
 import java.util.List;
-
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import okhttp3.MediaType;
@@ -33,7 +33,8 @@ public class ClientHandler {
         return false;
     }
 
-    public User discardCard(User current, User liked, User discard) throws ServerException {
+
+    public User discardCard(User current, User liked, User discard) throws ServerException, ConnectException {
         MediaType mediaType = MediaType.parse("application/json");
         try {
             String sendString = mapper.writeValueAsString(List.of(liked, discard));
@@ -49,12 +50,12 @@ public class ClientHandler {
                 }
             }
         } catch (IOException e) {
-            e.printStackTrace();
+            throw new ConnectException("Could not connect to server");
         }
         throw new ServerException("Server error");
     }
 
-    public User createAccount(User user, String password) throws ServerException {
+    public User createAccount(User user, String password) throws ServerException, ConnectException {
         MediaType mediaType = MediaType.parse("application/json");
         String hashedPassword = User.MD5Hash(password);
         try {
@@ -69,13 +70,17 @@ public class ClientHandler {
                     return returnUser;
                 }
             }
-        } catch (IOException e) {
+        } catch(ConnectException e){
+            e.printStackTrace();
+            throw new ConnectException("Server is not on");
+        }
+        catch (IOException e) {
             e.printStackTrace();
         }
         throw new ServerException("Could not create account");
     }
 
-    public User login(String mail, String password) throws ServerException {
+    public User login(String mail, String password) throws ServerException, ConnectException {
         MediaType mediaType = MediaType.parse("application/json");
         String sendPassword = User.MD5Hash(password);
         try {
@@ -90,13 +95,17 @@ public class ClientHandler {
                     return returnUser;
                 }
             }
-        } catch (IOException e) {
+        } catch(ConnectException e){
+            e.printStackTrace();
+            throw new ConnectException("Server is not on");
+        }
+        catch (IOException e) {
             e.printStackTrace();
         }
         throw new ServerException("Could not login");
     }
 
-    public List<User> getMatches(User user) throws ServerException {
+    public List<User> getMatches(User user) throws ServerException, ConnectException {
         try {
             Request request = new Request.Builder().url(url + "/user/matches")
                     .header("Authorization", user.getId().toString()).build();
@@ -110,7 +119,7 @@ public class ClientHandler {
                 }
             }
         } catch (IOException e) {
-            e.printStackTrace();
+            throw new ConnectException("Can not connect to server");
         }
         throw new ServerException("Could not get matches");
     }
@@ -136,7 +145,7 @@ public class ClientHandler {
         throw new ServerException("Could not update information");
     }
 
-    public User updatePassword(User user, String password) throws ServerException {
+    public User updatePassword(User user, String password) throws ServerException, ConnectException {
         MediaType mediaType = MediaType.parse("application/json");
         String sendPassword = User.MD5Hash(password);
         try {
@@ -154,11 +163,12 @@ public class ClientHandler {
             }
         } catch (IOException e) {
             e.printStackTrace();
+            throw new ConnectException("Can not find server");
         }
         throw new ServerException("Could not update password");
     }
 
-    public List<User> getTwoUsers(User user) throws ServerException {
+    public List<User> getTwoUsers(User user) throws ServerException, ConnectException {
         try {
             Request request = new Request.Builder().url(url + "/two").header("Authorization", user.getId().toString())
                     .build();
@@ -172,12 +182,12 @@ public class ClientHandler {
                 }
             }
         } catch (IOException e) {
-            e.printStackTrace();
+            throw new ConnectException("Can not find server");
         }
         throw new ServerException("Could not get two users");
     }
 
-    public int getUserLikeCount(User user, User liked) throws ServerException {
+    public int getUserLikeCount(User user, User liked) throws ServerException, ConnectException {
         try {
             Request request = new Request.Builder().url(url + "/user/likes")
                     .header("Authorization", user.getId().toString()).header("mail", liked.getEmail()).build();
@@ -191,6 +201,7 @@ public class ClientHandler {
             }
         } catch (IOException e) {
             e.printStackTrace();
+            throw new ConnectException("Can not connect to server");
         }
         throw new ServerException("Could not get user count");
     }
@@ -216,7 +227,7 @@ public class ClientHandler {
         throw new ServerException("Could not get user");
     }
 
-    public Chat sendMessage(User user, User receiver, String message) throws ServerException {
+    public Chat sendMessage(User user, User receiver, String message) throws ServerException, ConnectException {
         MediaType mediaType = MediaType.parse("application/json");
         try {
             String sendString = mapper.writeValueAsString(message);
@@ -231,12 +242,13 @@ public class ClientHandler {
                 }
             }
         } catch (IOException e) {
-            e.printStackTrace();
+            throw new ConnectException("Can not connect to server");
+
         }
         throw new ServerException("Could not send message");
     }
 
-    public Chat getChat(User user, User user2) throws ServerException {
+    public Chat getChat(User user, User user2) throws ServerException, ConnectException {
         try {
             Request request = new Request.Builder().url(url + "/message").header("Authorization", user.getId().toString())
                     .header("mail", user2.getEmail()).build();
@@ -249,7 +261,7 @@ public class ClientHandler {
                 }
             }
         } catch (IOException e) {
-            e.printStackTrace();
+            throw new ConnectException("Can not connect to server");
         }
         throw new ServerException("Could not send message");
     }

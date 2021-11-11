@@ -1,6 +1,5 @@
 package ui;
 
-import user.User;
 import java.util.stream.Stream;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
@@ -60,8 +59,6 @@ public class SignUpControllerTest extends ApplicationTest {
       TextField email = lookup("#emailSignup").query();
       clickOn(email);
       write("Ulf@mail.no");
-
-      User currentUser = new User(name.getText(), Integer.parseInt(age.getText()), email.getText());
 
       TextField password = lookup("#passwordSignup").query();
       clickOn(password);

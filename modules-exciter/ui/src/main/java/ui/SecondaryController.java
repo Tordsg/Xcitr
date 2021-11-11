@@ -3,7 +3,6 @@ package ui;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
-import java.rmi.ServerException;
 import java.util.ResourceBundle;
 
 import javafx.event.EventHandler;
@@ -28,6 +27,12 @@ import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.stage.FileChooser;
 import user.User;
+import javafx.stage.Stage;
+import javafx.scene.Node;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+
 
 /**
  * Controller for secondary.fxml.
@@ -52,10 +57,18 @@ public class SecondaryController implements Initializable {
   @FXML
   private Pane pane;
   private Pane lastPane = null;
+  @FXML
+  private Label errorLabel;
 
   @FXML
-  private void switchToPrimary() throws IOException {
-    App.setRoot("primary");
+  private void switchToPrimary(MouseEvent event) throws IOException {
+    FXMLLoader Loader = new FXMLLoader();
+    Loader.setLocation(getClass().getResource("primary.fxml"));
+    Parent p = Loader.load();
+    Scene  s = new Scene(p);
+    Stage window = (Stage)((Node)event.getSource()).getScene().getWindow();
+    window.setScene(s);
+    window.show();
   }
 
   private void hoverButton(Group n) {
@@ -192,8 +205,14 @@ public class SecondaryController implements Initializable {
 
 
   @FXML
-  public void signOut() throws IOException {
-    App.setRoot("login");
+  public void signOut(MouseEvent event) throws IOException {
+    FXMLLoader Loader = new FXMLLoader();
+    Loader.setLocation(getClass().getResource("login.fxml"));
+    Parent p = Loader.load();
+    Scene  s = new Scene(p);
+    Stage window = (Stage)((Node)event.getSource()).getScene().getWindow();
+    window.setScene(s);
+    window.show();
   }
 
   @FXML
@@ -204,16 +223,18 @@ public class SecondaryController implements Initializable {
     try {
       User infoUser = clientHandler.updateInformation(user);
       App.setUser(infoUser);
-    } catch (ServerException e) {
-      //TODO: handle exception
+    } catch (Exception e) {
+      errorLabel.setText(e.getMessage());
     }
+
+    
 
     if (!password.getText().equals("")) {
       try {
         User passUser = clientHandler.updatePassword(user, password.getText());
         App.setUser(passUser);
       } catch (Exception e) {
-        //TODO: handle exception
+        errorLabel.setText(e.getMessage());
       }
     }
     updatePreview();
