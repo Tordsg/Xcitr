@@ -202,14 +202,14 @@ public class ServerController {
   }
 
   @DeleteMapping(value = "/user")
-  public boolean deleteUser(@RequestHeader("Authorization") UUID id) throws Exception {
-    User user = excite.getUserById(id);
+  public boolean deleteUser(@RequestHeader("mail") String mail) throws Exception {
+    User user = excite.getUserByEmail(mail);
     if (user == null) {
-      throw new Exception("User not found on :: " + id);
+      throw new Exception("User not found on :: " + mail);
     }
     excite.clearUser(user);
     fileHandler.saveUser(excite.getAllUsers());
-    if (fileHandler.getUserById(id) == null) {
+    if (fileHandler.getUser(mail) == null) {
       return true;
     }
     return false;

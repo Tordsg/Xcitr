@@ -359,7 +359,7 @@ public class ExciterServerTest {
         boolean checkIfDeleted = false;
         try {
             Request request = new Request.Builder().url("http://localhost:" + port + "/user")
-                    .header("Authorization", addUser.getId().toString()).delete().build();
+                    .header("mail", addUser.getEmail()).delete().build();
             response = client.newCall(request).execute();
             responseBody = response.body();
             responseBodyString = responseBody.string();
