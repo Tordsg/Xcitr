@@ -265,4 +265,21 @@ public class ClientHandler {
         }
         throw new ServerException("Could not send message");
     }
+    public boolean deleteUser(User user) throws ServerException, ConnectException {
+        MediaType mediaType = MediaType.parse("application/json");
+        try {
+            String sendString = mapper.writeValueAsString(user);
+            Request request = new Request.Builder().url(url + "/user").header("Authorization", user.getId().toString())
+                    .delete(RequestBody.create(sendString, mediaType)).build();
+            Response response = client.newCall(request).execute();
+            ResponseBody body = response.body();
+            if (body != null) {
+                return true;
+            }
+        } catch (IOException e) {
+            throw new ConnectException("Can not connect to server");
+
+        }
+        throw new ServerException("Could not send message");
+    }
 }

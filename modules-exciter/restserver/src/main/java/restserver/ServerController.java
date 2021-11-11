@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -92,6 +93,7 @@ public class ServerController {
             throw new IllegalAccessError("You do not have permission to update this user");
         }
         User thisUser = excite.getUserByEmail(user.getEmail());
+        thisUser.setImageId(user.getImageId());
         thisUser.setName(user.getName());
         thisUser.setAge(user.getAge());
         thisUser.setUserInformation(user.getUserInformation());
@@ -199,5 +201,13 @@ public class ServerController {
             chat = new Chat(user.getEmail(), mail);
         }
         return chat;
+    }
+    @DeleteMapping(value = "/user")
+    public boolean deleteUser(@RequestHeader("Authorization") UUID id) throws Exception {
+        User user = excite.getUserById(id);
+        if(user == null){
+            throw new Exception("User not found on :: "+ id);}
+        excite.clearUser(user);
+       return true;
     }
 }
