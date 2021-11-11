@@ -125,10 +125,10 @@
 					<mainClass>restserver.ExciterApplication</mainClass>
 				</configuration>
 			</plugin>
-			<!-- <plugin>
+			<plugin>
 				<groupId>com.github.spotbugs</groupId>
 				<artifactId>spotbugs-maven-plugin</artifactId>
-			</plugin> -->
+			</plugin>
 		</plugins>
 	</build>
 

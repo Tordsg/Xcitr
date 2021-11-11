@@ -158,15 +158,12 @@ public class FileHandler {
 
   @SuppressWarnings("unchecked")
   public static HashMap<String, Integer> parseJSONMap(JSONObject jsonObj) {
-    HashMap<String, Object> map = new HashMap<>();
+    HashMap<String, Object> map = (HashMap<String, Object>) jsonObj;
     HashMap<String, Integer> map2 = new HashMap<>();
     if (jsonObj == null) {
       return null;
     }
-    map = (HashMap<String, Object>) jsonObj;
-    for (String key : map.keySet()) {
-      map2.put(key, ((Long) map.get(key)).intValue());
-    }
+    map.forEach((key, value) -> map2.put(key, Integer.parseInt(String.valueOf(value))));
     return map2;
   }
 
