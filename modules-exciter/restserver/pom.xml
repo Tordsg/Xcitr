@@ -111,13 +111,24 @@
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
 				<version>2.5.6</version>
+				<executions>
+					<execution>
+						<goals>
+							<goal>repackage</goal>
+						</goals>
+						<configuration>
+							 <classifier>exec</classifier>
+						</configuration>
+					 </execution>
+				</executions>
+				<configuration>
+					<mainClass>restserver.ExciterApplication</mainClass>
+				</configuration>
 			</plugin>
-			<!--
-			<plugin>
+			<!-- <plugin>
 				<groupId>com.github.spotbugs</groupId>
 				<artifactId>spotbugs-maven-plugin</artifactId>
-			</plugin>
-			-->
+			</plugin> -->
 		</plugins>
 	</build>
 
