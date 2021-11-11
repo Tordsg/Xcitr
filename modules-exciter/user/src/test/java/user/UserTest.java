@@ -15,7 +15,7 @@ public class UserTest {
     @BeforeEach
     public void setUp() {
         user = new User("Roger",22,"roger@mail");
-        botUser = new BotUser("Tonje",22,"bowling","tonje@mail",true);
+        botUser = new BotUser("Tonje",22,"bowling","tonje@mail",true,1);
     }
 
     @Test
@@ -23,11 +23,9 @@ public class UserTest {
         Assertions.assertEquals("Roger", user.getName());
         Assertions.assertEquals(22, user.getAge());
         Assertions.assertEquals("roger@mail", user.getEmail());
-        Assertions.assertEquals(user.getEmail().hashCode(), user.getImageHashCode());
         Assertions.assertEquals("Tonje", botUser.getName());
         Assertions.assertEquals(22, botUser.getAge());
         Assertions.assertEquals("bowling", botUser.getUserInformation());
-        Assertions.assertEquals("tonje@mail".hashCode(), botUser.getImageHashCode());
     }
 
     @Test
@@ -58,7 +56,7 @@ public class UserTest {
         Assertions.assertThrows(IllegalArgumentException.class, () -> user.setEmail("noe.mail"));
     }
 
-    @Test 
+    @Test
     public void testLikeUser(){
         user.fireOnLike(botUser.getEmail());
         user.fireOnLike(botUser.getEmail());

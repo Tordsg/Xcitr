@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.net.ConnectException;
 import java.net.URL;
 import java.rmi.ServerException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 
@@ -36,7 +37,7 @@ public class PrimaryController implements Initializable {
   @FXML
   private Rectangle leftPicture, rightPicture;
   @FXML
-  private Circle profile;
+  private Circle profile, notification;
   @FXML
   private Label Name1, Age1, Name2, Age2, errorLabel;
   @FXML
@@ -48,12 +49,11 @@ public class PrimaryController implements Initializable {
 
   private ClientHandler clientHandler = new ClientHandler();
   private User user = App.getUser();
-
+  private int numMatches = 0;
   private User leftUser;
   private User rightUser;
   // Static since it's shared by the SecondaryController
   protected final static ImageController imageController = new ImageController();
-
   @FXML
   private void switchToSecondary(MouseEvent event) throws IOException {
     FXMLLoader Loader = new FXMLLoader();
@@ -87,6 +87,7 @@ public class PrimaryController implements Initializable {
 
   void onDiscardLeftCard() {
     int likeCount = 0;
+    User user2 = leftUser;
     try{
       leftUser = clientHandler.discardCard(user, rightUser, leftUser);
       likeCount = clientHandler.getUserLikeCount(user, rightUser);
@@ -97,6 +98,17 @@ public class PrimaryController implements Initializable {
       errorLabel.setText(e.getMessage());
     }
     if (likeCount == 3) {
+      List<User> users = new ArrayList<User>();
+      users.add(user2);
+      users.add(user);
+      users.add(leftUser);
+      users.add(rightUser);
+      try {
+        rightUser = clientHandler.getUser(user,users);
+      } catch (ServerException e) {
+        // TODO Auto-generated catch block
+        e.printStackTrace();
+      }
       cardLiked(rightCard, leftCard);
       return;
     }
@@ -114,6 +126,7 @@ public class PrimaryController implements Initializable {
 
   void onDiscardRightCard() {
     int likeCount = 0;
+    User user2 = rightUser;
     try {
       rightUser = clientHandler.discardCard(user, leftUser, rightUser);
       likeCount = clientHandler.getUserLikeCount(user, leftUser);
@@ -124,6 +137,17 @@ public class PrimaryController implements Initializable {
       errorLabel.setText(e.getMessage());
     }
     if (likeCount == 3) {
+      List<User> users = new ArrayList<User>();
+      users.add(user2);
+      users.add(user);
+      users.add(leftUser);
+      users.add(rightUser);
+      try {
+        leftUser = clientHandler.getUser(user,users);
+            } catch (ServerException e) {
+        // TODO Auto-generated catch block
+        e.printStackTrace();
+      }
       cardLiked(leftCard, rightCard);
       return;
     }
@@ -149,6 +173,18 @@ public class PrimaryController implements Initializable {
     TranslateTransition tt = translateCardY(likedcard, 400, 0, false);
     tt.setFromX(0);
     tt.setToX(0);
+    tt.setOnFinished(e -> {
+      try {
+        int num = clientHandler.getMatches(user).size();
+        if(num>numMatches){
+          numMatches = num;
+          notification.setVisible(true);
+        }
+      } catch (ServerException | ConnectException e1) {
+        // TODO Auto-generated catch block
+        e1.printStackTrace();
+      }
+    });
     TranslateTransition ttCard = new TranslateTransition(Duration.millis(Math.abs(-likedcard.getLayoutX() - 300)),
         likedcard);
     ttCard.setFromX(0);
@@ -281,6 +317,7 @@ public class PrimaryController implements Initializable {
   public void initialize(URL location, ResourceBundle resources) {
     user = App.getUser();
     try {
+      numMatches = clientHandler.getMatches(user).size();
       List<User> users = clientHandler.getTwoUsers(user);
       leftUser = users.get(0);
       rightUser = users.get(1);

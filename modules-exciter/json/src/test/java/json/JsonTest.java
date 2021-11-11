@@ -19,7 +19,7 @@ public class JsonTest {
     private User user;
     private Exciter exciter;
     private List<User> users = new ArrayList<>();
-    private BotUser botUser = new BotUser("lars", 22, "lars@mail", true);
+    private BotUser botUser = new BotUser("lars", 22, "lars@mail", true, 1);
 
     @BeforeEach
     public void setUp() {
@@ -64,7 +64,7 @@ public class JsonTest {
 
     @Test
     public void testPasswords() {
-        users.add(new BotUser("bot", 24, "bot@mail", true));
+        users.add(new BotUser("bot", 24, "bot@mail", true, 1));
         users.get(0).setPassword("password");
         fileHandler.saveUser(users);
         Assertions.assertEquals("5f4dcc3b5aa765d61d8327deb882cf99", fileHandler.getUser("ola@mail").getPassword());
@@ -81,7 +81,7 @@ public class JsonTest {
     }
 
     @Test
-    public void testFindUserById(){
+    public void testFindUserById() {
         User idUser = new User("Ola Nordmann", 26, "olanrtre@mail");
         idUser.setId(UUID.randomUUID());
         exciter.addUser(idUser);
@@ -90,16 +90,15 @@ public class JsonTest {
     }
 
     @Test
-    public void testLikeCounter(){
+    public void testLikeCounter() {
         User idUser = new User("Ola Nordmann", 26, "olanrtre@mail");
         idUser.setId(UUID.randomUUID());
-        BotUser botUser = new BotUser("bot", 24, "bot@mail", true);
+        BotUser botUser = new BotUser("bot", 24, "bot@mail", true, 9);
         exciter.addUsers(List.of(idUser, botUser));
         idUser.fireOnLike(botUser.getEmail());
         fileHandler.saveUser(exciter.getAllUsers());
         Assertions.assertEquals(1, fileHandler.getUserById(idUser.getId()).getLikedUsers().get(botUser.getEmail()));
 
     }
-
 
 }

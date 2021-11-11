@@ -214,8 +214,8 @@ public class ExciterServerTest {
 
     @Test
     public void emulateMatch() {
-        BotUser botuser1 = new BotUser("Bot", 18, "Botmatch@mail", true);
-        BotUser botuser2 = new BotUser("Botto", 18, "Botmatchto@mail", false);
+        BotUser botuser1 = new BotUser("Bot", 18, "Botmatch@mail", true, 1);
+        BotUser botuser2 = new BotUser("Botto", 18, "Botmatchto@mail", false,3);
         exciter.addUsers(List.of(botuser1, botuser2));
         user.setId(UUID.randomUUID());
         exciter.addUser(user);
@@ -265,7 +265,7 @@ public class ExciterServerTest {
     @Test
     public void testGetLike() {
         user.setId(UUID.randomUUID());
-        BotUser botuser = new BotUser("Bot", 18, "Boten@mail", true);
+        BotUser botuser = new BotUser("Bot", 18, "Boten@mail", true, 7);
         Integer testInt = null;
         exciter.addUsers(List.of(user, botuser));
         exciter.likePerson(user, botuser);

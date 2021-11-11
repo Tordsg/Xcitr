@@ -24,7 +24,7 @@ public class App extends Application {
     stage.setScene(new Scene(parent));
     stage.setResizable(false);
     stage.setTitle("citr");
-    stage.getIcons().add(new Image(App.class.getResourceAsStream("Images/logo.png")));
+    stage.getIcons().add(new Image(App.class.getResourceAsStream("images/logo.png")));
     stage.show();
   }
 

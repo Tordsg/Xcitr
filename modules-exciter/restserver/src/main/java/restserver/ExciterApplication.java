@@ -9,8 +9,8 @@ import json.FileHandler;
 @SpringBootApplication
 public class ExciterApplication {
 
-	public static Exciter excite = new Exciter();
-	public static FileHandler fileHandler = new FileHandler();
+	public static final Exciter excite = new Exciter();
+	public static final FileHandler fileHandler = new FileHandler();
 
 	public static void main(String[] args) {
 		if (fileHandler.readUsers() != null) {

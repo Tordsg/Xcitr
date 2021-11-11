@@ -90,7 +90,7 @@ public class SecondaryController implements Initializable {
   private void uploadPicture() throws IOException {
     File file = fileChooser.showOpenDialog(null);
     if (file != null && getFileExtension(file).equals(".jpg")) {
-      imageController.uploadPicture(user, file);
+      //Replace with avatar selector
     }
     updatePreview();
   }

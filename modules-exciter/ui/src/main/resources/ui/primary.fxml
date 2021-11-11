@@ -136,6 +136,7 @@
                </effect>
             </SVGPath>
             <SVGPath content="M12.0865, 13.6603L28.0042, 33.3303L13.4411, 50.6161C15.6878, 51.9242, 18.1103, 52.8998, 20.634, 53.5126L33.0308, 38.6948L42.1587, 49.6052C44.1889, 48.2138, 46.0206, 46.5504, 47.6033, 44.6608L38.0575, 33.3303L51.7812, 16.3714C51.3819, 15.4431, 50.9312, 14.538, 50.4314, 13.6603H44.3408L33.0308, 27.9658L21.7209, 13.6603H12.0865Z" fill="#D5F6FF" />
+            <Circle fx:id="notification" fill="RED" layoutX="49.0" layoutY="9.0" radius="10.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" visible="false" />
          </children>
       </Group>
       <Group layoutX="583.0" layoutY="49.0">

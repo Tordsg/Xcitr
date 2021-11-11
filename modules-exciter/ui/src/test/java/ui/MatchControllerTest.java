@@ -16,7 +16,7 @@ public class MatchControllerTest extends ApplicationTest {
 
   private App app = new App();
   private MatchController controller;
-  
+
 
 
   @Override

@@ -13,13 +13,13 @@ public class ExciterTest {
 
     private Exciter exciter;
     private User user = new User("test",22,"test@mail");
-    private BotUser botUser = new BotUser("Sofie", 23, "sofie@mail", true);
+    private BotUser botUser = new BotUser("Sofie", 23, "sofie@mail", true,1);
 
     @BeforeEach
     public void setUp() {
         exciter = new Exciter();
         user = new User("test",22,"test@mail");
-        botUser = new BotUser("Sofie", 23, "sofie@mail", true);
+        botUser = new BotUser("Sofie", 23, "sofie@mail", true,2);
     }
 
     @Test
@@ -53,7 +53,7 @@ public class ExciterTest {
         Assertions.assertEquals(count + 5, exciter.getAllUsers().size());
     }
 
-    @Test 
+    @Test
     public void testGetUserByEmail(){
         exciter.addUser(user);
         Assertions.assertEquals(user, exciter.getUserByEmail(user.getEmail()));

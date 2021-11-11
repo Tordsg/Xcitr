@@ -23,9 +23,9 @@ import user.User;
 @RestController
 public class ServerController {
 
-    private Exciter excite = ExciterApplication.excite;
-    private FileHandler fileHandler = new FileHandler();
-    private MessageHandler messageHandler = new MessageHandler();
+    private final Exciter excite = ExciterApplication.excite;
+    private final FileHandler fileHandler = new FileHandler();
+    private final MessageHandler messageHandler = new MessageHandler();
 
     @GetMapping("/")
     public String index() {
@@ -33,7 +33,7 @@ public class ServerController {
     }
 
     @GetMapping(value = "/user")
-    public User CurrentUser(@RequestHeader("Authorization") UUID id) {
+    public User currentUser(@RequestHeader("Authorization") UUID id) {
         User user = excite.getUserById(id);
         if (user == null) {
             throw new IllegalArgumentException("User does not exist");
@@ -95,6 +95,7 @@ public class ServerController {
         thisUser.setName(user.getName());
         thisUser.setAge(user.getAge());
         thisUser.setUserInformation(user.getUserInformation());
+        fileHandler.saveUser(excite.getAllUsers());
 
         return thisUser;
     }
@@ -105,7 +106,8 @@ public class ServerController {
             throw new IllegalAccessError("You do not have permission to update this user");
         }
         User thisUser = excite.getUserById(id);
-        thisUser.setPasswordNoHash(password);
+        thisUser.setPasswordNoHash(password.replace("\"", ""));
+        fileHandler.saveUser(excite.getAllUsers());
         return thisUser;
     }
 
@@ -170,10 +172,10 @@ public class ServerController {
     public Chat sendChat(@RequestHeader("Authorization") UUID id,@RequestHeader("mail") String mail, @RequestBody String message) {
         User user = excite.getUserById(id);
         User user2 = excite.getUserByEmail(mail);
-        Chat chat = messageHandler.getChat(user.getEmail(), mail);
         if(user == null || user2 == null){
             throw new IllegalArgumentException("User does not exist");
         }
+        Chat chat = messageHandler.getChat(user.getEmail(), mail);
         if (chat == null) {
             chat = new Chat(user.getEmail(), mail);
         }
@@ -189,10 +191,10 @@ public class ServerController {
     public Chat getChat(@RequestHeader("Authorization") UUID id, @RequestHeader("mail") String mail) {
         User user = excite.getUserById(id);
         User user2 = excite.getUserByEmail(mail);
-        Chat chat = messageHandler.getChat(user.getEmail(), mail);
         if(user == null || user2 == null){
             throw new IllegalArgumentException("User or chat does not exist");
         }
+        Chat chat = messageHandler.getChat(user.getEmail(), mail);
         if(chat == null){
             chat = new Chat(user.getEmail(), mail);
         }

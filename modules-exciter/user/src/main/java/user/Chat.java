@@ -48,9 +48,9 @@ public class Chat {
         return messages;
     }
 
-    public void sendMeesage(String user1, String message) {
+    public void sendMeesage(String user, String message) {
         HashMap<String, String> messageMap = new HashMap<>();
-        messageMap.put(user1, message);
+        messageMap.put(user, message);
         messages.add(messageMap);
     }
 }
