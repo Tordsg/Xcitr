@@ -64,7 +64,58 @@ public class SignUpController {
     age.clear();
     emailSignup.clear();
     passwordSignup.clear();
+    name.textProperty().addListener(event -> {
+      if (name.getText().length() > 1) {
+        name.setStyle("-fx-control-inner-background: white;");
+      } else {
+        name.setStyle("-fx-control-inner-background: #ff9999;");
+      }
+    });
+    age.textProperty().addListener(event -> {
+      if (isNumeric(age.getText())) {
+        age.setStyle("-fx-control-inner-background: white;");
+      } else {
+        age.setStyle("-fx-control-inner-background: #ff9999;");
+      }
+    });
+    emailSignup.textProperty().addListener(event -> {
+      if (emailValidator(emailSignup.getText())) {
+        emailSignup.setStyle("-fx-control-inner-background: white;");
+      } else {
+        emailSignup.setStyle("-fx-control-inner-background: #ff9999;");
+      }
+    });
 
+  }
+
+  /**
+   * Checks if number is numeric.
+   * @param str
+   * @return boolean
+   */
+  private boolean isNumeric(String str) {
+    try {
+      Integer.parseInt(str);
+      return true;
+    } catch (NumberFormatException e) {
+      return false;
+    }
+  }
+
+  /**
+   * Validates email.
+   * @param email email to validate
+   * @return true if email is valid
+   */
+  private boolean emailValidator(String email) {
+    String emailRegex = "^[a-zA-Z0-9_+&*-]+(?:\\."
+        + "[a-zA-Z0-9_+&*-]+)*@"
+        + "(?:[a-zA-Z0-9-]+\\.)+[a-z"
+        + "A-Z]{2,7}$";
+
+    java.util.regex.Pattern pat = java.util.regex.Pattern.compile(emailRegex);
+    java.util.regex.Matcher mat = pat.matcher(email);
+    return mat.matches();
   }
 
   @FXML
@@ -72,8 +123,8 @@ public class SignUpController {
     FXMLLoader Loader = new FXMLLoader();
     Loader.setLocation(getClass().getResource("login.fxml"));
     Parent p = Loader.load();
-    Scene  s = new Scene(p);
-    Stage window = (Stage)((Node)event.getSource()).getScene().getWindow();
+    Scene s = new Scene(p);
+    Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
     window.setScene(s);
     window.show();
   }
@@ -92,33 +143,13 @@ public class SignUpController {
       FXMLLoader Loader = new FXMLLoader();
       Loader.setLocation(getClass().getResource("primary.fxml"));
       Parent p = Loader.load();
-      Scene  s = new Scene(p);
-      Stage window = (Stage)((Node)event.getSource()).getScene().getWindow();
+      Scene s = new Scene(p);
+      Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
       window.setScene(s);
       window.show();
-    } catch(IllegalArgumentException | ServerException | ConnectException e){
+    } catch (IllegalArgumentException | ServerException | ConnectException e) {
       errorLabel.setText(e.getMessage());
     }
   }
-
-  public void deleteUser(User user){
-    try {
-      clientHandler.deleteUser(user);
-    } catch (ServerException | ConnectException e) {
-      // TODO Auto-generated catch block
-      e.printStackTrace();
-    }
-  }
-    public void addUser(User user, String password){
-      
-        try {
-          clientHandler.createAccount(user, password);
-        } catch (ServerException | ConnectException e) {
-          // TODO Auto-generated catch block
-          e.printStackTrace();
-        }
-    
-  }
-
 
 }

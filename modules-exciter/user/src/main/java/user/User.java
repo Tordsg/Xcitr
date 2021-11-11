@@ -6,6 +6,7 @@ import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -22,7 +23,7 @@ public class User {
   private int age;
   private String userInformation;
   private String email;
-  private HashMap<String, Integer> likedUsers = new HashMap<>();
+  private Map<String, Integer> likedUsers = new HashMap<>();
   private List<String> matches = new ArrayList<>();
   @JsonIgnore
   private String password = null;
@@ -69,7 +70,7 @@ public class User {
    */
 
   public User(UUID id, String name, int age, String userInformation, List<String> matches, String email,
-      String password, HashMap<String, Integer> likedUsers) {
+      String password, Map<String, Integer> likedUsers) {
     this.userInformation = userInformation;
     this.matches = matches;
     setId(id);
@@ -160,9 +161,9 @@ public class User {
   private boolean checkForLetters(String name) {
     for(int i = 0; i < name.length(); i++ ) {
       if(!(Character.isLetter(name.charAt(i))|| name.charAt(i)==' ' || name.charAt(i) == '-')){
-        return false;} 
+        return false;}
     }
-    return true; 
+    return true;
   }
 
 
@@ -255,11 +256,11 @@ public class User {
     return this.password;
   }
 
-  public void setLikedUsers(HashMap<String, Integer> likedUsers) {
+  public void setLikedUsers(Map<String, Integer> likedUsers) {
     this.likedUsers = likedUsers;
   }
 
-  public HashMap<String, Integer> getLikedUsers() {
+  public Map<String, Integer> getLikedUsers() {
     return new HashMap<>(likedUsers);
   }
 

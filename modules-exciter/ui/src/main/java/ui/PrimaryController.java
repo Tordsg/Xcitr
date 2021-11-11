@@ -7,13 +7,11 @@ import java.rmi.ServerException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
-
 import javafx.animation.FadeTransition;
 import javafx.animation.ParallelTransition;
 import javafx.animation.RotateTransition;
 import javafx.animation.SequentialTransition;
 import javafx.animation.TranslateTransition;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Group;
@@ -345,16 +343,12 @@ public class PrimaryController implements Initializable {
   double lastY = 0;
 
   private void dragY(Pane e) {
-    e.setOnMousePressed(new EventHandler<MouseEvent>() {
-      @Override
-      public void handle(MouseEvent event) {
-        lastY = event.getSceneY();
-      }
+    e.setOnMousePressed(k-> {
+        lastY = k.getSceneY();
+      
     });
-    e.setOnMouseDragged(new EventHandler<MouseEvent>() {
-      @Override
-      public void handle(MouseEvent event) {
-        y = event.getSceneY();
+    e.setOnMouseDragged(k ->{
+        y = k.getSceneY();
         dY = y - lastY;
         lastY = y;
         double cardPosition = dY + e.getLayoutY();
@@ -367,10 +361,8 @@ public class PrimaryController implements Initializable {
           e.setLayoutY(cardPosition);
         }
       }
-    });
-    e.setOnMouseReleased(new EventHandler<MouseEvent>() {
-      @Override
-      public void handle(MouseEvent event) {
+    );
+    e.setOnMouseReleased(k -> {
         if (dragged) {
           if (e.getLayoutY() < 0) {
             if (e.getId().equals("leftCard")) {
@@ -383,7 +375,6 @@ public class PrimaryController implements Initializable {
           }
           dragged = false;
         }
-      }
     });
   }
 

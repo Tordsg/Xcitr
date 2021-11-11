@@ -41,12 +41,12 @@
             <Font size="45.0" />
          </font>
       </Text>
-      <TextField fx:id="name" layoutX="359.0" layoutY="110.0" prefHeight="35.0" prefWidth="123.0" promptText="john" />
+      <TextField fx:id="name" layoutX="359.0" layoutY="110.0" prefHeight="35.0" prefWidth="123.0" />
       <TextField fx:id="age" layoutX="515.0" layoutY="110.0" prefHeight="35.0" prefWidth="58.0" />
       <PasswordField fx:id="password" layoutX="358.0" layoutY="179.0" prefHeight="35.0" prefWidth="214.0" />
-      <TextArea fx:id="bio" layoutX="358.0" layoutY="255.0" prefHeight="64.0" prefWidth="214.0" promptText="write about yourself..." wrapText="true">
+      <TextArea fx:id="bio" layoutX="358.0" layoutY="255.0" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="70.0" prefWidth="214.0" promptText="Write about yourself..." styleClass="text-area" wrapText="true">
          <font>
-            <Font size="14.0" />
+            <Font size="12.0" />
          </font>
       </TextArea>
       <Group fx:id="save" layoutX="-41.0" layoutY="-20.0" onMouseClicked="#save" onMousePressed="#save">
