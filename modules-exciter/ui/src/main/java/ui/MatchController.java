@@ -15,7 +15,6 @@ import javafx.animation.RotateTransition;
 import javafx.animation.SequentialTransition;
 import javafx.animation.Timeline;
 import javafx.animation.TranslateTransition;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -29,9 +28,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.effect.DropShadow;
 import javafx.scene.effect.Lighting;
 import javafx.scene.input.KeyCode;
-import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.input.ScrollEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
@@ -127,37 +124,31 @@ public class MatchController implements Initializable {
       label.setLayoutY(80);
       anchorPane.getChildren().add(label);
     } else {
-      matchBox.setOnScroll(new EventHandler<ScrollEvent>() {
-        @Override
-        public void handle(ScrollEvent event) {
-          if (matchBox.getLayoutY() + event.getDeltaY() / 2 <= 62) {
+      matchBox.setOnScroll(k-> {
+          if (matchBox.getLayoutY() + k.getDeltaY() / 2 <= 62) {
             matchBox.setLayoutY(62);
           }
-          else if (matchBox.getLayoutY() + matchBox.getHeight() + event.getDeltaY() / 2 >= 411) {
+          else if (matchBox.getLayoutY() + matchBox.getHeight() + k.getDeltaY() / 2 >= 411) {
             matchBox.setLayoutY(411-matchBox.getHeight());
-          } else matchBox.setLayoutY(matchBox.getLayoutY() + event.getDeltaY()/2);
+          } else matchBox.setLayoutY(matchBox.getLayoutY() + k.getDeltaY()/2);
         }
-      });
-      textBox.setOnScroll(new EventHandler<ScrollEvent>() {
-        @Override
-        public void handle(ScrollEvent event) {
-          if (textBox.getLayoutY() + textBox.getHeight() + event.getDeltaY() / 2 < 393) {
+      );
+      textBox.setOnScroll(k->{
+          if (textBox.getLayoutY() + textBox.getHeight() + k.getDeltaY() / 2 < 393) {
             textBox.setLayoutY(393 - textBox.getHeight());
-          } else if(textBox.getLayoutY() +event.getDeltaY()/2>63 && textBox.getHeight()<325)textBox.setLayoutY(393 - textBox.getHeight());
-           else if (textBox.getLayoutY() + event.getDeltaY() / 2 >63) {
+          } else if(textBox.getLayoutY() +k.getDeltaY()/2>63 && textBox.getHeight()<325)textBox.setLayoutY(393 - textBox.getHeight());
+           else if (textBox.getLayoutY() + k.getDeltaY() / 2 >63) {
             textBox.setLayoutY(63);
           } else {
-            textBox.setLayoutY(textBox.getLayoutY() + event.getDeltaY() / 2);
+            textBox.setLayoutY(textBox.getLayoutY() + k.getDeltaY() / 2);
           }
         }
-      });
-      anchorPane.setOnKeyPressed(new EventHandler<KeyEvent>() {
-        @Override
-        public void handle(KeyEvent ke) {
-            if (ke.getCode().equals(KeyCode.ENTER)) {
+      );
+      anchorPane.setOnKeyPressed(k->{
+            if (k.getCode().equals(KeyCode.ENTER)) {
                 sendMessage();
             }
-          }});
+      });
     }
   }
   @FXML
