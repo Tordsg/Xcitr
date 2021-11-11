@@ -246,7 +246,6 @@ public class SecondaryController implements Initializable {
     }
     updatePreview();
   }
-  String lastString = "a";
   /**
    * Puts in the user info when the page opens.
    */
