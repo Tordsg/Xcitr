@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -199,5 +200,10 @@ public class ServerController {
             chat = new Chat(user.getEmail(), mail);
         }
         return chat;
+    }
+    @DeleteMapping(value = "/user")
+    public void deleteUser(@RequestHeader("Authorization") UUID id) {
+        User user = excite.getUserById(id);
+        excite.clearUser(user);
     }
 }
