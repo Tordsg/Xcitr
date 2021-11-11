@@ -28,7 +28,7 @@ public class MessageHandler {
     }
 
     private JSONParser parser = new JSONParser();
-    String path = "../messages.json";
+    String path = "./messages.json";
 
     public void createFile() {
         try {
