@@ -4,6 +4,9 @@ package ui;
 import java.util.stream.Stream;
 import javafx.scene.control.TextArea;
 import javafx.stage.Stage;
+import user.User;
+
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
@@ -15,6 +18,7 @@ import org.testfx.framework.junit5.ApplicationTest;
 public class SecondaryControllerTest extends ApplicationTest {
 
   private App app = new App();
+  private SignUpController controller = new SignUpController();
 
   @Override
   public void start(Stage stage) throws Exception {
@@ -57,6 +61,13 @@ public class SecondaryControllerTest extends ApplicationTest {
     //Assertions.assertEquals("guitar player", exciter.getCurrentUser().getUserInformation());
     clickOn("#signOut");
     //Assertions.assertEquals("guitar player", fileHandler.getUser("test@mail").getUserInformation());
+  }
+
+  @AfterEach
+  public void deleteUser(){
+    controller.deleteUser(new User("test", 20, "test@mail"));
+
+    
   }
 
 }

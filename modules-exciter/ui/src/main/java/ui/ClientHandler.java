@@ -280,6 +280,6 @@ public class ClientHandler {
             throw new ConnectException("Can not connect to server");
 
         }
-        throw new ServerException("Could not send message");
+        throw new ServerException("Could not delete user");
     }
 }

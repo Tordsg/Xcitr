@@ -1,6 +1,5 @@
 package ui;
 
-import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.rmi.ServerException;
@@ -28,7 +27,6 @@ import javafx.scene.shape.Rectangle;
 import javafx.scene.shape.StrokeType;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
-import javafx.stage.FileChooser;
 import user.User;
 import javafx.stage.Stage;
 import javafx.scene.Node;

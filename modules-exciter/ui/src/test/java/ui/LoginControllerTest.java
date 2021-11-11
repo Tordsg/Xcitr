@@ -19,6 +19,7 @@ import user.User;
 
 public class LoginControllerTest extends ApplicationTest {
 
+  private SignUpController controller= new SignUpController();
   private App app = new App();
   private User testUser = new User("rolf", 22, "test@mail");
 
@@ -57,6 +58,7 @@ public class LoginControllerTest extends ApplicationTest {
 
   private void checkResult(boolean excpected) {
     if(excpected) {
+      controller.addUser(testUser, "test");
       TextField email = lookup("#emailLogin").query();
       clickOn(email);
       write(testUser.getEmail());
@@ -65,6 +67,7 @@ public class LoginControllerTest extends ApplicationTest {
       clickOn(password);
       write("test");
       clickOn("#login");
+      
 
 
     }

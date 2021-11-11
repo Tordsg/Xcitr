@@ -4,6 +4,8 @@ import java.util.stream.Stream;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
+import user.User;
+
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -66,7 +68,9 @@ public class SignUpControllerTest extends ApplicationTest {
 
       clickOn("#createAccount");
 
-      //Assertions.assertEquals(excite.getCurrentUser().getEmail(), currentUser.getEmail());
+      Assertions.assertEquals(App.getUser().getEmail(), "Ulf@mail.no");
+      controller.deleteUser(new User("Ulf Reidar", 19, "Ulf@mail.no"));
+
     } else {
       clickOn("#name");
       write("Ulf Reidar");
