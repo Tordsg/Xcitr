@@ -34,7 +34,6 @@ import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import user.User;
 
-
 /**
  * Controller for secondary.fxml.
  */
@@ -47,7 +46,8 @@ public class SecondaryController implements Initializable {
 
   private static ImageController imageController = PrimaryController.imageController;
   @FXML
-  private Group selectAvatar, backButton, signOut, save, i1,i2,i3,i4,i5,i6,i7,i8,i9,i10,i11,i12,i13,i14,i15,i16,i17,i18,i19,i20,i21,i22,i23,i24;
+  private Group selectAvatar, backButton, signOut, save, i1, i2, i3, i4, i5, i6, i7, i8, i9, i10, i11, i12, i13, i14,
+      i15, i16, i17, i18, i19, i20, i21, i22, i23, i24;
   @FXML
   private TextArea bio;
   @FXML
@@ -67,8 +67,8 @@ public class SecondaryController implements Initializable {
     FXMLLoader Loader = new FXMLLoader();
     Loader.setLocation(getClass().getResource("primary.fxml"));
     Parent p = Loader.load();
-    Scene  s = new Scene(p);
-    Stage window = (Stage)((Node)event.getSource()).getScene().getWindow();
+    Scene s = new Scene(p);
+    Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
     window.setScene(s);
     window.show();
   }
@@ -81,19 +81,27 @@ public class SecondaryController implements Initializable {
       n.setEffect(null);
     });
   }
+
   @FXML
   private void selectAvatar() {
-    if(avatarPane.isVisible()) avatarPane.setVisible(false);
-    else avatarPane.setVisible(true);
+    if (avatarPane.isVisible()) {
+      avatarPane.setVisible(false);
+    } else {
+      avatarPane.setVisible(true);
+    }
     avatarVBox.setOnScroll(e -> {
-      if(avatarVBox.getLayoutY()+avatarVBox.getHeight() + e.getDeltaY()<406-80) avatarVBox.setLayoutY(406-80-avatarVBox.getHeight());
-      else if(avatarVBox.getLayoutY()+e.getDeltaY()>0) avatarVBox.setLayoutY(0);
-      else avatarVBox.setLayoutY(e.getDeltaY()+avatarVBox.getLayoutY());
+      if (avatarVBox.getLayoutY() + avatarVBox.getHeight() + e.getDeltaY() < 406 - 80) {
+        avatarVBox.setLayoutY(406 - 80 - avatarVBox.getHeight());
+      } else if (avatarVBox.getLayoutY() + e.getDeltaY() > 0) {
+        avatarVBox.setLayoutY(0);
+      } else {
+        avatarVBox.setLayoutY(e.getDeltaY() + avatarVBox.getLayoutY());
+      }
     });
     avatarVBox.getChildren().forEach(e -> {
-      HBox box = (HBox)e;
+      HBox box = (HBox) e;
       box.getChildren().forEach(k -> {
-        Group g = (Group)k;
+        Group g = (Group) k;
         hoverButton(g);
         g.setOnMouseClicked(l -> {
           user.setImageId(Integer.parseInt(g.getId().substring(1)));
@@ -122,6 +130,7 @@ public class SecondaryController implements Initializable {
     lastPane = currentPane;
     pane.requestFocus();
   }
+
   protected static Pane createCard(User user) {
     Pane pane = new Pane();
     pane.setPrefHeight(338);
@@ -201,17 +210,17 @@ public class SecondaryController implements Initializable {
 
   /**
    * Signs out of the app and goes to the login-page.
+   *
    * @throws IOException
    */
-
 
   @FXML
   public void signOut(MouseEvent event) throws IOException {
     FXMLLoader Loader = new FXMLLoader();
     Loader.setLocation(getClass().getResource("login.fxml"));
     Parent p = Loader.load();
-    Scene  s = new Scene(p);
-    Stage window = (Stage)((Node)event.getSource()).getScene().getWindow();
+    Scene s = new Scene(p);
+    Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
     window.setScene(s);
     window.show();
   }
@@ -237,6 +246,7 @@ public class SecondaryController implements Initializable {
     }
     updatePreview();
   }
+
   /**
    * Puts in the user info when the page opens.
    */
@@ -245,25 +255,26 @@ public class SecondaryController implements Initializable {
     name.setText(user.getName());
     bio.setText(user.getUserInformation());
     age.setText(Integer.toString(user.getAge()));
-    TextFormatter<String> tf =new TextFormatter<>(c -> {
+    TextFormatter<String> tf = new TextFormatter<>(c -> {
       if (c.isContentChange()) {
-        if(c.getControlNewText().endsWith("\n")){
+        if (c.getControlNewText().endsWith("\n")) {
           c.setText("");
         }
         Text text = new Text(c.getControlNewText());
         text.setWrappingWidth(214);
-        if(text.getLayoutBounds().getHeight()>69)c.setText("");
+        if (text.getLayoutBounds().getHeight() > 69) {
+          c.setText("");
+        }
       }
       return c;
-  });
-    bio.setTextFormatter(tf
-    );
+    });
+    bio.setTextFormatter(tf);
     hoverButton(selectAvatar);
     hoverButton(backButton);
     hoverButton(signOut);
     hoverButton(save);
     // when enter is pressed
-    pane.setOnMouseClicked(e-> {
+    pane.setOnMouseClicked(e -> {
       pane.requestFocus();
     });
     updatePreview();

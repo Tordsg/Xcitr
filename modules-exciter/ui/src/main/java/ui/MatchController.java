@@ -44,7 +44,6 @@ import javafx.util.Duration;
 import user.Chat;
 import user.User;
 
-
 /**
  * Controller for match.fxml.
  */
@@ -79,8 +78,8 @@ public class MatchController implements Initializable {
     FXMLLoader Loader = new FXMLLoader();
     Loader.setLocation(getClass().getResource("primary.fxml"));
     Parent p = Loader.load();
-    Scene  s = new Scene(p);
-    Stage window = (Stage)((Node)event.getSource()).getScene().getWindow();
+    Scene s = new Scene(p);
+    Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
     window.setScene(s);
     window.show();
   }
@@ -95,8 +94,7 @@ public class MatchController implements Initializable {
       matches = clientHandler.getMatches(user);
     } catch (ServerException e) {
       errorLabel.setText(e.getMessage());
-    }
-    catch (IOException e){
+    } catch (IOException e) {
       errorLabel.setText(e.getMessage());
     }
     hoverButton(backButton);
@@ -112,7 +110,7 @@ public class MatchController implements Initializable {
       matches.forEach(e -> matchBox.getChildren().add(createMatchCard(e)));
       matchBox.getChildren().forEach(e -> hoverButton(e));
       for (int i = 0; i < matchBox.getChildren().size(); i++) {
-        clickButton((Group)matchBox.getChildren().get(i), matches.get(i), i);
+        clickButton((Group) matchBox.getChildren().get(i), matches.get(i), i);
       }
     }
     if (matchBox.getChildren().size() == 0) {
@@ -124,35 +122,35 @@ public class MatchController implements Initializable {
       label.setLayoutY(80);
       anchorPane.getChildren().add(label);
     } else {
-      matchBox.setOnScroll(k-> {
-          if (matchBox.getLayoutY() + k.getDeltaY() / 2 <= 62) {
-            matchBox.setLayoutY(62);
-          }
-          else if (matchBox.getLayoutY() + matchBox.getHeight() + k.getDeltaY() / 2 >= 411) {
-            matchBox.setLayoutY(411-matchBox.getHeight());
-          } else matchBox.setLayoutY(matchBox.getLayoutY() + k.getDeltaY()/2);
+      matchBox.setOnScroll(k -> {
+        if (matchBox.getLayoutY() + k.getDeltaY() / 2 <= 62) {
+          matchBox.setLayoutY(62);
+        } else if (matchBox.getLayoutY() + matchBox.getHeight() + k.getDeltaY() / 2 >= 411) {
+          matchBox.setLayoutY(411 - matchBox.getHeight());
+        } else
+          matchBox.setLayoutY(matchBox.getLayoutY() + k.getDeltaY() / 2);
+      });
+      textBox.setOnScroll(k -> {
+        if (textBox.getLayoutY() + textBox.getHeight() + k.getDeltaY() / 2 < 393) {
+          textBox.setLayoutY(393 - textBox.getHeight());
+        } else if (textBox.getLayoutY() + k.getDeltaY() / 2 > 63 && textBox.getHeight() < 325)
+          textBox.setLayoutY(393 - textBox.getHeight());
+        else if (textBox.getLayoutY() + k.getDeltaY() / 2 > 63) {
+          textBox.setLayoutY(63);
+        } else {
+          textBox.setLayoutY(textBox.getLayoutY() + k.getDeltaY() / 2);
         }
-      );
-      textBox.setOnScroll(k->{
-          if (textBox.getLayoutY() + textBox.getHeight() + k.getDeltaY() / 2 < 393) {
-            textBox.setLayoutY(393 - textBox.getHeight());
-          } else if(textBox.getLayoutY() +k.getDeltaY()/2>63 && textBox.getHeight()<325)textBox.setLayoutY(393 - textBox.getHeight());
-           else if (textBox.getLayoutY() + k.getDeltaY() / 2 >63) {
-            textBox.setLayoutY(63);
-          } else {
-            textBox.setLayoutY(textBox.getLayoutY() + k.getDeltaY() / 2);
-          }
+      });
+      anchorPane.setOnKeyPressed(k -> {
+        if (k.getCode().equals(KeyCode.ENTER)) {
+          sendMessage();
         }
-      );
-      anchorPane.setOnKeyPressed(k->{
-            if (k.getCode().equals(KeyCode.ENTER)) {
-                sendMessage();
-            }
       });
     }
   }
+
   @FXML
-  public void refresh(){
+  public void refresh() {
     refresh.setDisable(true);
     RotateTransition rt = new RotateTransition(Duration.millis(500), refresh);
     rt.setFromAngle(0);
@@ -162,12 +160,13 @@ public class MatchController implements Initializable {
       textBox.setLayoutY(393 - textBox.getHeight());
     });
     rt.play();
-    if(user1!=null){
+    if (user1 != null) {
       textBox.getChildren().clear();
       fillChat(user, user1);
       textBox.setLayoutY(393);
     }
   }
+
   @FXML
   public void sendMessage() {
     if (textInput.getText().equals("") || matches == null || matches.isEmpty())
@@ -177,13 +176,12 @@ public class MatchController implements Initializable {
       clientHandler.sendMessage(user, matches.get(chatId), textInput.getText());
     } catch (ServerException e) {
       errorLabel.setText(e.getMessage());
-    }
-    catch(IOException e){
+    } catch (IOException e) {
       errorLabel.setText(e.getMessage());
     }
     textInput.clear();
     textBox.getChildren().add(hBox);
-    textBox.setLayoutY(393 - textBox.getHeight()- height);
+    textBox.setLayoutY(393 - textBox.getHeight() - height);
   }
 
   private HBox createMessage(String string, Boolean isCurrentUser) {
@@ -227,31 +225,35 @@ public class MatchController implements Initializable {
       n.setEffect(null);
     });
   }
+
   Group lastN = null;
+
   private void clickButton(Group n, User user1, int i) {
-    this.user1=user1;
+    this.user1 = user1;
     n.setOnMouseClicked(e -> {
-      if(lastN!=null){
-        if(lastN.equals(n))return;
-        lastN.getChildren().forEach(l->{
-          if(l.getClass().equals(Rectangle.class)){
-            Rectangle rect = (Rectangle)l;
+      if (lastN != null) {
+        if (lastN.equals(n))
+          return;
+        lastN.getChildren().forEach(l -> {
+          if (l.getClass().equals(Rectangle.class)) {
+            Rectangle rect = (Rectangle) l;
             rect.setStrokeWidth(0);
           }
         });
       }
       lastN = n;
-      n.getChildren().forEach(l->{
-        if(l.getClass().equals(Rectangle.class)){
-          Rectangle rect = (Rectangle)l;
+      n.getChildren().forEach(l -> {
+        if (l.getClass().equals(Rectangle.class)) {
+          Rectangle rect = (Rectangle) l;
           rect.setStrokeWidth(3);
-        }});
+        }
+      });
       matchBox.getChildren().forEach(l -> l.setDisable(true));
-      if(textPane.getTranslateX()==-320){
+      if (textPane.getTranslateX() == -320) {
         TranslateTransition ttOut = new TranslateTransition(Duration.millis(400), textPane);
         ttOut.setFromX(-320);
         ttOut.setToX(0);
-        ttOut.setOnFinished(t-> {
+        ttOut.setOnFinished(t -> {
           chatId = i;
           nameUser.setText(user1.getName());
           textBox.getChildren().clear();
@@ -268,30 +270,32 @@ public class MatchController implements Initializable {
         });
         ttIn.setFromX(0);
         ttIn.setToX(-320);
-        SequentialTransition st = new SequentialTransition(ttOut,new TranslateTransition(Duration.millis(200)),ttIn);
+        SequentialTransition st = new SequentialTransition(ttOut, new TranslateTransition(Duration.millis(200)), ttIn);
         st.play();
-      } else{
-          chatId = i;
-          nameUser.setText(user1.getName());
-          textBox.getChildren().clear();
-          textBox.setLayoutY(63);
-          fillChat(user, user1);
-          textBox.setLayoutY(393);
-          textInput.clear();
-          chatPic.setFill(new ImagePattern(imageController.getImage(user1).getImage(), 0, 0, 1, 1.4, true));
-          TranslateTransition ttIn = new TranslateTransition(Duration.millis(400), textPane);
-          ttIn.setOnFinished(l -> {
-            matchBox.getChildren().forEach(h -> h.setDisable(false));
-            textBox.setLayoutY(393 - textBox.getHeight());
-      });
-          ttIn.setFromX(0);
-          ttIn.setToX(-320);
-          ttIn.play();
+      } else {
+        chatId = i;
+        nameUser.setText(user1.getName());
+        textBox.getChildren().clear();
+        textBox.setLayoutY(63);
+        fillChat(user, user1);
+        textBox.setLayoutY(393);
+        textInput.clear();
+        chatPic.setFill(new ImagePattern(imageController.getImage(user1).getImage(), 0, 0, 1, 1.4, true));
+        TranslateTransition ttIn = new TranslateTransition(Duration.millis(400), textPane);
+        ttIn.setOnFinished(l -> {
+          matchBox.getChildren().forEach(h -> h.setDisable(false));
+          textBox.setLayoutY(393 - textBox.getHeight());
+        });
+        ttIn.setFromX(0);
+        ttIn.setToX(-320);
+        ttIn.play();
       }
 
     });
   }
+
   double height = 0;
+
   protected static Group createMatchCard(User user) {
     Group group = new Group();
     group.setTranslateX(-5);
@@ -374,15 +378,14 @@ public class MatchController implements Initializable {
           textBox.getChildren().add(hBox);
         } else {
           String string = map.get(user.getEmail());
-          String string2 = string.substring(1, string.length()-1);
+          String string2 = string.substring(1, string.length() - 1);
           HBox hBox = createMessage(string2, true);
           textBox.getChildren().add(hBox);
         }
       }
     } catch (ServerException e) {
       errorLabel.setText(e.getMessage());
-    }
-    catch(IOException e){
+    } catch (IOException e) {
       errorLabel.setText(e.getMessage());
     }
   }
