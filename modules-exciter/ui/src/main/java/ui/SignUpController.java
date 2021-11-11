@@ -5,7 +5,6 @@ import java.net.ConnectException;
 import java.net.URL;
 import java.rmi.ServerException;
 import java.util.ResourceBundle;
-
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -18,8 +17,8 @@ import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
-import user.User;
 import javafx.scene.Node;
+import user.User;
 
 /**
  * Controller for signup.fxml.
@@ -90,6 +89,7 @@ public class SignUpController {
 
   /**
    * Checks if number is numeric.
+   *
    * @param str
    * @return boolean
    */
@@ -104,13 +104,12 @@ public class SignUpController {
 
   /**
    * Validates email.
+   *
    * @param email email to validate
    * @return true if email is valid
    */
   private boolean emailValidator(String email) {
-    String emailRegex = "^[a-zA-Z0-9_+&*-]+(?:\\."
-        + "[a-zA-Z0-9_+&*-]+)*@"
-        + "(?:[a-zA-Z0-9-]+\\.)+[a-z"
+    String emailRegex = "^[a-zA-Z0-9_+&*-]+(?:\\." + "[a-zA-Z0-9_+&*-]+)*@" + "(?:[a-zA-Z0-9-]+\\.)+[a-z"
         + "A-Z]{2,7}$";
 
     java.util.regex.Pattern pat = java.util.regex.Pattern.compile(emailRegex);
