@@ -14,6 +14,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+import javax.swing.filechooser.FileSystemView;
+
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
@@ -28,7 +30,7 @@ public class MessageHandler {
     }
 
     private JSONParser parser = new JSONParser();
-    String path = "../json/src/main/resources/messages.json";
+    String path = FileSystemView.getFileSystemView().getDefaultDirectory().getPath()+"messages.json";
 
     public void createFile() {
         try {
@@ -46,7 +48,7 @@ public class MessageHandler {
     public void saveChat(Chat chat) {
         JSONArray userArray = new JSONArray();
         List<Chat> chats = this.getChats() == null ? new ArrayList<>() : this.getChats();
-        if(chat != null){
+        if (chat != null) {
             removeFromChat(chat.getUser1(), chat.getUser2(), chats);
         }
         chats.add(chat);
@@ -66,7 +68,6 @@ public class MessageHandler {
             fileWriter.close();
         } catch (FileNotFoundException e) {
             createFile();
-            e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -107,18 +108,18 @@ public class MessageHandler {
         JSONArray messages = (JSONArray) chat.get("message");
         List<HashMap<String, String>> messageList = new ArrayList<>();
         messages.forEach(m -> {
-            HashMap<String,String> message = (HashMap<String,String>) m;
+            HashMap<String, String> message = (HashMap<String, String>) m;
             messageList.add(message);
         });
         return messageList;
     }
 
     private void removeFromChat(String user1, String user2, List<Chat> chats) {
-        if(chats == null || chats.isEmpty()) {
+        if (chats == null || chats.isEmpty()) {
             return;
         }
         for (Chat chat : chats) {
-            if(chat.getUser1().equals(user1) && chat.getUser2().equals(user2)){
+            if (chat.getUser1().equals(user1) && chat.getUser2().equals(user2)) {
                 chats.remove(chat);
                 return;
             }
@@ -127,11 +128,11 @@ public class MessageHandler {
 
     public Chat getChat(String user1, String user2) {
         List<Chat> chats = this.getChats();
-        if(chats == null || chats.isEmpty()) {
+        if (chats == null || chats.isEmpty()) {
             return null;
         }
         for (Chat chat : chats) {
-            if(chat.getUser1().equals(user1) && chat.getUser2().equals(user2)){
+            if (chat.getUser1().equals(user1) && chat.getUser2().equals(user2)) {
                 return chat;
             }
         }
