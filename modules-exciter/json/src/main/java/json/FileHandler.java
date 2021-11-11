@@ -13,6 +13,7 @@ import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 
 import org.json.simple.JSONArray;
@@ -196,7 +197,7 @@ public class FileHandler {
     return null;
   }
 
-  public HashMap<String, Integer> getLikedUsers(UUID id) {
+  public Map<String, Integer> getLikedUsers(UUID id) {
     User user = getUserById(id);
     return user.getLikedUsers();
   }

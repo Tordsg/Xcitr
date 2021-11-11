@@ -13,6 +13,7 @@ import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
@@ -85,7 +86,7 @@ public class MessageHandler {
                 JSONObject chatData = (JSONObject) chats;
                 String user1 = String.valueOf(chatData.get("user1"));
                 String user2 = String.valueOf(chatData.get("user2"));
-                List<HashMap<String, String>> messages = getMessages(chatData);
+                List<Map<String, String>> messages = getMessages(chatData);
                 Chat c = new Chat(user1, user2, messages);
                 chat.add(c);
             }
@@ -103,9 +104,9 @@ public class MessageHandler {
     }
 
     @SuppressWarnings("unchecked")
-    private List<HashMap<String, String>> getMessages(JSONObject chat) {
+    private List<Map<String, String>> getMessages(JSONObject chat) {
         JSONArray messages = (JSONArray) chat.get("message");
-        List<HashMap<String, String>> messageList = new ArrayList<>();
+        List<Map<String, String>> messageList = new ArrayList<>();
         messages.forEach(m -> {
             HashMap<String, String> message = (HashMap<String, String>) m;
             messageList.add(message);
