@@ -1,9 +1,7 @@
 package restserver;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
@@ -204,13 +202,11 @@ public class ServerController {
         return chat;
     }
     @DeleteMapping(value = "/user")
-    public Map<String, Boolean> deleteUser(@RequestHeader("Authorization") UUID id) throws Exception {
+    public boolean deleteUser(@RequestHeader("Authorization") UUID id) throws Exception {
         User user = excite.getUserById(id);
         if(user == null){
             throw new Exception("User not found on :: "+ id);}
         excite.clearUser(user);
-        Map<String, Boolean> response = new HashMap<>();
-       response.put("deleted", Boolean.TRUE);
-       return response;
+       return true;
     }
 }
