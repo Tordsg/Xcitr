@@ -30,7 +30,7 @@ public class FileHandler {
   }
 
   private JSONParser parser = new JSONParser();
-  String path = "users.json";
+  String path = "../users.json";
 
   /**
    * Saves users to the JSON file. Will makes necessary checks for bot users to
