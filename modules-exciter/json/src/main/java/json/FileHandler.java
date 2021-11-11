@@ -15,8 +15,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.UUID;
 
-import javax.swing.filechooser.FileSystemView;
-
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
@@ -32,7 +30,7 @@ public class FileHandler {
   }
 
   private JSONParser parser = new JSONParser();
-  String path = FileSystemView.getFileSystemView().getDefaultDirectory().getPath()+"users.json";
+  String path = "users.json";
 
   /**
    * Saves users to the JSON file. Will makes necessary checks for bot users to
@@ -72,6 +70,7 @@ public class FileHandler {
       fileWriter.close();
     } catch (FileNotFoundException e) {
       createFile();
+      e.printStackTrace();
     } catch (IOException e) {
       e.printStackTrace();
     }

@@ -45,3 +45,5 @@ modules-exciter/user/.settings/org.eclipse.jdt.apt.core.prefs
 modules-exciter/user/.settings/org.eclipse.jdt.core.prefs
 modules-exciter/user/.settings/org.eclipse.m2e.core.prefs
 modules-exciter/ui/dependency-reduced-pom.xml
+**/messages.json
+**/users.json

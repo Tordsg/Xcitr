@@ -14,8 +14,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-import javax.swing.filechooser.FileSystemView;
-
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
@@ -30,7 +28,7 @@ public class MessageHandler {
     }
 
     private JSONParser parser = new JSONParser();
-    String path = FileSystemView.getFileSystemView().getDefaultDirectory().getPath()+"messages.json";
+    String path = "messages.json";
 
     public void createFile() {
         try {
