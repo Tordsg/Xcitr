@@ -104,7 +104,7 @@ public class SecondaryController implements Initializable {
         g.setOnMouseClicked(l -> {
           user.setImageId(Integer.parseInt(g.getId().substring(1)));
           try {
-            clientHandler.updateInformation(user);
+            App.setUser(clientHandler.updateInformation(user));
           } catch (ServerException e1) {
             e1.printStackTrace();
           }
