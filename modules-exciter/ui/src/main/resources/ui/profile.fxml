@@ -1,15 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.Group?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.PasswordField?>
 <?import javafx.scene.control.TextArea?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.effect.DropShadow?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
 <?import javafx.scene.paint.Color?>
-<?import javafx.scene.paint.LinearGradient?>
-<?import javafx.scene.paint.Stop?>
 <?import javafx.scene.shape.Circle?>
 <?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.shape.SVGPath?>
@@ -18,29 +21,7 @@
 
 <Pane fx:id="pane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="430.0" prefWidth="640.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ui.SecondaryController">
    <children>
-      <Rectangle height="430.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="640.0">
-         <fill>
-            <LinearGradient endX="1.0" endY="1.0">
-               <stops>
-                  <Stop>
-                     <color>
-                        <Color red="0.3843137323856354" green="0.9137254953384399" blue="0.9450980424880981" />
-                     </color>
-                  </Stop>
-                  <Stop offset="0.007532956685499058">
-                     <color>
-                        <Color red="0.3843137323856354" green="0.9137254953384399" blue="0.9450980424880981" />
-                     </color>
-                  </Stop>
-                  <Stop offset="1.0">
-                     <color>
-                        <Color red="0.2666666805744171" green="0.7333333492279053" blue="0.8784313797950745" />
-                     </color>
-                  </Stop>
-               </stops>
-            </LinearGradient>
-         </fill>
-      </Rectangle>
+      <Rectangle fill="#57d8ff" height="430.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" style="-fx-translate-z: 0;" width="640.0" />
       <Group fx:id="backButton" layoutX="15.0" layoutY="15.0" onMouseClicked="#switchToPrimary">
          <children>
             <Circle fill="WHITE" layoutX="28.0" layoutY="19.0" radius="23.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0">
@@ -60,28 +41,10 @@
             <Font size="45.0" />
          </font>
       </Text>
-      <Group fx:id="upload" layoutX="-32.0" layoutY="-347.0" onMouseClicked="#uploadPicture">
-         <children>
-            <Rectangle arcHeight="35.0" arcWidth="35.0" fill="WHITE" height="35.0" layoutX="420.0" layoutY="381.0" stroke="WHITE" strokeType="INSIDE" strokeWidth="0.0" width="151.0">
-               <effect>
-                  <DropShadow offsetX="2.0" offsetY="2.0">
-                     <color>
-                        <Color opacity="0.5" />
-                     </color>
-                  </DropShadow>
-               </effect>
-            </Rectangle>
-            <Text layoutX="432.0" layoutY="406.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Upload Picture" textAlignment="CENTER">
-               <font>
-                  <Font size="20.0" />
-               </font>
-            </Text>
-         </children>
-      </Group>
       <TextField fx:id="name" layoutX="359.0" layoutY="110.0" prefHeight="35.0" prefWidth="123.0" promptText="john" />
       <TextField fx:id="age" layoutX="515.0" layoutY="110.0" prefHeight="35.0" prefWidth="58.0" />
       <PasswordField fx:id="password" layoutX="358.0" layoutY="179.0" prefHeight="35.0" prefWidth="214.0" />
-      <TextArea fx:id="bio" layoutX="358.0" layoutY="249.0" prefHeight="91.0" prefWidth="214.0" promptText="write about yourself..." wrapText="true">
+      <TextArea fx:id="bio" layoutX="358.0" layoutY="255.0" prefHeight="64.0" prefWidth="214.0" promptText="write about yourself..." wrapText="true">
          <font>
             <Font size="14.0" />
          </font>
@@ -127,7 +90,7 @@
             <Font size="20.0" />
          </font>
       </Text>
-      <Text layoutX="358.0" layoutY="243.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Bio">
+      <Text layoutX="358.0" layoutY="245.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Bio">
          <font>
             <Font size="20.0" />
          </font>
@@ -143,5 +106,460 @@
          </font>
       </Text>
       <Label fx:id="errorLabel" layoutX="67.0" layoutY="393.0" prefHeight="17.0" prefWidth="214.0" textFill="#dd0404" />
+      <Pane fx:id="avatarPane" layoutX="325.0" layoutY="80.0" visible="false">
+         <children>
+            <Rectangle arcHeight="20.0" arcWidth="20.0" fill="WHITE" height="326.0" layoutX="-7.0" layoutY="-1.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="293.0" />
+            <VBox fx:id="avatarVBox" layoutX="4.0" prefHeight="350.0" prefWidth="249.0">
+               <children>
+                  <HBox prefHeight="100.0" prefWidth="200.0" spacing="10.0">
+                     <children>
+                        <Group fx:id="i1">
+                           <children>
+                              <ImageView fitHeight="127.0" fitWidth="84.0" pickOnBounds="true" preserveRatio="true" scaleX="0.8" scaleY="0.8">
+                                 <image>
+                                    <Image url="@Images/1.jpg" />
+                                 </image>
+                                 <effect>
+                                    <DropShadow offsetX="2.0" offsetY="2.0">
+                                       <color>
+                                          <Color opacity="0.5" />
+                                       </color>
+                                    </DropShadow>
+                                 </effect>
+                              </ImageView>
+                           </children>
+                        </Group>
+                        <Group fx:id="i2">
+                           <children>
+                              <ImageView fitHeight="127.0" fitWidth="84.0" pickOnBounds="true" preserveRatio="true" scaleX="0.8" scaleY="0.8">
+                                 <image>
+                                    <Image url="@Images/2.jpg" />
+                                 </image>
+                                 <effect>
+                                    <DropShadow offsetX="2.0" offsetY="2.0">
+                                       <color>
+                                          <Color opacity="0.5" />
+                                       </color>
+                                    </DropShadow>
+                                 </effect>
+                              </ImageView>
+                           </children>
+                        </Group>
+                        <Group fx:id="i3">
+                           <children>
+                              <ImageView fitHeight="127.0" fitWidth="84.0" pickOnBounds="true" preserveRatio="true" scaleX="0.8" scaleY="0.8">
+                                 <image>
+                                    <Image url="@Images/3.jpg" />
+                                 </image>
+                                 <effect>
+                                    <DropShadow offsetX="2.0" offsetY="2.0">
+                                       <color>
+                                          <Color opacity="0.5" />
+                                       </color>
+                                    </DropShadow>
+                                 </effect>
+                              </ImageView>
+                           </children>
+                        </Group>
+                     </children>
+                  </HBox>
+                  <HBox prefHeight="100.0" prefWidth="200.0" spacing="10.0">
+                     <children>
+                        <Group fx:id="i4">
+                           <children>
+                              <ImageView fitHeight="127.0" fitWidth="84.0" pickOnBounds="true" preserveRatio="true" scaleX="0.8" scaleY="0.8">
+                                 <image>
+                                    <Image url="@Images/4.jpg" />
+                                 </image>
+                                 <effect>
+                                    <DropShadow offsetX="2.0" offsetY="2.0">
+                                       <color>
+                                          <Color opacity="0.5" />
+                                       </color>
+                                    </DropShadow>
+                                 </effect>
+                              </ImageView>
+                           </children>
+                        </Group>
+                        <Group fx:id="i5">
+                           <children>
+                              <ImageView fitHeight="127.0" fitWidth="84.0" pickOnBounds="true" preserveRatio="true" scaleX="0.8" scaleY="0.8">
+                                 <image>
+                                    <Image url="@Images/5.jpg" />
+                                 </image>
+                                 <effect>
+                                    <DropShadow offsetX="2.0" offsetY="2.0">
+                                       <color>
+                                          <Color opacity="0.5" />
+                                       </color>
+                                    </DropShadow>
+                                 </effect>
+                              </ImageView>
+                           </children>
+                        </Group>
+                        <Group fx:id="i6">
+                           <children>
+                              <ImageView fitHeight="127.0" fitWidth="84.0" pickOnBounds="true" preserveRatio="true" scaleX="0.8" scaleY="0.8">
+                                 <image>
+                                    <Image url="@Images/6.jpg" />
+                                 </image>
+                                 <effect>
+                                    <DropShadow offsetX="2.0" offsetY="2.0">
+                                       <color>
+                                          <Color opacity="0.5" />
+                                       </color>
+                                    </DropShadow>
+                                 </effect>
+                              </ImageView>
+                           </children>
+                        </Group>
+                     </children>
+                  </HBox>
+                  <HBox prefHeight="100.0" prefWidth="200.0" spacing="10.0">
+                     <children>
+                        <Group fx:id="i7">
+                           <children>
+                              <ImageView fitHeight="127.0" fitWidth="84.0" pickOnBounds="true" preserveRatio="true" scaleX="0.8" scaleY="0.8">
+                                 <image>
+                                    <Image url="@Images/7.jpg" />
+                                 </image>
+                                 <effect>
+                                    <DropShadow offsetX="2.0" offsetY="2.0">
+                                       <color>
+                                          <Color opacity="0.5" />
+                                       </color>
+                                    </DropShadow>
+                                 </effect>
+                              </ImageView>
+                           </children>
+                        </Group>
+                        <Group fx:id="i8">
+                           <children>
+                              <ImageView fitHeight="127.0" fitWidth="84.0" pickOnBounds="true" preserveRatio="true" scaleX="0.8" scaleY="0.8">
+                                 <image>
+                                    <Image url="@Images/8.jpg" />
+                                 </image>
+                                 <effect>
+                                    <DropShadow offsetX="2.0" offsetY="2.0">
+                                       <color>
+                                          <Color opacity="0.5" />
+                                       </color>
+                                    </DropShadow>
+                                 </effect>
+                              </ImageView>
+                           </children>
+                        </Group>
+                        <Group fx:id="i9">
+                           <children>
+                              <ImageView fitHeight="127.0" fitWidth="84.0" pickOnBounds="true" preserveRatio="true" scaleX="0.8" scaleY="0.8">
+                                 <image>
+                                    <Image url="@Images/9.jpg" />
+                                 </image>
+                                 <effect>
+                                    <DropShadow offsetX="2.0" offsetY="2.0">
+                                       <color>
+                                          <Color opacity="0.5" />
+                                       </color>
+                                    </DropShadow>
+                                 </effect>
+                              </ImageView>
+                           </children>
+                        </Group>
+                     </children>
+                  </HBox>
+                  <HBox prefHeight="100.0" prefWidth="200.0" spacing="10.0">
+                     <children>
+                        <Group fx:id="i10">
+                           <children>
+                              <ImageView fitHeight="127.0" fitWidth="84.0" pickOnBounds="true" preserveRatio="true" scaleX="0.8" scaleY="0.8">
+                                 <image>
+                                    <Image url="@Images/10.jpg" />
+                                 </image>
+                                 <effect>
+                                    <DropShadow offsetX="2.0" offsetY="2.0">
+                                       <color>
+                                          <Color opacity="0.5" />
+                                       </color>
+                                    </DropShadow>
+                                 </effect>
+                              </ImageView>
+                           </children>
+                        </Group>
+                        <Group fx:id="i11">
+                           <children>
+                              <ImageView fitHeight="127.0" fitWidth="84.0" pickOnBounds="true" preserveRatio="true" scaleX="0.8" scaleY="0.8">
+                                 <image>
+                                    <Image url="@Images/11.jpg" />
+                                 </image>
+                                 <effect>
+                                    <DropShadow offsetX="2.0" offsetY="2.0">
+                                       <color>
+                                          <Color opacity="0.5" />
+                                       </color>
+                                    </DropShadow>
+                                 </effect>
+                              </ImageView>
+                           </children>
+                        </Group>
+                        <Group fx:id="i12">
+                           <children>
+                              <ImageView fitHeight="127.0" fitWidth="84.0" pickOnBounds="true" preserveRatio="true" scaleX="0.8" scaleY="0.8">
+                                 <image>
+                                    <Image url="@Images/12.jpg" />
+                                 </image>
+                                 <effect>
+                                    <DropShadow offsetX="2.0" offsetY="2.0">
+                                       <color>
+                                          <Color opacity="0.5" />
+                                       </color>
+                                    </DropShadow>
+                                 </effect>
+                              </ImageView>
+                           </children>
+                        </Group>
+                     </children>
+                  </HBox>
+                  <HBox prefHeight="100.0" prefWidth="200.0" spacing="10.0">
+                     <children>
+                        <Group fx:id="i13">
+                           <children>
+                              <ImageView fitHeight="127.0" fitWidth="84.0" pickOnBounds="true" preserveRatio="true" scaleX="0.8" scaleY="0.8">
+                                 <image>
+                                    <Image url="@Images/13.jpg" />
+                                 </image>
+                                 <effect>
+                                    <DropShadow offsetX="2.0" offsetY="2.0">
+                                       <color>
+                                          <Color opacity="0.5" />
+                                       </color>
+                                    </DropShadow>
+                                 </effect>
+                              </ImageView>
+                           </children>
+                        </Group>
+                        <Group fx:id="i14">
+                           <children>
+                              <ImageView fitHeight="127.0" fitWidth="84.0" pickOnBounds="true" preserveRatio="true" scaleX="0.8" scaleY="0.8">
+                                 <image>
+                                    <Image url="@Images/14.jpg" />
+                                 </image>
+                                 <effect>
+                                    <DropShadow offsetX="2.0" offsetY="2.0">
+                                       <color>
+                                          <Color opacity="0.5" />
+                                       </color>
+                                    </DropShadow>
+                                 </effect>
+                              </ImageView>
+                           </children>
+                        </Group>
+                        <Group fx:id="i15">
+                           <children>
+                              <ImageView fitHeight="127.0" fitWidth="84.0" pickOnBounds="true" preserveRatio="true" scaleX="0.8" scaleY="0.8">
+                                 <image>
+                                    <Image url="@Images/15.jpg" />
+                                 </image>
+                                 <effect>
+                                    <DropShadow offsetX="2.0" offsetY="2.0">
+                                       <color>
+                                          <Color opacity="0.5" />
+                                       </color>
+                                    </DropShadow>
+                                 </effect>
+                              </ImageView>
+                           </children>
+                        </Group>
+                     </children>
+                  </HBox>
+                  <HBox prefHeight="100.0" prefWidth="200.0" spacing="10.0">
+                     <children>
+                        <Group fx:id="i16">
+                           <children>
+                              <ImageView fitHeight="127.0" fitWidth="84.0" pickOnBounds="true" preserveRatio="true" scaleX="0.8" scaleY="0.8">
+                                 <image>
+                                    <Image url="@Images/16.jpg" />
+                                 </image>
+                                 <effect>
+                                    <DropShadow offsetX="2.0" offsetY="2.0">
+                                       <color>
+                                          <Color opacity="0.5" />
+                                       </color>
+                                    </DropShadow>
+                                 </effect>
+                              </ImageView>
+                           </children>
+                        </Group>
+                        <Group fx:id="i17">
+                           <children>
+                              <ImageView fitHeight="127.0" fitWidth="84.0" pickOnBounds="true" preserveRatio="true" scaleX="0.8" scaleY="0.8">
+                                 <image>
+                                    <Image url="@Images/17.jpg" />
+                                 </image>
+                                 <effect>
+                                    <DropShadow offsetX="2.0" offsetY="2.0">
+                                       <color>
+                                          <Color opacity="0.5" />
+                                       </color>
+                                    </DropShadow>
+                                 </effect>
+                              </ImageView>
+                           </children>
+                        </Group>
+                        <Group fx:id="i18">
+                           <children>
+                              <ImageView fitHeight="127.0" fitWidth="84.0" pickOnBounds="true" preserveRatio="true" scaleX="0.8" scaleY="0.8">
+                                 <image>
+                                    <Image url="@Images/18.jpg" />
+                                 </image>
+                                 <effect>
+                                    <DropShadow offsetX="2.0" offsetY="2.0">
+                                       <color>
+                                          <Color opacity="0.5" />
+                                       </color>
+                                    </DropShadow>
+                                 </effect>
+                              </ImageView>
+                           </children>
+                        </Group>
+                     </children>
+                  </HBox>
+                  <HBox prefHeight="100.0" prefWidth="200.0" spacing="10.0">
+                     <children>
+                        <Group fx:id="i19">
+                           <children>
+                              <ImageView fitHeight="127.0" fitWidth="84.0" pickOnBounds="true" preserveRatio="true" scaleX="0.8" scaleY="0.8">
+                                 <image>
+                                    <Image url="@Images/19.jpg" />
+                                 </image>
+                                 <effect>
+                                    <DropShadow offsetX="2.0" offsetY="2.0">
+                                       <color>
+                                          <Color opacity="0.5" />
+                                       </color>
+                                    </DropShadow>
+                                 </effect>
+                              </ImageView>
+                           </children>
+                        </Group>
+                        <Group fx:id="i20">
+                           <children>
+                              <ImageView fitHeight="127.0" fitWidth="84.0" pickOnBounds="true" preserveRatio="true" scaleX="0.8" scaleY="0.8">
+                                 <image>
+                                    <Image url="@Images/20.jpg" />
+                                 </image>
+                                 <effect>
+                                    <DropShadow offsetX="2.0" offsetY="2.0">
+                                       <color>
+                                          <Color opacity="0.5" />
+                                       </color>
+                                    </DropShadow>
+                                 </effect>
+                              </ImageView>
+                           </children>
+                        </Group>
+                        <Group fx:id="i21">
+                           <children>
+                              <ImageView fitHeight="127.0" fitWidth="84.0" pickOnBounds="true" preserveRatio="true" scaleX="0.8" scaleY="0.8">
+                                 <image>
+                                    <Image url="@Images/21.jpg" />
+                                 </image>
+                                 <effect>
+                                    <DropShadow offsetX="2.0" offsetY="2.0">
+                                       <color>
+                                          <Color opacity="0.5" />
+                                       </color>
+                                    </DropShadow>
+                                 </effect>
+                              </ImageView>
+                           </children>
+                        </Group>
+                     </children>
+                  </HBox>
+                  <HBox prefHeight="100.0" prefWidth="200.0" spacing="10.0">
+                     <children>
+                        <Group fx:id="i22">
+                           <children>
+                              <ImageView fitHeight="127.0" fitWidth="84.0" pickOnBounds="true" preserveRatio="true" scaleX="0.8" scaleY="0.8">
+                                 <image>
+                                    <Image url="@Images/22.jpg" />
+                                 </image>
+                                 <effect>
+                                    <DropShadow offsetX="2.0" offsetY="2.0">
+                                       <color>
+                                          <Color opacity="0.5" />
+                                       </color>
+                                    </DropShadow>
+                                 </effect>
+                              </ImageView>
+                           </children>
+                        </Group>
+                        <Group fx:id="i23">
+                           <children>
+                              <ImageView fitHeight="127.0" fitWidth="84.0" pickOnBounds="true" preserveRatio="true" scaleX="0.8" scaleY="0.8">
+                                 <image>
+                                    <Image url="@Images/23.jpg" />
+                                 </image>
+                                 <effect>
+                                    <DropShadow offsetX="2.0" offsetY="2.0">
+                                       <color>
+                                          <Color opacity="0.5" />
+                                       </color>
+                                    </DropShadow>
+                                 </effect>
+                              </ImageView>
+                           </children>
+                        </Group>
+                        <Group fx:id="i24">
+                           <children>
+                              <ImageView fitHeight="127.0" fitWidth="84.0" pickOnBounds="true" preserveRatio="true" scaleX="0.8" scaleY="0.8">
+                                 <image>
+                                    <Image url="@Images/24.jpg" />
+                                 </image>
+                                 <effect>
+                                    <DropShadow offsetX="2.0" offsetY="2.0">
+                                       <color>
+                                          <Color opacity="0.5" />
+                                       </color>
+                                    </DropShadow>
+                                 </effect>
+                              </ImageView>
+                           </children>
+                        </Group>
+                     </children>
+                  </HBox>
+               </children>
+               <padding>
+                  <Insets left="5.0" right="2.0" top="5.0" />
+               </padding>
+               <effect>
+                  <DropShadow offsetX="5.0" offsetY="5.0">
+                     <color>
+                        <Color opacity="0.5" />
+                     </color>
+                  </DropShadow>
+               </effect>
+            </VBox>
+         </children>
+      </Pane>
+      <Rectangle fill="#57d8ff" height="79.0" layoutX="299.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="341.0" />
+      <Rectangle fill="#57d8ff" height="24.0" layoutX="316.0" layoutY="406.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="324.0" />
+      <Group fx:id="selectAvatar" layoutX="-32.0" layoutY="-347.0" onMouseClicked="#selectAvatar">
+         <children>
+            <Rectangle arcHeight="35.0" arcWidth="35.0" fill="WHITE" height="35.0" layoutX="420.0" layoutY="381.0" stroke="WHITE" strokeType="INSIDE" strokeWidth="0.0" width="151.0">
+               <effect>
+                  <DropShadow offsetX="2.0" offsetY="2.0">
+                     <color>
+                        <Color opacity="0.5" />
+                     </color>
+                  </DropShadow>
+               </effect>
+            </Rectangle>
+            <Text layoutX="443.0" layoutY="405.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Select avatar" textAlignment="CENTER">
+               <font>
+                  <Font size="20.0" />
+               </font>
+            </Text>
+         </children>
+      </Group>
    </children>
 </Pane>

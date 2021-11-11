@@ -3,6 +3,7 @@ package ui;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
+import java.rmi.ServerException;
 import java.util.ResourceBundle;
 
 import javafx.event.EventHandler;
@@ -18,7 +19,9 @@ import javafx.scene.control.TextField;
 import javafx.scene.effect.DropShadow;
 import javafx.scene.effect.Lighting;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
+import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Line;
 import javafx.scene.shape.Rectangle;
@@ -47,7 +50,7 @@ public class SecondaryController implements Initializable {
   private FileChooser fileChooser = new FileChooser();
   private static ImageController imageController = PrimaryController.imageController;
   @FXML
-  private Group upload, backButton, signOut, save;
+  private Group selectAvatar, backButton, signOut, save, i1,i2,i3,i4,i5,i6,i7,i8,i9,i10,i11,i12,i13,i14,i15,i16,i17,i18,i19,i20,i21,i22,i23,i24;
   @FXML
   private TextArea bio;
   @FXML
@@ -55,7 +58,9 @@ public class SecondaryController implements Initializable {
   @FXML
   private PasswordField password;
   @FXML
-  private Pane pane;
+  private Pane pane, avatarPane;
+  @FXML 
+  private VBox avatarVBox;
   private Pane lastPane = null;
   @FXML
   private Label errorLabel;
@@ -87,25 +92,32 @@ public class SecondaryController implements Initializable {
 
    //TODO make this method viable again
   @FXML
-  private void uploadPicture() throws IOException {
-    File file = fileChooser.showOpenDialog(null);
-    if (file != null && getFileExtension(file).equals(".jpg")) {
-      //Replace with avatar selector
-    }
-    updatePreview();
-  }
+  private void selectAvatar() {
+    if(avatarPane.isVisible()) avatarPane.setVisible(false);
+    else avatarPane.setVisible(true);
+    avatarVBox.setOnScroll(e -> {
+      if(avatarVBox.getLayoutY()+avatarVBox.getHeight() + e.getDeltaY()<406-80) avatarVBox.setLayoutY(406-80-avatarVBox.getHeight());
+      else if(avatarVBox.getLayoutY()+e.getDeltaY()>0) avatarVBox.setLayoutY(0);
+      else avatarVBox.setLayoutY(e.getDeltaY()+avatarVBox.getLayoutY());
+    });
+    avatarVBox.getChildren().forEach(e -> {
+      HBox box = (HBox)e;
+      box.getChildren().forEach(k -> {
+        Group g = (Group)k;
+        hoverButton(g);
+        g.setOnMouseClicked(l -> {
+          user.setImageId(Integer.valueOf(g.getId().substring(1)));
+          try {
+            clientHandler.updateInformation(user);
+          } catch (ServerException e1) {
+            // TODO Auto-generated catch block
+            e1.printStackTrace();
+          }
+          updatePreview();
+        });
 
-  private String getFileExtension(File file) {
-    String extension = "";
-    try {
-      if (file.exists()) {
-        String name = file.getName();
-        extension = name.substring(name.lastIndexOf("."));
-      }
-    } catch (Exception e) {
-      e.printStackTrace();
-    }
-    return extension;
+      });
+    });
   }
 
   @FXML
@@ -248,7 +260,7 @@ public class SecondaryController implements Initializable {
     name.setText(user.getName());
     bio.setText(user.getUserInformation());
     age.setText(Integer.toString(user.getAge()));
-    hoverButton(upload);
+    hoverButton(selectAvatar);
     hoverButton(backButton);
     hoverButton(signOut);
     hoverButton(save);
