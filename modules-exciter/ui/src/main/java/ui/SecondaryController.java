@@ -1,16 +1,18 @@
 package ui;
 
-import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.rmi.ServerException;
 import java.util.ResourceBundle;
-
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.geometry.Pos;
 import javafx.scene.Group;
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.ContentDisplay;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
@@ -28,13 +30,8 @@ import javafx.scene.shape.Rectangle;
 import javafx.scene.shape.StrokeType;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
-import javafx.stage.FileChooser;
-import user.User;
 import javafx.stage.Stage;
-import javafx.scene.Node;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
+import user.User;
 
 
 /**
@@ -249,7 +246,7 @@ public class SecondaryController implements Initializable {
     }
     updatePreview();
   }
-
+  String lastString = "a";
   /**
    * Puts in the user info when the page opens.
    */
