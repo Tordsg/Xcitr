@@ -144,7 +144,8 @@ public class MatchController implements Initializable {
         public void handle(ScrollEvent event) {
           if (textBox.getLayoutY() + textBox.getHeight() + event.getDeltaY() / 2 < 393) {
             textBox.setLayoutY(393 - textBox.getHeight());
-          } else if (textBox.getLayoutY() + event.getDeltaY() / 2 > 63) {
+          } else if(textBox.getLayoutY() +event.getDeltaY()/2>63 && textBox.getHeight()<325)textBox.setLayoutY(393 - textBox.getHeight());
+           else if (textBox.getLayoutY() + event.getDeltaY() / 2 >63) {
             textBox.setLayoutY(63);
           } else {
             textBox.setLayoutY(textBox.getLayoutY() + event.getDeltaY() / 2);
@@ -269,7 +270,6 @@ public class MatchController implements Initializable {
           textBox.setLayoutY(393);
           textInput.clear();
           chatPic.setFill(new ImagePattern(imageController.getImage(user1).getImage(), 0, 0, 1, 1.4, true));
-          currentChatUser = user1;
         });
         TranslateTransition ttIn = new TranslateTransition(Duration.millis(400), textPane);
         ttIn.setOnFinished(l -> {
@@ -289,7 +289,6 @@ public class MatchController implements Initializable {
           textBox.setLayoutY(393);
           textInput.clear();
           chatPic.setFill(new ImagePattern(imageController.getImage(user1).getImage(), 0, 0, 1, 1.4, true));
-          currentChatUser = user1;
           TranslateTransition ttIn = new TranslateTransition(Duration.millis(400), textPane);
           ttIn.setOnFinished(l -> {
             matchBox.getChildren().forEach(h -> h.setDisable(false));
@@ -374,6 +373,7 @@ public class MatchController implements Initializable {
   }
 
   private void fillChat(User user, User user1) {
+    this.user1 = user1;
     try {
       Chat messages = clientHandler.getChat(user, user1);
       for (Map<String, String> map : messages.getMessages()) {

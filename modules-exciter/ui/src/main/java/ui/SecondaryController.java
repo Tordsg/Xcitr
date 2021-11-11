@@ -259,14 +259,10 @@ public class SecondaryController implements Initializable {
     hoverButton(backButton);
     hoverButton(signOut);
     hoverButton(save);
-    EventHandler<MouseEvent> event = new EventHandler<MouseEvent>() {
-      public void handle(MouseEvent e) {
-        pane.requestFocus();
-      }
-    };
     // when enter is pressed
-    pane.setOnMouseClicked(event);
-
+    pane.setOnMouseClicked(e-> {
+      pane.requestFocus();
+    });
     updatePreview();
 
   }
