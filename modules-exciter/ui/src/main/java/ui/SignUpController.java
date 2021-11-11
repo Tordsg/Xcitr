@@ -64,7 +64,46 @@ public class SignUpController {
     age.clear();
     emailSignup.clear();
     passwordSignup.clear();
+    name.textProperty().addListener(event -> {
+      if (name.getText().length() > 1) {
+        name.setStyle("-fx-border-color: green;");
+      } else {
+        name.setStyle("-fx-border-color: red;");
+      }
+    });
+    age.textProperty().addListener(event -> {
+      if (isNumeric(age.getText())) {
+        age.setStyle("-fx-border-color: green;");
+      } else {
+        age.setStyle("-fx-border-color: red;");
+      }
+    });
+    emailSignup.textProperty().addListener(event -> {
+      if (emailValidator(emailSignup.getText())) {
+        emailSignup.setStyle("-fx-border-color: green;");
+      } else {
+        emailSignup.setStyle("-fx-border-color: red;");
+      }
+    });
 
+  }
+
+  private boolean isNumeric(String str) {
+    try {
+      Integer.parseInt(str);
+      return true;
+    } catch (NumberFormatException e) {
+      return false;
+    }
+  }
+
+  private boolean emailValidator(String email) {
+    String emailRegex = "^[a-zA-Z0-9_+&*-]+(?:\\." + "[a-zA-Z0-9_+&*-]+)*@" + "(?:[a-zA-Z0-9-]+\\.)+[a-z"
+        + "A-Z]{2,7}$";
+
+    java.util.regex.Pattern pat = java.util.regex.Pattern.compile(emailRegex);
+    java.util.regex.Matcher mat = pat.matcher(email);
+    return mat.matches();
   }
 
   @FXML
@@ -72,8 +111,8 @@ public class SignUpController {
     FXMLLoader Loader = new FXMLLoader();
     Loader.setLocation(getClass().getResource("login.fxml"));
     Parent p = Loader.load();
-    Scene  s = new Scene(p);
-    Stage window = (Stage)((Node)event.getSource()).getScene().getWindow();
+    Scene s = new Scene(p);
+    Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
     window.setScene(s);
     window.show();
   }
@@ -92,14 +131,13 @@ public class SignUpController {
       FXMLLoader Loader = new FXMLLoader();
       Loader.setLocation(getClass().getResource("primary.fxml"));
       Parent p = Loader.load();
-      Scene  s = new Scene(p);
-      Stage window = (Stage)((Node)event.getSource()).getScene().getWindow();
+      Scene s = new Scene(p);
+      Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
       window.setScene(s);
       window.show();
-    } catch(IllegalArgumentException | ServerException | ConnectException e){
+    } catch (IllegalArgumentException | ServerException | ConnectException e) {
       errorLabel.setText(e.getMessage());
     }
   }
-
 
 }
