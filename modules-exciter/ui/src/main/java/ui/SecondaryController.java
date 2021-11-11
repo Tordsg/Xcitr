@@ -47,7 +47,6 @@ public class SecondaryController implements Initializable {
 
   private User user = App.getUser();
 
-  private FileChooser fileChooser = new FileChooser();
   private static ImageController imageController = PrimaryController.imageController;
   @FXML
   private Group selectAvatar, backButton, signOut, save, i1,i2,i3,i4,i5,i6,i7,i8,i9,i10,i11,i12,i13,i14,i15,i16,i17,i18,i19,i20,i21,i22,i23,i24;
@@ -106,11 +105,10 @@ public class SecondaryController implements Initializable {
         Group g = (Group)k;
         hoverButton(g);
         g.setOnMouseClicked(l -> {
-          user.setImageId(Integer.valueOf(g.getId().substring(1)));
+          user.setImageId(Integer.parseInt(g.getId().substring(1)));
           try {
             clientHandler.updateInformation(user);
           } catch (ServerException e1) {
-            // TODO Auto-generated catch block
             e1.printStackTrace();
           }
           updatePreview();
