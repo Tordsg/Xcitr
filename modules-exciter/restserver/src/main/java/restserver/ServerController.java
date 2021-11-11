@@ -213,6 +213,11 @@ public class ServerController {
       return true;
     }
     return false;
+  }
 
+  @GetMapping(value = "/brew")
+  @ResponseStatus(value = org.springframework.http.HttpStatus.I_AM_A_TEAPOT)
+  public String brew() {
+    return "I'm a teapot";
   }
 }
