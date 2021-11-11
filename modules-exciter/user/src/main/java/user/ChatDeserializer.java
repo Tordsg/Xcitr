@@ -1,8 +1,8 @@
 package user;
 
 import java.io.IOException;
-import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -33,7 +33,7 @@ public class ChatDeserializer extends StdDeserializer<Chat> {
 
     public Chat deserialize(JsonNode node) {
         Chat chat = new Chat();
-        List<HashMap<String, String>> messages;
+        List<Map<String, String>> messages;
         if (node == null) {
             return null;
         }
@@ -47,7 +47,7 @@ public class ChatDeserializer extends StdDeserializer<Chat> {
                 chat.setUser2(user2.asText());
             }
             JsonNode messagesNode = objectNode.get("messages");
-            messages = mapper.convertValue(messagesNode, new TypeReference<List<HashMap<String, String>>>() {
+            messages = mapper.convertValue(messagesNode, new TypeReference<List<Map<String, String>>>() {
             });
             chat.setMessages(messages);
 

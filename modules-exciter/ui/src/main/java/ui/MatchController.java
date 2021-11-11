@@ -6,6 +6,7 @@ import java.rmi.ServerException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.ResourceBundle;
 
 import javafx.animation.Interpolator;
@@ -375,7 +376,7 @@ public class MatchController implements Initializable {
   private void fillChat(User user, User user1) {
     try {
       Chat messages = clientHandler.getChat(user, user1);
-      for (HashMap<String, String> map : messages.getMessages()) {
+      for (Map<String, String> map : messages.getMessages()) {
         if (map.containsKey(user1.getEmail())) {
           String string = map.get(user1.getEmail());
           String string2 = string.substring(0, string.length());
