@@ -4,7 +4,6 @@ import java.io.IOException;
 import java.net.URL;
 import java.rmi.ServerException;
 import java.util.ResourceBundle;
-
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -18,6 +17,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import javafx.scene.control.TextFormatter;
 import javafx.scene.effect.DropShadow;
 import javafx.scene.effect.Lighting;
 import javafx.scene.input.MouseEvent;
@@ -31,6 +31,7 @@ import javafx.scene.shape.StrokeType;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
+import javafx.util.StringConverter;
 import user.User;
 
 
@@ -80,13 +81,6 @@ public class SecondaryController implements Initializable {
       n.setEffect(null);
     });
   }
-
-  /**
-   * Uploads images to profile.
-   * @throws IOException
-   */
-
-   //TODO make this method viable again
   @FXML
   private void selectAvatar() {
     if(avatarPane.isVisible()) avatarPane.setVisible(false);
@@ -194,8 +188,8 @@ public class SecondaryController implements Initializable {
     pane1.getChildren().add(text);
     text.setOpacity(1);
     text.setLayoutX(6);
-    text.setLayoutY(50);
-    text.setWrappingWidth(215);
+    text.setLayoutY(46);
+    text.setWrappingWidth(214);
     text.setText(user.getUserInformation());
     DropShadow effect = new DropShadow();
     effect.setOffsetX(2);
@@ -233,9 +227,6 @@ public class SecondaryController implements Initializable {
     } catch (Exception e) {
       errorLabel.setText(e.getMessage());
     }
-
-
-
     if (!password.getText().equals("")) {
       try {
         User passUser = clientHandler.updatePassword(user, password.getText());
@@ -254,6 +245,19 @@ public class SecondaryController implements Initializable {
     name.setText(user.getName());
     bio.setText(user.getUserInformation());
     age.setText(Integer.toString(user.getAge()));
+    TextFormatter<String> tf =new TextFormatter<>(c -> {
+      if (c.isContentChange()) {
+        if(c.getControlNewText().endsWith("\n")){
+          c.setText("");
+        }
+        Text text = new Text(c.getControlNewText());
+        text.setWrappingWidth(214);
+        if(text.getLayoutBounds().getHeight()>69)c.setText("");
+      }
+      return c;
+  });
+    bio.setTextFormatter(tf
+    );
     hoverButton(selectAvatar);
     hoverButton(backButton);
     hoverButton(signOut);
