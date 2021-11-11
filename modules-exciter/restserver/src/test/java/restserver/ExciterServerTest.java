@@ -7,6 +7,7 @@ import java.util.UUID;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -343,6 +344,32 @@ public class ExciterServerTest {
         Assertions.assertEquals(200, response.code());
         Assertions.assertNotNull(chat);
 
+    }
+
+    @Test
+    public void testDeleteUser(){
+
+        ResponseBody responseBody = null;
+        Response response = null;
+        String responseBodyString = null;
+        User addUser = new User("Per", 17, "PerFinnesIkke@mail");
+        addUser.setId(UUID.randomUUID());
+        addUser.setPassword("test");
+        exciter.addUser(addUser);
+        boolean checkIfDeleted = false;
+        try {
+            Request request = new Request.Builder().url("http://localhost:" + port + "/user")
+                    .header("Authorization", addUser.getId().toString()).delete().build();
+            response = client.newCall(request).execute();
+            responseBody = response.body();
+            responseBodyString = responseBody.string();
+            checkIfDeleted = mapper.readValue(responseBodyString, Boolean.class);
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        Assertions.assertTrue(checkIfDeleted);
+        Assertions.assertTrue(response.isSuccessful());
     }
 
 }

@@ -208,6 +208,11 @@ public class ServerController {
         if(user == null){
             throw new Exception("User not found on :: "+ id);}
         excite.clearUser(user);
-       return true;
+        fileHandler.saveUser(excite.getAllUsers());
+        if(fileHandler.getUserById(id) == null){
+            return true;
+        }
+        return false;
+    
     }
 }
