@@ -37,6 +37,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
+import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
@@ -70,11 +71,11 @@ public class MatchController implements Initializable {
   Label errorLabel;
 
   private int chatId;
-
   protected final static ImageController imageController = PrimaryController.imageController;
   private ClientHandler clientHandler = new ClientHandler();
   private User user = App.getUser();
   private User user1;
+  private User currentChatUser = user;
   private List<User> matches = new ArrayList<>();
 
   public void switchToPrimary(MouseEvent event) throws IOException {
@@ -104,6 +105,7 @@ public class MatchController implements Initializable {
     hoverButton(backButton);
     hoverButton(sendButton);
     hoverButton(chatPic);
+    hoverButton(refresh);
     if (matches != null && !matches.isEmpty()) {
       fillChat(user, matches.get(0));
       nameUser.setText(matches.get(0).getName());
@@ -265,6 +267,8 @@ public class MatchController implements Initializable {
           fillChat(user, user1);
           textBox.setLayoutY(393);
           textInput.clear();
+          chatPic.setFill(new ImagePattern(imageController.getImage(user1).getImage(), 0, 0, 1, 1.4, true));
+          currentChatUser = user1;
         });
         TranslateTransition ttIn = new TranslateTransition(Duration.millis(400), textPane);
         ttIn.setOnFinished(l -> {
@@ -283,6 +287,8 @@ public class MatchController implements Initializable {
           fillChat(user, user1);
           textBox.setLayoutY(393);
           textInput.clear();
+          chatPic.setFill(new ImagePattern(imageController.getImage(user1).getImage(), 0, 0, 1, 1.4, true));
+          currentChatUser = user1;
           TranslateTransition ttIn = new TranslateTransition(Duration.millis(400), textPane);
           ttIn.setOnFinished(l -> {
             matchBox.getChildren().forEach(h -> h.setDisable(false));
@@ -322,6 +328,7 @@ public class MatchController implements Initializable {
     circle.setRadius(24);
     circle.setLayoutX(38);
     circle.setLayoutY(34);
+    circle.setFill(new ImagePattern(imageController.getImage(user).getImage(), 0, 0, 1, 1.4, true));
     text.setLayoutX(73);
     text.setLayoutY(32);
     text.setText(user.getName());
@@ -339,7 +346,7 @@ public class MatchController implements Initializable {
     if (profilePane.getPrefHeight() != 430) {
       KeyValue kv = new KeyValue(profilePane.prefHeightProperty(), 430, Interpolator.EASE_BOTH);
       Timeline timeline = new Timeline(new KeyFrame(Duration.millis(300), kv));
-      Pane pane = SecondaryController.createCard(user);
+      Pane pane = SecondaryController.createCard(currentChatUser);
       profilePane.getChildren().add(pane);
       pane.setLayoutY(70);
       TranslateTransition tt = new TranslateTransition(Duration.millis(300), pane);
