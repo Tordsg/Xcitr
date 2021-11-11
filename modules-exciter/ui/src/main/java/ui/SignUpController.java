@@ -88,6 +88,11 @@ public class SignUpController {
 
   }
 
+  /**
+   * Checks if number is numeric.
+   * @param str
+   * @return boolean
+   */
   private boolean isNumeric(String str) {
     try {
       Integer.parseInt(str);
@@ -97,8 +102,15 @@ public class SignUpController {
     }
   }
 
+  /**
+   * Validates email.
+   * @param email email to validate
+   * @return true if email is valid
+   */
   private boolean emailValidator(String email) {
-    String emailRegex = "^[a-zA-Z0-9_+&*-]+(?:\\." + "[a-zA-Z0-9_+&*-]+)*@" + "(?:[a-zA-Z0-9-]+\\.)+[a-z"
+    String emailRegex = "^[a-zA-Z0-9_+&*-]+(?:\\."
+        + "[a-zA-Z0-9_+&*-]+)*@"
+        + "(?:[a-zA-Z0-9-]+\\.)+[a-z"
         + "A-Z]{2,7}$";
 
     java.util.regex.Pattern pat = java.util.regex.Pattern.compile(emailRegex);
