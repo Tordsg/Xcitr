@@ -66,23 +66,23 @@ public class SignUpController {
     passwordSignup.clear();
     name.textProperty().addListener(event -> {
       if (name.getText().length() > 1) {
-        name.setStyle("-fx-border-color: green;");
+        name.setStyle("-fx-control-inner-background: white;");
       } else {
-        name.setStyle("-fx-border-color: red;");
+        name.setStyle("-fx-control-inner-background: #ff9999;");
       }
     });
     age.textProperty().addListener(event -> {
       if (isNumeric(age.getText())) {
-        age.setStyle("-fx-border-color: green;");
+        age.setStyle("-fx-control-inner-background: white;");
       } else {
-        age.setStyle("-fx-border-color: red;");
+        age.setStyle("-fx-control-inner-background: #ff9999;");
       }
     });
     emailSignup.textProperty().addListener(event -> {
       if (emailValidator(emailSignup.getText())) {
-        emailSignup.setStyle("-fx-border-color: green;");
+        emailSignup.setStyle("-fx-control-inner-background: white;");
       } else {
-        emailSignup.setStyle("-fx-border-color: red;");
+        emailSignup.setStyle("-fx-control-inner-background: #ff9999;");
       }
     });
 
