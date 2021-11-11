@@ -93,6 +93,7 @@ public class ServerController {
             throw new IllegalAccessError("You do not have permission to update this user");
         }
         User thisUser = excite.getUserByEmail(user.getEmail());
+        thisUser.setImageId(user.getImageId());
         thisUser.setName(user.getName());
         thisUser.setAge(user.getAge());
         thisUser.setUserInformation(user.getUserInformation());
