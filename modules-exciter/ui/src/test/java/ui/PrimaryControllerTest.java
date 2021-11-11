@@ -18,7 +18,7 @@ import org.testfx.framework.junit5.ApplicationTest;
 public class PrimaryControllerTest extends ApplicationTest {
 
   private App app = new App();
-  private BotUser botUser = new BotUser("John", 21, "john@mail.no", true);
+  private BotUser botUser = new BotUser("John", 21, "john@mail.no", true,1);
 
 
   @Override

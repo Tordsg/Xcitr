@@ -19,7 +19,7 @@ public class MatchControllerTest extends ApplicationTest {
 
   private App app = new App();
   private MatchController controller;
-  private BotUser botUser = new BotUser("John", 21, "john@mail.no", true);
+  private BotUser botUser = new BotUser("John", 21, "john@mail.no", true,1);
 
 
   @Override

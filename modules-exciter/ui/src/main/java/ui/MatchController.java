@@ -7,13 +7,14 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.ResourceBundle;
-
 import javafx.animation.Interpolator;
 import javafx.animation.KeyFrame;
 import javafx.animation.KeyValue;
+import javafx.animation.RotateTransition;
 import javafx.animation.SequentialTransition;
 import javafx.animation.Timeline;
 import javafx.animation.TranslateTransition;
+import javafx.application.Platform;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -24,6 +25,8 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.effect.DropShadow;
 import javafx.scene.effect.Lighting;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.input.ScrollEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
@@ -46,6 +49,8 @@ public class MatchController implements Initializable {
   @FXML
   VBox matchBox, textBox;
   @FXML
+  Pane textPane, refresh;
+  @FXML
   TextField textInput;
   @FXML
   Group backButton, sendButton;
@@ -53,12 +58,15 @@ public class MatchController implements Initializable {
   AnchorPane anchorPane, profilePane;
   @FXML
   Circle chatPic;
+  @FXML
+  Text nameUser;
 
   private int chatId;
 
   protected final static ImageController imageController = PrimaryController.imageController;
   private ClientHandler clientHandler = new ClientHandler();
   private User user = App.getUser();
+  private User user1;
   private List<User> matches = new ArrayList<>();
 
   public void switchToPrimary() throws IOException {
@@ -70,6 +78,7 @@ public class MatchController implements Initializable {
    */
 
   public void initialize(URL arg0, ResourceBundle arg1) {
+    textPane.setLayoutX(640);
     try {
       matches = clientHandler.getMatches(user);
     } catch (ServerException e) {
@@ -77,42 +86,36 @@ public class MatchController implements Initializable {
     hoverButton(backButton);
     hoverButton(sendButton);
     hoverButton(chatPic);
-    if (!matches.isEmpty()) {
+    if (matches != null && !matches.isEmpty()) {
       fillChat(user, matches.get(0));
+      nameUser.setText(matches.get(0).getName());
     }
-    // HBox one = createMessage("halllllllllaaaaaa heiii", false);
-    // HBox two = createMessage("a", true);
-    // HBox three = createMessage("Hei jeg synes du virker som en veldig artig
-    // person. Noen ganger tenker jeg at du ikke tenker like mye på andre som du
-    // egentlig burde ha gjort.", true);
-    // textBox.getChildren().add(one);
-    // textBox.getChildren().add(two);
-    // textBox.getChildren().add(three);
+
     if (matches != null && !matches.isEmpty()) {
       matches.forEach(e -> matchBox.getChildren().add(createMatchCard(e)));
       matchBox.getChildren().forEach(e -> hoverButton(e));
       for (int i = 0; i < matchBox.getChildren().size(); i++) {
-        clickButton(matchBox.getChildren().get(i), matches.get(i), i);
+        clickButton((Group)matchBox.getChildren().get(i), matches.get(i), i);
       }
     }
     if (matchBox.getChildren().size() == 0) {
       Label label = new Label();
       label.setText("You have not matches, yet.");
-      label.setFont(new Font(30));
+      label.setFont(new Font(20));
       label.setAlignment(Pos.CENTER);
-      label.setLayoutX(50);
-      label.setLayoutY(100);
+      label.setLayoutX(48);
+      label.setLayoutY(80);
       anchorPane.getChildren().add(label);
     } else {
       matchBox.setOnScroll(new EventHandler<ScrollEvent>() {
         @Override
         public void handle(ScrollEvent event) {
           if (matchBox.getLayoutY() + event.getDeltaY() / 2 <= 62) {
-            matchBox.setLayoutY(matchBox.getLayoutY() + event.getDeltaY() / 2);
+            matchBox.setLayoutY(62);
           }
-          if (matchBox.getLayoutY() + matchBox.getHeight() + event.getDeltaY() / 2 >= 420) {
-            matchBox.setLayoutY(matchBox.getLayoutY() + event.getDeltaY() / 2);
-          }
+          else if (matchBox.getLayoutY() + matchBox.getHeight() + event.getDeltaY() / 2 >= 411) {
+            matchBox.setLayoutY(411-matchBox.getHeight());
+          } else matchBox.setLayoutY(matchBox.getLayoutY() + event.getDeltaY()/2);
         }
       });
       textBox.setOnScroll(new EventHandler<ScrollEvent>() {
@@ -121,31 +124,52 @@ public class MatchController implements Initializable {
           if (textBox.getLayoutY() + textBox.getHeight() + event.getDeltaY() / 2 < 393) {
             textBox.setLayoutY(393 - textBox.getHeight());
           } else if (textBox.getLayoutY() + event.getDeltaY() / 2 > 63) {
+            textBox.setLayoutY(63);
           } else {
             textBox.setLayoutY(textBox.getLayoutY() + event.getDeltaY() / 2);
           }
         }
       });
+      anchorPane.setOnKeyPressed(new EventHandler<KeyEvent>() {
+        @Override
+        public void handle(KeyEvent ke) {
+            if (ke.getCode().equals(KeyCode.ENTER)) {
+                sendMessage();
+            }
+          }});
     }
   }
-
+  @FXML
+  public void refresh(){
+    refresh.setDisable(true);
+    RotateTransition rt = new RotateTransition(Duration.millis(500), refresh);
+    rt.setFromAngle(0);
+    rt.setToAngle(360);
+    rt.setOnFinished(e -> {
+      refresh.setDisable(false);      
+      textBox.setLayoutY(393 - textBox.getHeight());
+    });
+    rt.play();
+    if(user1!=null){
+      textBox.getChildren().clear();
+      fillChat(user, user1);
+      textBox.setLayoutY(393);
+    }
+  }
   @FXML
   public void sendMessage() {
-    if (textInput.getText().equals(""))
+    if (textInput.getText().equals("") || matches == null || matches.isEmpty())
       return;
     HBox hBox = createMessage(textInput.getText(), true);
     try {
       clientHandler.sendMessage(user, matches.get(chatId), textInput.getText());
     } catch (ServerException e) {
       // TODO add error message to screen
-      e.printStackTrace();
+      //e.printStackTrace();
     }
-    textBox.getChildren().add(hBox);
     textInput.clear();
-    if (textBox.getLayoutY() + textBox.getHeight() < 393) {
-      textBox.setLayoutY(393 - textBox.getHeight());
-    }
-
+    textBox.getChildren().add(hBox);
+    textBox.setLayoutY(393 - textBox.getHeight()- height);
   }
 
   private HBox createMessage(String string, Boolean isCurrentUser) {
@@ -162,6 +186,7 @@ public class MatchController implements Initializable {
     }
     rectangle.setWidth(text.getLayoutBounds().getWidth() + 20);
     rectangle.setHeight(text.getLayoutBounds().getHeight() + 20);
+    height = text.getLayoutBounds().getHeight() + 35;
     if (rectangle.getHeight() < 45) {
       rectangle.setArcHeight(25);
       rectangle.setArcWidth(25);
@@ -188,18 +213,72 @@ public class MatchController implements Initializable {
       n.setEffect(null);
     });
   }
-
-  private void clickButton(Node n, User user1, int i) {
+  Group lastN = null;
+  private void clickButton(Group n, User user1, int i) {
+    this.user1=user1;
     n.setOnMouseClicked(e -> {
-      chatId = i;
-      textBox.getChildren().clear();
-      fillChat(user, user1);
+      if(lastN!=null){
+        if(lastN.equals(n))return;
+        lastN.getChildren().forEach(l->{
+          if(l.getClass().equals(Rectangle.class)){
+            Rectangle rect = (Rectangle)l;
+            rect.setStrokeWidth(0);
+          }
+        });
+      }
+      lastN = n;
+      n.getChildren().forEach(l->{
+        if(l.getClass().equals(Rectangle.class)){
+          Rectangle rect = (Rectangle)l;
+          rect.setStrokeWidth(3);
+        }});
+      matchBox.getChildren().forEach(l -> l.setDisable(true));
+      if(textPane.getTranslateX()==-320){
+        TranslateTransition ttOut = new TranslateTransition(Duration.millis(400), textPane);
+        ttOut.setFromX(-320);
+        ttOut.setToX(0);
+        ttOut.setOnFinished(t-> {
+          chatId = i;
+          nameUser.setText(user1.getName());
+          textBox.getChildren().clear();
+          textBox.setLayoutY(63);
+          fillChat(user, user1);
+          textBox.setLayoutY(393);
+          textInput.clear();
+        });
+        TranslateTransition ttIn = new TranslateTransition(Duration.millis(400), textPane);
+        ttIn.setOnFinished(l -> {
+          matchBox.getChildren().forEach(h -> h.setDisable(false));
+          textBox.setLayoutY(393 - textBox.getHeight());
+        });
+        ttIn.setFromX(0);
+        ttIn.setToX(-320);
+        SequentialTransition st = new SequentialTransition(ttOut,new TranslateTransition(Duration.millis(200)),ttIn);
+        st.play();
+      } else{
+          chatId = i;
+          nameUser.setText(user1.getName());
+          textBox.getChildren().clear();
+          textBox.setLayoutY(63);
+          fillChat(user, user1);
+          textBox.setLayoutY(393);
+          textInput.clear();
+          TranslateTransition ttIn = new TranslateTransition(Duration.millis(400), textPane);
+          ttIn.setOnFinished(l -> {
+            matchBox.getChildren().forEach(h -> h.setDisable(false));
+            textBox.setLayoutY(393 - textBox.getHeight());
+      });
+          ttIn.setFromX(0);
+          ttIn.setToX(-320);
+          ttIn.play();
+      }
+      
     });
-
   }
-
+  double height = 0;
   protected static Group createMatchCard(User user) {
     Group group = new Group();
+    group.setTranslateX(-5);
     Rectangle rectangle = new Rectangle();
     Circle circle = new Circle();
     Text text = new Text();
@@ -212,6 +291,8 @@ public class MatchController implements Initializable {
     rectangle.setHeight(70);
     rectangle.setArcHeight(70);
     rectangle.setArcWidth(70);
+    rectangle.setStroke(Color.GREY);
+    rectangle.setStrokeWidth(0);
     rectangle.setFill(javafx.scene.paint.Color.WHITE);
     DropShadow dropShadow = new DropShadow();
     dropShadow.setOffsetX(5);
@@ -269,10 +350,14 @@ public class MatchController implements Initializable {
       Chat messages = clientHandler.getChat(user, user1);
       for (HashMap<String, String> map : messages.getMessages()) {
         if (map.containsKey(user1.getEmail())) {
-          HBox hBox = createMessage(map.get(user1.getEmail()).replace("\"", ""), false);
+          String string = map.get(user1.getEmail());
+          String string2 = string.substring(0, string.length());
+          HBox hBox = createMessage(string2, false);
           textBox.getChildren().add(hBox);
         } else {
-          HBox hBox = createMessage(map.get(user.getEmail()).replace("\"", ""), true);
+          String string = map.get(user.getEmail());
+          String string2 = string.substring(1, string.length()-1);
+          HBox hBox = createMessage(string2, true);
           textBox.getChildren().add(hBox);
         }
       }

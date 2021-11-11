@@ -55,12 +55,12 @@ public class Exciter {
    */
 
   public void addSomePlaceholderUsers() {
-    allUsers.add(new BotUser("John", 22, "John@mail", true));
-    allUsers.add(new BotUser("Jane", 31, "Jane@mail", true));
-    allUsers.add(new BotUser("Joe", 19, "Joe@mail", false));
-    allUsers.add(new BotUser("Derik", 27, "Derik@mail", false));
-    allUsers.add(new BotUser("Diana", 23, "Diana@mail", false));
-    allUsers.add(new BotUser("Dani", 25, "Dani@mail", true));
+    allUsers.add(new BotUser("John", 22, "John@mail", true, 1));
+    allUsers.add(new BotUser("Jane", 31, "Jane@mail", true, 3));
+    allUsers.add(new BotUser("Joe", 19, "Joe@mail", false, 4));
+    allUsers.add(new BotUser("Derik", 27, "Derik@mail", false, 5));
+    allUsers.add(new BotUser("Diana", 23, "Diana@mail", false, 6));
+    allUsers.add(new BotUser("Dani", 25, "Dani@mail", true, 8));
     allUsers.add(new User("Roger", 25, "Roger@mail"));
   }
 
@@ -136,7 +136,8 @@ public class Exciter {
     if (userWhoIsLiked instanceof BotUser) {
       userWhoIsLiked.fireOnLike(userWhoLikes.getEmail());
     }
-    if(userWhoLikes.getLikedUsers().containsKey(userWhoIsLiked.getEmail()) && userWhoLikes.getLikedUsers().get(userWhoIsLiked.getEmail()) > 3) {
+    if (userWhoLikes.getLikedUsers().containsKey(userWhoIsLiked.getEmail())
+        && userWhoLikes.getLikedUsers().get(userWhoIsLiked.getEmail()) > 3) {
       userWhoLikes.resetUserMatchToOne(userWhoIsLiked.getEmail());
     }
     return userWhoLikes.checkIfMatch(userWhoIsLiked);
