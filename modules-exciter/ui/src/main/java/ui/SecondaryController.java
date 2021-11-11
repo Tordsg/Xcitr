@@ -4,7 +4,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.rmi.ServerException;
 import java.util.ResourceBundle;
-import javafx.event.EventHandler;
+
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -55,7 +55,7 @@ public class SecondaryController implements Initializable {
   private PasswordField password;
   @FXML
   private Pane pane, avatarPane;
-  @FXML 
+  @FXML
   private VBox avatarVBox;
   private Pane lastPane = null;
   @FXML
@@ -234,7 +234,7 @@ public class SecondaryController implements Initializable {
       errorLabel.setText(e.getMessage());
     }
 
-    
+
 
     if (!password.getText().equals("")) {
       try {
@@ -246,7 +246,6 @@ public class SecondaryController implements Initializable {
     }
     updatePreview();
   }
-  String lastString = "a";
   /**
    * Puts in the user info when the page opens.
    */
