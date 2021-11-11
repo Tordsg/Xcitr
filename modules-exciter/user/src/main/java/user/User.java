@@ -56,6 +56,7 @@ public class User {
     }
     this.imageId = imageId;
   }
+
   /**
    * Constructor for User class.
    *
@@ -157,21 +158,20 @@ public class User {
     return this.name;
   }
 
-
   private boolean checkForLetters(String name) {
-    for(int i = 0; i < name.length(); i++ ) {
-      if(!(Character.isLetter(name.charAt(i))|| name.charAt(i)==' ' || name.charAt(i) == '-')){
-        return false;}
+    for (int i = 0; i < name.length(); i++) {
+      if (!(Character.isLetter(name.charAt(i)) || name.charAt(i) == ' ' || name.charAt(i) == '-')) {
+        return false;
+      }
     }
     return true;
   }
-
 
   public void setName(String name) {
     if (name.length() < 2) {
       throw new IllegalArgumentException("Name must be at least 2 characters");
     }
-    if (name.length() > 20){
+    if (name.length() > 20) {
       throw new IllegalArgumentException("Name cannot be longer than 20 characters");
     }
     if (!checkForLetters(name)) {
@@ -194,10 +194,25 @@ public class User {
   }
 
   public void setEmail(String email) {
-    if (!email.contains("@")) {
-      throw new IllegalArgumentException("Email must contain @");
+    if(!emailValidator(email)){
+      throw new IllegalArgumentException("Email is not valid");
     }
     this.email = email;
+  }
+
+  /**
+   * Validates email.
+   *
+   * @param email email to validate
+   * @return true if email is valid
+   */
+  private boolean emailValidator(String email) {
+    String emailRegex = "^[a-zA-Z0-9_+&*-]+(?:\\." + "[a-zA-Z0-9_+&*-]+)*@" + "(?:[a-zA-Z0-9-]+\\.)+[a-z"
+        + "A-Z]{2,7}$";
+
+    java.util.regex.Pattern pat = java.util.regex.Pattern.compile(emailRegex);
+    java.util.regex.Matcher mat = pat.matcher(email);
+    return mat.matches();
   }
 
   public String getEmail() {

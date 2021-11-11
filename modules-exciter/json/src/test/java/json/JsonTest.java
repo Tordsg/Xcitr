@@ -19,7 +19,7 @@ public class JsonTest {
     private User user;
     private Exciter exciter;
     private List<User> users = new ArrayList<>();
-    private BotUser botUser = new BotUser("lars", 22, "lars@mail", true, 1);
+    private BotUser botUser = new BotUser("lars", 22, "lars@mail.no", true, 1);
 
     @BeforeEach
     public void setUp() {
@@ -27,7 +27,7 @@ public class JsonTest {
         exciter = new Exciter();
         fileHandler.createFile();
         fileHandler.saveUser(exciter.getAllUsers());
-        user = new User("Ola Nordmann", 26, "Fiskesprett på søndager", "ola@mail");
+        user = new User("Ola Nordmann", 26, "Fiskesprett på søndager", "ola@mail.no");
         users.add(user);
     }
 
@@ -37,7 +37,7 @@ public class JsonTest {
         List<User> userReadFromFile = fileHandler.readUsers();
         Assertions.assertEquals("Ola Nordmann", userReadFromFile.get(0).getName());
         Assertions.assertEquals(26, userReadFromFile.get(0).getAge());
-        Assertions.assertEquals("ola@mail", userReadFromFile.get(0).getEmail());
+        Assertions.assertEquals("ola@mail.no", userReadFromFile.get(0).getEmail());
     }
 
     @Test
@@ -55,34 +55,34 @@ public class JsonTest {
     @Test
     public void getExplicitUser() {
         fileHandler.saveUser(users);
-        Assertions.assertEquals(users.get(0).getName(), fileHandler.getUser("ola@mail").getName());
-        Assertions.assertEquals(users.get(0).getAge(), fileHandler.getUser("ola@mail").getAge());
-        Assertions.assertEquals(users.get(0).getEmail(), fileHandler.getUser("ola@mail").getEmail());
+        Assertions.assertEquals(users.get(0).getName(), fileHandler.getUser("ola@mail.no").getName());
+        Assertions.assertEquals(users.get(0).getAge(), fileHandler.getUser("ola@mail.no").getAge());
+        Assertions.assertEquals(users.get(0).getEmail(), fileHandler.getUser("ola@mail.no").getEmail());
         Assertions.assertEquals(users.get(0).getUserInformation(),
-                fileHandler.getUser("ola@mail").getUserInformation());
+                fileHandler.getUser("ola@mail.no").getUserInformation());
     }
 
     @Test
     public void testPasswords() {
-        users.add(new BotUser("bot", 24, "bot@mail", true, 1));
+        users.add(new BotUser("bot", 24, "bot@mail.no", true, 1));
         users.get(0).setPassword("password");
         fileHandler.saveUser(users);
-        Assertions.assertEquals("5f4dcc3b5aa765d61d8327deb882cf99", fileHandler.getUser("ola@mail").getPassword());
-        Assertions.assertNull(fileHandler.getUser("bot@mail").getPassword());
+        Assertions.assertEquals("5f4dcc3b5aa765d61d8327deb882cf99", fileHandler.getUser("ola@mail.no").getPassword());
+        Assertions.assertNull(fileHandler.getUser("bot@mail.no").getPassword());
     }
 
     @Test
     public void testNullfind() {
-        Assertions.assertNull(fileHandler.getUser("404notfound@mail"));
+        Assertions.assertNull(fileHandler.getUser("404notfound@mail.no"));
         // First checks while file is empty
         // Second checks when file is not empty but does not contain the user
         fileHandler.saveUser(users);
-        Assertions.assertNull(fileHandler.getUser("404notfound@mail"));
+        Assertions.assertNull(fileHandler.getUser("404notfound@mail.no"));
     }
 
     @Test
     public void testFindUserById() {
-        User idUser = new User("Ola Nordmann", 26, "olanrtre@mail");
+        User idUser = new User("Ola Nordmann", 26, "olanrtre@mail.no");
         idUser.setId(UUID.randomUUID());
         exciter.addUser(idUser);
         fileHandler.saveUser(exciter.getAllUsers());
@@ -91,9 +91,9 @@ public class JsonTest {
 
     @Test
     public void testLikeCounter() {
-        User idUser = new User("Ola Nordmann", 26, "olanrtre@mail");
+        User idUser = new User("Ola Nordmann", 26, "olanrtre@mail.no");
         idUser.setId(UUID.randomUUID());
-        BotUser botUser = new BotUser("bot", 24, "bot@mail", true, 9);
+        BotUser botUser = new BotUser("bot", 24, "bot@mail.no", true, 9);
         exciter.addUsers(List.of(idUser, botUser));
         idUser.fireOnLike(botUser.getEmail());
         fileHandler.saveUser(exciter.getAllUsers());

@@ -8,15 +8,15 @@ import user.Chat;
 import user.User;
 
 public class MessageHandlerTest {
-    private User user1 = new User("user", 22, "user@mail");
-    private User user2 = new User("userto", 22, "userto@mail");
+    private User user1 = new User("user", 22, "user@mail.no");
+    private User user2 = new User("userto", 22, "userto@mail.no");
     private Chat chat = new Chat(user1.getEmail(), user2.getEmail());
     private MessageHandler messageHandler = new MessageHandler();
 
     @BeforeEach
     public void setUp() {
-        user1 = new User("user", 22, "user@mail");
-        user2 = new User("userto", 22, "userto@mail");
+        user1 = new User("user", 22, "user@mail.no");
+        user2 = new User("userto", 22, "userto@mail.no");
         chat = new Chat(user1.getEmail(), user2.getEmail());
     }
 
@@ -61,8 +61,8 @@ public class MessageHandlerTest {
 
     @Test
     public void testNewChat() {
-        User user3 = new User("user", 22, "usertre@mail");
-        User user4 = new User("userto", 22, "userfire@mail");
+        User user3 = new User("user", 22, "usertre@mail.no");
+        User user4 = new User("userto", 22, "userfire@mail.no");
         Chat chat3 = new Chat(user3.getEmail(), user4.getEmail());
         chat3.sendMeesage(user3.getEmail(), "Hello");
         chat3.sendMeesage(user4.getEmail(), "Hello");

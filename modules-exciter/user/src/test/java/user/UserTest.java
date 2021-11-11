@@ -14,15 +14,15 @@ public class UserTest {
 
     @BeforeEach
     public void setUp() {
-        user = new User("Roger",22,"roger@mail");
-        botUser = new BotUser("Tonje",22,"bowling","tonje@mail",true,1);
+        user = new User("Roger",22,"roger@mail.no");
+        botUser = new BotUser("Tonje",22,"bowling","tonje@mail.no",true,1);
     }
 
     @Test
     public void testUser() {
         Assertions.assertEquals("Roger", user.getName());
         Assertions.assertEquals(22, user.getAge());
-        Assertions.assertEquals("roger@mail", user.getEmail());
+        Assertions.assertEquals("roger@mail.no", user.getEmail());
         Assertions.assertEquals("Tonje", botUser.getName());
         Assertions.assertEquals(22, botUser.getAge());
         Assertions.assertEquals("bowling", botUser.getUserInformation());

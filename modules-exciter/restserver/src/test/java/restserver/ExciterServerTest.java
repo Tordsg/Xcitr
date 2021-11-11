@@ -38,14 +38,14 @@ public class ExciterServerTest {
     ObjectMapper mapper = new ObjectMapper();
     Exciter exciter = ExciterApplication.excite;
     FileHandler fileHandler = new FileHandler();
-    User user = new User("test", 22, "test@mail");
+    User user = new User("test", 22, "test@mail.no");
 
     @LocalServerPort
     int port;
 
     @BeforeEach
     public void setup() {
-        user = new User("test", 22, "test@mail");
+        user = new User("test", 22, "test@mail.no");
         exciter.clearUser(user);
     }
 
@@ -64,7 +64,7 @@ public class ExciterServerTest {
 
     @Test
     public void testGetUser() {
-        User getUser = new User("test", 22, "testnr2@mail");
+        User getUser = new User("test", 22, "testnr2@mail.no");
         getUser.setId(UUID.randomUUID());
         exciter.addUser(getUser);
         fileHandler.saveUser(exciter.getAllUsers());
@@ -85,7 +85,7 @@ public class ExciterServerTest {
         Response response = null;
         ResponseBody responseBody = null;
         String responseBodyString = null;
-        User newUser = new User("Nottest", 22, "Nottest@mail");
+        User newUser = new User("Nottest", 22, "Nottest@mail.no");
         String password = User.MD5Hash("test");
         try {
             String sendString = mapper.writeValueAsString(user);
@@ -128,8 +128,8 @@ public class ExciterServerTest {
         Response response = null;
         ResponseBody responseBody = null;
         String responseBodyString = null;
-        User newUser = new User("NotPer", 17, "NotPer@mail");
-        User addUser = new User("Per", 17, "Per@mail");
+        User newUser = new User("NotPer", 17, "NotPer@mail.no");
+        User addUser = new User("Per", 17, "Per@mail.no");
         addUser.setId(UUID.randomUUID());
         addUser.setPassword("test");
         String password = User.MD5Hash("test");
@@ -158,7 +158,7 @@ public class ExciterServerTest {
         Response response = null;
         ResponseBody responseBody = null;
         String responseBodyString = null;
-        User updatedUser = new User("Oliver", 22, "test@mail");
+        User updatedUser = new User("Oliver", 22, "test@mail.no");
         updatedUser.setId(UUID.randomUUID());
         exciter.addUser(updatedUser);
         User newUser = null;
@@ -193,10 +193,10 @@ public class ExciterServerTest {
 
     @Test
     public void testGetMatches() {
-        User testUser = new User("Ludde", 19, "Ludde@mail");
+        User testUser = new User("Ludde", 19, "Ludde@mail.no");
         testUser.setId(UUID.randomUUID());
-        testUser.addMatch("Diana@mail");
-        testUser.addMatch("Jane@mail");
+        testUser.addMatch("Diana@mail.no");
+        testUser.addMatch("Jane@mail.no");
         exciter.addUser(testUser);
         Request requets = new Request.Builder().url("http://localhost:" + port + "/user/matches")
                 .header("Authorization", testUser.getId().toString()).build();
@@ -215,8 +215,8 @@ public class ExciterServerTest {
 
     @Test
     public void emulateMatch() {
-        BotUser botuser1 = new BotUser("Bot", 18, "Botmatch@mail", true, 1);
-        BotUser botuser2 = new BotUser("Botto", 18, "Botmatchto@mail", false,3);
+        BotUser botuser1 = new BotUser("Bot", 18, "Botmatch@mail.no", true, 1);
+        BotUser botuser2 = new BotUser("Botto", 18, "Botmatchto@mail.no", false,3);
         exciter.addUsers(List.of(botuser1, botuser2));
         user.setId(UUID.randomUUID());
         exciter.addUser(user);
@@ -266,7 +266,7 @@ public class ExciterServerTest {
     @Test
     public void testGetLike() {
         user.setId(UUID.randomUUID());
-        BotUser botuser = new BotUser("Bot", 18, "Boten@mail", true, 7);
+        BotUser botuser = new BotUser("Bot", 18, "Boten@mail.no", true, 7);
         Integer testInt = null;
         exciter.addUsers(List.of(user, botuser));
         exciter.likePerson(user, botuser);
@@ -286,10 +286,10 @@ public class ExciterServerTest {
 
     @Test
     public void getNewUserFromList() {
-        User user1 = new User("Ludde", 19, "Ludde@mail");
-        User user2 = new User("Ludde", 19, "Ludde2@mail");
-        User user3 = new User("Ludde", 19, "Ludd3@mail");
-        User user4 = new User("Ludde", 19, "Ludd4@mail");
+        User user1 = new User("Ludde", 19, "Ludde@mail.no");
+        User user2 = new User("Ludde", 19, "Ludde2@mail.no");
+        User user3 = new User("Ludde", 19, "Ludd3@mail.no");
+        User user4 = new User("Ludde", 19, "Ludd4@mail.no");
         user1.setId(UUID.randomUUID());
         user2.setId(UUID.randomUUID());
         user3.setId(UUID.randomUUID());
@@ -320,8 +320,8 @@ public class ExciterServerTest {
 
     @Test
     public void testMessage() {
-        User user1 = new User("Ludde", 19, "LuddeMessage@mail");
-        User user2 = new User("Ludde", 19, "LuddeMessage2@mail");
+        User user1 = new User("Ludde", 19, "LuddeMessage@mail.no");
+        User user2 = new User("Ludde", 19, "LuddeMessage2@mail.no");
         user1.setId(UUID.randomUUID());
         String string = "Hej";
         exciter.addUsers(List.of(user1, user2));
@@ -352,7 +352,7 @@ public class ExciterServerTest {
         ResponseBody responseBody = null;
         Response response = null;
         String responseBodyString = null;
-        User addUser = new User("Per", 17, "PerFinnesIkke@mail");
+        User addUser = new User("Per", 17, "PerFinnesIkke@mail.no");
         addUser.setId(UUID.randomUUID());
         addUser.setPassword("test");
         exciter.addUser(addUser);
