@@ -154,5 +154,24 @@ public class SignUpController {
       errorLabel.setText(e.getMessage());
     }
   }
+  public void deleteUser(User user){
+    try {
+      clientHandler.deleteUser(user);
+    } catch (ServerException | ConnectException e) {
+      // TODO Auto-generated catch block
+      e.printStackTrace();
+    }
+  }
+    public void addUser(User user, String password){
+      
+        try {
+          clientHandler.createAccount(user, password);
+        } catch (ServerException | ConnectException e) {
+          // TODO Auto-generated catch block
+          e.printStackTrace();
+        }
+    
+  }
+
 
 }

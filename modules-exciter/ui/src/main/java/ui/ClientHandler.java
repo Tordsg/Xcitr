@@ -268,7 +268,8 @@ public class ClientHandler {
     } catch (IOException e) {
       throw new ConnectException("Can not connect to server");
 
+        }
+        throw new ServerException("Could not delete user");
     }
-    throw new ServerException("Could not send message");
-  }
+    
 }
