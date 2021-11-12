@@ -9,6 +9,7 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+
 public class ChatTest {
 
     User user1 = new User("user", 22, "user@mail.no");
@@ -33,8 +34,8 @@ public class ChatTest {
     public void getMessage() {
         chat.sendMeesage(user1.getEmail(), "Hej");
         chat.sendMeesage(user2.getEmail(), "Hej");
-        Assertions.assertEquals(chat.getMessages().get(0).get(user1.getEmail()), "Hej");
-        Assertions.assertEquals(chat.getMessages().get(1).get(user2.getEmail()), "Hej");
+        Assertions.assertEquals(chat.getMessages().get(0).get(chat.getUser1()), "Hej");
+        Assertions.assertEquals(chat.getMessages().get(1).get(chat.getUser2()), "Hej");
     }
 
     @Test
@@ -56,5 +57,21 @@ public class ChatTest {
         list.add(map);
         chat.setMessages(list);
         Assertions.assertEquals(chat.getMessages().size(), 2);
+    }
+
+    @Test
+    public void testLargeConstructor()
+    {
+        Chat chat = new Chat(user1.getEmail(), user2.getEmail(), List.of(Map.of(
+                user1.getEmail(), "Hej"), Map.of(user2.getEmail(), "Hej")));
+        Assertions.assertEquals(chat.getMessages().size(), 2);
+    }
+
+    @Test
+    public void testSetUsers(){
+        chat.setUser1(new User("ny", 22, "ny@mail.com").getEmail());
+        chat.setUser2(new User("ny", 22, "nyTo@mail.com").getEmail());
+        Assertions.assertEquals(chat.getUser1(), "ny@mail.com");
+        Assertions.assertEquals(chat.getUser2(), "nyTo@mail.com");
     }
 }
