@@ -1,6 +1,9 @@
 package ui;
 
+import java.util.concurrent.TimeUnit;
 import java.util.stream.Stream;
+
+import javafx.scene.control.TextField;
 import javafx.scene.shape.Circle;
 import javafx.stage.Stage;
 import user.User;
@@ -20,7 +23,8 @@ public class MatchControllerTest extends ApplicationTest {
   private App app = new App();
   private MatchController controller;
   private SignUpController controller2 = new SignUpController();
-
+  private PrimaryController primaryController = new PrimaryController();
+  private User testUser = new User("rolf", 22, "test@mail.com");
 
 
   @Override
@@ -34,16 +38,17 @@ public class MatchControllerTest extends ApplicationTest {
 
   @BeforeEach
   public void setUp() {
-    clickOn("#fromLoginToSignup");
-    clickOn("#name");
-    write("Ulf");
-    clickOn("#age");
-    write("20");
-    clickOn("#emailSignup");
-    write("ulf@mail.no");
-    clickOn("#passwordSignup");
-    write("ulf");
-    clickOn("#createAccount");
+    controller2.addUser(testUser, "test");
+      TextField email = lookup("#emailLogin").query();
+      clickOn(email);
+      write(testUser.getEmail());
+
+      TextField password = lookup("#passwordLogin").query();
+      clickOn(password);
+      write("test");
+      clickOn("#login");
+      App.getUser().addMatch("John@mail.no");
+    
   }
 
   @ParameterizedTest
@@ -63,7 +68,13 @@ public class MatchControllerTest extends ApplicationTest {
   // and you actually call the click, lookup, whatever methods
   private void checkResult(boolean excpected) {
     if(excpected){
-      clickOn("#matchButton");
+      clickOn("#matchButton").clickOn(1,1);
+      clickOn("#matchBox");
+      clickOn("#textInput");
+      write("Hei");
+      clickOn("#sendButton");
+      clickOn("#refresh");
+
 
       clickOn("#button");
     }
