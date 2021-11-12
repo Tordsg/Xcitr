@@ -259,11 +259,9 @@ public class ClientHandler {
   }
 
   public boolean deleteUser(User user) throws ServerException, ConnectException {
-    MediaType mediaType = MediaType.parse("application/json");
     try {
-      String sendString = mapper.writeValueAsString(user);
       Request request = new Request.Builder().url(url + "/user").header("mail", user.getEmail())
-          .delete(RequestBody.create(sendString, mediaType)).build();
+          .delete().build();
       Response response = client.newCall(request).execute();
       ResponseBody body = response.body();
       if (body != null) {
