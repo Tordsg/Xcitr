@@ -44,7 +44,7 @@ public class User {
    */
 
   public User(UUID id, String name, int age, String userInformation, List<String> matches, String email,
-      String password, HashMap<String, Integer> likedUsers, int imageId) {
+      String password, Map<String, Integer> likedUsers, int imageId) {
     this.userInformation = userInformation;
     this.matches = matches;
     setId(id);
