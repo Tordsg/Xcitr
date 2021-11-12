@@ -51,9 +51,7 @@ public class User {
     setEmail(email);
     this.password = password;
     setAge(age);
-    if (likedUsers != null) {
-      this.likedUsers = likedUsers;
-    }
+    this.likedUsers = likedUsers;
     this.imageId = imageId;
   }
 
@@ -79,9 +77,7 @@ public class User {
     setEmail(email);
     this.password = password;
     setAge(age);
-    if (likedUsers != null) {
-      this.likedUsers = likedUsers;
-    }
+    this.likedUsers = likedUsers;
   }
 
   /**
