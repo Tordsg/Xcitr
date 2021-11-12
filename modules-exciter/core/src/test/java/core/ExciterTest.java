@@ -92,4 +92,24 @@ public class ExciterTest {
     Assertions.assertEquals(0, user.getLikedUsers().get(botUser.getEmail()));
   }
 
+  @Test
+  public void removeUser() {
+    exciter.addUser(user);
+    exciter.addUser(botUser);
+    exciter.removeFromAllUsers(user);
+    Assertions.assertFalse(exciter.getAllUsers().contains(user));
+    Assertions.assertTrue(exciter.getAllUsers().contains(botUser));
+  }
+
+  @Test
+  public void testGetLikeCount() {
+    exciter.addUser(user);
+    exciter.addUser(botUser);
+    exciter.likePerson(user, botUser);
+    Assertions.assertEquals(1, exciter.getLikeCount(user, botUser));
+    User newUser = new User("test", 22, "test@mail.noo");
+    exciter.addUser(newUser);
+    Assertions.assertEquals(0, exciter.getLikeCount(user, newUser));
+  }
+
 }
