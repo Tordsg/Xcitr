@@ -26,7 +26,7 @@ public class PrimaryControllerTest extends ApplicationTest {
     app.start(stage);
   }
 
-  @BeforeEach
+ /* @BeforeEach
   public void setUp() {
     app = new App();
     clickOn("#fromLoginToSignup");
@@ -39,7 +39,7 @@ public class PrimaryControllerTest extends ApplicationTest {
     clickOn("#passwordSignup");
     write("ulf");
     clickOn("#createAccount");
-  }
+  }*/
 
   @ParameterizedTest
   @MethodSource
@@ -52,6 +52,17 @@ public class PrimaryControllerTest extends ApplicationTest {
   }
 
   private void checkResult(boolean excpected) {
+    app = new App();
+    clickOn("#fromLoginToSignup");
+    clickOn("#name");
+    write("Ulf");
+    clickOn("#age");
+    write("20");
+    clickOn("#emailSignup");
+    write("ulf@mail");
+    clickOn("#passwordSignup");
+    write("ulf");
+    clickOn("#createAccount");
 
     drag("#rightCard").moveBy(0, -100).drop();
     try {
@@ -75,6 +86,7 @@ public class PrimaryControllerTest extends ApplicationTest {
       e.printStackTrace();
     }
     drag("#leftCard").moveBy(0, -100).drop();
+    controller.deleteUser(new User("Ulf", 20, "ulf@mail"));
 
   }
 
@@ -98,12 +110,12 @@ public class PrimaryControllerTest extends ApplicationTest {
         e.printStackTrace();
       }
     }
- @AfterEach
+ /*@AfterEach
     public void deleteUser(){
       controller.deleteUser(new User("Ulf", 20, "ulf@mail"));
 
-      
-    }
+  
+    }*/
 
 
 }

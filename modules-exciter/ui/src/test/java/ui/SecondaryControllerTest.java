@@ -7,6 +7,7 @@ import javafx.stage.Stage;
 import user.User;
 
 import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
@@ -25,7 +26,7 @@ public class SecondaryControllerTest extends ApplicationTest {
     app.start(stage);
   }
 
-  @BeforeEach
+/*  @BeforeEach
   public void setUp() {
     app = new App();
     clickOn("#fromLoginToSignup");
@@ -40,7 +41,7 @@ public class SecondaryControllerTest extends ApplicationTest {
     clickOn("#createAccount");
     clickOn("#profile");
   }
-
+*/
   @ParameterizedTest
   @MethodSource
   public void testController(boolean excpected) {
@@ -53,21 +54,33 @@ public class SecondaryControllerTest extends ApplicationTest {
   }
 
   private void checkResult(boolean excpected) {
+    app = new App();
+    clickOn("#fromLoginToSignup");
+    clickOn("#name");
+    write("test");
+    clickOn("#age");
+    write("20");
+    clickOn("#emailSignup");
+    write("test@mail");
+    clickOn("#passwordSignup");
+    write("test");
+    clickOn("#createAccount");
+    clickOn("#profile");
     TextArea textField = lookup("#bio").query();
     textField.clear();
     clickOn("#bio");
     write("guitar player");
     clickOn("#save");
-    //Assertions.assertEquals("guitar player", exciter.getCurrentUser().getUserInformation());
+    Assertions.assertEquals("guitar player", App.getUser().getUserInformation());
     clickOn("#signOut");
-    //Assertions.assertEquals("guitar player", fileHandler.getUser("test@mail").getUserInformation());
+    controller.deleteUser(new User("test", 20, "test@mail"));
   }
 
-  @AfterEach
+ /* @AfterEach
   public void deleteUser(){
     controller.deleteUser(new User("test", 20, "test@mail"));
 
     
-  }
+  }*/
 
 }

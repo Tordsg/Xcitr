@@ -67,7 +67,9 @@ public class LoginControllerTest extends ApplicationTest {
       clickOn(password);
       write("test");
       clickOn("#login");
-      
+
+      Assertions.assertEquals(testUser.getEmail(), App.getUser().getEmail());
+      App.setUser(null);
 
 
     }
