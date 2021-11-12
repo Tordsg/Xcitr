@@ -64,7 +64,7 @@ public class SignUpController {
     emailSignup.clear();
     passwordSignup.clear();
     name.textProperty().addListener(event -> {
-      if (name.getText().length() > 1 && validName(name.getText())) {
+      if (name.getText().length() > 1 && validName(name.getText()) && name.getText().charAt(0) != ' ') {
         name.setStyle("-fx-control-inner-background: white;");
       } else {
         name.setStyle("-fx-control-inner-background: #ff9999;");
