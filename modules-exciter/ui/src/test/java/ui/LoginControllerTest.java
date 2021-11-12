@@ -32,6 +32,7 @@ public class LoginControllerTest extends ApplicationTest {
   public void setUp() {
     app = new App();
     testUser.setPassword("test");
+    controller.addUser(testUser, "test");
   }
 
   @ParameterizedTest
@@ -58,7 +59,6 @@ public class LoginControllerTest extends ApplicationTest {
 
   private void checkResult(boolean excpected) {
     if(excpected) {
-      controller.addUser(testUser, "test");
       TextField email = lookup("#emailLogin").query();
       clickOn(email);
       write(testUser.getEmail());

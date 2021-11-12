@@ -1,6 +1,10 @@
 package ui;
 
 import java.util.stream.Stream;
+
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
@@ -17,23 +21,25 @@ import org.testfx.framework.junit5.ApplicationTest;
 
 public class SignUpControllerTest extends ApplicationTest {
 
-  private SignUpController controller = new SignUpController();
-  private App app = new App();
-
+  private SignUpController controller;
 
   @Override
   public void start(Stage stage) throws Exception {
-    app.start(stage);
+    final FXMLLoader loader = new FXMLLoader(getClass().getResource("signup.fxml"));
+    final Parent root = loader.load();
+    this.controller = loader.getController();
+    stage.setScene(new Scene(root));
+    stage.show();
   }
+
 
   public SignUpController getController() {
     return controller;
   }
 
   @BeforeEach
-  public void setup() {
-    app = new App();
-    clickOn("#fromLoginToSignup");
+  public void setUp(){
+
   }
 
   @ParameterizedTest
@@ -69,6 +75,7 @@ public class SignUpControllerTest extends ApplicationTest {
       clickOn("#createAccount");
 
       Assertions.assertEquals(App.getUser().getEmail(), "Ulf@mail.no");
+      App.setUser(null);
       controller.deleteUser(new User("Ulf Reidar", 19, "Ulf@mail.no"));
 
     } else {

@@ -1,14 +1,15 @@
 package ui;
 
-import java.util.concurrent.TimeUnit;
 import java.util.stream.Stream;
 
-import javafx.scene.control.TextField;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.scene.input.MouseButton;
 import javafx.scene.shape.Circle;
 import javafx.stage.Stage;
 import user.User;
 
-import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
@@ -20,36 +21,33 @@ import org.testfx.framework.junit5.ApplicationTest;
 
 public class MatchControllerTest extends ApplicationTest {
 
-  private App app = new App();
   private MatchController controller;
-  private SignUpController controller2 = new SignUpController();
+  private SignUpController signupController = new SignUpController();
   private PrimaryController primaryController = new PrimaryController();
   private User testUser = new User("rolf", 22, "test@mail.com");
+  
 
 
   @Override
-  public void start(Stage stage) throws Exception {
-    app.start(stage);
+  public void start(final Stage stage) throws Exception {
+    final FXMLLoader loader = new FXMLLoader(getClass().getResource("match.fxml"));
+    final Parent root = loader.load();
+    this.controller = loader.getController();
+    stage.setScene(new Scene(root));
+    stage.show();
+  }
+
+  @BeforeEach
+  public void setUp(){
+    signupController.addUser(testUser, "test");
+    App.setUser(testUser);
+
   }
 
   public MatchController getController(){
     return controller;
   }
 
-  @BeforeEach
-  public void setUp() {
-    controller2.addUser(testUser, "test");
-      TextField email = lookup("#emailLogin").query();
-      clickOn(email);
-      write(testUser.getEmail());
-
-      TextField password = lookup("#passwordLogin").query();
-      clickOn(password);
-      write("test");
-      clickOn("#login");
-      App.getUser().addMatch("John@mail.no");
-    
-  }
 
   @ParameterizedTest
   @MethodSource
@@ -82,14 +80,6 @@ public class MatchControllerTest extends ApplicationTest {
     Circle profile = lookup("#profile").query();
     clickOn(profile);
     }
-  }
-
-
-  @AfterEach
-  public void deleteUser(){
-    controller2.deleteUser(new User("Ulf", 20, "ulf@mail.no"));
-
-    
   }
   
 }
