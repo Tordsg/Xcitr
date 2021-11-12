@@ -60,10 +60,8 @@ public class Exciter {
     for (User user : users) {
       if (userMailList.contains(user.getEmail())) {
         allUsers.remove(getUserByEmail(user.getEmail()));
-        allUsers.add(user);
-      } else {
-        allUsers.add(user);
       }
+      allUsers.add(user);
     }
   }
 
