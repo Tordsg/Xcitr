@@ -58,7 +58,7 @@ public class FileHandler {
       userData.put("likes", user.getLikedUsers());
       userData.put("userInformation", user.getUserInformation());
       userData.put("email", user.getEmail());
-      userData.put("imageid", user.getImageId());
+      userData.put("imageId", user.getImageId());
       userArray.add(userData);
     }
     try {

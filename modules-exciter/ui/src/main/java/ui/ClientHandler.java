@@ -92,10 +92,8 @@ public class ClientHandler {
         }
       }
     } catch (ConnectException e) {
-      e.printStackTrace();
       throw new ConnectException("Server is not on");
     } catch (IOException e) {
-      e.printStackTrace();
     }
     throw new ServerException("Could not login");
   }

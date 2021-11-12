@@ -49,6 +49,21 @@ public class Exciter {
       }
     }
   }
+  /**
+   * This method is there to override exisiting users.
+   * @param users
+   */
+  public void addUsersFromFile(List<User> users) {
+    List<String> userMailList = allUsers.stream().map(User::getEmail).collect(Collectors.toList());
+    for (User user : users) {
+      if (userMailList.contains(user.getEmail())) {
+        allUsers.remove(getUserByEmail(user.getEmail()));
+        allUsers.add(user);
+      } else {
+        allUsers.add(user);
+      }
+    }
+  }
 
   /**
    * adds botUsers

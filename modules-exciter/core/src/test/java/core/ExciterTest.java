@@ -67,4 +67,18 @@ public class ExciterTest {
 
   }
 
+  @Test
+  public void testPickRandom()
+  {
+    exciter.addUser(user);
+    exciter.addUser(botUser);
+    Assertions.assertTrue(exciter.getAllUsers().contains(user));
+    Assertions.assertTrue(exciter.getAllUsers().contains(botUser));
+    User newUser = exciter.getNextRandomUser(List.of(user,botUser));
+    Assertions.assertFalse(newUser.equals(user) || newUser.equals(botUser));
+    List<User> users = exciter.getTwoUniqueUsers(user);
+    Assertions.assertEquals(2, users.size());
+    Assertions.assertFalse(users.contains(user));
+  }
+
 }
