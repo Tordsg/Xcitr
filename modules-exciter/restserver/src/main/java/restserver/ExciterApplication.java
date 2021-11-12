@@ -14,6 +14,9 @@ public class ExciterApplication {
   public static final Exciter excite = new Exciter();
   public static final FileHandler fileHandler = new FileHandler();
 
+  /**
+   * The main method of the ExciterApplication class.
+   */
   public static void main(String[] args) {
     if (fileHandler.readUsers() != null) {
       excite.addUsersFromFile(fileHandler.readUsers());

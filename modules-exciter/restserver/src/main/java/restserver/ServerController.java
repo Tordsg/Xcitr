@@ -19,6 +19,9 @@ import user.BotUser;
 import user.Chat;
 import user.User;
 
+/**
+ * RestController for the rest server.
+ */
 @RestController
 public class ServerController {
 
@@ -26,14 +29,21 @@ public class ServerController {
   private final FileHandler fileHandler = new FileHandler();
   private final MessageHandler messageHandler = new MessageHandler();
 
+  /**
+   * Index page.
+   *
+   * @return String
+   */
   @GetMapping("/")
   public String index() {
     return "Hello World! Welcome to Exciter";
   }
 
   /**
+   * Get a user using UUID.
    *
    * @param id UUID of the user client wish to get
+   *
    * @return User object
    */
   @GetMapping(value = "/user")
@@ -46,6 +56,8 @@ public class ServerController {
   }
 
   /**
+   * Create a new account.
+   *
    * @param user userobject to be create
    * @param pass password of the user
    *
@@ -64,7 +76,7 @@ public class ServerController {
   }
 
   /**
-   * Exception handler for bad requests
+   * Exception handler for bad requests.
    */
   @ExceptionHandler(IllegalArgumentException.class)
   @ResponseStatus(value = org.springframework.http.HttpStatus.BAD_REQUEST)
@@ -73,6 +85,8 @@ public class ServerController {
   }
 
   /**
+   * Get all the matches a user has.
+   *
    * @param id UUID of the user
    *
    * @return List of all the matches the user has
@@ -91,8 +105,10 @@ public class ServerController {
   }
 
   /**
-   * @param mail email of the user
-   * @param pass password of the user
+   * Send login request to the server.
+   *
+   * @param mail     email of the user
+   * @param password password of the user
    *
    * @return User object if it exists
    * @throws IllegalArgumentException if the user does not exist
@@ -112,6 +128,8 @@ public class ServerController {
   }
 
   /**
+   * Update information of the user.
+   *
    * @param id   UUID of the user
    * @param user user object to be updated
    *
@@ -133,6 +151,7 @@ public class ServerController {
   }
 
   /**
+   * Update password of the user.
    *
    * @param id       UUID of the user
    * @param password new password
@@ -151,8 +170,7 @@ public class ServerController {
   }
 
   /**
-   *
-   * illegalAccessError if client tries to do illegal request
+   * illegalAccessError if client tries to do illegal request.
    */
   @ExceptionHandler(IllegalAccessError.class)
   @ResponseStatus(value = org.springframework.http.HttpStatus.FORBIDDEN)
@@ -161,11 +179,12 @@ public class ServerController {
   }
 
   /**
+   * Like another user and discard another.
    *
    * @param id    UUID of the user
    * @param users client creates a list of users
-   * @return new user
    *
+   * @return new user
    * @apiNote the first user in the list is the one who is liked and the second is
    *          the one who is discarded. This is to ensure the user is return isn't
    *          anyone of them
@@ -186,10 +205,11 @@ public class ServerController {
   }
 
   /**
+   * Get two random users.
    *
    * @param id UUID of the user
-   * @return list with two unique users
    *
+   * @return list with two unique users
    * @apiNote core ensures the list does not contain the user who is sending the
    *          request
    */
@@ -203,15 +223,18 @@ public class ServerController {
   }
 
   /**
+   * Get number of likes.
+   *
    * @param id   UUID of the user
+   *
    * @param mail email of the user to check likecount against
    *
    * @return number of likes
    */
   @GetMapping(value = "/user/likes")
-  public int getLikes(@RequestHeader("Authorization") UUID id, @RequestHeader("mail") String user) {
+  public int getLikes(@RequestHeader("Authorization") UUID id, @RequestHeader("mail") String mail) {
     User thisUser = excite.getUserById(id);
-    User likeUser = excite.getUserByEmail(user);
+    User likeUser = excite.getUserByEmail(mail);
     if (thisUser == null || likeUser == null) {
       throw new IllegalArgumentException("User does not exist");
     }
@@ -222,11 +245,12 @@ public class ServerController {
   }
 
   /**
+   * Get a new user.
+   *
    * @param id    UUID of the user
    * @param users list of users to avoid
    *
    * @return new user that is not in the list or the sender
-   *
    * @apiNote this method is used to get new users without doing a like action
    */
   @PostMapping(value = "/user/new")
@@ -243,14 +267,15 @@ public class ServerController {
   }
 
   /**
+   * Send a message to a user.
    *
-   * @param id UUID of the user
-   * @param mail email of the user whos reciving the message
+   * @param id      UUID of the user
+   * @param mail    email of the user whos reciving the message
    * @param message message to be sent
-   * @return the whole chat
    *
-   * @apiNote this method will check if reciver is a bot and
-   *          make them respond if true
+   * @return the whole chat
+   * @apiNote this method will check if reciver is a bot and make them respond if
+   *          true
    */
   @PostMapping(value = "/message")
   public Chat sendChat(@RequestHeader("Authorization") UUID id, @RequestHeader("mail") String mail,
@@ -273,8 +298,9 @@ public class ServerController {
   }
 
   /**
+   * gets the chat between two users.
    *
-   * @param id UUID of the user
+   * @param id   UUID of the user
    * @param mail email of the user whos the chat is with
    *
    * @return the whole chat
@@ -294,8 +320,10 @@ public class ServerController {
   }
 
   /**
+   * Delete a user.
    *
    * @param mail email of the user who's going to be deleted
+   *
    * @return true if the user was deleted
    * @throws Exception if the user doesn't exist
    */
@@ -314,7 +342,7 @@ public class ServerController {
   }
 
   /**
-   * This server is a teapot and cannot brew coffee
+   * This server is a teapot and cannot brew coffee.
    */
   @GetMapping(value = "/brew")
   @ResponseStatus(value = org.springframework.http.HttpStatus.I_AM_A_TEAPOT)
