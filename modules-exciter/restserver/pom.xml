@@ -106,18 +106,34 @@
 	</dependencies>
 
 	<build>
+		<finalName>server</finalName>
 		<plugins>
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
 				<version>2.5.6</version>
+				<executions>
+					<execution>
+						<goals>
+							<goal>repackage</goal>
+						</goals>
+						<configuration>
+							 <classifier>standalone</classifier>
+						</configuration>
+					 </execution>
+				</executions>
+				<configuration>
+					<mainClass>restserver.ExciterApplication</mainClass>
+				</configuration>
 			</plugin>
-			<!--
 			<plugin>
 				<groupId>com.github.spotbugs</groupId>
 				<artifactId>spotbugs-maven-plugin</artifactId>
 			</plugin>
-			-->
+			<plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-checkstyle-plugin</artifactId>
+            </plugin>
 		</plugins>
 	</build>
 

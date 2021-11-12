@@ -1,7 +1,6 @@
 package ui;
 
 import java.io.IOException;
-
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -24,11 +23,11 @@ public class App extends Application {
     stage.setScene(new Scene(parent));
     stage.setResizable(false);
     stage.setTitle("citr");
-    stage.getIcons().add(new Image(App.class.getResourceAsStream("images/logo.png")));
+    stage.getIcons().add(new Image(App.class.getResourceAsStream("Images/logo.png")));
     stage.show();
   }
 
-  
+
 
   public static void setUser(User user) {
     App.user = user;

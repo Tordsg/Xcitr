@@ -13,15 +13,12 @@ import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
-
-import javax.swing.filechooser.FileSystemView;
-
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
-
 import user.BotUser;
 import user.User;
 
@@ -32,7 +29,8 @@ public class FileHandler {
   }
 
   private JSONParser parser = new JSONParser();
-  String path = FileSystemView.getFileSystemView().getDefaultDirectory().getPath()+"users.json";
+  // the "./" is there to make sure path works on mac
+  String path = "./users.json";
 
   /**
    * Saves users to the JSON file. Will makes necessary checks for bot users to
@@ -60,7 +58,7 @@ public class FileHandler {
       userData.put("likes", user.getLikedUsers());
       userData.put("userInformation", user.getUserInformation());
       userData.put("email", user.getEmail());
-      userData.put("imageid", user.getImageId());
+      userData.put("imageId", user.getImageId());
       userArray.add(userData);
     }
     try {
@@ -72,6 +70,7 @@ public class FileHandler {
       fileWriter.close();
     } catch (FileNotFoundException e) {
       createFile();
+      e.printStackTrace();
     } catch (IOException e) {
       e.printStackTrace();
     }
@@ -159,15 +158,12 @@ public class FileHandler {
 
   @SuppressWarnings("unchecked")
   public static HashMap<String, Integer> parseJSONMap(JSONObject jsonObj) {
-    HashMap<String, Object> map = new HashMap<>();
+    HashMap<String, Object> map = (HashMap<String, Object>) jsonObj;
     HashMap<String, Integer> map2 = new HashMap<>();
     if (jsonObj == null) {
       return null;
     }
-    map = (HashMap<String, Object>) jsonObj;
-    for (String key : map.keySet()) {
-      map2.put(key, ((Long) map.get(key)).intValue());
-    }
+    map.forEach((key, value) -> map2.put(key, Integer.parseInt(String.valueOf(value))));
     return map2;
   }
 
@@ -199,7 +195,7 @@ public class FileHandler {
     return null;
   }
 
-  public HashMap<String, Integer> getLikedUsers(UUID id) {
+  public Map<String, Integer> getLikedUsers(UUID id) {
     User user = getUserById(id);
     return user.getLikedUsers();
   }

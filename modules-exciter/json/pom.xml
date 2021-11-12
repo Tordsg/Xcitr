@@ -43,13 +43,6 @@
             <groupId>org.junit.jupiter</groupId>
             <artifactId>junit-jupiter-params</artifactId>
         </dependency>
-        <!-- https://mvnrepository.com/artifact/org.openjfx/javafx-swing -->
-        <dependency>
-            <groupId>org.openjfx</groupId>
-            <artifactId>javafx-swing</artifactId>
-            <version>16</version>
-        </dependency>
-
     </dependencies>
 
     <build>
@@ -68,10 +61,10 @@
             </plugin>
 
             <!-- Run the spotbugs code quality tool -->
-            <!-- <plugin>
+            <plugin>
                 <groupId>com.github.spotbugs</groupId>
                 <artifactId>spotbugs-maven-plugin</artifactId>
-            </plugin> -->
+            </plugin>
 
 
             <plugin>

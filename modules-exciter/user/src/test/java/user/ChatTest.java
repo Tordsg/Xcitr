@@ -6,14 +6,14 @@ import org.junit.jupiter.api.Test;
 
 public class ChatTest {
 
-    User user1 = new User("user", 22, "user@mail");
-    User user2 = new User("userTo", 22, "user2@mail");
+    User user1 = new User("user", 22, "user@mail.no");
+    User user2 = new User("userTo", 22, "user2@mail.no");
     Chat chat = new Chat(user1.getEmail(), user2.getEmail());
 
     @BeforeEach
     public void setUp() {
-        user1 = new User("user", 22, "user@mail");
-        user2 = new User("userTo", 22, "user2@mail");
+        user1 = new User("user", 22, "user@mail.no");
+        user2 = new User("userTo", 22, "user2@mail.no");
         chat = new Chat(user1.getEmail(), user2.getEmail());
     }
 

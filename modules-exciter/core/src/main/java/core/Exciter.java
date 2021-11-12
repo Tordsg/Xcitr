@@ -37,7 +37,7 @@ public class Exciter {
    *
    * @param users to be added to the list of all users.
    *
-   * @apiNote primarly used to add users from JSON file.
+   * @apiNote primarly used to for testing.
    */
 
   public void addUsers(List<User> users) {
@@ -49,19 +49,34 @@ public class Exciter {
       }
     }
   }
+  /**
+   * This method is there to override exisiting users.
+   * @param users
+   *
+   * @apiNote primarly used to add users from json file.
+   */
+  public void addUsersFromFile(List<User> users) {
+    List<String> userMailList = allUsers.stream().map(User::getEmail).collect(Collectors.toList());
+    for (User user : users) {
+      if (userMailList.contains(user.getEmail())) {
+        allUsers.remove(getUserByEmail(user.getEmail()));
+      }
+      allUsers.add(user);
+    }
+  }
 
   /**
    * adds botUsers
    */
 
   public void addSomePlaceholderUsers() {
-    allUsers.add(new BotUser("John", 22, "John@mail", true, 1));
-    allUsers.add(new BotUser("Jane", 31, "Jane@mail", true, 3));
-    allUsers.add(new BotUser("Joe", 19, "Joe@mail", false, 4));
-    allUsers.add(new BotUser("Derik", 27, "Derik@mail", false, 5));
-    allUsers.add(new BotUser("Diana", 23, "Diana@mail", false, 6));
-    allUsers.add(new BotUser("Dani", 25, "Dani@mail", true, 8));
-    allUsers.add(new User("Roger", 25, "Roger@mail"));
+    allUsers.add(new BotUser("John", 22, "John@mail.no", true, 1));
+    allUsers.add(new BotUser("Jane", 31, "Jane@mail.no", true, 3));
+    allUsers.add(new BotUser("Joe", 19, "Joe@mail.no", false, 4));
+    allUsers.add(new BotUser("Derik", 27, "Derik@mail.no", false, 5));
+    allUsers.add(new BotUser("Diana", 23, "Diana@mail.no", false, 6));
+    allUsers.add(new BotUser("Dani", 25, "Dani@mail.no", true, 8));
+    allUsers.add(new User("Roger", 25, "Roger@mail.no"));
   }
 
   /**

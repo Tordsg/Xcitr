@@ -1,38 +1,37 @@
 package ui;
 
-import java.io.File;
 import java.io.IOException;
 import java.net.URL;
+import java.rmi.ServerException;
 import java.util.ResourceBundle;
-
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.geometry.Pos;
 import javafx.scene.Group;
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.ContentDisplay;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import javafx.scene.control.TextFormatter;
 import javafx.scene.effect.DropShadow;
 import javafx.scene.effect.Lighting;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
+import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Line;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.shape.StrokeType;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
-import javafx.stage.FileChooser;
-import user.User;
 import javafx.stage.Stage;
-import javafx.scene.Node;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
-
+import user.User;
 
 /**
  * Controller for secondary.fxml.
@@ -44,10 +43,10 @@ public class SecondaryController implements Initializable {
 
   private User user = App.getUser();
 
-  private FileChooser fileChooser = new FileChooser();
   private static ImageController imageController = PrimaryController.imageController;
   @FXML
-  private Group upload, backButton, signOut, save;
+  private Group selectAvatar, backButton, signOut, save, i1, i2, i3, i4, i5, i6, i7, i8, i9, i10, i11, i12, i13, i14,
+      i15, i16, i17, i18, i19, i20, i21, i22, i23, i24;
   @FXML
   private TextArea bio;
   @FXML
@@ -55,18 +54,20 @@ public class SecondaryController implements Initializable {
   @FXML
   private PasswordField password;
   @FXML
-  private Pane pane;
+  private Pane pane, avatarPane;
+  @FXML
+  private VBox avatarVBox;
   private Pane lastPane = null;
   @FXML
   private Label errorLabel;
 
   @FXML
   private void switchToPrimary(MouseEvent event) throws IOException {
-    FXMLLoader Loader = new FXMLLoader();
-    Loader.setLocation(getClass().getResource("primary.fxml"));
-    Parent p = Loader.load();
-    Scene  s = new Scene(p);
-    Stage window = (Stage)((Node)event.getSource()).getScene().getWindow();
+    FXMLLoader loader = new FXMLLoader();
+    loader.setLocation(getClass().getResource("primary.fxml"));
+    Parent p = loader.load();
+    Scene s = new Scene(p);
+    Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
     window.setScene(s);
     window.show();
   }
@@ -80,32 +81,39 @@ public class SecondaryController implements Initializable {
     });
   }
 
-  /**
-   * Uploads images to profile.
-   * @throws IOException
-   */
-
-   //TODO make this method viable again
   @FXML
-  private void uploadPicture() throws IOException {
-    File file = fileChooser.showOpenDialog(null);
-    if (file != null && getFileExtension(file).equals(".jpg")) {
-      //Replace with avatar selector
+  private void selectAvatar() {
+    if (avatarPane.isVisible()) {
+      avatarPane.setVisible(false);
+    } else {
+      avatarPane.setVisible(true);
     }
-    updatePreview();
-  }
-
-  private String getFileExtension(File file) {
-    String extension = "";
-    try {
-      if (file.exists()) {
-        String name = file.getName();
-        extension = name.substring(name.lastIndexOf("."));
+    avatarVBox.setOnScroll(e -> {
+      if (avatarVBox.getLayoutY() + avatarVBox.getHeight() + e.getDeltaY() < 406 - 80) {
+        avatarVBox.setLayoutY(406 - 80 - avatarVBox.getHeight());
+      } else if (avatarVBox.getLayoutY() + e.getDeltaY() > 0) {
+        avatarVBox.setLayoutY(0);
+      } else {
+        avatarVBox.setLayoutY(e.getDeltaY() + avatarVBox.getLayoutY());
       }
-    } catch (Exception e) {
-      e.printStackTrace();
-    }
-    return extension;
+    });
+    avatarVBox.getChildren().forEach(e -> {
+      HBox box = (HBox) e;
+      box.getChildren().forEach(k -> {
+        Group g = (Group) k;
+        hoverButton(g);
+        g.setOnMouseClicked(l -> {
+          user.setImageId(Integer.parseInt(g.getId().substring(1)));
+          try {
+            App.setUser(clientHandler.updateInformation(user));
+          } catch (ServerException e1) {
+            e1.printStackTrace();
+          }
+          updatePreview();
+        });
+
+      });
+    });
   }
 
   @FXML
@@ -121,6 +129,7 @@ public class SecondaryController implements Initializable {
     lastPane = currentPane;
     pane.requestFocus();
   }
+
   protected static Pane createCard(User user) {
     Pane pane = new Pane();
     pane.setPrefHeight(338);
@@ -187,8 +196,8 @@ public class SecondaryController implements Initializable {
     pane1.getChildren().add(text);
     text.setOpacity(1);
     text.setLayoutX(6);
-    text.setLayoutY(50);
-    text.setWrappingWidth(215);
+    text.setLayoutY(46);
+    text.setWrappingWidth(214);
     text.setText(user.getUserInformation());
     DropShadow effect = new DropShadow();
     effect.setOffsetX(2);
@@ -200,17 +209,17 @@ public class SecondaryController implements Initializable {
 
   /**
    * Signs out of the app and goes to the login-page.
+   *
    * @throws IOException
    */
 
-
   @FXML
   public void signOut(MouseEvent event) throws IOException {
-    FXMLLoader Loader = new FXMLLoader();
-    Loader.setLocation(getClass().getResource("login.fxml"));
-    Parent p = Loader.load();
-    Scene  s = new Scene(p);
-    Stage window = (Stage)((Node)event.getSource()).getScene().getWindow();
+    FXMLLoader loader = new FXMLLoader();
+    loader.setLocation(getClass().getResource("login.fxml"));
+    Parent p = loader.load();
+    Scene s = new Scene(p);
+    Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
     window.setScene(s);
     window.show();
   }
@@ -226,9 +235,6 @@ public class SecondaryController implements Initializable {
     } catch (Exception e) {
       errorLabel.setText(e.getMessage());
     }
-
-    
-
     if (!password.getText().equals("")) {
       try {
         User passUser = clientHandler.updatePassword(user, password.getText());
@@ -248,18 +254,28 @@ public class SecondaryController implements Initializable {
     name.setText(user.getName());
     bio.setText(user.getUserInformation());
     age.setText(Integer.toString(user.getAge()));
-    hoverButton(upload);
+    TextFormatter<String> tf = new TextFormatter<>(c -> {
+      if (c.isContentChange()) {
+        if (c.getControlNewText().endsWith("\n")) {
+          c.setText("");
+        }
+        Text text = new Text(c.getControlNewText());
+        text.setWrappingWidth(214);
+        if (text.getLayoutBounds().getHeight() > 69) {
+          c.setText("");
+        }
+      }
+      return c;
+    });
+    bio.setTextFormatter(tf);
+    hoverButton(selectAvatar);
     hoverButton(backButton);
     hoverButton(signOut);
     hoverButton(save);
-    EventHandler<MouseEvent> event = new EventHandler<MouseEvent>() {
-      public void handle(MouseEvent e) {
-        pane.requestFocus();
-      }
-    };
     // when enter is pressed
-    pane.setOnMouseClicked(event);
-
+    pane.setOnMouseClicked(e -> {
+      pane.requestFocus();
+    });
     updatePreview();
 
   }

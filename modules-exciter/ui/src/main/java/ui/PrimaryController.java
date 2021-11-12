@@ -7,13 +7,11 @@ import java.rmi.ServerException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
-
 import javafx.animation.FadeTransition;
 import javafx.animation.ParallelTransition;
 import javafx.animation.RotateTransition;
 import javafx.animation.SequentialTransition;
 import javafx.animation.TranslateTransition;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Group;
@@ -27,11 +25,11 @@ import javafx.scene.shape.Circle;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
 import javafx.util.Duration;
-import user.User;
 import javafx.stage.Stage;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import user.User;
 
 public class PrimaryController implements Initializable {
   @FXML
@@ -54,24 +52,25 @@ public class PrimaryController implements Initializable {
   private User rightUser;
   // Static since it's shared by the SecondaryController
   protected final static ImageController imageController = new ImageController();
+
   @FXML
   private void switchToSecondary(MouseEvent event) throws IOException {
     FXMLLoader Loader = new FXMLLoader();
     Loader.setLocation(getClass().getResource("profile.fxml"));
     Parent p = Loader.load();
-    Scene  s = new Scene(p);
-    Stage window = (Stage)((Node)event.getSource()).getScene().getWindow();
+    Scene s = new Scene(p);
+    Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
     window.setScene(s);
     window.show();
   }
 
   @FXML
   private void switchToMatch(MouseEvent event) throws IOException {
-    FXMLLoader Loader = new FXMLLoader();
-    Loader.setLocation(getClass().getResource("match.fxml"));
-    Parent p = Loader.load();
-    Scene  s = new Scene(p);
-    Stage window = (Stage)((Node)event.getSource()).getScene().getWindow();
+    FXMLLoader loader = new FXMLLoader();
+    loader.setLocation(getClass().getResource("match.fxml"));
+    Parent p = loader.load();
+    Scene s = new Scene(p);
+    Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
     window.setScene(s);
     window.show();
   }
@@ -88,13 +87,12 @@ public class PrimaryController implements Initializable {
   void onDiscardLeftCard() {
     int likeCount = 0;
     User user2 = leftUser;
-    try{
+    try {
       leftUser = clientHandler.discardCard(user, rightUser, leftUser);
       likeCount = clientHandler.getUserLikeCount(user, rightUser);
     } catch (ServerException e) {
       errorLabel.setText(e.getMessage());
-    }
-    catch (IOException e){
+    } catch (IOException e) {
       errorLabel.setText(e.getMessage());
     }
     if (likeCount == 3) {
@@ -104,7 +102,7 @@ public class PrimaryController implements Initializable {
       users.add(leftUser);
       users.add(rightUser);
       try {
-        rightUser = clientHandler.getUser(user,users);
+        rightUser = clientHandler.getUser(user, users);
       } catch (ServerException e) {
         // TODO Auto-generated catch block
         e.printStackTrace();
@@ -132,8 +130,7 @@ public class PrimaryController implements Initializable {
       likeCount = clientHandler.getUserLikeCount(user, leftUser);
     } catch (ServerException e) {
       errorLabel.setText(e.getMessage());
-    }
-    catch (IOException e){
+    } catch (IOException e) {
       errorLabel.setText(e.getMessage());
     }
     if (likeCount == 3) {
@@ -143,8 +140,8 @@ public class PrimaryController implements Initializable {
       users.add(leftUser);
       users.add(rightUser);
       try {
-        leftUser = clientHandler.getUser(user,users);
-            } catch (ServerException e) {
+        leftUser = clientHandler.getUser(user, users);
+      } catch (ServerException e) {
         // TODO Auto-generated catch block
         e.printStackTrace();
       }
@@ -176,7 +173,7 @@ public class PrimaryController implements Initializable {
     tt.setOnFinished(e -> {
       try {
         int num = clientHandler.getMatches(user).size();
-        if(num>numMatches){
+        if (num > numMatches) {
           numMatches = num;
           notification.setVisible(true);
         }
@@ -235,22 +232,23 @@ public class PrimaryController implements Initializable {
       Integer count = null;
       try {
         count = clientHandler.getUserLikeCount(user, leftUser);
-      } catch (ServerException e ) {
+      } catch (ServerException e) {
+        errorLabel.setText(e.getMessage());
+      } catch (IOException e) {
         errorLabel.setText(e.getMessage());
       }
-      catch (IOException e){
-        errorLabel.setText(e.getMessage());
-      }
-      if(count != null) scoreNumber.setText(count.toString());
+      if (count != null)
+        scoreNumber.setText(count.toString());
     } else {
       ft.getNode().setLayoutX(352.5);
       Integer count = null;
       try {
         count = clientHandler.getUserLikeCount(user, rightUser);
-      } catch (ServerException | ConnectException e ) {
+      } catch (ServerException | ConnectException e) {
         errorLabel.setText(e.getMessage());
       }
-      if(count != null) scoreNumber.setText(count.toString());
+      if (count != null)
+        scoreNumber.setText(count.toString());
     }
     if (begin) {
       ft.setFromValue(0);
@@ -277,8 +275,7 @@ public class PrimaryController implements Initializable {
       rightUser = users.get(1);
     } catch (ServerException | IndexOutOfBoundsException e) {
       errorLabel.setText(e.getMessage());
-    }
-    catch (IOException e){
+    } catch (IOException e) {
       errorLabel.setText(e.getMessage());
 
     }
@@ -323,8 +320,7 @@ public class PrimaryController implements Initializable {
       rightUser = users.get(1);
     } catch (ServerException | IndexOutOfBoundsException e) {
       errorLabel.setText(e.getMessage());
-    }
-    catch(IOException e){
+    } catch (IOException e) {
       errorLabel.setText(e.getMessage());
 
     }
@@ -345,44 +341,36 @@ public class PrimaryController implements Initializable {
   double lastY = 0;
 
   private void dragY(Pane e) {
-    e.setOnMousePressed(new EventHandler<MouseEvent>() {
-      @Override
-      public void handle(MouseEvent event) {
-        lastY = event.getSceneY();
+    e.setOnMousePressed(k -> {
+      lastY = k.getSceneY();
+
+    });
+    e.setOnMouseDragged(k -> {
+      y = k.getSceneY();
+      dY = y - lastY;
+      lastY = y;
+      double cardPosition = dY + e.getLayoutY();
+      dragged = true;
+      if (cardPosition > 55 && dY > 0) {
+        double posY = e.getLayoutY() - 55;
+        dY = dY * (1 / (1 + posY * posY));
+        e.setLayoutY(e.getLayoutY() + dY);
+      } else {
+        e.setLayoutY(cardPosition);
       }
     });
-    e.setOnMouseDragged(new EventHandler<MouseEvent>() {
-      @Override
-      public void handle(MouseEvent event) {
-        y = event.getSceneY();
-        dY = y - lastY;
-        lastY = y;
-        double cardPosition = dY + e.getLayoutY();
-        dragged = true;
-        if (cardPosition > 55 && dY > 0) {
-          double posY = e.getLayoutY() - 55;
-          dY = dY * (1 / (1 + posY * posY));
-          e.setLayoutY(e.getLayoutY() + dY);
-        } else {
-          e.setLayoutY(cardPosition);
-        }
-      }
-    });
-    e.setOnMouseReleased(new EventHandler<MouseEvent>() {
-      @Override
-      public void handle(MouseEvent event) {
-        if (dragged) {
-          if (e.getLayoutY() < 0) {
-            if (e.getId().equals("leftCard")) {
-              onDiscardLeftCard();
-            } else {
-              onDiscardRightCard();
-            }
+    e.setOnMouseReleased(k -> {
+      if (dragged) {
+        if (e.getLayoutY() < 0) {
+          if (e.getId().equals("leftCard")) {
+            onDiscardLeftCard();
           } else {
-            translateCardY(e, e.getLayoutY() - 55, 0, false).play();
+            onDiscardRightCard();
           }
-          dragged = false;
+        } else {
+          translateCardY(e, e.getLayoutY() - 55, 0, false).play();
         }
+        dragged = false;
       }
     });
   }
