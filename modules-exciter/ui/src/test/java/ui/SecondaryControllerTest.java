@@ -61,7 +61,7 @@ public class SecondaryControllerTest extends ApplicationTest {
     clickOn("#age");
     write("20");
     clickOn("#emailSignup");
-    write("test@mail");
+    write("test@mail.no");
     clickOn("#passwordSignup");
     write("test");
     clickOn("#createAccount");
@@ -73,7 +73,7 @@ public class SecondaryControllerTest extends ApplicationTest {
     clickOn("#save");
     Assertions.assertEquals("guitar player", App.getUser().getUserInformation());
     clickOn("#signOut");
-    controller.deleteUser(new User("test", 20, "test@mail"));
+    controller.deleteUser(new User("test", 20, "test@mail.no"));
   }
 
  /* @AfterEach

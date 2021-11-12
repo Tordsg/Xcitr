@@ -59,7 +59,7 @@ public class PrimaryControllerTest extends ApplicationTest {
     clickOn("#age");
     write("20");
     clickOn("#emailSignup");
-    write("ulf@mail");
+    write("ulf@mail.no");
     clickOn("#passwordSignup");
     write("ulf");
     clickOn("#createAccount");
@@ -86,7 +86,7 @@ public class PrimaryControllerTest extends ApplicationTest {
       e.printStackTrace();
     }
     drag("#leftCard").moveBy(0, -100).drop();
-    controller.deleteUser(new User("Ulf", 20, "ulf@mail"));
+    controller.deleteUser(new User("Ulf", 20, "ulf@mail.no"));
 
   }
 

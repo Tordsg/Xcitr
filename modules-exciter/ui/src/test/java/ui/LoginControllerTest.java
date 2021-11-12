@@ -21,7 +21,7 @@ public class LoginControllerTest extends ApplicationTest {
 
   private SignUpController controller= new SignUpController();
   private App app = new App();
-  private User testUser = new User("rolf", 22, "test@mail");
+  private User testUser = new User("rolf", 22, "test@mail.com");
 
   @Override
   public void start(Stage stage) throws Exception {

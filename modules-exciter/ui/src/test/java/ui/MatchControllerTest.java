@@ -40,7 +40,7 @@ public class MatchControllerTest extends ApplicationTest {
     clickOn("#age");
     write("20");
     clickOn("#emailSignup");
-    write("ulf@mail");
+    write("ulf@mail.no");
     clickOn("#passwordSignup");
     write("ulf");
     clickOn("#createAccount");
@@ -76,7 +76,7 @@ public class MatchControllerTest extends ApplicationTest {
 
   @AfterEach
   public void deleteUser(){
-    controller2.deleteUser(new User("Ulf", 20, "ulf@mail"));
+    controller2.deleteUser(new User("Ulf", 20, "ulf@mail.no"));
 
     
   }
