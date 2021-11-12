@@ -122,18 +122,23 @@ public class SignUpController {
   }
 
   @FXML
-  void onSwitchToLogin(MouseEvent event) throws IOException {
+  void onSwitchToLogin(MouseEvent event) {
     FXMLLoader loader = new FXMLLoader();
     loader.setLocation(getClass().getResource("login.fxml"));
-    Parent p = loader.load();
-    Scene s = new Scene(p);
-    Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
-    window.setScene(s);
-    window.show();
+    Parent p;
+    try {
+      p = loader.load();
+      Scene s = new Scene(p);
+      Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
+      window.setScene(s);
+      window.show();
+    } catch (IOException e) {
+      e.printStackTrace();
+    }
   }
 
   @FXML
-  void handleCreateAccount(ActionEvent event) throws IOException {
+  void handleCreateAccount(ActionEvent event) {
     String nameReg = name.getText();
     String ageReg = age.getText();
     String emailReg = emailSignup.getText();
@@ -152,26 +157,27 @@ public class SignUpController {
       window.show();
     } catch (IllegalArgumentException | ServerException | ConnectException e) {
       errorLabel.setText(e.getMessage());
-    }
-  }
-  public void deleteUser(User user){
-    try {
-      clientHandler.deleteUser(user);
-    } catch (ServerException | ConnectException e) {
-      // TODO Auto-generated catch block
+    } catch (IOException e) {
       e.printStackTrace();
     }
   }
-    public void addUser(User user, String password){
-      
-        try {
-          clientHandler.createAccount(user, password);
-        } catch (ServerException | ConnectException e) {
-          // TODO Auto-generated catch block
-          e.printStackTrace();
-        }
-    
+
+  public void deleteUser(User user) {
+    try {
+      clientHandler.deleteUser(user);
+    } catch (ServerException | ConnectException e) {
+      e.printStackTrace();
+    }
   }
 
+  public void addUser(User user, String password) {
+
+    try {
+      clientHandler.createAccount(user, password);
+    } catch (ServerException | ConnectException e) {
+      e.printStackTrace();
+    }
+
+  }
 
 }

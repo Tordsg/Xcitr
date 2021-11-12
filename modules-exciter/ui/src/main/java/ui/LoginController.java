@@ -62,7 +62,7 @@ public class LoginController {
    */
 
   @FXML
-  public void handleLogin(ActionEvent event) throws IOException {
+  public void handleLogin(ActionEvent event) {
     String email = emailLogin.getText();
     String password = passwordLogin.getText();
 
@@ -82,7 +82,10 @@ public class LoginController {
       errorMessage.setVisible(true);
       passwordLogin.clear();
       emailLogin.clear();
-    }
+    } catch (IOException e) {
+		// TODO Auto-generated catch block
+		e.printStackTrace();
+	}
 
   }
 
@@ -91,14 +94,19 @@ public class LoginController {
   }
 
   @FXML
-  void onSwitchToSignup(MouseEvent event) throws IOException {
+  void onSwitchToSignup(MouseEvent event) {
     FXMLLoader loader = new FXMLLoader();
     loader.setLocation(getClass().getResource("signup.fxml"));
-    Parent p = loader.load();
+    Parent p;
+	try {
+		p = loader.load();
     Scene s = new Scene(p);
     Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
     window.setScene(s);
     window.show();
+	} catch (IOException e) {
+		e.printStackTrace();
+	}
   }
 
 }

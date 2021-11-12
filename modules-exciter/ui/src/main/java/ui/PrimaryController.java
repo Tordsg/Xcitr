@@ -51,7 +51,7 @@ public class PrimaryController implements Initializable {
   private User leftUser;
   private User rightUser;
   // Static since it's shared by the SecondaryController
-  protected final static ImageController imageController = new ImageController();
+  private final ImageController imageController = new ImageController();
 
   @FXML
   private void switchToSecondary(MouseEvent event) throws IOException {

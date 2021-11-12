@@ -66,7 +66,7 @@ public class MatchController implements Initializable {
   Label errorLabel;
 
   private int chatId;
-  protected final static ImageController imageController = PrimaryController.imageController;
+  private final static ImageController imageController = new ImageController();
   private ClientHandler clientHandler = new ClientHandler();
   private User user = App.getUser();
   private User user1;
