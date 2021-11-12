@@ -81,4 +81,15 @@ public class ExciterTest {
     Assertions.assertFalse(users.contains(user));
   }
 
+  @Test
+  public void testResestLike(){
+    exciter.addUser(user);
+    exciter.addUser(botUser);
+    exciter.likePerson(user, botUser);
+    Assertions.assertTrue(user.getLikedUsers().containsKey(botUser.getEmail()));
+    Assertions.assertEquals(1, user.getLikedUsers().get(botUser.getEmail()));
+    exciter.resetLikes(user, botUser);
+    Assertions.assertEquals(0, user.getLikedUsers().get(botUser.getEmail()));
+  }
+
 }
