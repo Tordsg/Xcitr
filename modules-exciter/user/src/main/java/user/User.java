@@ -39,6 +39,7 @@ public class User {
    * @param matches
    * @param email
    * @param password
+   * @param imageId
    * @apiNote This constructor is to only be used by the filehandler class.
    */
 
