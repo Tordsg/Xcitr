@@ -158,7 +158,11 @@ public class FileHandler {
     }
     return list;
   }
-
+/**
+ *
+ * @param jsonObj
+ * @return map of liked users
+ */
   @SuppressWarnings("unchecked")
   public static HashMap<String, Integer> parseJSONMap(JSONObject jsonObj) {
     HashMap<String, Object> map = (HashMap<String, Object>) jsonObj;
@@ -198,6 +202,11 @@ public class FileHandler {
     return null;
   }
 
+  /**
+   *
+   * @param id UUID of user
+   * @return liked users of user with id
+   */
   public Map<String, Integer> getLikedUsers(UUID id) {
     User user = getUserById(id);
     return user.getLikedUsers();

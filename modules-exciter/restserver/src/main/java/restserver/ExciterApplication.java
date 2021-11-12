@@ -5,7 +5,9 @@ import json.FileHandler;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
-
+/**
+ * The ExciterApplication class is the main class of the restserver.
+ */
 @SpringBootApplication
 public class ExciterApplication {
 

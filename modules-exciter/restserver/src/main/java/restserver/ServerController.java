@@ -31,6 +31,11 @@ public class ServerController {
     return "Hello World! Welcome to Exciter";
   }
 
+  /**
+   *
+   * @param id UUID of the user client wish to get
+   * @return User object
+   */
   @GetMapping(value = "/user")
   public User currentUser(@RequestHeader("Authorization") UUID id) {
     User user = excite.getUserById(id);
@@ -40,6 +45,12 @@ public class ServerController {
     return user;
   }
 
+  /**
+   * @param user userobject to be create
+   * @param pass password of the user
+   *
+   * @return User object
+   */
   @PostMapping(value = "/createAccount")
   public User createAccount(@RequestBody User user, @RequestHeader("Pass") String pass) {
     if (excite.getUserByEmail(user.getEmail()) != null) {
@@ -52,12 +63,20 @@ public class ServerController {
     return user;
   }
 
+  /**
+   * Exception handler for bad requests
+   */
   @ExceptionHandler(IllegalArgumentException.class)
   @ResponseStatus(value = org.springframework.http.HttpStatus.BAD_REQUEST)
   public String handleIllegalArgumentException(IllegalArgumentException e) {
     return e.getMessage();
   }
 
+  /**
+   * @param id UUID of the user
+   *
+   * @return List of all the matches the user has
+   */
   @GetMapping(value = "/user/matches")
   public List<User> getMatches(@RequestHeader("Authorization") UUID id) {
     List<User> matches = new ArrayList<>();
@@ -71,6 +90,13 @@ public class ServerController {
     return matches;
   }
 
+  /**
+   * @param mail email of the user
+   * @param pass password of the user
+   *
+   * @return User object if it exists
+   * @throws IllegalArgumentException if the user does not exist
+   */
   @PostMapping(value = "/login")
   public User setLoginUser(@RequestHeader("mail") String mail, @RequestBody String password) {
     User user = excite.getUserByEmail(mail);
@@ -85,6 +111,12 @@ public class ServerController {
     throw new IllegalArgumentException("User does not exist");
   }
 
+  /**
+   * @param id   UUID of the user
+   * @param user user object to be updated
+   *
+   * @return User object
+   */
   @PostMapping(value = "/user/update")
   public User updateUserInfo(@RequestHeader("Authorization") UUID id, @RequestBody User user) {
     if (excite.getUserById(id) == null) {
@@ -100,6 +132,13 @@ public class ServerController {
     return thisUser;
   }
 
+  /**
+   *
+   * @param id       UUID of the user
+   * @param password new password
+   *
+   * @return User object with updated password
+   */
   @PostMapping(value = "/user/update/password")
   public User updateUserPassword(@RequestHeader("Authorization") UUID id, @RequestBody String password) {
     if (excite.getUserById(id) == null) {
@@ -111,12 +150,26 @@ public class ServerController {
     return thisUser;
   }
 
+  /**
+   *
+   * illegalAccessError if client tries to do illegal request
+   */
   @ExceptionHandler(IllegalAccessError.class)
   @ResponseStatus(value = org.springframework.http.HttpStatus.FORBIDDEN)
   public String handleIllegalAccessError(IllegalAccessError e) {
     return e.getMessage();
   }
 
+  /**
+   *
+   * @param id    UUID of the user
+   * @param users client creates a list of users
+   * @return new user
+   *
+   * @apiNote the first user in the list is the one who is liked and the second is
+   *          the one who is discarded. This is to ensure the user is return isn't
+   *          anyone of them
+   */
   @PostMapping(value = "/like")
   public User likeUser(@RequestHeader("Authorization") UUID id, @RequestBody List<User> users) {
     User thisUser = excite.getUserById(id);
@@ -132,6 +185,14 @@ public class ServerController {
 
   }
 
+  /**
+   *
+   * @param id UUID of the user
+   * @return list with two unique users
+   *
+   * @apiNote core ensures the list does not contain the user who is sending the
+   *          request
+   */
   @GetMapping(value = "/two")
   public List<User> getTwoUsers(@RequestHeader("Authorization") UUID id) {
     User thisUser = excite.getUserById(id);
@@ -141,6 +202,12 @@ public class ServerController {
     return excite.getTwoUniqueUsers(thisUser);
   }
 
+  /**
+   * @param id   UUID of the user
+   * @param mail email of the user to check likecount against
+   *
+   * @return number of likes
+   */
   @GetMapping(value = "/user/likes")
   public int getLikes(@RequestHeader("Authorization") UUID id, @RequestHeader("mail") String user) {
     User thisUser = excite.getUserById(id);
@@ -154,6 +221,14 @@ public class ServerController {
     return 0;
   }
 
+  /**
+   * @param id    UUID of the user
+   * @param users list of users to avoid
+   *
+   * @return new user that is not in the list or the sender
+   *
+   * @apiNote this method is used to get new users without doing a like action
+   */
   @PostMapping(value = "/user/new")
   public User postMethodName(@RequestHeader("Authorization") UUID id, @RequestBody List<User> users) {
     User thisUser = excite.getUserById(id);
@@ -167,6 +242,16 @@ public class ServerController {
     return returnUser;
   }
 
+  /**
+   *
+   * @param id UUID of the user
+   * @param mail email of the user whos reciving the message
+   * @param message message to be sent
+   * @return the whole chat
+   *
+   * @apiNote this method will check if reciver is a bot and
+   *          make them respond if true
+   */
   @PostMapping(value = "/message")
   public Chat sendChat(@RequestHeader("Authorization") UUID id, @RequestHeader("mail") String mail,
       @RequestBody String message) {
@@ -187,6 +272,13 @@ public class ServerController {
     return chat;
   }
 
+  /**
+   *
+   * @param id UUID of the user
+   * @param mail email of the user whos the chat is with
+   *
+   * @return the whole chat
+   */
   @GetMapping(value = "/message")
   public Chat getChat(@RequestHeader("Authorization") UUID id, @RequestHeader("mail") String mail) {
     User user = excite.getUserById(id);
@@ -201,6 +293,12 @@ public class ServerController {
     return chat;
   }
 
+  /**
+   *
+   * @param mail email of the user who's going to be deleted
+   * @return true if the user was deleted
+   * @throws Exception if the user doesn't exist
+   */
   @DeleteMapping(value = "/user")
   public boolean deleteUser(@RequestHeader("mail") String mail) throws Exception {
     User user = excite.getUserByEmail(mail);
@@ -215,6 +313,9 @@ public class ServerController {
     return false;
   }
 
+  /**
+   * This server is a teapot and cannot brew coffee
+   */
   @GetMapping(value = "/brew")
   @ResponseStatus(value = org.springframework.http.HttpStatus.I_AM_A_TEAPOT)
   public String brew() {
