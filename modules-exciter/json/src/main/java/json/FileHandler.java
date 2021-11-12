@@ -115,10 +115,13 @@ public class FileHandler {
         List<String> alreadyMatched = parseJSONList((JSONArray) userData.get("matches"));
 
         String userInformation = String.valueOf(userData.get("userInformation"));
+        if (userInformation.equals("null")) {
+          userInformation = "";
+        }
         String email = String.valueOf(userData.get("email"));
         boolean isBot = Boolean.parseBoolean(String.valueOf(userData.get("isBot")));
         String password = String.valueOf(userData.get("password"));
-        HashMap<String, Integer> likedUser = parseJSONMap((JSONObject) userData.get("likes"));
+        Map<String, Integer> likedUser = parseJSONMap((JSONObject) userData.get("likes"));
         Integer imageid = Integer
             .parseInt(String.valueOf(userData.get("imageId") == null ? 0 : String.valueOf(userData.get("imageId"))));
         if (isBot) {
@@ -161,9 +164,9 @@ public class FileHandler {
  * @return map of liked users
  */
   @SuppressWarnings("unchecked")
-  public static HashMap<String, Integer> parseJSONMap(JSONObject jsonObj) {
-    HashMap<String, Object> map = (HashMap<String, Object>) jsonObj;
-    HashMap<String, Integer> map2 = new HashMap<>();
+  public static Map<String, Integer> parseJSONMap(JSONObject jsonObj) {
+    Map<String, Object> map = (HashMap<String, Object>) jsonObj;
+    Map<String, Integer> map2 = new HashMap<>();
     if (jsonObj == null) {
       return null;
     }

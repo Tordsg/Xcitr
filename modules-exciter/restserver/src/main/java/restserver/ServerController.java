@@ -99,7 +99,6 @@ public class ServerController {
    */
   @PostMapping(value = "/login")
   public User setLoginUser(@RequestHeader("mail") String mail, @RequestBody String password) {
-    System.out.println(mail);
     User user = excite.getUserByEmail(mail);
     if (user != null) {
       if (user.getPassword().equals(password.replace("\"", ""))) {
