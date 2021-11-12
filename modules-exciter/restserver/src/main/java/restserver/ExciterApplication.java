@@ -14,7 +14,6 @@ public class ExciterApplication {
 
   public static void main(String[] args) {
     if (fileHandler.readUsers() != null) {
-      System.out.println("here");
       excite.addUsersFromFile(fileHandler.readUsers());
     }
     SpringApplication.run(ExciterApplication.class, args);

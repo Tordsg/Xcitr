@@ -115,6 +115,9 @@ public class FileHandler {
         List<String> alreadyMatched = parseJSONList((JSONArray) userData.get("matches"));
 
         String userInformation = String.valueOf(userData.get("userInformation"));
+        if (userInformation.equals("null")) {
+          userInformation = "";
+        }
         String email = String.valueOf(userData.get("email"));
         boolean isBot = Boolean.parseBoolean(String.valueOf(userData.get("isBot")));
         String password = String.valueOf(userData.get("password"));
