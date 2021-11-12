@@ -375,4 +375,8 @@ public class PrimaryController implements Initializable {
     });
   }
 
+  public List<User> getOnScreenUsers(){
+    return List.of(leftUser, rightUser);
+  }
+
 }

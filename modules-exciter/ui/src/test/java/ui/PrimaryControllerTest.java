@@ -7,6 +7,7 @@ import javafx.stage.Stage;
 import user.User;
 
 import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
@@ -19,6 +20,7 @@ public class PrimaryControllerTest extends ApplicationTest {
 
   private App app = new App();
   private SignUpController controller = new SignUpController();
+  private PrimaryController primaryController = new PrimaryController();
 
 
   @Override
@@ -101,6 +103,9 @@ public class PrimaryControllerTest extends ApplicationTest {
     }
 
     public void checkRefresh(boolean excpected) {
+      
+      User leftUser = primaryController.getOnScreenUsers().get(0);
+      
 
       clickOn("#refresh");
       try {
@@ -109,6 +114,8 @@ public class PrimaryControllerTest extends ApplicationTest {
         System.out.println("here");
         e.printStackTrace();
       }
+
+      Assertions.assertNotEquals(leftUser, primaryController.getOnScreenUsers().get(0)); 
     }
  /*@AfterEach
     public void deleteUser(){
