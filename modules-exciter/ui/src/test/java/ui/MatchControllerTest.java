@@ -3,6 +3,9 @@ package ui;
 import java.util.stream.Stream;
 import javafx.scene.shape.Circle;
 import javafx.stage.Stage;
+import user.User;
+
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
@@ -16,6 +19,7 @@ public class MatchControllerTest extends ApplicationTest {
 
   private App app = new App();
   private MatchController controller;
+  private SignUpController controller2 = new SignUpController();
 
 
 
@@ -68,4 +72,13 @@ public class MatchControllerTest extends ApplicationTest {
     clickOn(profile);
     }
   }
+
+
+  @AfterEach
+  public void deleteUser(){
+    controller2.deleteUser(new User("Ulf", 20, "ulf@mail"));
+
+    
+  }
+  
 }
