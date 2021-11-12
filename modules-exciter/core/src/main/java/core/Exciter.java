@@ -37,7 +37,7 @@ public class Exciter {
    *
    * @param users to be added to the list of all users.
    *
-   * @apiNote primarly used to add users from JSON file.
+   * @apiNote primarly used to for testing.
    */
 
   public void addUsers(List<User> users) {
@@ -52,6 +52,8 @@ public class Exciter {
   /**
    * This method is there to override exisiting users.
    * @param users
+   *
+   * @apiNote primarly used to add users from json file.
    */
   public void addUsersFromFile(List<User> users) {
     List<String> userMailList = allUsers.stream().map(User::getEmail).collect(Collectors.toList());
