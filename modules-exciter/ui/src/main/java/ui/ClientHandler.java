@@ -262,7 +262,7 @@ public class ClientHandler {
     MediaType mediaType = MediaType.parse("application/json");
     try {
       String sendString = mapper.writeValueAsString(user);
-      Request request = new Request.Builder().url(url + "/user").header("Authorization", user.getId().toString())
+      Request request = new Request.Builder().url(url + "/user").header("mail", user.getEmail())
           .delete(RequestBody.create(sendString, mediaType)).build();
       Response response = client.newCall(request).execute();
       ResponseBody body = response.body();

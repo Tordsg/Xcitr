@@ -66,9 +66,9 @@ public class PrimaryController implements Initializable {
 
   @FXML
   private void switchToMatch(MouseEvent event) throws IOException {
-    FXMLLoader Loader = new FXMLLoader();
-    Loader.setLocation(getClass().getResource("match.fxml"));
-    Parent p = Loader.load();
+    FXMLLoader loader = new FXMLLoader();
+    loader.setLocation(getClass().getResource("match.fxml"));
+    Parent p = loader.load();
     Scene s = new Scene(p);
     Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
     window.setScene(s);

@@ -74,9 +74,9 @@ public class MatchController implements Initializable {
   private List<User> matches = new ArrayList<>();
 
   public void switchToPrimary(MouseEvent event) throws IOException {
-    FXMLLoader Loader = new FXMLLoader();
-    Loader.setLocation(getClass().getResource("primary.fxml"));
-    Parent p = Loader.load();
+    FXMLLoader loader = new FXMLLoader();
+    loader.setLocation(getClass().getResource("primary.fxml"));
+    Parent p = loader.load();
     Scene s = new Scene(p);
     Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
     window.setScene(s);
