@@ -7,6 +7,7 @@ import java.util.UUID;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -46,6 +47,25 @@ public class ExciterServerTest {
   public void setup() {
     user = new User("test", 22, "test@mail.no");
     exciter.clearUser(user);
+  }
+  @AfterEach
+  public void tearDown() {
+    exciter.clearUser(user);
+    exciter.clearUser(new User("test", 22, "testnr2@mail.no"));
+    exciter.clearUser(new User("Nottest", 22, "Nottest@mail.no"));
+    exciter.clearUser(new User("Per", 17, "Per@mail.no"));
+    exciter.clearUser(new User("Oliver", 22, "test@mail.no"));
+    exciter.clearUser(new User("Ludde", 19, "Ludde@mail.no"));
+    exciter.clearUser(new User("Ludde", 19, "Ludde2@mail.no"));
+    exciter.clearUser(new User("Ludde", 19, "Ludd3@mail.no"));
+    exciter.clearUser(new User("Ludde", 19, "Ludd4@mail.no"));
+    exciter.clearUser(new BotUser("Bot", 18, "Botmatch@mail.no", true, 1));
+    exciter.clearUser(new BotUser("Botto", 18, "Botmatchto@mail.no", false, 3));
+    exciter.clearUser(new BotUser("Bot", 18, "Boten@mail.no", true, 7));
+    exciter.clearUser(new User("Ludde", 19, "LuddeMessage@mail.no"));
+    exciter.clearUser(new User("Ludde", 19, "LuddeMessage2@mail.no"));
+    FileHandler fileHandler = new FileHandler();
+    fileHandler.saveUser(exciter.getAllUsers());
   }
 
   @Test
