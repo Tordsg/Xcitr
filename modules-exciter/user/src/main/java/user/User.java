@@ -39,6 +39,7 @@ public class User {
    * @param matches
    * @param email
    * @param password
+   * @param imageId
    * @apiNote This constructor is to only be used by the filehandler class.
    */
 
@@ -51,9 +52,7 @@ public class User {
     setEmail(email);
     this.password = password;
     setAge(age);
-    if (likedUsers != null) {
-      this.likedUsers = likedUsers;
-    }
+    this.likedUsers = likedUsers;
     this.imageId = imageId;
   }
 
@@ -79,9 +78,7 @@ public class User {
     setEmail(email);
     this.password = password;
     setAge(age);
-    if (likedUsers != null) {
-      this.likedUsers = likedUsers;
-    }
+    this.likedUsers = likedUsers;
   }
 
   /**
