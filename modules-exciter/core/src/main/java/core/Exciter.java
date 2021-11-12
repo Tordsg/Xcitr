@@ -18,7 +18,7 @@ public class Exciter {
   private List<User> allUsers = new ArrayList<>();
 
   /**
-   * Constructor in the class.
+   * Constructor for the class.
    */
 
   public Exciter() {
@@ -29,7 +29,7 @@ public class Exciter {
     if (!allUsers.contains(user)) {
       allUsers.add(user);
     }
-    // Should this throw exception?
+    throw new IllegalArgumentException("User already exists.");
   }
 
   /**
@@ -82,6 +82,7 @@ public class Exciter {
   /**
    * @return new user that is not on screen
    */
+  
   public User getNextRandomUser(List<User> users) {
     List<User> tmp = allUsers.stream().filter(user -> !users.contains(user)).collect(Collectors.toList());
     return tmp.get((int) (Math.random() * tmp.size()));
@@ -116,6 +117,7 @@ public class Exciter {
 
   /**
    * @param user
+   * 
    * @return number of likes in a row by current user
    *
    */
