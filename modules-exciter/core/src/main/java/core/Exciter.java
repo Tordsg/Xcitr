@@ -5,7 +5,6 @@ import java.util.Collections;
 import java.util.List;
 import java.util.UUID;
 import java.util.stream.Collectors;
-
 import user.BotUser;
 import user.User;
 
@@ -25,6 +24,11 @@ public class Exciter {
     addSomePlaceholderUsers();
   }
 
+  /**
+   * Adds a user to the list of people who have an account on the app.
+   *
+   * @param user on the app
+   */
   public void addUser(User user) {
     if (!allUsers.contains(user)) {
       allUsers.add(user);
@@ -33,7 +37,7 @@ public class Exciter {
   }
 
   /**
-   * Will check that users to be added does not exist in the list.
+   * Will check that users to be added does not exist in the list already.
    *
    * @param users to be added to the list of all users.
    *
@@ -49,12 +53,15 @@ public class Exciter {
       }
     }
   }
+
   /**
    * This method is there to override exisiting users.
+   *
    * @param users
    *
    * @apiNote primarly used to add users from json file.
    */
+
   public void addUsersFromFile(List<User> users) {
     List<String> userMailList = allUsers.stream().map(User::getEmail).collect(Collectors.toList());
     for (User user : users) {
@@ -66,7 +73,7 @@ public class Exciter {
   }
 
   /**
-   * adds botUsers
+   * Adds botUsers.
    */
 
   public void addSomePlaceholderUsers() {
@@ -80,9 +87,11 @@ public class Exciter {
   }
 
   /**
+   * Finds a random new user that is going to appear on the matching page.
+   *
    * @return new user that is not on screen
    */
-  
+
   public User getNextRandomUser(List<User> users) {
     List<User> tmp = allUsers.stream().filter(user -> !users.contains(user)).collect(Collectors.toList());
     return tmp.get((int) (Math.random() * tmp.size()));
@@ -90,10 +99,10 @@ public class Exciter {
 
   public List<User> getTwoUniqueUsers(User user) {
     List<User> tmp = allUsers.stream().filter(u -> !u.equals(user)).collect(Collectors.toList());
-    return pickNRandom(tmp, 2);
+    return pickNrandom(tmp, 2);
   }
 
-  private static List<User> pickNRandom(List<User> lst, int n) {
+  private static List<User> pickNrandom(List<User> lst, int n) {
     List<User> copy = new ArrayList<>(lst);
     Collections.shuffle(copy);
     return n > copy.size() ? copy.subList(0, copy.size()) : copy.subList(0, n);
@@ -116,10 +125,11 @@ public class Exciter {
   }
 
   /**
-   * @param user
-   * 
-   * @return number of likes in a row by current user
+   * Finds how many times in a row user has liked another user.
    *
+   * @param user
+   *
+   * @return number of likes in a row by current user
    */
 
   public int getLikeCount(User user, User userToCheckAgainst) {
@@ -143,7 +153,7 @@ public class Exciter {
 
   /**
    * Core logic of exciter class. It discards one user and checks if the current
-   * user has liked the other user
+   * user has liked the other user.
    *
    * @return true if the user liked the other user three times in a row
    */
