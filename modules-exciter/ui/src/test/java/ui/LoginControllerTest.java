@@ -107,20 +107,19 @@ public class LoginControllerTest extends ApplicationTest {
         // TODO Auto-generated catch block
         e.printStackTrace();
       }
-      server.when(HttpRequest.request().withMethod("POST")
-      ).respond(HttpResponse.response().withStatusCode(200).withHeader("Content-Type", "application/json")
-          .withBody(sendString));
-      clickOn("#login");
-      BotUser botUser = new BotUser("name", 22, "bot@mail.com", true);
-      BotUser botUser2 = new BotUser("name", 22, "bot2@mail.com", true);
-      try {
+      server.when(HttpRequest.request().withMethod("POST")).respond(HttpResponse.response().withStatusCode(200)
+          .withHeader("Content-Type", "application/json").withBody(sendString));
+          BotUser botUser = new BotUser("name", 22, "bot@mail.com", true);
+          BotUser botUser2 = new BotUser("name", 22, "bot2@mail.com", true);
+          try {
         sendString = mapper.writeValueAsString(List.of(botUser, botUser2));
       } catch (JsonProcessingException e) {
         e.printStackTrace();
       }
-      server.when(HttpRequest.request().withMethod("GET")).respond(HttpResponse
-          .response().withStatusCode(200).withHeader("Content-Type", "application/json").withBody(sendString));
+      server.when(HttpRequest.request().withMethod("GET")).respond(HttpResponse.response().withStatusCode(200)
+      .withHeader("Content-Type", "application/json").withBody(sendString));
 
+      clickOn("#login");
       Assertions.assertEquals(testUser.getEmail(), App.getUser().getEmail());
 
     } else {
