@@ -14,16 +14,20 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
-
 import user.Chat;
 
+/**
+ * File logging for the application´s chat function.
+ */
 public class MessageHandler {
 
+  /**
+   * Constructor for the class.
+   */
   public MessageHandler() {
     createFile();
   }
@@ -32,6 +36,9 @@ public class MessageHandler {
   // the "./" is there to make sure path works on mac
   String path = "./messages.json";
 
+  /**
+   * Method to create a new file.
+   */
   public void createFile() {
     try {
       File file = new File(path);
@@ -43,6 +50,12 @@ public class MessageHandler {
     }
 
   }
+
+  /**
+   * Method to save the each user chat messages in an array.
+   *
+   * @param chat between two users
+   */
 
   @SuppressWarnings("unchecked")
   public void saveChat(Chat chat) {
@@ -74,6 +87,12 @@ public class MessageHandler {
 
   }
 
+  /**
+   *  Method to acces a chat between two users.
+   *
+   * @return a chat object with the users messages.
+   */
+
   public List<Chat> getChats() {
     try (BufferedReader fileReader = new BufferedReader(new InputStreamReader(new FileInputStream(path), "UTF-8"))) {
       List<Chat> chat = new ArrayList<>();
@@ -102,6 +121,14 @@ public class MessageHandler {
     return null;
   }
 
+  /**
+   * Method to get the messeges sent between two users.
+   *
+   * @param chat
+   *
+   * @return a list of messages.
+   */
+
   @SuppressWarnings("unchecked")
   private List<Map<String, String>> getMessages(JSONObject chat) {
     JSONArray messages = (JSONArray) chat.get("message");
@@ -112,6 +139,16 @@ public class MessageHandler {
     });
     return messageList;
   }
+
+  /**
+   * Method to remove a chat if there already exists one between the two users.
+   *
+   * @param user1
+   *
+   * @param user2
+   *
+   * @param chats between user1 and user2
+   */
 
   private void removeFromChat(String user1, String user2, List<Chat> chats) {
     if (chats == null || chats.isEmpty()) {
@@ -124,6 +161,16 @@ public class MessageHandler {
       }
     }
   }
+
+  /**
+   * Accesses the chat between two users.
+   *
+   * @param user1
+   *
+   * @param user2
+   *
+   * @return chat between user1 and user2
+   */
 
   public Chat getChat(String user1, String user2) {
     List<Chat> chats = this.getChats();
