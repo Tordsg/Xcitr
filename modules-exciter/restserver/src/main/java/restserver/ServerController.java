@@ -289,9 +289,9 @@ public class ServerController {
     if (chat == null) {
       chat = new Chat(user.getEmail(), mail);
     }
-    chat.sendMeesage(user.getEmail(), message);
+    chat.sendMessage(user.getEmail(), message);
     if (user2 instanceof BotUser) {
-      chat.sendMeesage(mail, ((BotUser) user2).reply());
+      chat.sendMessage(mail, ((BotUser) user2).reply());
     }
     messageHandler.saveChat(chat);
     return chat;
