@@ -109,6 +109,7 @@ public class LoginControllerTest extends ApplicationTest {
       }
       server.when(HttpRequest.request().withMethod("POST")
       .withPath("/login")
+      .withHeader("mail",testUser.getEmail())
       ).respond(HttpResponse.response().withStatusCode(200)
           .withHeader("Content-Type", "application/json").withBody(sendString));
           BotUser botUser = new BotUser("name", 22, "bot@mail.com", true);
