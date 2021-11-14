@@ -1,5 +1,7 @@
 package user;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import java.nio.charset.Charset;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
@@ -8,9 +10,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
-
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
 /**
  * This class configure a user.
@@ -32,14 +31,15 @@ public class User {
   /**
    * Constructor for User class.
    *
-   * @param id
-   * @param name
-   * @param age
-   * @param userInformation
-   * @param matches
-   * @param email
-   * @param password
-   * @param imageId
+   * @param id users app ID
+   * @param name string of users name
+   * @param age users age
+   * @param userInformation string of user bio
+   * @param matches list of the users matches
+   * @param email string of users email
+   * @param password string of  users password
+   * @param likedUsers map of the user and how many times they´ve liked other users
+   * @param imageId string of users chosen image´s id
    * @apiNote This constructor is to only be used by the filehandler class.
    */
 
@@ -59,13 +59,14 @@ public class User {
   /**
    * Constructor for User class.
    *
-   * @param id
-   * @param name
-   * @param age
-   * @param userInformation
-   * @param matches
-   * @param email
-   * @param password
+   * @param id users app ID
+   * @param name string of user name
+   * @param age users age
+   * @param userInformation string of user bio
+   * @param matches list of matches the user has
+   * @param email string of users email
+   * @param password string of users password
+   * @param likedUsers map of the user and how many times they´ve liked other users
    * @apiNote This constructor is to only be used by the filehandler class.
    */
 
@@ -84,12 +85,12 @@ public class User {
   /**
    * Constructor for User class.
    *
-   * @param name
-   * @param age
-   * @param userInformation
-   * @param matches
-   * @param email
-   * @param password
+   * @param name string of user name
+   * @param age int of users age
+   * @param userInformation string of the users bio
+   * @param matches list of the users matches
+   * @param email string of the users email
+   * @param password string of the users password
    * @apiNote This constructor is to only be used by the filehandler class.
    */
 
@@ -103,12 +104,13 @@ public class User {
   }
 
   /**
+   * Constructor for User class.
    *
-   * @param name
-   * @param age
-   * @param userInformation
-   * @param matches
-   * @param email
+   * @param name string of users name
+   * @param age int of users age
+   * @param userInformation string of users bio
+   * @param matches list of users matches
+   * @param email string of users email
    */
 
   public User(String name, int age, String userInformation, List<String> matches, String email) {
@@ -122,10 +124,10 @@ public class User {
   /**
    * Constructor for User class.
    *
-   * @param name
-   * @param age
-   * @param userInformation
-   * @param email
+   * @param name string of users name
+   * @param age int of users age
+   * @param userInformation string of users bio
+   * @param email string of users email
    */
 
   public User(String name, int age, String userInformation, String email) {
@@ -138,9 +140,9 @@ public class User {
   /**
    * Constructor for User class.
    *
-   * @param name
-   * @param age
-   * @param email
+   * @param name string of users name
+   * @param age int of users age
+   * @param email string of users email
    */
   public User(String name, int age, String email) {
     setName(name);
@@ -164,6 +166,11 @@ public class User {
     return true;
   }
 
+  /**
+   * Setting the users name.
+   *
+   * @param name string for the users name
+   */
   public void setName(String name) {
     if (name.length() < 2) {
       throw new IllegalArgumentException("Name must be at least 2 characters");
@@ -190,8 +197,13 @@ public class User {
     return this.age;
   }
 
+  /**
+   * Setting the users email.
+   *
+   * @param email string for the users email
+   */
   public void setEmail(String email) {
-    if(!emailValidator(email)){
+    if (!emailValidator(email)) {
       throw new IllegalArgumentException("Email is not valid");
     }
     this.email = email;
@@ -224,6 +236,11 @@ public class User {
     return this.userInformation;
   }
 
+  /**
+   * Setting the age of a user.
+   *
+   * @param age int for the users age
+   */
   public void setAge(int age) {
     if (age < 0) {
       throw new IllegalArgumentException("Age cannot be negative");
@@ -232,7 +249,7 @@ public class User {
   }
 
   public void setPassword(String password) {
-    this.password = Md5Hash(password);
+    this.password = md5Hash(password);
   }
 
   public void setPasswordNoHash(String password) {
@@ -246,7 +263,7 @@ public class User {
    * @return MD5 hash of password.
    */
 
-  public static String Md5Hash(String password) {
+  public static String md5Hash(String password) {
     String outString = null;
     try {
       MessageDigest md = MessageDigest.getInstance("MD5");
@@ -318,8 +335,9 @@ public class User {
   }
 
   /** 
+   * Resets the user match to one.
    *
-   * @param email
+   * @param email string for teh users email 
    */
   public void resetUserMatchToOne(String email) {
     if (likedUsers.containsKey(email)) {
@@ -359,7 +377,9 @@ public class User {
   }
 
   /**
-   * @param i
+   * Setting the image id for the users images.  
+   *
+   * @param i the image id integer
    */
   public void setImageId(int i) {
     if (i < 0 || i > 25) {

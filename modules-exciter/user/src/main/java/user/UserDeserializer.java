@@ -1,9 +1,5 @@
 package user;
 
-import java.io.IOException;
-import java.util.HashMap;
-import java.util.UUID;
-
 import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
@@ -15,7 +11,13 @@ import com.fasterxml.jackson.databind.node.ArrayNode;
 import com.fasterxml.jackson.databind.node.IntNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.fasterxml.jackson.databind.node.TextNode;
+import java.io.IOException;
+import java.util.HashMap;
+import java.util.UUID;
 
+/**
+ * Class to deserialize a User.
+ */
 public class UserDeserializer extends StdDeserializer<User> {
 
   private ObjectMapper mapper = new ObjectMapper();
@@ -34,6 +36,13 @@ public class UserDeserializer extends StdDeserializer<User> {
     return deserialize(node);
   }
 
+  /**
+   * Taking the byte streams to recreate them into java objects.
+   *
+   * @param node
+   *
+   * @return a user, otherwise null
+   */
   public User deserialize(JsonNode node) {
     if (node == null) {
       return null;
