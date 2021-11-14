@@ -232,7 +232,7 @@ public class User {
   }
 
   public void setPassword(String password) {
-    this.password = MD5Hash(password);
+    this.password = Md5Hash(password);
   }
 
   public void setPasswordNoHash(String password) {
@@ -246,7 +246,7 @@ public class User {
    * @return MD5 hash of password.
    */
 
-  public static String MD5Hash(String password) {
+  public static String Md5Hash(String password) {
     String outString = null;
     try {
       MessageDigest md = MessageDigest.getInstance("MD5");
@@ -317,6 +317,10 @@ public class User {
     }
   }
 
+  /** 
+   *
+   * @param email
+   */
   public void resetUserMatchToOne(String email) {
     if (likedUsers.containsKey(email)) {
       likedUsers.put(email, 1);
@@ -324,6 +328,7 @@ public class User {
   }
 
   /**
+   * Checks if there is a match between two users.
    *
    * @param user that this user will check against.
    *
@@ -339,11 +344,11 @@ public class User {
   }
 
   /**
+   * Checks whether a user has liked someone three times.
    *
-   * @param user that this user will check against
+   * @param email that this user will check against
    *
    * @return true if the user has liked the other user more than 3 times
-   *
    */
 
   public boolean haveLikedUser(String email) {
@@ -353,6 +358,9 @@ public class User {
     return likedUsers.get(email) >= 3;
   }
 
+  /**
+   * @param i
+   */
   public void setImageId(int i) {
     if (i < 0 || i > 25) {
       throw new IllegalArgumentException("Image id must be between 0 and 24");

@@ -1,11 +1,10 @@
 package user;
 
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
 /**
  * Methods for the chat.
@@ -13,35 +12,37 @@ import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
 @JsonDeserialize(using = ChatDeserializer.class)
 public class Chat {
-	private String user1;
+  private String user1;
   private String user2;
   private List<Map<String, String>> messages = new ArrayList<>();
 
   /**
    * Constructor.
    *
-   * @param String1
-   * @param String2
-   * @param messages
+   * @param string1 user1
+   * @param string2 user2
+   * @param messages that are sent between the two users
    */
-  public Chat(String String1, String String2, List<Map<String, String>> messages) {
-    this.user1 = String1;
-    this.user2 = String2;
+
+  public Chat(String string1, String string2, List<Map<String, String>> messages) {
+    this.user1 = string1;
+    this.user2 = string2;
     this.messages = messages;
   }
 
   /**
    * Constructor.
    *
-   * @param user1
-   * @param user2
+   * @param user1 who sends messages on the chat
+   * @param user2 who sends messages in the chats back
    */
+
   public Chat(String user1, String user2) {
-		this.user1 = user1;
+    this.user1 = user1;
     this.user2 = user2;
   }
   
-	public Chat() {
+  public Chat() {
   }
 
   public void setUser1(String user1) {
@@ -70,9 +71,9 @@ public class Chat {
   
   /**
    * Maps the user to the messages they send to their match.
-   * 
-   * @param user
-   * @param message
+   *
+   * @param user that chats with a match
+   * @param message the user sends
    */
   public void sendMessage(String user, String message) {
     Map<String, String> messageMap = new HashMap<>();

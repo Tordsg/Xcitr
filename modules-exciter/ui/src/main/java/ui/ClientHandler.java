@@ -54,7 +54,7 @@ public class ClientHandler {
 
   public User createAccount(User user, String password) throws ServerException, ConnectException {
     MediaType mediaType = MediaType.parse("application/json");
-    String hashedPassword = User.MD5Hash(password);
+    String hashedPassword = User.Md5Hash(password);
     try {
       String sendString = mapper.writeValueAsString(user);
       Request request = new Request.Builder().url(url + "/createAccount").header("Pass", hashedPassword)
@@ -78,7 +78,7 @@ public class ClientHandler {
 
   public User login(String mail, String password) throws ServerException, ConnectException {
     MediaType mediaType = MediaType.parse("application/json");
-    String sendPassword = User.MD5Hash(password);
+    String sendPassword = User.Md5Hash(password);
     try {
       String sendString = mapper.writeValueAsString(sendPassword);
       Request request = new Request.Builder().url(url + "/login").header("mail", mail)
@@ -139,7 +139,7 @@ public class ClientHandler {
 
   public User updatePassword(User user, String password) throws ServerException, ConnectException {
     MediaType mediaType = MediaType.parse("application/json");
-    String sendPassword = User.MD5Hash(password);
+    String sendPassword = User.Md5Hash(password);
     try {
       String sendString = mapper.writeValueAsString(sendPassword);
       Request request = new Request.Builder().url(url + "/user/update/password")
