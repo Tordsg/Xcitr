@@ -163,14 +163,13 @@ public class SignUpController {
     }
   }
     public void addUser(User user, String password){
-      
+
         try {
           clientHandler.createAccount(user, password);
         } catch (ServerException | ConnectException e) {
           // TODO Auto-generated catch block
           e.printStackTrace();
         }
-    
   }
 
 

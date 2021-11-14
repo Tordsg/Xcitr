@@ -101,4 +101,13 @@ public class LoginController {
     window.show();
   }
 
+  public void addUser(String mail, String password){
+
+    try {
+      clientHandler.login(mail, password);
+    } catch (ServerException | ConnectException e) {
+      e.printStackTrace();
+    }
+}
+
 }
