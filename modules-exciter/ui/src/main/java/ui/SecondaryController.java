@@ -45,18 +45,76 @@ public class SecondaryController implements Initializable {
 
   private static ImageController imageController = PrimaryController.imageController;
   @FXML
-  private Group selectAvatar, backButton, signOut, save, i1, i2, i3, i4, i5, i6, i7, i8, i9, i10, i11, i12, i13, i14,
-      i15, i16, i17, i18, i19, i20, i21, i22, i23, i24;
+  private Group selectAvatar;
+  @FXML
+  private Group backButton;
+  @FXML
+  private Group signOut;
+  @FXML
+  private Group save;
+  @FXML
+  private Group i1;
+  @FXML
+  private Group i2;
+  @FXML
+  private Group i3;
+  @FXML
+  private Group i4;
+  @FXML
+  private Group i5;
+  @FXML
+  private Group i6;
+  @FXML
+  private Group i7;
+  @FXML
+  private Group i8;
+  @FXML
+  private Group i9;
+  @FXML
+  private Group i10;
+  @FXML
+  private Group i11;
+  @FXML
+  private Group i12;
+  @FXML
+  private Group i13;
+  @FXML
+  private Group i14;
+  @FXML
+  private Group i15;
+  @FXML
+  private Group i16;
+  @FXML
+  private Group i17;
+  @FXML
+  private Group i18;
+  @FXML
+  private Group i19;
+  @FXML
+  private Group i20;
+  @FXML
+  private Group i21;
+  @FXML
+  private Group i22;
+  @FXML
+  private Group i23;
+  @FXML
+  private Group i24;
   @FXML
   private TextArea bio;
   @FXML
-  private TextField name, age;
+  private TextField name;
+  @FXML
+  private TextField age;
   @FXML
   private PasswordField password;
   @FXML
-  private Pane pane, avatarPane;
+  private Pane pane;
   @FXML
-  private VBox avatarVBox;
+  private Pane avatarPane;
+  @FXML
+  private VBox avatarVbox;
+  @FXML
   private Pane lastPane = null;
   @FXML
   private Label errorLabel;
@@ -88,16 +146,16 @@ public class SecondaryController implements Initializable {
     } else {
       avatarPane.setVisible(true);
     }
-    avatarVBox.setOnScroll(e -> {
-      if (avatarVBox.getLayoutY() + avatarVBox.getHeight() + e.getDeltaY() < 406 - 80) {
-        avatarVBox.setLayoutY(406 - 80 - avatarVBox.getHeight());
-      } else if (avatarVBox.getLayoutY() + e.getDeltaY() > 0) {
-        avatarVBox.setLayoutY(0);
+    avatarVbox.setOnScroll(e -> {
+      if (avatarVbox.getLayoutY() + avatarVbox.getHeight() + e.getDeltaY() < 406 - 80) {
+        avatarVbox.setLayoutY(406 - 80 - avatarVbox.getHeight());
+      } else if (avatarVbox.getLayoutY() + e.getDeltaY() > 0) {
+        avatarVbox.setLayoutY(0);
       } else {
-        avatarVBox.setLayoutY(e.getDeltaY() + avatarVBox.getLayoutY());
+        avatarVbox.setLayoutY(e.getDeltaY() + avatarVbox.getLayoutY());
       }
     });
-    avatarVBox.getChildren().forEach(e -> {
+    avatarVbox.getChildren().forEach(e -> {
       HBox box = (HBox) e;
       box.getChildren().forEach(k -> {
         Group g = (Group) k;
@@ -210,7 +268,7 @@ public class SecondaryController implements Initializable {
   /**
    * Signs out of the app and goes to the login-page.
    *
-   * @throws IOException
+   * @throws IOException exception
    */
 
   @FXML
