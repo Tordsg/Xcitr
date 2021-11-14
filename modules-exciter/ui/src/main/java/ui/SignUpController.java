@@ -8,6 +8,7 @@ import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -17,7 +18,6 @@ import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
-import javafx.scene.Node;
 import user.User;
 
 /**
@@ -94,9 +94,10 @@ public class SignUpController {
   /**
    * Checks if number is numeric.
    *
-   * @param str
+   * @param str number as a string
    * @return boolean
    */
+
   private boolean isNumeric(String str) {
     try {
       Integer.parseInt(str);
@@ -112,6 +113,7 @@ public class SignUpController {
    * @param email email to validate
    * @return true if email is valid
    */
+
   private boolean emailValidator(String email) {
     String emailRegex = "^[a-zA-Z0-9_+&*-]+(?:\\." + "[a-zA-Z0-9_+&*-]+)*@" + "(?:[a-zA-Z0-9-]+\\.)+[a-z"
         + "A-Z]{2,7}$";
@@ -143,9 +145,9 @@ public class SignUpController {
       userXcitr = new User(nameReg, Integer.parseInt(ageReg), emailReg);
       User user = clientHandler.createAccount(userXcitr, passwordReg);
       App.setUser(user);
-      FXMLLoader Loader = new FXMLLoader();
-      Loader.setLocation(getClass().getResource("primary.fxml"));
-      Parent p = Loader.load();
+      FXMLLoader loader = new FXMLLoader();
+      loader.setLocation(getClass().getResource("primary.fxml"));
+      Parent p = loader.load();
       Scene s = new Scene(p);
       Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
       window.setScene(s);
@@ -154,7 +156,13 @@ public class SignUpController {
       errorLabel.setText(e.getMessage());
     }
   }
-  public void deleteUser(User user){
+
+  /**
+   * Removes a user from the application.
+   *
+   * @param user User object
+   */
+  public void deleteUser(User user) {
     try {
       clientHandler.deleteUser(user);
     } catch (ServerException | ConnectException e) {
@@ -162,14 +170,21 @@ public class SignUpController {
       e.printStackTrace();
     }
   }
-    public void addUser(User user, String password){
-      
-        try {
-          clientHandler.createAccount(user, password);
-        } catch (ServerException | ConnectException e) {
-          // TODO Auto-generated catch block
-          e.printStackTrace();
-        }
+
+  /**
+   * Adding a new user to the application. 
+   *
+   * @param user User object 
+   * @param password string for the users password
+   */
+
+  public void addUser(User user, String password) {
+    try {
+      clientHandler.createAccount(user, password);
+    } catch (ServerException | ConnectException e) {
+      // TODO Auto-generated catch block
+      e.printStackTrace();
+    }
     
   }
 

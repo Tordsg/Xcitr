@@ -46,18 +46,27 @@ import user.User;
 /**
  * Controller for match.fxml.
  */
+
 public class MatchController implements Initializable {
 
   @FXML
-  VBox matchBox, textBox;
+  VBox matchBox;
   @FXML
-  Pane textPane, refresh;
+  VBox textBox;
+  @FXML
+  Pane textPane;
+  @FXML
+  Pane refresh;
   @FXML
   TextField textInput;
   @FXML
-  Group backButton, sendButton;
+  Group backButton;
   @FXML
-  AnchorPane anchorPane, profilePane;
+  Group sendButton;
+  @FXML
+  AnchorPane anchorPane;
+  @FXML
+  AnchorPane profilePane;
   @FXML
   Circle chatPic;
   @FXML
@@ -73,6 +82,15 @@ public class MatchController implements Initializable {
   private User currentChatUser = user;
   private List<User> matches = new ArrayList<>();
 
+
+  /**
+   * Method to switch to the match page.
+   *
+   * @param event MouseEvent
+   *
+   * @throws IOException since MouseEvent is used
+   */
+
   public void switchToPrimary(MouseEvent event) throws IOException {
     FXMLLoader loader = new FXMLLoader();
     loader.setLocation(getClass().getResource("primary.fxml"));
@@ -84,7 +102,7 @@ public class MatchController implements Initializable {
   }
 
   /**
-   * checks if user has any matches and set them in the match fxml file.
+   * Checks if user has any matches and set them in the match fxml file.
    */
 
   public void initialize(URL arg0, ResourceBundle arg1) {
@@ -126,15 +144,16 @@ public class MatchController implements Initializable {
           matchBox.setLayoutY(62);
         } else if (matchBox.getLayoutY() + matchBox.getHeight() + k.getDeltaY() / 2 >= 411) {
           matchBox.setLayoutY(411 - matchBox.getHeight());
-        } else
+        } else {
           matchBox.setLayoutY(matchBox.getLayoutY() + k.getDeltaY() / 2);
+        }
       });
       textBox.setOnScroll(k -> {
         if (textBox.getLayoutY() + textBox.getHeight() + k.getDeltaY() / 2 < 393) {
           textBox.setLayoutY(393 - textBox.getHeight());
-        } else if (textBox.getLayoutY() + k.getDeltaY() / 2 > 63 && textBox.getHeight() < 325)
-          textBox.setLayoutY(393 - textBox.getHeight());
-        else if (textBox.getLayoutY() + k.getDeltaY() / 2 > 63) {
+        } else if (textBox.getLayoutY() + k.getDeltaY() / 2 > 63 && textBox.getHeight() < 325) {
+          textBox.setLayoutY(393 - textBox.getHeight()); 
+        } else if (textBox.getLayoutY() + k.getDeltaY() / 2 > 63) {
           textBox.setLayoutY(63);
         } else {
           textBox.setLayoutY(textBox.getLayoutY() + k.getDeltaY() / 2);
@@ -147,6 +166,10 @@ public class MatchController implements Initializable {
       });
     }
   }
+
+  /**
+   * Method to refresh the cards on the match page.
+   */
 
   @FXML
   public void refresh() {
@@ -166,11 +189,16 @@ public class MatchController implements Initializable {
     }
   }
 
+  /**
+   * Sends a message using the text input from textInput field.
+   */
+
   @FXML
   public void sendMessage() {
-    if (textInput.getText().equals("") || matches == null || matches.isEmpty())
+    if (textInput.getText().equals("") || matches == null || matches.isEmpty()) {
       return;
-    HBox hBox = createMessage(textInput.getText(), true);
+    }
+    HBox hbox = createMessage(textInput.getText(), true);
     try {
       clientHandler.sendMessage(user, matches.get(chatId), textInput.getText());
     } catch (ServerException e) {
@@ -179,12 +207,20 @@ public class MatchController implements Initializable {
       errorLabel.setText(e.getMessage());
     }
     textInput.clear();
-    textBox.getChildren().add(hBox);
+    textBox.getChildren().add(hbox);
     textBox.setLayoutY(393 - textBox.getHeight() - height);
   }
 
+  /**
+   * Method to create a message .
+   *
+   * @param string string value 
+   * @param isCurrentUser boolean 
+   *
+   * @return hbox
+   */
+
   private HBox createMessage(String string, Boolean isCurrentUser) {
-    HBox hBox = new HBox();
     Group group = new Group();
     Rectangle rectangle = new Rectangle();
     Text text = new Text();
@@ -207,14 +243,21 @@ public class MatchController implements Initializable {
     }
     text.setLayoutY(rectangle.getHeight() / 2 - text.getLayoutBounds().getHeight() / 2 + 12);
     text.setLayoutX(10);
-    hBox.getChildren().add(group);
+    HBox hbox = new HBox();
+    hbox.getChildren().add(group);
     if (isCurrentUser) {
       rectangle.setFill(Color.rgb(0, 190, 255));
       text.setFill(Color.WHITE);
-      hBox.setAlignment(Pos.TOP_RIGHT);
+      hbox.setAlignment(Pos.TOP_RIGHT);
     }
-    return hBox;
+    return hbox;
   }
+
+  /**
+   * Adds light when hovering the mouse over a button.
+   *
+   * @param n node
+   */
 
   private void hoverButton(Node n) {
     n.setOnMouseEntered(e -> {
@@ -227,12 +270,21 @@ public class MatchController implements Initializable {
 
   Group lastN = null;
 
+  /**
+   * Method to click button.
+   *
+   * @param n group
+   * @param user1 User object
+   * @param i int
+   */
+
   private void clickButton(Group n, User user1, int i) {
     this.user1 = user1;
     n.setOnMouseClicked(e -> {
       if (lastN != null) {
-        if (lastN.equals(n))
+        if (lastN.equals(n)) {
           return;
+        }
         lastN.getChildren().forEach(l -> {
           if (l.getClass().equals(Rectangle.class)) {
             Rectangle rect = (Rectangle) l;
@@ -295,6 +347,14 @@ public class MatchController implements Initializable {
 
   double height = 0;
 
+  /**
+   * Creates a match card for a User object.
+   *
+   * @param user User object
+   *
+   * @return group
+   */
+
   protected static Group createMatchCard(User user) {
     Group group = new Group();
     group.setTranslateX(-5);
@@ -333,24 +393,26 @@ public class MatchController implements Initializable {
     return group;
   }
 
+  /**
+   * Method to animate the profile.
+   */
+
   @FXML
   public void animateProfile() {
     chatPic.setDisable(true);
     if (profilePane.getPrefHeight() != 430) {
-      KeyValue kv = new KeyValue(profilePane.prefHeightProperty(), 430, Interpolator.EASE_BOTH);
-      Timeline timeline = new Timeline(new KeyFrame(Duration.millis(300), kv));
       Pane pane = SecondaryController.createCard(currentChatUser);
       profilePane.getChildren().add(pane);
       pane.setLayoutY(70);
       TranslateTransition tt = new TranslateTransition(Duration.millis(300), pane);
       tt.setFromX(400);
       tt.setToX(45);
+      KeyValue kv = new KeyValue(profilePane.prefHeightProperty(), 430, Interpolator.EASE_BOTH);
+      Timeline timeline = new Timeline(new KeyFrame(Duration.millis(300), kv));
       SequentialTransition st = new SequentialTransition(timeline, tt);
       st.setOnFinished(e -> chatPic.setDisable(false));
       st.play();
     } else {
-      KeyValue kv = new KeyValue(profilePane.prefHeightProperty(), 62, Interpolator.EASE_BOTH);
-      Timeline timeline = new Timeline(new KeyFrame(Duration.millis(300), kv));
       Pane pane;
       pane = (Pane) profilePane.getChildren().get(1);
       TranslateTransition tt = new TranslateTransition(Duration.millis(300), pane);
@@ -360,6 +422,8 @@ public class MatchController implements Initializable {
         profilePane.getChildren().remove(pane);
         chatPic.setDisable(false);
       });
+      KeyValue kv = new KeyValue(profilePane.prefHeightProperty(), 62, Interpolator.EASE_BOTH);
+      Timeline timeline = new Timeline(new KeyFrame(Duration.millis(300), kv));
       SequentialTransition st = new SequentialTransition(tt, timeline);
       st.play();
     }
@@ -373,13 +437,13 @@ public class MatchController implements Initializable {
         if (map.containsKey(user1.getEmail())) {
           String string = map.get(user1.getEmail());
           String string2 = string.substring(0, string.length());
-          HBox hBox = createMessage(string2, false);
-          textBox.getChildren().add(hBox);
+          HBox hbox = createMessage(string2, false);
+          textBox.getChildren().add(hbox);
         } else {
           String string = map.get(user.getEmail());
           String string2 = string.substring(1, string.length() - 1);
-          HBox hBox = createMessage(string2, true);
-          textBox.getChildren().add(hBox);
+          HBox hbox = createMessage(string2, true);
+          textBox.getChildren().add(hbox);
         }
       }
     } catch (ServerException e) {
