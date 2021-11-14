@@ -80,16 +80,16 @@ public class LoginControllerTest extends ApplicationTest {
     return Stream.of(Arguments.of(true));
   }
 
-  // @ParameterizedTest
-  // @MethodSource
-  // public void testControllerFail(boolean excpected) {
-  // checkResult(excpected);
+  @ParameterizedTest
+  @MethodSource
+  public void testControllerFail(boolean excpected) {
+  checkResult(excpected);
 
-  // }
+  }
 
-  // private static Stream<Arguments> testControllerFail() {
-  // return Stream.of(Arguments.of(false));
-  // }
+  private static Stream<Arguments> testControllerFail() {
+  return Stream.of(Arguments.of(false));
+  }
 
   private void checkResult(boolean excpected) {
     if (excpected) {
