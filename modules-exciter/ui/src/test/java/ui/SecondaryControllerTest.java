@@ -1,7 +1,5 @@
 package ui;
 
-
-import java.util.List;
 import java.util.UUID;
 import java.util.stream.Stream;
 
@@ -12,8 +10,8 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.TextArea;
+import javafx.scene.control.TextField;
 import javafx.stage.Stage;
-import user.BotUser;
 import user.User;
 
 import org.junit.jupiter.api.AfterAll;
@@ -74,13 +72,6 @@ public class SecondaryControllerTest extends ApplicationTest {
     .withHeader("mail",testUser.getEmail())
     ).respond(HttpResponse.response().withStatusCode(200)
         .withHeader("Content-Type", "application/json").withBody(sendString));
-        BotUser botUser = new BotUser("name", 22, "bot@mail.com", true);
-        BotUser botUser2 = new BotUser("name", 22, "bot2@mail.com", true);
-        try {
-      sendString = mapper.writeValueAsString(List.of(botUser, botUser2));
-    } catch (JsonProcessingException e) {
-      e.printStackTrace();
-    }
     server.when(HttpRequest.request().withMethod("GET")).respond(HttpResponse.response().withStatusCode(200)
     .withHeader("Content-Type", "application/json").withBody(sendString));
   }
@@ -103,6 +94,14 @@ public class SecondaryControllerTest extends ApplicationTest {
     textField.clear();
     clickOn("#bio");
     write("guitar player");
+
+    TextField textFieldName = lookup("#name").query();
+    textFieldName.clear();
+    clickOn("#name");
+    write("Ulf Reidar");
+
+
+
     
     String sendString = null;
       try {
@@ -122,6 +121,7 @@ public class SecondaryControllerTest extends ApplicationTest {
 
     clickOn("#save");
     Assertions.assertEquals("guitar player", App.getUser().getUserInformation());
+    Assertions.assertEquals("Ulf Reidar", App.getUser().getName());
     clickOn("#signOut");
     signupController.deleteUser(new User("test", 20, "test@mail.no"));
   }
