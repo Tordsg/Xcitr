@@ -101,6 +101,8 @@ public class LoginControllerTest extends ApplicationTest {
       clickOn(password);
       write("test");
       String sendString = null;
+      
+
       try {
         sendString = mapper.writeValueAsString(testUser);
       } catch (JsonProcessingException e) {
@@ -140,6 +142,7 @@ public class LoginControllerTest extends ApplicationTest {
 
       Assertions.assertNotEquals("", text.getText());
       Assertions.assertTrue(text.isVisible());
+      
 
     }
   }

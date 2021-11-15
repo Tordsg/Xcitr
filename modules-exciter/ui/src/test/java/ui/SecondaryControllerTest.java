@@ -123,7 +123,7 @@ public class SecondaryControllerTest extends ApplicationTest {
     Assertions.assertEquals("guitar player", App.getUser().getUserInformation());
     Assertions.assertEquals("Ulf Reidar", App.getUser().getName());
     clickOn("#signOut");
-    signupController.deleteUser(new User("test", 20, "test@mail.no"));
+    signupController.deleteUser(testUser);
   }
 
 
