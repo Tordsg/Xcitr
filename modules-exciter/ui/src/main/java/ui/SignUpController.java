@@ -59,10 +59,7 @@ public class SignUpController {
 
   @FXML
   void initialize() {
-    name.clear();
-    age.clear();
-    emailSignup.clear();
-    passwordSignup.clear();
+    clearFields();
     name.textProperty().addListener(event -> {
       if (name.getText().length() > 1 && validName(name.getText()) && name.getText().charAt(0) != ' ') {
         name.setStyle("-fx-control-inner-background: white;");
@@ -85,6 +82,13 @@ public class SignUpController {
       }
     });
 
+  }
+
+  public void clearFields(){
+    name.clear();
+    age.clear();
+    emailSignup.clear();
+    passwordSignup.clear();
   }
 
   private boolean validName(String str) {
