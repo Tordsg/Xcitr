@@ -110,6 +110,22 @@
             <version>16</version>
         </dependency>
 
+        <dependency>
+            <groupId>org.mock-server</groupId>
+            <artifactId>mockserver-netty</artifactId>
+            <version>3.10.8</version>
+        </dependency>
+        <dependency>
+            <groupId>org.mock-server</groupId>
+            <artifactId>mockserver-client-java</artifactId>
+            <version>3.10.8</version>
+        </dependency>
+        <dependency>
+            <groupId>org.mock-server</groupId>
+            <artifactId>mockserver-junit-jupiter</artifactId>
+            <version>5.11.1</version>
+        </dependency>
+
 
     </dependencies>
 
@@ -125,9 +141,10 @@
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-surefire-plugin</artifactId>
                 <configuration>
-                    <skipTests>true</skipTests>
                     <argLine>
-                    @{jaCoCoArgLine} --add-opens exciter.ui/ui=ALL-UNNAMED --add-exports javafx.graphics/com.sun.javafx.application=ALL-UNNAMED
+                    @{jaCoCoArgLine} --add-opens exciter.ui/ui=ALL-UNNAMED
+                    --add-opens java.base/jdk.internal.misc=ALL-UNNAMED
+                     --add-exports javafx.graphics/com.sun.javafx.application=ALL-UNNAMED
 </argLine>
                 </configuration>
             </plugin>

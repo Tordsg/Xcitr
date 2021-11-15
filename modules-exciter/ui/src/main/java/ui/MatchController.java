@@ -389,12 +389,12 @@ public class MatchController implements Initializable {
       for (Map<String, String> map : messages.getMessages()) {
         if (map.containsKey(user1.getEmail())) {
           String string = map.get(user1.getEmail());
-          String string2 = string.substring(0, string.length());
+          String string2 = stringFormatter(string);
           HBox hBox = createMessage(string2, false);
           textBox.getChildren().add(hBox);
         } else {
           String string = map.get(user.getEmail());
-          String string2 = string.substring(1, string.length() - 1);
+          String string2 = stringFormatter(string);
           HBox hBox = createMessage(string2, true);
           textBox.getChildren().add(hBox);
         }
@@ -407,5 +407,21 @@ public class MatchController implements Initializable {
       label.setLayoutX(48);
       label.setLayoutY(140);
       anchorPane.getChildren().add(label);    }
+  }
+
+  private String stringFormatter(String string) {
+    if(string.charAt(0) == '"' && string.charAt(string.length() - 1) == '"') {
+      return string.substring(1, string.length() - 1);
+    } else {
+      return string;
+    }
+  }
+
+  public VBox getMatchBox() {
+    return matchBox;
+  }
+
+  public VBox gettextBox() {
+    return textBox;
   }
 }

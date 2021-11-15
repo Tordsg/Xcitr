@@ -27,7 +27,7 @@ public class User {
   private List<String> matches = new ArrayList<>();
   @JsonIgnore
   private String password = null;
-  private int imageId;
+  private int imageId = 0;
 
   /**
    * Constructor for User class.
