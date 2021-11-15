@@ -49,7 +49,7 @@ public class PrimaryControllerTest extends ApplicationTest {
   }
 
   @BeforeAll
-  public static void setup(){
+  public static void setup() {
     server = ClientAndServer.startClientAndServer(8080);
     startMockServer();
   }
@@ -85,7 +85,7 @@ public class PrimaryControllerTest extends ApplicationTest {
 
   private void checkResult(boolean excpected) {
 
-    //Should be true after the first match
+    // Should be true after the first match
     Assertions.assertFalse(controller.getNotificationCircle().isVisible());
 
     server.clear(HttpRequest.request().withPath("/user/matches"));
@@ -159,7 +159,6 @@ public class PrimaryControllerTest extends ApplicationTest {
     server.clear(HttpRequest.request().withMethod("POST").withPath("/like"));
     server.clear(HttpRequest.request().withPath("/user/likes"));
 
-
     try {
       TimeUnit.SECONDS.sleep(2);
     } catch (InterruptedException e) {
@@ -202,7 +201,7 @@ public class PrimaryControllerTest extends ApplicationTest {
       e.printStackTrace();
     }
     Assertions.assertTrue(controller.getNotificationCircle().isVisible());
-    //If ui whould have crashed. The following would be null.
+    // If ui whould have crashed. The following would be null.
     Assertions.assertNotNull(controller.getOnScreenUsers().get(0));
   }
 
