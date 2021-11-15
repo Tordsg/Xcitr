@@ -159,7 +159,8 @@ public class ServerController {
    * @return User object with updated password
    */
   @PostMapping(value = "/user/update/password")
-  public User updateUserPassword(@RequestHeader("Authorization") UUID id, @RequestBody String password) {
+  public User updateUserPassword(
+      @RequestHeader("Authorization") UUID id, @RequestBody String password) {
     if (excite.getUserById(id) == null) {
       throw new IllegalAccessError("You do not have permission to update this user");
     }
@@ -192,7 +193,8 @@ public class ServerController {
   @PostMapping(value = "/like")
   public User likeUser(@RequestHeader("Authorization") UUID id, @RequestBody List<User> users) {
     User thisUser = excite.getUserById(id);
-    if (excite.getUserByEmail(users.get(0).getEmail()) == null || excite.getUserByEmail(users.get(1).getEmail()) == null
+    if (excite.getUserByEmail(users.get(0).getEmail()) == null 
+        || excite.getUserByEmail(users.get(1).getEmail()) == null
         || excite.getUserByEmail(thisUser.getEmail()) == null) {
       throw new IllegalArgumentException("User does not exist");
     }
@@ -254,7 +256,8 @@ public class ServerController {
    * @apiNote this method is used to get new users without doing a like action
    */
   @PostMapping(value = "/user/new")
-  public User postMethodName(@RequestHeader("Authorization") UUID id, @RequestBody List<User> users) {
+  public User postMethodName(
+        @RequestHeader("Authorization") UUID id, @RequestBody List<User> users) {
     User thisUser = excite.getUserById(id);
     List<String> list = users.stream().map(User::getEmail).collect(Collectors.toList());
     List<User> tmp = excite.getUsersFromList(list);
@@ -289,9 +292,9 @@ public class ServerController {
     if (chat == null) {
       chat = new Chat(user.getEmail(), mail);
     }
-    chat.sendMeesage(user.getEmail(), message);
+    chat.sendMessage(user.getEmail(), message);
     if (user2 instanceof BotUser) {
-      chat.sendMeesage(mail, ((BotUser) user2).reply());
+      chat.sendMessage(mail, ((BotUser) user2).reply());
     }
     messageHandler.saveChat(chat);
     return chat;

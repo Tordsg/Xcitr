@@ -105,7 +105,7 @@ public class ExciterServerTest {
     ResponseBody responseBody = null;
     String responseBodyString = null;
     User newUser = new User("Nottest", 22, "Nottest@mail.no");
-    String password = User.MD5Hash("test");
+    String password = User.md5Hash("test");
     try {
       String sendString = mapper.writeValueAsString(user);
       MediaType mediaType = MediaType.parse("application/json");
@@ -151,7 +151,7 @@ public class ExciterServerTest {
     User addUser = new User("Per", 17, "Per@mail.no");
     addUser.setId(UUID.randomUUID());
     addUser.setPassword("test");
-    String password = User.MD5Hash("test");
+    String password = User.md5Hash("test");
     exciter.addUser(addUser);
     try {
       String sendString = mapper.writeValueAsString(password);

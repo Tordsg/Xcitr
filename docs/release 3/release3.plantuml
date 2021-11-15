@@ -1,0 +1,63 @@
+@startuml 
+
+component core{
+    package exciter.core
+}
+
+component ui{
+    package exciter.ui
+}
+
+component json{
+    package json.jsimple
+    package exciter.core
+    package exciter.user
+    
+}
+
+component javafx{
+    package javafx.controls
+    package javafx.fxml
+}
+
+component restserver{
+    package exciter.core
+    package exciter.json
+    package exciter.user
+
+}
+
+component user {
+    package jackson
+
+}
+
+component jackson {
+}
+
+component "springboot/restserver" as springboot.restserver {
+	package exciter.springboot.restserver
+}
+
+exciter.springboot.restserver ..> exciter.core
+exciter.springboot.restserver ..> exciter.json
+
+component "spring boot" as springboot {
+}
+
+springboot.restserver ..> springboot
+
+exciter.ui ..> exciter.core
+exciter.ui ..> json.jsimple
+exciter.ui ..> javafx.controls
+exciter.ui ..> javafx.fxml
+exciter.ui ..> exciter.user
+
+
+json.jsimple ..> exciter.core
+exciter.ui ..> jackson
+
+
+
+
+@enduml

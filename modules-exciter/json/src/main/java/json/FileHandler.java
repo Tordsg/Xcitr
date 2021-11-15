@@ -22,6 +22,10 @@ import org.json.simple.parser.ParseException;
 import user.BotUser;
 import user.User;
 
+/**
+ * Main class for file handling.
+ */
+
 public class FileHandler {
 
   public FileHandler() {
@@ -38,6 +42,7 @@ public class FileHandler {
    *
    * @param users to be saved
    */
+
   @SuppressWarnings("unchecked") // Type safety can't be avoided with simple-json
   public void saveUser(List<User> users) {
     JSONArray userArray = new JSONArray();
@@ -76,6 +81,10 @@ public class FileHandler {
     }
   }
 
+  /**
+   * Creates a new file.
+   */
+
   public void createFile() {
     try {
       File file = new File(path);
@@ -94,9 +103,11 @@ public class FileHandler {
    *
    * @return list of users
    */
+
   public List<User> readUsers() {
 
-    try (BufferedReader fileReader = new BufferedReader(new InputStreamReader(new FileInputStream(path), "UTF-8"))) {
+    try (BufferedReader fileReader = new BufferedReader(
+          new InputStreamReader(new FileInputStream(path), "UTF-8"))) {
       ArrayList<User> users = new ArrayList<>();
       JSONArray userArray = (JSONArray) parser.parse(fileReader);
       if (userArray.isEmpty()) {
@@ -112,7 +123,7 @@ public class FileHandler {
         String name = String.valueOf(userData.get("name"));
         int age = Integer.parseInt(String.valueOf(userData.get("age")));
 
-        List<String> alreadyMatched = parseJSONList((JSONArray) userData.get("matches"));
+        List<String> alreadyMatched = parseJsonList((JSONArray) userData.get("matches"));
 
         String userInformation = String.valueOf(userData.get("userInformation"));
         if (userInformation.equals("null")) {
@@ -121,14 +132,16 @@ public class FileHandler {
         String email = String.valueOf(userData.get("email"));
         boolean isBot = Boolean.parseBoolean(String.valueOf(userData.get("isBot")));
         String password = String.valueOf(userData.get("password"));
-        Map<String, Integer> likedUser = parseJSONMap((JSONObject) userData.get("likes"));
+        Map<String, Integer> likedUser = parseJsonMap((JSONObject) userData.get("likes"));
         Integer imageid = Integer
-            .parseInt(String.valueOf(userData.get("imageId") == null ? 0 : String.valueOf(userData.get("imageId"))));
+            .parseInt(String.valueOf(userData.get("imageId") == null 
+            ? 0 : String.valueOf(userData.get("imageId"))));
         if (isBot) {
           boolean isLikeBack = Boolean.parseBoolean(String.valueOf(userData.get("isLikeBack")));
           users.add(new BotUser(name, age, userInformation, email, isLikeBack, imageid));
         } else if (id != null) {
-          users.add(new User(id, name, age, userInformation, alreadyMatched, email, password, likedUser, imageid));
+          users.add(new User(id, name, age, 
+              userInformation, alreadyMatched, email, password, likedUser, imageid));
         } else {
           // If user haven't gotten an id yet, it will neither have a imageid
           users.add(new User(name, age, userInformation, alreadyMatched, email, password));
@@ -149,22 +162,28 @@ public class FileHandler {
    * Parses a JSONArray into a List of Strings.
    *
    * @param jsonArray
+   *
    * @return List of user Emails
    */
-  public static List<String> parseJSONList(JSONArray jsonArray) {
+
+  public static List<String> parseJsonList(JSONArray jsonArray) {
     List<String> list = new ArrayList<>();
     for (Object object : jsonArray) {
       list.add(String.valueOf(object));
     }
     return list;
   }
-/**
- *
- * @param jsonObj
- * @return map of liked users
- */
+
+  /**
+   * Parses a JSONObject into a list of Integers.
+   *
+   * @param jsonObj
+   *
+   * @return a map of liked users, null otherwise
+   */
+
   @SuppressWarnings("unchecked")
-  public static Map<String, Integer> parseJSONMap(JSONObject jsonObj) {
+  public static Map<String, Integer> parseJsonMap(JSONObject jsonObj) {
     Map<String, Object> map = (HashMap<String, Object>) jsonObj;
     Map<String, Integer> map2 = new HashMap<>();
     if (jsonObj == null) {
@@ -175,10 +194,13 @@ public class FileHandler {
   }
 
   /**
+   *Finds a user from their email adress. 
    *
    * @param mail of a user
+   *
    * @return user if mail exists in JSON file, null otherwise
    */
+
   public User getUser(String mail) {
     List<User> users = readUsers();
     for (User user : users) {
@@ -188,6 +210,14 @@ public class FileHandler {
     }
     return null;
   }
+
+  /**
+   * Finds user from their id.
+   *
+   * @param id
+   *
+   * @return user from their userID, null otherwise
+   */
 
   public User getUserById(UUID id) {
     List<User> users = readUsers();
@@ -203,10 +233,13 @@ public class FileHandler {
   }
 
   /**
+   * Finds all the users another user has liked from the userID. 
    *
    * @param id UUID of user
+   *
    * @return liked users of user with id
    */
+
   public Map<String, Integer> getLikedUsers(UUID id) {
     User user = getUserById(id);
     return user.getLikedUsers();

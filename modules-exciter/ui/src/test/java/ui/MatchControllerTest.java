@@ -108,7 +108,7 @@ public class MatchControllerTest extends ApplicationTest {
             .respond(HttpResponse.response().withStatusCode(200).withBody(responseString));
       } catch (JsonProcessingException e) {
       }
-      chat.sendMeesage(testUser.getEmail(), "Hei");
+      chat.sendMessage(testUser.getEmail(), "Hei");
       write("Hei");
       server.clear(HttpRequest.request().withMethod("POST").withPath("/message"));
       try {
@@ -119,7 +119,7 @@ public class MatchControllerTest extends ApplicationTest {
       }
       clickOn("#sendButton");
       server.clear(HttpRequest.request().withPath("/message"));
-      chat.sendMeesage(matchedUser.getEmail(), "Hei tilbake");
+      chat.sendMessage(matchedUser.getEmail(), "Hei tilbake");
       try {
         responseString = mapper.writeValueAsString(chat);
         server.when(HttpRequest.request().withMethod("GET").withPath("/message"))

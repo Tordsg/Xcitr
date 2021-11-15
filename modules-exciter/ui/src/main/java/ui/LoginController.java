@@ -6,6 +6,7 @@ import java.rmi.ServerException;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -15,7 +16,6 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
-import javafx.scene.Node;
 import user.User;
 
 /**
@@ -47,6 +47,7 @@ public class LoginController {
   /**
    * Sets field clear when fxml file starts to run.
    **/
+
   @FXML
   public void initialize() {
     passwordLogin.clear();
@@ -58,7 +59,7 @@ public class LoginController {
    * Checks that the email belongs to a user and that the password matches the
    * user's password.
    *
-   * @throws IOException
+   * @throws IOException for the login button
    */
 
   @FXML

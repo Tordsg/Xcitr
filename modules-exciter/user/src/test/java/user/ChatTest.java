@@ -25,23 +25,23 @@ public class ChatTest {
 
     @Test
     public void testSendMessage(){
-        chat.sendMeesage(user1.getEmail(), "Hej");
-        chat.sendMeesage(user2.getEmail(), "Hej");
+        chat.sendMessage(user1.getEmail(), "Hej");
+        chat.sendMessage(user2.getEmail(), "Hej");
         Assertions.assertEquals(chat.getMessages().size(), 2);
     }
 
     @Test
     public void getMessage() {
-        chat.sendMeesage(user1.getEmail(), "Hej");
-        chat.sendMeesage(user2.getEmail(), "Hej");
+        chat.sendMessage(user1.getEmail(), "Hej");
+        chat.sendMessage(user2.getEmail(), "Hej");
         Assertions.assertEquals(chat.getMessages().get(0).get(chat.getUser1()), "Hej");
         Assertions.assertEquals(chat.getMessages().get(1).get(chat.getUser2()), "Hej");
     }
 
     @Test
     public void getMessageWrongOrder() {
-        chat.sendMeesage(user1.getEmail(), "Hej");
-        chat.sendMeesage(user2.getEmail(), "Hej");
+        chat.sendMessage(user1.getEmail(), "Hej");
+        chat.sendMessage(user2.getEmail(), "Hej");
         Assertions.assertNotEquals(chat.getMessages().get(1).get(user1.getEmail()), "Hej");
         Assertions.assertNotEquals(chat.getMessages().get(0).get(user2.getEmail()), "Hej");
     }
