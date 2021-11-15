@@ -11,7 +11,6 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
@@ -40,6 +39,8 @@ public class PrimaryControllerTest extends ApplicationTest {
 
   @Override
   public void start(final Stage stage) throws Exception {
+    testUser.setId(UUID.randomUUID());
+    App.setUser(testUser);
     final FXMLLoader loader = new FXMLLoader(getClass().getResource("primary.fxml"));
     final Parent root = loader.load();
     this.controller = loader.getController();
@@ -47,15 +48,9 @@ public class PrimaryControllerTest extends ApplicationTest {
     stage.show();
   }
 
-  @BeforeEach
-  public void setUser() {
-    testUser.setId(UUID.randomUUID());
-    App.setUser(testUser);
-  }
-
   @BeforeAll
-  public static void setUp() {
-    server = ClientAndServer.startClientAndServer(8888);
+  public static void setup(){
+    server = ClientAndServer.startClientAndServer(8080);
     startMockServer();
   }
 
@@ -65,16 +60,15 @@ public class PrimaryControllerTest extends ApplicationTest {
   }
 
   private static void startMockServer() {
-    server = ClientAndServer.startClientAndServer(8080);
+    server.when(HttpRequest.request().withPath("/user/matches"))
+        .respond(HttpResponse.response().withStatusCode(200).withBody("[]"));
     try {
-      server.when(HttpRequest.request().withPath("two")).respond(
-          HttpResponse.response().withStatusCode(200).withBody(mapper.writeValueAsString(List.of(botUser, botUser2))));
+      server.when(HttpRequest.request().withMethod("GET").withPath("/two"))
+          .respond(HttpResponse.response().withStatusCode(200).withHeader("Content-Type", "application/json")
+              .withBody(mapper.writeValueAsString(List.of(botUser, botUser2))));
     } catch (JsonProcessingException e) {
       e.printStackTrace();
     }
-    server.when(HttpRequest.request().withPath("user/matches")).respond(HttpResponse.response().withStatusCode(200));
-    server.when(HttpRequest.request().withPath("user/likes"))
-        .respond(HttpResponse.response().withStatusCode(200).withBody(String.valueOf(1)));
 
   }
 
@@ -91,43 +85,106 @@ public class PrimaryControllerTest extends ApplicationTest {
 
   private void checkResult(boolean excpected) {
 
+    try {
+      server.when(HttpRequest.request().withMethod("POST").withPath("/like"))
+          .respond(HttpResponse.response().withStatusCode(200).withBody(mapper.writeValueAsString(botUser)));
+    } catch (JsonProcessingException e) {
+      e.printStackTrace();
+    }
+    try {
+      server.when(HttpRequest.request().withPath("/user/likes"))
+          .respond(HttpResponse.response().withStatusCode(200).withBody(mapper.writeValueAsString(1)));
+    } catch (JsonProcessingException e1) {
+      e1.printStackTrace();
+    }
     drag("#rightCard").moveBy(0, -100).drop();
+    server.clear(HttpRequest.request().withMethod("POST").withPath("/like"));
+    server.clear(HttpRequest.request().withPath("/user/likes"));
     try {
       TimeUnit.SECONDS.sleep(2);
     } catch (InterruptedException e) {
       e.printStackTrace();
     }
+    try {
+      server.when(HttpRequest.request().withMethod("POST").withPath("/like"))
+          .respond(HttpResponse.response().withStatusCode(200).withBody(mapper.writeValueAsString(botUser)));
+    } catch (JsonProcessingException e) {
+      e.printStackTrace();
+    }
+    try {
+      server.when(HttpRequest.request().withPath("/user/likes"))
+          .respond(HttpResponse.response().withStatusCode(200).withBody(mapper.writeValueAsString(2)));
+    } catch (JsonProcessingException e1) {
+      e1.printStackTrace();
+    }
     drag("#rightCard").moveBy(0, -100).drop();
+    server.clear(HttpRequest.request().withMethod("POST").withPath("/like"));
+    server.clear(HttpRequest.request().withPath("/user/likes"));
     try {
       TimeUnit.SECONDS.sleep(2);
     } catch (InterruptedException e) {
       e.printStackTrace();
     }
+    try {
+      server.when(HttpRequest.request().withMethod("POST").withPath("/like"))
+          .respond(HttpResponse.response().withStatusCode(200).withBody(mapper.writeValueAsString(botUser)));
+    } catch (JsonProcessingException e) {
+      e.printStackTrace();
+    }
+    try {
+      server.when(HttpRequest.request().withPath("/user/likes"))
+          .respond(HttpResponse.response().withStatusCode(200).withBody(mapper.writeValueAsString(3)));
+    } catch (JsonProcessingException e1) {
+      e1.printStackTrace();
+    }
+    try {
+      server.when(HttpRequest.request().withMethod("POST").withPath("/user/new"))
+          .respond(HttpResponse.response().withStatusCode(200).withHeader("Content-Type", "application/json")
+              .withBody(mapper.writeValueAsString(botUser)));
+    } catch (JsonProcessingException e) {
+    }
+    try {
+      server.when(HttpRequest.request().withPath("/user/matches"))
+          .respond(HttpResponse.response().withStatusCode(200).withBody(mapper.writeValueAsString(List.of(botUser))));
+    } catch (JsonProcessingException e2) {
+    }
+
     drag("#rightCard").moveBy(0, -100).drop();
+    server.clear(HttpRequest.request().withMethod("POST").withPath("/like"));
+    server.clear(HttpRequest.request().withPath("/user/likes"));
+
 
     try {
       TimeUnit.SECONDS.sleep(2);
     } catch (Exception e) {
       e.printStackTrace();
     }
+    try {
+      server.when(HttpRequest.request().withMethod("POST").withPath("/like"))
+          .respond(HttpResponse.response().withStatusCode(200).withBody(mapper.writeValueAsString(botUser)));
+    } catch (JsonProcessingException e) {
+      e.printStackTrace();
+    }
+    try {
+      server.when(HttpRequest.request().withPath("/user/likes"))
+          .respond(HttpResponse.response().withStatusCode(200).withBody(mapper.writeValueAsString(1)));
+    } catch (JsonProcessingException e1) {
+      e1.printStackTrace();
+    }
     drag("#leftCard").moveBy(0, -100).drop();
+    try {
+      TimeUnit.SECONDS.sleep(2);
+    } catch (Exception e) {
+      //TODO: handle exception
+    }
 
-  }
-
-  @ParameterizedTest
-  @MethodSource
-  public void testRefresh(boolean match) {
-    checkRefresh(match);
-  }
-
-  public static Stream<Arguments> testRefresh() {
-    return Stream.of(Arguments.of(true));
-  }
-
-  public void checkRefresh(boolean excpected) {
-
-    User leftUser = controller.getOnScreenUsers().get(0);
-
+    try {
+      server.when(HttpRequest.request().withMethod("GET").withPath("/two"))
+          .respond(HttpResponse.response().withStatusCode(200).withHeader("Content-Type", "application/json")
+              .withBody(mapper.writeValueAsString(List.of(botUser, botUser2))));
+    } catch (JsonProcessingException e) {
+      e.printStackTrace();
+    }
     clickOn("#refresh");
     try {
       TimeUnit.SECONDS.sleep(2);
@@ -136,14 +193,7 @@ public class PrimaryControllerTest extends ApplicationTest {
       e.printStackTrace();
     }
 
-    Assertions.assertNotEquals(leftUser, controller.getOnScreenUsers().get(0));
+    Assertions.assertNotNull(controller.getOnScreenUsers().get(0));
   }
-  /*
-   * @AfterEach public void deleteUser(){ controller.deleteUser(new User("Ulf",
-   * 20, "ulf@mail"));
-   *
-   *
-   * }
-   */
 
 }
