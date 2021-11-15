@@ -94,7 +94,8 @@ public class MessageHandler {
    */
 
   public List<Chat> getChats() {
-    try (BufferedReader fileReader = new BufferedReader(new InputStreamReader(new FileInputStream(path), "UTF-8"))) {
+    try (BufferedReader fileReader = new BufferedReader(
+          new InputStreamReader(new FileInputStream(path), "UTF-8"))) {
       List<Chat> chat = new ArrayList<>();
       JSONArray chatArray = (JSONArray) parser.parse(fileReader);
       if (chatArray.isEmpty()) {

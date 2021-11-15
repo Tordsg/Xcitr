@@ -106,7 +106,8 @@ public class FileHandler {
 
   public List<User> readUsers() {
 
-    try (BufferedReader fileReader = new BufferedReader(new InputStreamReader(new FileInputStream(path), "UTF-8"))) {
+    try (BufferedReader fileReader = new BufferedReader(
+          new InputStreamReader(new FileInputStream(path), "UTF-8"))) {
       ArrayList<User> users = new ArrayList<>();
       JSONArray userArray = (JSONArray) parser.parse(fileReader);
       if (userArray.isEmpty()) {
@@ -133,12 +134,14 @@ public class FileHandler {
         String password = String.valueOf(userData.get("password"));
         Map<String, Integer> likedUser = parseJsonMap((JSONObject) userData.get("likes"));
         Integer imageid = Integer
-            .parseInt(String.valueOf(userData.get("imageId") == null ? 0 : String.valueOf(userData.get("imageId"))));
+            .parseInt(String.valueOf(userData.get("imageId") == null 
+            ? 0 : String.valueOf(userData.get("imageId"))));
         if (isBot) {
           boolean isLikeBack = Boolean.parseBoolean(String.valueOf(userData.get("isLikeBack")));
           users.add(new BotUser(name, age, userInformation, email, isLikeBack, imageid));
         } else if (id != null) {
-          users.add(new User(id, name, age, userInformation, alreadyMatched, email, password, likedUser, imageid));
+          users.add(new User(id, name, age, 
+              userInformation, alreadyMatched, email, password, likedUser, imageid));
         } else {
           // If user haven't gotten an id yet, it will neither have a imageid
           users.add(new User(name, age, userInformation, alreadyMatched, email, password));
