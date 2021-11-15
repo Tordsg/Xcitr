@@ -454,4 +454,8 @@ public class PrimaryController implements Initializable {
     return List.of(leftUser, rightUser);
   }
 
+  public Circle getNotificationCircle() {
+    return notification;
+  }
+
 }
