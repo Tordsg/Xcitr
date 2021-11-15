@@ -93,7 +93,8 @@ public class Exciter {
    */
 
   public User getNextRandomUser(List<User> users) {
-    List<User> tmp = allUsers.stream().filter(user -> !users.contains(user)).collect(Collectors.toList());
+    List<User> tmp = allUsers.stream().filter(user 
+        -> !users.contains(user)).collect(Collectors.toList());
     return tmp.get((int) (Math.random() * tmp.size()));
   }
 
@@ -109,7 +110,8 @@ public class Exciter {
   }
 
   public List<User> getUsersFromList(List<String> emails) {
-    return allUsers.stream().filter(user -> emails.contains(user.getEmail())).collect(Collectors.toList());
+    return allUsers.stream().filter(user 
+        -> emails.contains(user.getEmail())).collect(Collectors.toList());
   }
 
   public User getUserByEmail(String email) {
@@ -117,11 +119,13 @@ public class Exciter {
   }
 
   public User getUserById(UUID id) {
-    return allUsers.stream().filter(u -> u.getId() != null && u.getId().equals(id)).findFirst().orElse(null);
+    return allUsers.stream().filter(u 
+        -> u.getId() != null && u.getId().equals(id)).findFirst().orElse(null);
   }
 
   public void clearUser(User user) {
-    allUsers.remove(allUsers.stream().filter(u -> u.getEmail().equals(user.getEmail())).findFirst().orElse(null));
+    allUsers.remove(allUsers.stream().filter(u 
+        -> u.getEmail().equals(user.getEmail())).findFirst().orElse(null));
   }
 
   /**
@@ -133,7 +137,8 @@ public class Exciter {
    */
 
   public int getLikeCount(User user, User userToCheckAgainst) {
-    if (user.getLikedUsers().containsKey(this.getUserByEmail(userToCheckAgainst.getEmail()).getEmail())) {
+    if (user.getLikedUsers()
+        .containsKey(this.getUserByEmail(userToCheckAgainst.getEmail()).getEmail())) {
       return user.getLikedUsers().size();
     }
     return 0;
