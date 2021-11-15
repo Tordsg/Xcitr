@@ -388,4 +388,8 @@ public class MatchController implements Initializable {
       errorLabel.setText(e.getMessage());
     }
   }
+
+  public VBox getMatchBox() {
+    return matchBox;
+  }
 }
