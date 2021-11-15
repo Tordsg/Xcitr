@@ -162,7 +162,7 @@ public class PrimaryControllerTest extends ApplicationTest {
 
     try {
       TimeUnit.SECONDS.sleep(2);
-    } catch (Exception e) {
+    } catch (InterruptedException e) {
       e.printStackTrace();
     }
     try {
@@ -182,8 +182,7 @@ public class PrimaryControllerTest extends ApplicationTest {
     server.clear(HttpRequest.request().withPath("/user/likes"));
     try {
       TimeUnit.SECONDS.sleep(2);
-    } catch (Exception e) {
-      //TODO: handle exception
+    } catch (InterruptedException e) {
     }
 
     try {
