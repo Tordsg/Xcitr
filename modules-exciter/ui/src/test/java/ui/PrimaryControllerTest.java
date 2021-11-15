@@ -165,6 +165,8 @@ public class PrimaryControllerTest extends ApplicationTest {
     } catch (InterruptedException e) {
       e.printStackTrace();
     }
+    server.clear(HttpRequest.request().withMethod("POST").withPath("/user/new"));
+    server.clear(HttpRequest.request().withPath("/user/matches"));
     try {
       server.when(HttpRequest.request().withMethod("POST").withPath("/like"))
           .respond(HttpResponse.response().withStatusCode(200).withBody(mapper.writeValueAsString(botUser)));
