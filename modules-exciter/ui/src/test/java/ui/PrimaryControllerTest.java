@@ -85,6 +85,12 @@ public class PrimaryControllerTest extends ApplicationTest {
 
   private void checkResult(boolean excpected) {
 
+    //Should be true after the first match
+    Assertions.assertFalse(controller.getNotificationCircle().isVisible());
+
+    server.clear(HttpRequest.request().withPath("/user/matches"));
+    server.clear(HttpRequest.request().withMethod("GET").withPath("/two"));
+
     try {
       server.when(HttpRequest.request().withMethod("POST").withPath("/like"))
           .respond(HttpResponse.response().withStatusCode(200).withBody(mapper.writeValueAsString(botUser)));
@@ -172,6 +178,8 @@ public class PrimaryControllerTest extends ApplicationTest {
       e1.printStackTrace();
     }
     drag("#leftCard").moveBy(0, -100).drop();
+    server.clear(HttpRequest.request().withMethod("POST").withPath("/like"));
+    server.clear(HttpRequest.request().withPath("/user/likes"));
     try {
       TimeUnit.SECONDS.sleep(2);
     } catch (Exception e) {
@@ -192,7 +200,8 @@ public class PrimaryControllerTest extends ApplicationTest {
       System.out.println("here");
       e.printStackTrace();
     }
-
+    Assertions.assertTrue(controller.getNotificationCircle().isVisible());
+    //If ui whould have crashed. The following would be null.
     Assertions.assertNotNull(controller.getOnScreenUsers().get(0));
   }
 
