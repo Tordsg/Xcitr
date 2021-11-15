@@ -209,7 +209,8 @@ public class MatchController implements Initializable {
       label.setAlignment(Pos.CENTER);
       label.setLayoutX(48);
       label.setLayoutY(140);
-      anchorPane.getChildren().add(label);    }
+      anchorPane.getChildren().add(label);
+    }
     textInput.clear();
     textBox.getChildren().add(hbox);
     textBox.setLayoutY(393 - textBox.getHeight() - height);
@@ -314,7 +315,9 @@ public class MatchController implements Initializable {
           textBox.getChildren().clear();
           textBox.setLayoutY(63);
           if (profilePane.getPrefHeight() == 430) {
-            if(cardPane!=null)profilePane.getChildren().remove(cardPane);
+            if (cardPane != null) {
+              profilePane.getChildren().remove(cardPane);
+            }
             cardPane = SecondaryController.createCard(user1);
             profilePane.getChildren().add(cardPane);
             cardPane.setLayoutY(70);
@@ -323,7 +326,8 @@ public class MatchController implements Initializable {
           fillChat(user, user1);
           textBox.setLayoutY(393);
           textInput.clear();
-          chatPic.setFill(new ImagePattern(imageController.getImage(user1).getImage(), 0, 0, 1, 1.4, true));
+          chatPic.setFill(new ImagePattern(imageController
+              .getImage(user1).getImage(), 0, 0, 1, 1.4, true));
         });
         TranslateTransition ttIn = new TranslateTransition(Duration.millis(400), textPane);
         ttIn.setOnFinished(l -> {
@@ -332,7 +336,8 @@ public class MatchController implements Initializable {
         });
         ttIn.setFromX(0);
         ttIn.setToX(-320);
-        SequentialTransition st = new SequentialTransition(ttOut, new TranslateTransition(Duration.millis(200)), ttIn);
+        SequentialTransition st = new SequentialTransition(ttOut, 
+            new TranslateTransition(Duration.millis(200)), ttIn);
         st.play();
       } else {
         chatId = i;
@@ -340,7 +345,9 @@ public class MatchController implements Initializable {
         textBox.getChildren().clear();
         textBox.setLayoutY(63);
         if (profilePane.getPrefHeight() == 430) {
-          if(cardPane!=null)profilePane.getChildren().remove(cardPane);
+          if (cardPane != null) {
+            profilePane.getChildren().remove(cardPane);
+          }
           cardPane = SecondaryController.createCard(user1);
           profilePane.getChildren().add(cardPane);
           cardPane.setLayoutY(70);
@@ -349,7 +356,8 @@ public class MatchController implements Initializable {
         fillChat(user, user1);
         textBox.setLayoutY(393);
         textInput.clear();
-        chatPic.setFill(new ImagePattern(imageController.getImage(user1).getImage(), 0, 0, 1, 1.4, true));
+        chatPic.setFill(new ImagePattern(imageController
+            .getImage(user1).getImage(), 0, 0, 1, 1.4, true));
         TranslateTransition ttIn = new TranslateTransition(Duration.millis(400), textPane);
         ttIn.setOnFinished(l -> {
           matchBox.getChildren().forEach(h -> h.setDisable(false));
@@ -474,11 +482,12 @@ public class MatchController implements Initializable {
       label.setAlignment(Pos.CENTER);
       label.setLayoutX(48);
       label.setLayoutY(140);
-      anchorPane.getChildren().add(label);    }
+      anchorPane.getChildren().add(label);
+    }
   }
 
   private String stringFormatter(String string) {
-    if(string.charAt(0) == '"' && string.charAt(string.length() - 1) == '"') {
+    if (string.charAt(0) == '"' && string.charAt(string.length() - 1) == '"') {
       return string.substring(1, string.length() - 1);
     } else {
       return string;

@@ -43,7 +43,8 @@ public class User {
    * @apiNote This constructor is to only be used by the filehandler class.
    */
 
-  public User(UUID id, String name, int age, String userInformation, List<String> matches, String email,
+  public User(UUID id, String name, int age, 
+      String userInformation, List<String> matches, String email,
       String password, Map<String, Integer> likedUsers, int imageId) {
     this.userInformation = userInformation;
     this.matches = matches;
@@ -70,7 +71,8 @@ public class User {
    * @apiNote This constructor is to only be used by the filehandler class.
    */
 
-  public User(UUID id, String name, int age, String userInformation, List<String> matches, String email,
+  public User(UUID id, String name, int age, 
+      String userInformation, List<String> matches, String email,
       String password, Map<String, Integer> likedUsers) {
     this.userInformation = userInformation;
     this.matches = matches;
@@ -94,7 +96,8 @@ public class User {
    * @apiNote This constructor is to only be used by the filehandler class.
    */
 
-  public User(String name, int age, String userInformation, List<String> matches, String email, String password) {
+  public User(String name, int age, String userInformation, 
+      List<String> matches, String email, String password) {
     this.userInformation = userInformation;
     this.matches = matches;
     setName(name);
@@ -216,7 +219,8 @@ public class User {
    * @return true if email is valid
    */
   private boolean emailValidator(String email) {
-    String emailRegex = "^[a-zA-Z0-9_+&*-]+(?:\\." + "[a-zA-Z0-9_+&*-]+)*@" + "(?:[a-zA-Z0-9-]+\\.)+[a-z"
+    String emailRegex = "^[a-zA-Z0-9_+&*-]+(?:\\." 
+        + "[a-zA-Z0-9_+&*-]+)*@" + "(?:[a-zA-Z0-9-]+\\.)+[a-z"
         + "A-Z]{2,7}$";
 
     java.util.regex.Pattern pat = java.util.regex.Pattern.compile(emailRegex);
@@ -354,7 +358,8 @@ public class User {
    */
 
   public boolean checkIfMatch(User user) {
-    if (haveLikedUser(user.getEmail()) && user.haveLikedUser(this.getEmail()) && !matches.contains(user.getEmail())) {
+    if (haveLikedUser(user.getEmail()) 
+        && user.haveLikedUser(this.getEmail()) && !matches.contains(user.getEmail())) {
       matches.add(user.getEmail());
       user.matches.add(this.getEmail());
     }
