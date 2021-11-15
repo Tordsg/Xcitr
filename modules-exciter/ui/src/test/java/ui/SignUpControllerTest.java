@@ -1,6 +1,7 @@
 package ui;
 
 import java.util.List;
+import java.util.UUID;
 import java.util.stream.Stream;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -97,6 +98,8 @@ public class SignUpControllerTest extends ApplicationTest {
       clickOn(password);
       write("123");
 
+      testUser.setId(UUID.randomUUID());
+
       String sendString = null;
       try {
         sendString = mapper.writeValueAsString(testUser);
@@ -111,6 +114,7 @@ public class SignUpControllerTest extends ApplicationTest {
           .withHeader("Content-Type", "application/json").withBody(sendString));
 
       clickOn("#createAccount");
+
     
       Assertions.assertEquals(App.getUser().getEmail(), testUser.getEmail());
       controller.deleteUser(testUser);

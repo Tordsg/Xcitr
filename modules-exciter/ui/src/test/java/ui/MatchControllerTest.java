@@ -60,12 +60,13 @@ public class MatchControllerTest extends ApplicationTest {
 
   @BeforeEach
   public void setUp(){
+
     testUser.setId(UUID.randomUUID());
+    signupController.addUser(matchedUser, "123");
     Map<String, Integer> likedUser = new HashMap<>();
-    likedUser.put(matchedUser.getEmail(), 3);
+    likedUser.put(matchedUser.getEmail(), 2);
     testUser.setLikedUsers(likedUser);
-    testUser.checkIfMatch(matchedUser);
-    signupController.addUser(testUser, "test");
+
     String sendString = null;
 
     try {
