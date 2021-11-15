@@ -9,6 +9,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import org.junit.jupiter.api.AfterAll;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
@@ -19,10 +20,13 @@ import org.mockserver.model.HttpResponse;
 import org.testfx.framework.junit5.ApplicationTest;
 
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Group;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.shape.Circle;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import user.Chat;
 import user.User;
@@ -90,7 +94,6 @@ public class MatchControllerTest extends ApplicationTest {
   private void checkResult(boolean excpected) {
     if (excpected) {
       server.clear(HttpRequest.request().withMethod("POST").withPath("/message"));
-      moveTo("#matchBox");
       VBox box = controller.getMatchBox();
       clickOn(box.getChildren().get(0));
       try {
@@ -105,17 +108,39 @@ public class MatchControllerTest extends ApplicationTest {
             .respond(HttpResponse.response().withStatusCode(200).withBody(responseString));
       } catch (JsonProcessingException e) {
       }
+      chat.sendMeesage(testUser.getEmail(), "Hei");
       write("Hei");
       server.clear(HttpRequest.request().withMethod("POST").withPath("/message"));
-      chat.sendMeesage(matchedUser.getEmail(), "hei tilbake");
       try {
         responseString = mapper.writeValueAsString(chat);
         server.when(HttpRequest.request().withMethod("POST").withPath("/message"))
-            .respond(HttpResponse.response().withStatusCode(200).withBody(responseString));
+        .respond(HttpResponse.response().withStatusCode(200).withBody(responseString));
       } catch (JsonProcessingException e) {
       }
       clickOn("#sendButton");
-      clickOn("refresh");
+      server.clear(HttpRequest.request().withPath("/message"));
+      chat.sendMeesage(matchedUser.getEmail(), "Hei tilbake");
+      try {
+        responseString = mapper.writeValueAsString(chat);
+        server.when(HttpRequest.request().withMethod("GET").withPath("/message"))
+          .respond(HttpResponse.response().withStatusCode(200).withBody(responseString));
+      } catch (JsonProcessingException e) {
+      }
+      clickOn("#refresh");
+      try {
+        TimeUnit.SECONDS.sleep(2);
+      } catch (InterruptedException e) {
+      }
+
+      Assertions.assertEquals(2, controller.gettextBox().getChildren().size());
+      HBox hBox = (HBox) controller.gettextBox().getChildren().get(0);
+      Group group = (Group) hBox.getChildren().get(0);
+      Text text = (Text) group.getChildren().get(1);
+      Assertions.assertEquals("Hei", text.getText());
+      HBox hBox2 = (HBox) controller.gettextBox().getChildren().get(1);
+      Group group2 = (Group) hBox2.getChildren().get(0);
+      Text text2 = (Text) group2.getChildren().get(1);
+      Assertions.assertEquals("Hei tilbake", text2.getText());
 
 
     } else {
