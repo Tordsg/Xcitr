@@ -81,7 +81,7 @@ public class ClientHandler {
    * @param user User object
    * @param password string of the users password
    *
-   * @return a new user 
+   * @return a new user
    *
    * @throws ServerException IOException
    * @throws ConnectException IOException
@@ -112,7 +112,7 @@ public class ClientHandler {
   }
 
   /**
-   * Method to login to the application through the server. 
+   * Method to login to the application through the server.
    *
    * @param mail string of a users email
    * @param password string of a users password
@@ -147,7 +147,7 @@ public class ClientHandler {
   }
 
   /**
-   * Accesses a users matches through the server. 
+   * Accesses a users matches through the server.
    *
    * @param user User object
    *
@@ -273,7 +273,7 @@ public class ClientHandler {
   /**
    * Finds how many times the current user has liked another user.
    *
-   * @param user User object 
+   * @param user User object
    * @param liked User object that has been liked by user
    *
    * @return int of how many times in a row the user has liked the other user
@@ -332,7 +332,7 @@ public class ClientHandler {
   }
 
   /**
-   * Sending a message over chat through server. 
+   * Sending a message over chat through server.
    *
    * @param user User object
    * @param receiver User object
@@ -417,5 +417,5 @@ public class ClientHandler {
     }
     throw new ServerException("Could not delete user");
   }
-    
+
 }

@@ -33,7 +33,6 @@ public class Exciter {
     if (!allUsers.contains(user)) {
       allUsers.add(user);
     }
-    throw new IllegalArgumentException("User already exists.");
   }
 
   /**
@@ -93,7 +92,7 @@ public class Exciter {
    */
 
   public User getNextRandomUser(List<User> users) {
-    List<User> tmp = allUsers.stream().filter(user 
+    List<User> tmp = allUsers.stream().filter(user
         -> !users.contains(user)).collect(Collectors.toList());
     return tmp.get((int) (Math.random() * tmp.size()));
   }
@@ -110,7 +109,7 @@ public class Exciter {
   }
 
   public List<User> getUsersFromList(List<String> emails) {
-    return allUsers.stream().filter(user 
+    return allUsers.stream().filter(user
         -> emails.contains(user.getEmail())).collect(Collectors.toList());
   }
 
@@ -119,12 +118,12 @@ public class Exciter {
   }
 
   public User getUserById(UUID id) {
-    return allUsers.stream().filter(u 
+    return allUsers.stream().filter(u
         -> u.getId() != null && u.getId().equals(id)).findFirst().orElse(null);
   }
 
   public void clearUser(User user) {
-    allUsers.remove(allUsers.stream().filter(u 
+    allUsers.remove(allUsers.stream().filter(u
         -> u.getEmail().equals(user.getEmail())).findFirst().orElse(null));
   }
 

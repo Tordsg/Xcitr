@@ -111,7 +111,7 @@ public class PrimaryController implements Initializable {
   }
 
   /**
-   * Adds lighting effect when hovering a button with the mouse. 
+   * Adds lighting effect when hovering a button with the mouse.
    *
    * @param n node object
    */
@@ -209,7 +209,7 @@ public class PrimaryController implements Initializable {
   }
 
   /**
-   * Indication for what card is liked. 
+   * Indication for what card is liked.
    *
    * @param likedcard Pane object
    * @param discardedcard Pane object
@@ -320,7 +320,7 @@ public class PrimaryController implements Initializable {
         count = clientHandler.getUserLikeCount(user, rightUser);
       } catch (ServerException | ConnectException e) {
         errorLabel.setText(e.getMessage());
-      } 
+      }
       if (count != null) {
         scoreNumber.setText(count.toString());
       }

@@ -109,7 +109,7 @@
       <Pane fx:id="avatarPane" layoutX="325.0" layoutY="80.0" visible="false">
          <children>
             <Rectangle arcHeight="20.0" arcWidth="20.0" fill="WHITE" height="326.0" layoutX="-7.0" layoutY="-1.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="293.0" />
-            <VBox fx:id="avatarVBox" layoutX="4.0" prefHeight="350.0" prefWidth="249.0">
+            <VBox fx:id="avatarVbox" layoutX="4.0" prefHeight="350.0" prefWidth="249.0">
                <children>
                   <HBox prefHeight="100.0" prefWidth="200.0" spacing="10.0">
                      <children>
