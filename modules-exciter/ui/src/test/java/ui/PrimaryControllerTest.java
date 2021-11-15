@@ -175,15 +175,6 @@ public class PrimaryControllerTest extends ApplicationTest {
       System.out.println("here");
       e.printStackTrace();
     }
-<<<<<<< HEAD
- @AfterEach
-    public void deleteUser(){
-      signupController.deleteUser(testUser);
-
-  
-    }
-=======
->>>>>>> 05101cef144ae31618012111154d84002c12f41e
 
     Assertions.assertNotEquals(leftUser, controller.getOnScreenUsers().get(0));
   }
