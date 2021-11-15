@@ -62,16 +62,14 @@ public class MatchController implements Initializable {
   Circle chatPic;
   @FXML
   Text nameUser;
-  @FXML
-  Label errorLabel;
 
   private int chatId;
   private final static ImageController imageController = new ImageController();
   private ClientHandler clientHandler = new ClientHandler();
   private User user = App.getUser();
   private User user1;
-  private User currentChatUser = user;
   private List<User> matches = new ArrayList<>();
+  private Pane cardPane;
 
   public void switchToPrimary(MouseEvent event) throws IOException {
     FXMLLoader loader = new FXMLLoader();
@@ -91,10 +89,14 @@ public class MatchController implements Initializable {
     textPane.setLayoutX(640);
     try {
       matches = clientHandler.getMatches(user);
-    } catch (ServerException e) {
-      errorLabel.setText(e.getMessage());
     } catch (IOException e) {
-      errorLabel.setText(e.getMessage());
+      Label label = new Label();
+      label.setText(e.getMessage());
+      label.setFont(new Font(20));
+      label.setAlignment(Pos.CENTER);
+      label.setLayoutX(48);
+      label.setLayoutY(140);
+      anchorPane.getChildren().add(label);
     }
     hoverButton(backButton);
     hoverButton(sendButton);
@@ -122,9 +124,9 @@ public class MatchController implements Initializable {
       anchorPane.getChildren().add(label);
     } else {
       matchBox.setOnScroll(k -> {
-        if (matchBox.getLayoutY() + k.getDeltaY() / 2 <= 62) {
+        if (matchBox.getLayoutY() + k.getDeltaY() / 2 >= 62) {
           matchBox.setLayoutY(62);
-        } else if (matchBox.getLayoutY() + matchBox.getHeight() + k.getDeltaY() / 2 >= 411) {
+        } else if (matchBox.getLayoutY() + matchBox.getHeight() + k.getDeltaY() / 2 <= 411) {
           matchBox.setLayoutY(411 - matchBox.getHeight());
         } else
           matchBox.setLayoutY(matchBox.getLayoutY() + k.getDeltaY() / 2);
@@ -173,11 +175,14 @@ public class MatchController implements Initializable {
     HBox hBox = createMessage(textInput.getText(), true);
     try {
       clientHandler.sendMessage(user, matches.get(chatId), textInput.getText());
-    } catch (ServerException e) {
-      errorLabel.setText(e.getMessage());
     } catch (IOException e) {
-      errorLabel.setText(e.getMessage());
-    }
+      Label label = new Label();
+      label.setText(e.getMessage());
+      label.setFont(new Font(20));
+      label.setAlignment(Pos.CENTER);
+      label.setLayoutX(48);
+      label.setLayoutY(140);
+      anchorPane.getChildren().add(label);    }
     textInput.clear();
     textBox.getChildren().add(hBox);
     textBox.setLayoutY(393 - textBox.getHeight() - height);
@@ -257,6 +262,13 @@ public class MatchController implements Initializable {
           nameUser.setText(user1.getName());
           textBox.getChildren().clear();
           textBox.setLayoutY(63);
+          if (profilePane.getPrefHeight() == 430) {
+            if(cardPane!=null)profilePane.getChildren().remove(cardPane);
+            cardPane = SecondaryController.createCard(user1);
+            profilePane.getChildren().add(cardPane);
+            cardPane.setLayoutY(70);
+            cardPane.setLayoutX(45);
+          }
           fillChat(user, user1);
           textBox.setLayoutY(393);
           textInput.clear();
@@ -276,6 +288,13 @@ public class MatchController implements Initializable {
         nameUser.setText(user1.getName());
         textBox.getChildren().clear();
         textBox.setLayoutY(63);
+        if (profilePane.getPrefHeight() == 430) {
+          if(cardPane!=null)profilePane.getChildren().remove(cardPane);
+          cardPane = SecondaryController.createCard(user1);
+          profilePane.getChildren().add(cardPane);
+          cardPane.setLayoutY(70);
+          cardPane.setLayoutX(45);
+        }
         fillChat(user, user1);
         textBox.setLayoutY(393);
         textInput.clear();
@@ -339,10 +358,10 @@ public class MatchController implements Initializable {
     if (profilePane.getPrefHeight() != 430) {
       KeyValue kv = new KeyValue(profilePane.prefHeightProperty(), 430, Interpolator.EASE_BOTH);
       Timeline timeline = new Timeline(new KeyFrame(Duration.millis(300), kv));
-      Pane pane = SecondaryController.createCard(currentChatUser);
-      profilePane.getChildren().add(pane);
-      pane.setLayoutY(70);
-      TranslateTransition tt = new TranslateTransition(Duration.millis(300), pane);
+      cardPane = SecondaryController.createCard(user1);
+      profilePane.getChildren().add(cardPane);
+      cardPane.setLayoutY(70);
+      TranslateTransition tt = new TranslateTransition(Duration.millis(300), cardPane);
       tt.setFromX(400);
       tt.setToX(45);
       SequentialTransition st = new SequentialTransition(timeline, tt);
@@ -351,13 +370,12 @@ public class MatchController implements Initializable {
     } else {
       KeyValue kv = new KeyValue(profilePane.prefHeightProperty(), 62, Interpolator.EASE_BOTH);
       Timeline timeline = new Timeline(new KeyFrame(Duration.millis(300), kv));
-      Pane pane;
-      pane = (Pane) profilePane.getChildren().get(1);
-      TranslateTransition tt = new TranslateTransition(Duration.millis(300), pane);
+      cardPane = (Pane) profilePane.getChildren().get(1);
+      TranslateTransition tt = new TranslateTransition(Duration.millis(300), cardPane);
       tt.setFromX(45);
       tt.setToX(400);
       tt.setOnFinished(e -> {
-        profilePane.getChildren().remove(pane);
+        profilePane.getChildren().remove(cardPane);
         chatPic.setDisable(false);
       });
       SequentialTransition st = new SequentialTransition(tt, timeline);
@@ -382,10 +400,13 @@ public class MatchController implements Initializable {
           textBox.getChildren().add(hBox);
         }
       }
-    } catch (ServerException e) {
-      errorLabel.setText(e.getMessage());
     } catch (IOException e) {
-      errorLabel.setText(e.getMessage());
-    }
+      Label label = new Label();
+      label.setText(e.getMessage());
+      label.setFont(new Font(20));
+      label.setAlignment(Pos.CENTER);
+      label.setLayoutX(48);
+      label.setLayoutY(140);
+      anchorPane.getChildren().add(label);    }
   }
 }
