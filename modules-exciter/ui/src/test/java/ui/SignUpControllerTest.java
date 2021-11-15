@@ -1,6 +1,5 @@
 package ui;
 
-import java.util.List;
 import java.util.UUID;
 import java.util.stream.Stream;
 
@@ -13,7 +12,6 @@ import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
-import user.BotUser;
 import user.User;
 
 import org.junit.jupiter.api.AfterAll;
@@ -80,8 +78,25 @@ public class SignUpControllerTest extends ApplicationTest {
   }
 
   private void checkResult(boolean excpected) {
-    if (excpected) {
 
+      clickOn("#name");
+      write("Ulf Reidar");
+
+      clickOn("#age");
+      write("-2");
+
+      clickOn("#emailSignup");
+      write("Ulf@mail.com");
+
+      clickOn("#passwordSignup");
+      write("123");
+
+      Label label = lookup("#errorLabel").query();
+      Assertions.assertEquals("", label.getText());
+      clickOn("#createAccount");
+      Assertions.assertNotEquals("", label.getText());
+
+      controller.clearFields();
       TextField name = lookup("#name").query();
       clickOn(name);
       write(testUser.getName());
@@ -118,26 +133,8 @@ public class SignUpControllerTest extends ApplicationTest {
     
       Assertions.assertEquals(App.getUser().getEmail(), testUser.getEmail());
       controller.deleteUser(testUser);
-
-    } else {
-      clickOn("#name");
-      write("Ulf Reidar");
-
-      clickOn("#age");
-      write("-2");
-
-      clickOn("#emailSignup");
-      write("Ulf@mail.com");
-
-      clickOn("#passwordSignup");
-      write("123");
-
-      Label label = lookup("#errorLabel").query();
-      Assertions.assertEquals("", label.getText());
-      clickOn("#createAccount");
-      Assertions.assertNotEquals("", label.getText());
     }
-  }
 
+  
 
 }
