@@ -404,20 +404,33 @@ public class ExciterServerTest {
 
   @Test
   public void testGetChat(){
-    User testUser = new User("test", 22, "testnr2@mail.no");
-    User messagesUser = new User("message", 23, "message@mail.no");
-    testUser.setId(UUID.randomUUID());
-    exciter.addUsers(List.of(testUser, messagesUser));
-    fileHandler.saveUser(exciter.getAllUsers());
+    User user1 = new User("Ludde", 19, "LuddeMessage@mail.no");
+    User user2 = new User("Ludde", 19, "LuddeMessage2@mail.no");
+    user1.setId(UUID.randomUUID());
+    String string = "Hej";
+    exciter.addUsers(List.of(user1, user2));
+    Chat chat = null;
+    MediaType mediaType = MediaType.parse("application/json");
+    Response response = null;
+    try {
+      String sendString = mapper.writeValueAsString(string);
+      Request request = new Request.Builder().url("http://localhost:" + port + "/message")
+          .header("Authorization", user1.getId().toString()).header("mail", user2.getEmail())
+          .post(RequestBody.create(sendString, mediaType)).build();
+      response = client.newCall(request).execute();
+      ResponseBody responseBody = response.body();
+      chat = mapper.readValue(responseBody.string(), Chat.class);
+    } catch (IOException e) {
+      e.printStackTrace();
+    }
     Request requets = new Request.Builder().url("http://localhost:" + port + "/message")
-        .header("Authorization", testUser.getId().toString()).build();
+        .header("Authorization", getUser.getId().toString()).build();
     User newUser = null;
     try {
       ResponseBody response = client.newCall(requets).execute().body();
       newUser = mapper.readValue(response.string(), User.class);
-    } catch (Exception e) {
-    }
-    Assertions.assertEquals(getUser.getName(), newUser.getName());
+
+
 
   }
 
