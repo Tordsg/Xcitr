@@ -67,7 +67,6 @@ public class PrimaryControllerTest extends ApplicationTest {
           .respond(HttpResponse.response().withStatusCode(200).withHeader("Content-Type", "application/json")
               .withBody(mapper.writeValueAsString(List.of(botUser, botUser2))));
     } catch (JsonProcessingException e) {
-      e.printStackTrace();
     }
 
   }
@@ -95,13 +94,11 @@ public class PrimaryControllerTest extends ApplicationTest {
       server.when(HttpRequest.request().withMethod("POST").withPath("/like"))
           .respond(HttpResponse.response().withStatusCode(200).withBody(mapper.writeValueAsString(botUser)));
     } catch (JsonProcessingException e) {
-      e.printStackTrace();
     }
     try {
       server.when(HttpRequest.request().withPath("/user/likes"))
           .respond(HttpResponse.response().withStatusCode(200).withBody(mapper.writeValueAsString(1)));
     } catch (JsonProcessingException e1) {
-      e1.printStackTrace();
     }
     drag("#rightCard").moveBy(0, -100).drop();
     server.clear(HttpRequest.request().withMethod("POST").withPath("/like"));
@@ -109,7 +106,6 @@ public class PrimaryControllerTest extends ApplicationTest {
     try {
       TimeUnit.SECONDS.sleep(2);
     } catch (InterruptedException e) {
-      e.printStackTrace();
     }
     try {
       server.when(HttpRequest.request().withMethod("POST").withPath("/like"))

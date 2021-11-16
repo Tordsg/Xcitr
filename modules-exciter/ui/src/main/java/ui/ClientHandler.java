@@ -37,7 +37,6 @@ public class ClientHandler {
         return true;
       }
     } catch (Exception e) {
-      e.printStackTrace();
     }
     return false;
   }
@@ -55,7 +54,7 @@ public class ClientHandler {
    * @throws ConnectException IOException
    */
 
-  public User discardCard(User current, User liked, User discard) 
+  public User discardCard(User current, User liked, User discard)
       throws ServerException, ConnectException {
     MediaType mediaType = MediaType.parse("application/json");
     try {
@@ -106,10 +105,8 @@ public class ClientHandler {
         }
       }
     } catch (ConnectException e) {
-      e.printStackTrace();
       throw new ConnectException("Server is not on");
     } catch (IOException e) {
-      e.printStackTrace();
     }
     throw new ServerException("Could not create account");
   }
@@ -144,7 +141,6 @@ public class ClientHandler {
     } catch (ConnectException e) {
       throw new ConnectException("Server is not on");
     } catch (IOException e) {
-      e.printStackTrace();
     }
     throw new ServerException("Could not login");
   }
@@ -205,7 +201,6 @@ public class ClientHandler {
         }
       }
     } catch (IOException e) {
-      e.printStackTrace();
     }
     throw new ServerException("Could not update information");
   }
@@ -239,7 +234,6 @@ public class ClientHandler {
         }
       }
     } catch (IOException e) {
-      e.printStackTrace();
       throw new ConnectException("Can not find server");
     }
     throw new ServerException("Could not update password");
@@ -302,7 +296,6 @@ public class ClientHandler {
         }
       }
     } catch (IOException e) {
-      e.printStackTrace();
       throw new ConnectException("Can not connect to server");
     }
     throw new ServerException("Could not get user count");
@@ -334,7 +327,6 @@ public class ClientHandler {
         }
       }
     } catch (IOException e) {
-      e.printStackTrace();
     }
     throw new ServerException("Could not get user");
   }
@@ -351,7 +343,7 @@ public class ClientHandler {
    * @throws ServerException IOException
    * @throws ConnectException IOException
    */
-  public Chat sendMessage(User user, User receiver, String message) 
+  public Chat sendMessage(User user, User receiver, String message)
       throws ServerException, ConnectException {
     MediaType mediaType = MediaType.parse("application/json");
     try {
