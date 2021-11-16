@@ -49,7 +49,7 @@ public Chat getChat(String user1, String user2)
 
 [Link to restserver](https://gitlab.stud.idi.ntnu.no/it1901/groups-2021/gr2117/gr2117/-/tree/master/modules-exciter/restserver)
 
-The server is built on the Spring framework.
+The server is built on the Spring framework. The module consist of two classes, ExciterApplication, and ServerController. The former starts up the server on localhost with default port 8080, while the latter is the controller that handles requests from clients.
 
 ### ui
 
