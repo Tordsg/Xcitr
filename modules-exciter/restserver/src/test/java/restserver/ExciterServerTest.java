@@ -425,13 +425,7 @@ public class ExciterServerTest {
     Assertions.assertNotNull(newChat);
     Assertions.assertEquals(chat.getMessages(), newChat.getMessages());
   }
-<<<<<<< HEAD
-=======
 
-
-
-  }*/
->>>>>>> e62265a087af0019a082f526803c5151e4092205
 
   @Test
   public void testDeleteUser() {
