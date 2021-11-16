@@ -60,7 +60,7 @@ public class User {
   public User(UUID id, String name, int age, 
       String userInformation, List<String> matches, String email,
       String password, Map<String, Integer> likedUsers, int imageId) {
-    this(id ,name, age, userInformation, matches, email, password, likedUsers);
+    this(id, name, age, userInformation, matches, email, password, likedUsers);
     this.imageId = imageId;
   }
 

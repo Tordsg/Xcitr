@@ -180,7 +180,7 @@ public class MatchController implements Initializable {
       });
     }
     previewEmail.widthProperty().addListener((observable, oldValue, newValue) -> {
-      previewEmail.setLayoutX(112.5-previewEmail.getWidth()/2);
+      previewEmail.setLayoutX(112.5 - previewEmail.getWidth() / 2);
     });
   }
 
@@ -422,23 +422,26 @@ public class MatchController implements Initializable {
   /**
    * Method to animate the profile.
    */
-  private void updateCardPane(User user1){
+  private void updateCardPane(User user1) {
     previewName.setText(user1.getName());
     previewAge.setText(Integer.toString(user1.getAge()));
     previewEmail.setText(user1.getEmail());
-    previewEmail.setLayoutX(112.5-previewEmail.getWidth()/2);
+    previewEmail.setLayoutX(112.5 - previewEmail.getWidth() / 2);
     previewBio.setText(user1.getUserInformation());
     picture.setFill(imageController.getImage(user1));
   }
+  /**
+   * Shows the matched users card when chatPic is clicked on.
+   */
   @FXML
   public void animateProfile() {
     chatPic.setDisable(true);
     if (profilePane.getPrefHeight() != 430) {
       KeyValue kv = new KeyValue(profilePane.prefHeightProperty(), 430, Interpolator.EASE_BOTH);
-      Timeline timeline = new Timeline(new KeyFrame(Duration.millis(300), kv));
       TranslateTransition tt = new TranslateTransition(Duration.millis(300), cardPane);
       tt.setFromX(0);
       tt.setToX(-355);
+      Timeline timeline = new Timeline(new KeyFrame(Duration.millis(300), kv));
       kv = new KeyValue(profilePane.prefHeightProperty(), 430, Interpolator.EASE_BOTH);
       timeline = new Timeline(new KeyFrame(Duration.millis(300), kv));
       SequentialTransition st = new SequentialTransition(timeline, tt);
@@ -446,13 +449,13 @@ public class MatchController implements Initializable {
       st.play();
     } else {
       KeyValue kv = new KeyValue(profilePane.prefHeightProperty(), 62, Interpolator.EASE_BOTH);
-      Timeline timeline = new Timeline(new KeyFrame(Duration.millis(300), kv));
       TranslateTransition tt = new TranslateTransition(Duration.millis(300), cardPane);
       tt.setFromX(-355);
       tt.setToX(0);
       tt.setOnFinished(e -> {
         chatPic.setDisable(false);
       });
+      Timeline timeline = new Timeline(new KeyFrame(Duration.millis(300), kv));
       kv = new KeyValue(profilePane.prefHeightProperty(), 62, Interpolator.EASE_BOTH);
       timeline = new Timeline(new KeyFrame(Duration.millis(300), kv));
       SequentialTransition st = new SequentialTransition(tt, timeline);
@@ -468,13 +471,13 @@ public class MatchController implements Initializable {
         if (map.containsKey(user1.getEmail())) {
           String string = map.get(user1.getEmail());
           String string2 = stringFormatter(string);
-          HBox hBox = createMessage(string2, false);
-          textBox.getChildren().add(hBox);
+          HBox hbox = createMessage(string2, false);
+          textBox.getChildren().add(hbox);
         } else {
           String string = map.get(user.getEmail());
           String string2 = stringFormatter(string);
-          HBox hBox = createMessage(string2, true);
-          textBox.getChildren().add(hBox);
+          HBox hbox = createMessage(string2, true);
+          textBox.getChildren().add(hbox);
         }
       }
     } catch (IOException e) {

@@ -452,7 +452,7 @@ public class PrimaryController implements Initializable {
         }
         dragged = false;
       }
-    } );
+    }) ;
   }
 
   public List<User> getOnScreenUsers() {
