@@ -83,7 +83,6 @@ public class LoginController {
       passwordLogin.clear();
       emailLogin.clear();
     } catch (IOException e) {
-      // TODO Auto-generated catch block
       e.printStackTrace();
     }
 

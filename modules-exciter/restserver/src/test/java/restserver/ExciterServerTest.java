@@ -275,7 +275,6 @@ public class ExciterServerTest {
       users = mapper.readValue(response.body().string(),
           mapper.getTypeFactory().constructCollectionType(List.class, User.class));
     } catch (Exception e) {
-      // TODO: handle exception
     }
     Assertions.assertNotNull(users.get(0).getEmail());
     Assertions.assertNotNull(users.get(1).getEmail());

@@ -64,7 +64,6 @@ public class SecondaryControllerTest extends ApplicationTest {
     try {
       sendString = mapper.writeValueAsString(testUser);
     } catch (JsonProcessingException e) {
-      // TODO Auto-generated catch block
       e.printStackTrace();
     }
     server.when(HttpRequest.request().withMethod("POST")
@@ -107,7 +106,6 @@ public class SecondaryControllerTest extends ApplicationTest {
       try {
         sendString = mapper.writeValueAsString(testUser);
       } catch (JsonProcessingException e) {
-        // TODO Auto-generated catch block
         e.printStackTrace();
       }
       server.when(HttpRequest.request().withMethod("POST")
