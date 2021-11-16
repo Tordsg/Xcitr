@@ -31,7 +31,8 @@ public class UserDeserializer extends StdDeserializer<User> {
   }
 
   @Override
-  public User deserialize(JsonParser jp, DeserializationContext ctxt) throws IOException, JsonProcessingException {
+  public User deserialize(JsonParser jp, DeserializationContext ctxt) 
+      throws IOException, JsonProcessingException {
     JsonNode node = jp.getCodec().readTree(jp);
     return deserialize(node);
   }

@@ -70,44 +70,50 @@ public class PrimaryController implements Initializable {
   private ClientHandler clientHandler = new ClientHandler();
   private User user = App.getUser();
   private int numMatches = 0;
-  private User leftUser;
-  private User rightUser;
+  private User leftUser = new User();
+  private User rightUser = new User();
   // Static since it's shared by the SecondaryController
-  private final ImageController imageController = new ImageController();
+  private final static ImageController imageController = new ImageController();
 
   /**
    * Switching to the profile page from the matching page.
    *
    * @param event MouseEvent object.
-   * @throws IOException exception
    */
   @FXML
-  private void switchToSecondary(MouseEvent event) throws IOException {
+  private void switchToSecondary(MouseEvent event) {
     FXMLLoader loader = new FXMLLoader();
     loader.setLocation(getClass().getResource("profile.fxml"));
-    Parent p = loader.load();
-    Scene s = new Scene(p);
-    Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
-    window.setScene(s);
-    window.show();
+    Parent p;
+    try {
+      p = loader.load();
+      Scene s = new Scene(p);
+      Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
+      window.setScene(s);
+      window.show();
+    } catch (IOException e) {
+    }
   }
 
   /**
    * Switching to the match page from the matching page.
    *
    * @param event MouseEvent object
-   * @throws IOException exception
    */
 
   @FXML
-  private void switchToMatch(MouseEvent event) throws IOException {
+  private void switchToMatch(MouseEvent event) {
     FXMLLoader loader = new FXMLLoader();
     loader.setLocation(getClass().getResource("match.fxml"));
-    Parent p = loader.load();
-    Scene s = new Scene(p);
-    Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
-    window.setScene(s);
-    window.show();
+    Parent p;
+    try {
+      p = loader.load();
+      Scene s = new Scene(p);
+      Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
+      window.setScene(s);
+      window.show();
+    } catch (IOException e) {
+    }
   }
 
   /**
@@ -149,8 +155,6 @@ public class PrimaryController implements Initializable {
       try {
         rightUser = clientHandler.getUser(user, users);
       } catch (ServerException e) {
-        // TODO Auto-generated catch block
-        e.printStackTrace();
       }
       cardLiked(rightCard, leftCard);
       return;
@@ -190,8 +194,6 @@ public class PrimaryController implements Initializable {
       try {
         leftUser = clientHandler.getUser(user, users);
       } catch (ServerException e) {
-        // TODO Auto-generated catch block
-        e.printStackTrace();
       }
       cardLiked(leftCard, rightCard);
       return;
@@ -216,7 +218,8 @@ public class PrimaryController implements Initializable {
    */
 
   public void cardLiked(Pane likedcard, Pane discardedcard) {
-    TranslateTransition ttScore = new TranslateTransition(Duration.millis(Math.abs(-likedcard.getLayoutX() - 300)),
+    TranslateTransition ttScore = new TranslateTransition(Duration
+        .millis(Math.abs(-likedcard.getLayoutX() - 300)),
         scorePane);
     ttScore.setFromX(0);
     ttScore.setToX(-likedcard.getLayoutX() - 300);
@@ -233,11 +236,10 @@ public class PrimaryController implements Initializable {
           notification.setVisible(true);
         }
       } catch (ServerException | ConnectException e1) {
-        // TODO Auto-generated catch block
-        e1.printStackTrace();
       }
     });
-    TranslateTransition ttCard = new TranslateTransition(Duration.millis(Math.abs(-likedcard.getLayoutX() - 300)),
+    TranslateTransition ttCard = new TranslateTransition(Duration
+        .millis(Math.abs(-likedcard.getLayoutX() - 300)),
         likedcard);
     ttCard.setFromX(0);
     ttCard.setToX(-likedcard.getLayoutX() - 300);
@@ -251,7 +253,8 @@ public class PrimaryController implements Initializable {
       ft.getNode().setTranslateX(0);
       ft.getNode().setLayoutX(-200);
     });
-    TranslateTransition firstTt = translateCardY(discardedcard, discardedcard.getLayoutY() - 55, -400, false);
+    TranslateTransition firstTt = translateCardY(discardedcard,
+        discardedcard.getLayoutY() - 55, -400, false);
     firstTt.setOnFinished(e -> e.consume());
     SequentialTransition st = new SequentialTransition(
         new ParallelTransition(firstTt, animateScore(discardedcard.getId(), true)),
@@ -271,7 +274,8 @@ public class PrimaryController implements Initializable {
    *
    * @return translate transition
    */
-  public TranslateTransition translateCardY(Pane pane, double start, double end, boolean updateOnFinish) {
+  public TranslateTransition translateCardY(Pane pane,
+      double start, double end, boolean updateOnFinish) {
     TranslateTransition tt = new TranslateTransition(Duration.millis(Math.abs(start - end)), pane);
     tt.setFromY(start);
     tt.setToY(end);
@@ -401,7 +405,8 @@ public class PrimaryController implements Initializable {
     }
     leftPicture.setFill(imageController.getImage(leftUser));
     rightPicture.setFill(imageController.getImage(rightUser));
-    profile.setFill(new ImagePattern(imageController.getImage(user).getImage(), 0, 0, 1, 1.4, true));
+    profile.setFill(new ImagePattern(imageController
+        .getImage(user).getImage(), 0, 0, 1, 1.4, true));
     dragY(leftCard);
     dragY(rightCard);
     hoverButton(refresh);
@@ -447,11 +452,19 @@ public class PrimaryController implements Initializable {
         }
         dragged = false;
       }
-    });
+    } );
   }
 
-  public List<User> getOnScreenUsers(){
+  public List<User> getOnScreenUsers() {
     return List.of(leftUser, rightUser);
+  }
+
+  public Circle getNotificationCircle() {
+    return notification;
+  }
+
+  public static ImageController getImageController() {
+    return imageController;
   }
 
 }

@@ -59,12 +59,10 @@ public class SignUpController {
 
   @FXML
   void initialize() {
-    name.clear();
-    age.clear();
-    emailSignup.clear();
-    passwordSignup.clear();
+    clearFields();
     name.textProperty().addListener(event -> {
-      if (name.getText().length() > 1 && validName(name.getText()) && name.getText().charAt(0) != ' ') {
+      if (name.getText().length() > 1
+          && validName(name.getText()) && name.getText().charAt(0) != ' ') {
         name.setStyle("-fx-control-inner-background: white;");
       } else {
         name.setStyle("-fx-control-inner-background: #ff9999;");
@@ -86,6 +84,16 @@ public class SignUpController {
     });
 
   }
+  /**
+   * Clears the textfields.
+   */
+
+  public void clearFields() {
+    name.clear();
+    age.clear();
+    emailSignup.clear();
+    passwordSignup.clear();
+  }
 
   private boolean validName(String str) {
     return str.matches("[a-zA-Z ]+");
@@ -99,12 +107,8 @@ public class SignUpController {
    */
 
   private boolean isNumeric(String str) {
-    try {
-      Integer.parseInt(str);
-      return true;
-    } catch (NumberFormatException e) {
-      return false;
-    }
+    String pattern = "^[0-9]*$";
+    return str.matches(pattern);
   }
 
   /**
@@ -115,7 +119,8 @@ public class SignUpController {
    */
 
   private boolean emailValidator(String email) {
-    String emailRegex = "^[a-zA-Z0-9_+&*-]+(?:\\." + "[a-zA-Z0-9_+&*-]+)*@" + "(?:[a-zA-Z0-9-]+\\.)+[a-z"
+    String emailRegex = "^[a-zA-Z0-9_+&*-]+(?:\\."
+        + "[a-zA-Z0-9_+&*-]+)*@" + "(?:[a-zA-Z0-9-]+\\.)+[a-z"
         + "A-Z]{2,7}$";
 
     java.util.regex.Pattern pat = java.util.regex.Pattern.compile(emailRegex);
@@ -135,7 +140,6 @@ public class SignUpController {
       window.setScene(s);
       window.show();
     } catch (IOException e) {
-      e.printStackTrace();
     }
   }
 
@@ -160,15 +164,6 @@ public class SignUpController {
     } catch (IllegalArgumentException | ServerException | ConnectException e) {
       errorLabel.setText(e.getMessage());
     } catch (IOException e) {
-      e.printStackTrace();
-    }
-  }
-
-  public void deleteUser(User user) {
-    try {
-      clientHandler.deleteUser(user);
-    } catch (ServerException | ConnectException e) {
-      e.printStackTrace();
     }
   }
 
@@ -183,10 +178,15 @@ public class SignUpController {
     try {
       clientHandler.createAccount(user, password);
     } catch (ServerException | ConnectException e) {
-      // TODO Auto-generated catch block
-      e.printStackTrace();
     }
+  }
 
+  public TextField getAgeField() {
+    return age;
+  }
+
+  public TextField getEmailField() {
+    return emailSignup;
   }
 
 }

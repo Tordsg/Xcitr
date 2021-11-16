@@ -1,0 +1,43 @@
+@startuml 
+
+class ServerController {
+    -Exciter excite
+    -FileHandler fileHandler
+    -MessageHandler messageHandler
+
+}
+
+class ExciterApplication{
+    +Exciter excite
+    +FileHandler fileHandler
+
+}
+
+class User{
+
+}
+
+class BotUser{
+
+}
+
+class Exciter{
+
+}
+
+class FileHandler{
+
+}
+
+class MessageHandler{
+    
+}
+
+User --> BotUser
+User -->Exciter
+Exciter --> ServerController
+User --> FileHandler
+
+
+
+@enduml

@@ -33,8 +33,7 @@ public class FileHandler {
   }
 
   private JSONParser parser = new JSONParser();
-  // the "./" is there to make sure path works on mac
-  String path = "./users.json";
+  String path = System.getProperty("user.home") + "/user.json";
 
   /**
    * Saves users to the JSON file. Will makes necessary checks for bot users to
@@ -66,13 +65,11 @@ public class FileHandler {
       userData.put("imageId", user.getImageId());
       userArray.add(userData);
     }
-    try {
-      // OutputStreamWriter is used to force UTF-8 encoding since fileWriter is using
-      // wrong encoding on older mac models
-      BufferedWriter fileWriter = new BufferedWriter(
-          new OutputStreamWriter(new FileOutputStream(path), StandardCharsets.UTF_8));
+    // OutputStreamWriter is used to force UTF-8 encoding since fileWriter is using
+    // wrong encoding on older mac models
+    try (BufferedWriter fileWriter = new BufferedWriter(
+      new OutputStreamWriter(new FileOutputStream(path), StandardCharsets.UTF_8))){
       fileWriter.write(userArray.toJSONString());
-      fileWriter.close();
     } catch (FileNotFoundException e) {
       createFile();
       e.printStackTrace();
@@ -134,13 +131,13 @@ public class FileHandler {
         String password = String.valueOf(userData.get("password"));
         Map<String, Integer> likedUser = parseJsonMap((JSONObject) userData.get("likes"));
         Integer imageid = Integer
-            .parseInt(String.valueOf(userData.get("imageId") == null 
+            .parseInt(String.valueOf(userData.get("imageId") == null
             ? 0 : String.valueOf(userData.get("imageId"))));
         if (isBot) {
           boolean isLikeBack = Boolean.parseBoolean(String.valueOf(userData.get("isLikeBack")));
           users.add(new BotUser(name, age, userInformation, email, isLikeBack, imageid));
         } else if (id != null) {
-          users.add(new User(id, name, age, 
+          users.add(new User(id, name, age,
               userInformation, alreadyMatched, email, password, likedUser, imageid));
         } else {
           // If user haven't gotten an id yet, it will neither have a imageid
@@ -194,7 +191,7 @@ public class FileHandler {
   }
 
   /**
-   *Finds a user from their email adress. 
+   *Finds a user from their email adress.
    *
    * @param mail of a user
    *
@@ -233,7 +230,7 @@ public class FileHandler {
   }
 
   /**
-   * Finds all the users another user has liked from the userID. 
+   * Finds all the users another user has liked from the userID.
    *
    * @param id UUID of user
    *
