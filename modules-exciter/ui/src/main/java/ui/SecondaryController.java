@@ -212,7 +212,7 @@ public class SecondaryController implements Initializable {
         }
         Text text = new Text(c.getControlNewText());
         text.setWrappingWidth(198);
-        text.setFont(new Font(12));
+        text.setFont(new Font("Arial",12));
         if (text.getLayoutBounds().getHeight() > 69) {
           c.setText("");
         }
