@@ -179,6 +179,9 @@ public class MatchController implements Initializable {
         }
       });
     }
+    previewEmail.widthProperty().addListener((observable, oldValue, newValue) -> {
+      previewEmail.setLayoutX(112.5-previewEmail.getWidth()/2);
+    });
   }
 
   /**
