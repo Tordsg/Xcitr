@@ -231,6 +231,11 @@ public class ExciterServerTest {
           .header("Authorization", updatedUser.getId().toString()).post(RequestBody.create(sendString, mediaType))
           .build();
       response = client.newCall(request).execute();
+
+      request = new Request.Builder().url("http://localhost:" + port + "/login")
+          .header("mail", updatedUser.getEmail()).post(RequestBody.create(sendString, mediaType))
+          .build();
+      response = client.newCall(request).execute();
       responseBody = response.body();
       responseBodyString = responseBody.string();
       newUser = mapper.readValue(responseBodyString, User.class);
@@ -238,8 +243,9 @@ public class ExciterServerTest {
     } catch (IOException e) {
       e.printStackTrace();
     }
-    Assertions.assertNotNull(newUser.getPassword());
-    Assertions.assertEquals("Password123", newUser.getPassword());
+    Assertions.assertEquals(200, response.code());
+    Assertions.assertEquals(updatedUser.getId(), newUser.getId());
+    Assertions.assertEquals(updatedUser.getEmail(), newUser.getEmail());
 
   }
 
@@ -415,7 +421,7 @@ public class ExciterServerTest {
     }
     Assertions.assertEquals(getUser.getName(), newUser.getName());
   }
-   
+
 
 
   }*/
