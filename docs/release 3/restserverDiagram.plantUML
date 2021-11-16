@@ -1,4 +1,4 @@
-@startuml 
+@startuml restserver
 
 class ServerController {
     -Exciter excite
@@ -33,10 +33,59 @@ class MessageHandler{
     
 }
 
-User --> BotUser
+class App{
+}
+
+class ClientHandler{
+
+}
+
+class LoginController{
+
+}
+
+class SignUpController{
+
+}
+
+class PrimaryController{
+
+}
+class SecondaryController{
+
+}
+class MatchController{
+
+}
+
+class Chat{
+
+}
+
+BotUser --> User
 User -->Exciter
 Exciter --> ServerController
 User --> FileHandler
+FileHandler --> ServerController
+MessageHandler --> ServerController
+Exciter --> ExciterApplication
+FileHandler --> ExciterApplication
+User --> App
+LoginController --> ClientHandler
+SignUpController --> ClientHandler
+PrimaryController --> ClientHandler
+SecondaryController --> ClientHandler
+MatchController --> ClientHandler
+User --> LoginController
+User --> MatchController
+Chat --> MatchController
+User --> PrimaryController
+User --> SecondaryController
+User --> SignUpController
+Chat --> MessageHandler
+
+
+
 
 
 
