@@ -11,8 +11,8 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 @SpringBootApplication
 public class ExciterApplication {
 
-  public static final Exciter excite = new Exciter();
-  public static final FileHandler fileHandler = new FileHandler();
+  protected static final Exciter excite = new Exciter();
+  private static final FileHandler fileHandler = new FileHandler();
 
   /**
    * The main method of the ExciterApplication class.
