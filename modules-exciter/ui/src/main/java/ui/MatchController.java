@@ -327,9 +327,7 @@ public class MatchController implements Initializable {
           nameUser.setText(user1.getName());
           textBox.getChildren().clear();
           textBox.setLayoutY(63);
-          if (profilePane.getPrefHeight() > 70) {
-            updateCardPane();
-          }
+          updateCardPane(user1);
           fillChat(user, user1);
           textBox.setLayoutY(393);
           textInput.clear();
@@ -351,9 +349,7 @@ public class MatchController implements Initializable {
         nameUser.setText(user1.getName());
         textBox.getChildren().clear();
         textBox.setLayoutY(63);
-        if (profilePane.getPrefHeight() > 70) {
-          updateCardPane();
-        }
+        updateCardPane(user1);
         fillChat(user, user1);
         textBox.setLayoutY(393);
         textInput.clear();
@@ -423,7 +419,7 @@ public class MatchController implements Initializable {
   /**
    * Method to animate the profile.
    */
-  private void updateCardPane(){
+  private void updateCardPane(User user1){
     previewName.setText(user1.getName());
     previewAge.setText(Integer.toString(user1.getAge()));
     previewEmail.setText(user1.getEmail());
@@ -435,7 +431,6 @@ public class MatchController implements Initializable {
   public void animateProfile() {
     chatPic.setDisable(true);
     if (profilePane.getPrefHeight() != 430) {
-      updateCardPane();
       KeyValue kv = new KeyValue(profilePane.prefHeightProperty(), 430, Interpolator.EASE_BOTH);
       Timeline timeline = new Timeline(new KeyFrame(Duration.millis(300), kv));
       TranslateTransition tt = new TranslateTransition(Duration.millis(300), cardPane);
