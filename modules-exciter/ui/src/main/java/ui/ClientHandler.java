@@ -55,11 +55,13 @@ public class ClientHandler {
    * @throws ConnectException IOException
    */
 
-  public User discardCard(User current, User liked, User discard) throws ServerException, ConnectException {
+  public User discardCard(User current, User liked, User discard) 
+      throws ServerException, ConnectException {
     MediaType mediaType = MediaType.parse("application/json");
     try {
       String sendString = mapper.writeValueAsString(List.of(liked, discard));
-      Request request = new Request.Builder().url(url + "/like").header("Authorization", current.getId().toString())
+      Request request = new Request.Builder()
+          .url(url + "/like").header("Authorization", current.getId().toString())
           .post(RequestBody.create(sendString, mediaType)).build();
       Response response = client.newCall(request).execute();
       ResponseBody body = response.body();
@@ -92,7 +94,8 @@ public class ClientHandler {
     String hashedPassword = User.md5Hash(password);
     try {
       String sendString = mapper.writeValueAsString(user);
-      Request request = new Request.Builder().url(url + "/createAccount").header("Pass", hashedPassword)
+      Request request = new Request.Builder()
+          .url(url + "/createAccount").header("Pass", hashedPassword)
           .post(RequestBody.create(sendString, mediaType)).build();
       Response response = client.newCall(request).execute();
       ResponseBody body = response.body();
@@ -190,7 +193,8 @@ public class ClientHandler {
     MediaType mediaType = MediaType.parse("application/json");
     try {
       String sendString = mapper.writeValueAsString(user);
-      Request request = new Request.Builder().url(url + "/user/update").header("Authorization", user.getId().toString())
+      Request request = new Request.Builder()
+          .url(url + "/user/update").header("Authorization", user.getId().toString())
           .post(RequestBody.create(sendString, mediaType)).build();
       Response response = client.newCall(request).execute();
       ResponseBody body = response.body();
@@ -224,7 +228,8 @@ public class ClientHandler {
     try {
       String sendString = mapper.writeValueAsString(sendPassword);
       Request request = new Request.Builder().url(url + "/user/update/password")
-          .header("Authorization", user.getId().toString()).post(RequestBody.create(sendString, mediaType)).build();
+          .header("Authorization", user.getId().toString())
+          .post(RequestBody.create(sendString, mediaType)).build();
       Response response = client.newCall(request).execute();
       ResponseBody body = response.body();
       if (body != null) {
@@ -253,7 +258,8 @@ public class ClientHandler {
 
   public List<User> getTwoUsers(User user) throws ServerException, ConnectException {
     try {
-      Request request = new Request.Builder().url(url + "/two").header("Authorization", user.getId().toString())
+      Request request = new Request.Builder().url(url + "/two")
+          .header("Authorization", user.getId().toString())
           .build();
       Response response = client.newCall(request).execute();
       ResponseBody body = response.body();
@@ -284,7 +290,8 @@ public class ClientHandler {
 
   public int getUserLikeCount(User user, User liked) throws ServerException, ConnectException {
     try {
-      Request request = new Request.Builder().url(url + "/user/likes").header("Authorization", user.getId().toString())
+      Request request = new Request.Builder().url(url + "/user/likes")
+          .header("Authorization", user.getId().toString())
           .header("mail", liked.getEmail()).build();
       Response response = client.newCall(request).execute();
       ResponseBody body = response.body();
@@ -315,7 +322,8 @@ public class ClientHandler {
     try {
       MediaType mediaType = MediaType.parse("application/json");
       String sendString = mapper.writeValueAsString(users);
-      Request request = new Request.Builder().url(url + "/user/new").header("Authorization", user.getId().toString())
+      Request request = new Request.Builder().url(url + "/user/new")
+          .header("Authorization", user.getId().toString())
           .post(RequestBody.create(sendString, mediaType)).build();
       Response response = client.newCall(request).execute();
       ResponseBody body = response.body();
@@ -343,12 +351,15 @@ public class ClientHandler {
    * @throws ServerException IOException
    * @throws ConnectException IOException
    */
-  public Chat sendMessage(User user, User receiver, String message) throws ServerException, ConnectException {
+  public Chat sendMessage(User user, User receiver, String message) 
+      throws ServerException, ConnectException {
     MediaType mediaType = MediaType.parse("application/json");
     try {
       String sendString = mapper.writeValueAsString(message);
-      Request request = new Request.Builder().url(url + "/message").header("Authorization", user.getId().toString())
-          .header("mail", receiver.getEmail()).post(RequestBody.create(sendString, mediaType)).build();
+      Request request = new Request.Builder()
+          .url(url + "/message").header("Authorization", user.getId().toString())
+          .header("mail", receiver.getEmail())
+          .post(RequestBody.create(sendString, mediaType)).build();
       Response response = client.newCall(request).execute();
       ResponseBody body = response.body();
       if (body != null) {
@@ -377,7 +388,8 @@ public class ClientHandler {
    */
   public Chat getChat(User user, User user2) throws ServerException, ConnectException {
     try {
-      Request request = new Request.Builder().url(url + "/message").header("Authorization", user.getId().toString())
+      Request request = new Request.Builder().url(url + "/message")
+          .header("Authorization", user.getId().toString())
           .header("mail", user2.getEmail()).build();
       Response response = client.newCall(request).execute();
       ResponseBody body = response.body();
@@ -405,7 +417,8 @@ public class ClientHandler {
    */
   public boolean deleteUser(User user) throws ServerException, ConnectException {
     try {
-      Request request = new Request.Builder().url(url + "/user").header("mail", user.getEmail())
+      Request request = new Request.Builder().url(url + "/user")
+          .header("mail", user.getEmail())
           .delete().build();
       Response response = client.newCall(request).execute();
       ResponseBody body = response.body();

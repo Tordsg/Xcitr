@@ -64,7 +64,8 @@ public class BotUser extends User {
    * @param imageId int for the image id that the bot user uses
    */
 
-  public BotUser(String name, int age, String userInformation, String email, boolean likeback, int imageId) {
+  public BotUser(String name, int age, String userInformation, 
+      String email, boolean likeback, int imageId) {
     super(name, age, userInformation, email);
     this.likeBack = likeback;
     super.setImageId(imageId);

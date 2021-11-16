@@ -61,7 +61,8 @@ public class SignUpController {
   void initialize() {
     clearFields();
     name.textProperty().addListener(event -> {
-      if (name.getText().length() > 1 && validName(name.getText()) && name.getText().charAt(0) != ' ') {
+      if (name.getText().length() > 1 
+          && validName(name.getText()) && name.getText().charAt(0) != ' ') {
         name.setStyle("-fx-control-inner-background: white;");
       } else {
         name.setStyle("-fx-control-inner-background: #ff9999;");
@@ -83,8 +84,11 @@ public class SignUpController {
     });
 
   }
+  /**
+   * Clears the textfields.
+   */
 
-  public void clearFields(){
+  public void clearFields() {
     name.clear();
     age.clear();
     emailSignup.clear();
@@ -119,7 +123,8 @@ public class SignUpController {
    */
 
   private boolean emailValidator(String email) {
-    String emailRegex = "^[a-zA-Z0-9_+&*-]+(?:\\." + "[a-zA-Z0-9_+&*-]+)*@" + "(?:[a-zA-Z0-9-]+\\.)+[a-z"
+    String emailRegex = "^[a-zA-Z0-9_+&*-]+(?:\\." 
+        + "[a-zA-Z0-9_+&*-]+)*@" + "(?:[a-zA-Z0-9-]+\\.)+[a-z"
         + "A-Z]{2,7}$";
 
     java.util.regex.Pattern pat = java.util.regex.Pattern.compile(emailRegex);
@@ -167,6 +172,12 @@ public class SignUpController {
       e.printStackTrace();
     }
   }
+
+  /**
+   * Deletes a user.
+   * @param user
+   * 
+   */
 
   public void deleteUser(User user) {
     try {

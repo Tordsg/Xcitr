@@ -84,9 +84,9 @@ public class LoginController {
       passwordLogin.clear();
       emailLogin.clear();
     } catch (IOException e) {
-		// TODO Auto-generated catch block
-		e.printStackTrace();
-	}
+      // TODO Auto-generated catch block
+      e.printStackTrace();
+    }
 
   }
 
@@ -99,24 +99,33 @@ public class LoginController {
     FXMLLoader loader = new FXMLLoader();
     loader.setLocation(getClass().getResource("signup.fxml"));
     Parent p;
-	try {
-		p = loader.load();
-    Scene s = new Scene(p);
-    Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
-    window.setScene(s);
-    window.show();
-	} catch (IOException e) {
-		e.printStackTrace();
-	}
+    try {
+      p = loader.load();
+      Scene s = new Scene(p);
+      Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
+      window.setScene(s);
+      window.show();
+    } catch (IOException e) {
+      e.printStackTrace();
+    }
   }
 
-  public void addUser(String mail, String password){
+  /**
+   * Adds user.
+   * 
+   * @param mail
+   * 
+   * @param password
+   * 
+   */
+
+  public void addUser(String mail, String password) {
 
     try {
       clientHandler.login(mail, password);
     } catch (ServerException | ConnectException e) {
       e.printStackTrace();
     }
-}
+  }
 
 }

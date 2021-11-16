@@ -216,7 +216,8 @@ public class PrimaryController implements Initializable {
    */
 
   public void cardLiked(Pane likedcard, Pane discardedcard) {
-    TranslateTransition ttScore = new TranslateTransition(Duration.millis(Math.abs(-likedcard.getLayoutX() - 300)),
+    TranslateTransition ttScore = new TranslateTransition(Duration
+        .millis(Math.abs(-likedcard.getLayoutX() - 300)), 
         scorePane);
     ttScore.setFromX(0);
     ttScore.setToX(-likedcard.getLayoutX() - 300);
@@ -237,7 +238,8 @@ public class PrimaryController implements Initializable {
         e1.printStackTrace();
       }
     });
-    TranslateTransition ttCard = new TranslateTransition(Duration.millis(Math.abs(-likedcard.getLayoutX() - 300)),
+    TranslateTransition ttCard = new TranslateTransition(Duration
+        .millis(Math.abs(-likedcard.getLayoutX() - 300)),
         likedcard);
     ttCard.setFromX(0);
     ttCard.setToX(-likedcard.getLayoutX() - 300);
@@ -251,7 +253,8 @@ public class PrimaryController implements Initializable {
       ft.getNode().setTranslateX(0);
       ft.getNode().setLayoutX(-200);
     });
-    TranslateTransition firstTt = translateCardY(discardedcard, discardedcard.getLayoutY() - 55, -400, false);
+    TranslateTransition firstTt = translateCardY(discardedcard, 
+        discardedcard.getLayoutY() - 55, -400, false);
     firstTt.setOnFinished(e -> e.consume());
     SequentialTransition st = new SequentialTransition(
         new ParallelTransition(firstTt, animateScore(discardedcard.getId(), true)),
@@ -271,7 +274,8 @@ public class PrimaryController implements Initializable {
    *
    * @return translate transition
    */
-  public TranslateTransition translateCardY(Pane pane, double start, double end, boolean updateOnFinish) {
+  public TranslateTransition translateCardY(Pane pane, 
+      double start, double end, boolean updateOnFinish) {
     TranslateTransition tt = new TranslateTransition(Duration.millis(Math.abs(start - end)), pane);
     tt.setFromY(start);
     tt.setToY(end);
@@ -401,7 +405,8 @@ public class PrimaryController implements Initializable {
     }
     leftPicture.setFill(imageController.getImage(leftUser));
     rightPicture.setFill(imageController.getImage(rightUser));
-    profile.setFill(new ImagePattern(imageController.getImage(user).getImage(), 0, 0, 1, 1.4, true));
+    profile.setFill(new ImagePattern(imageController
+        .getImage(user).getImage(), 0, 0, 1, 1.4, true));
     dragY(leftCard);
     dragY(rightCard);
     hoverButton(refresh);
@@ -447,10 +452,10 @@ public class PrimaryController implements Initializable {
         }
         dragged = false;
       }
-    });
+    } );
   }
 
-  public List<User> getOnScreenUsers(){
+  public List<User> getOnScreenUsers() {
     return List.of(leftUser, rightUser);
   }
 

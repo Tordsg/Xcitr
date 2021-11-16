@@ -28,7 +28,8 @@ public class ChatDeserializer extends StdDeserializer<Chat> {
   }
 
   @Override
-  public Chat deserialize(JsonParser jp, DeserializationContext arg1) throws IOException, JsonProcessingException {
+  public Chat deserialize(JsonParser jp, DeserializationContext arg1) 
+      throws IOException, JsonProcessingException {
     JsonNode node = jp.getCodec().readTree(jp);
     return deserialize(node);
   }
