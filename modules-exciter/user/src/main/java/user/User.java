@@ -26,7 +26,21 @@ public class User {
   private List<String> matches = new ArrayList<>();
   @JsonIgnore
   private String password = null;
-  private int imageId = 0;
+  private int imageId = 0;  
+  
+  /**
+   * Constructor for User class.
+   *
+   * @param name string of users name
+   * @param age int of users age
+   * @param email string of users email
+   */
+
+  public User(String name, int age, String email) {
+    setName(name);
+    setAge(age);
+    setEmail(email);
+  }
 
   /**
    * Constructor for User class.
@@ -46,14 +60,7 @@ public class User {
   public User(UUID id, String name, int age, 
       String userInformation, List<String> matches, String email,
       String password, Map<String, Integer> likedUsers, int imageId) {
-    this.userInformation = userInformation;
-    this.matches = matches;
-    setId(id);
-    setName(name);
-    setEmail(email);
-    this.password = password;
-    setAge(age);
-    this.likedUsers = likedUsers;
+    this(id ,name, age, userInformation, matches, email, password, likedUsers);
     this.imageId = imageId;
   }
 
@@ -74,13 +81,8 @@ public class User {
   public User(UUID id, String name, int age, 
       String userInformation, List<String> matches, String email,
       String password, Map<String, Integer> likedUsers) {
-    this.userInformation = userInformation;
-    this.matches = matches;
+    this(name, age, userInformation, matches, email, password);
     setId(id);
-    setName(name);
-    setEmail(email);
-    this.password = password;
-    setAge(age);
     this.likedUsers = likedUsers;
   }
 
@@ -98,12 +100,8 @@ public class User {
 
   public User(String name, int age, String userInformation, 
       List<String> matches, String email, String password) {
-    this.userInformation = userInformation;
-    this.matches = matches;
-    setName(name);
-    setEmail(email);
+    this(name, age, userInformation, matches, email);
     this.password = password;
-    setAge(age);
   }
 
   /**
@@ -117,11 +115,8 @@ public class User {
    */
 
   public User(String name, int age, String userInformation, List<String> matches, String email) {
-    this.userInformation = userInformation;
+    this(name, age, userInformation, email);
     this.matches = matches;
-    setName(name);
-    setEmail(email);
-    setAge(age);
   }
 
   /**
@@ -134,24 +129,11 @@ public class User {
    */
 
   public User(String name, int age, String userInformation, String email) {
-    this.userInformation = userInformation;
-    setName(name);
-    setEmail(email);
-    setAge(age);
+    this(name, age, email);
+    setUserInformation(userInformation);
   }
 
-  /**
-   * Constructor for User class.
-   *
-   * @param name string of users name
-   * @param age int of users age
-   * @param email string of users email
-   */
-  public User(String name, int age, String email) {
-    setName(name);
-    setAge(age);
-    setEmail(email);
-  }
+
 
   public User() {
   }
