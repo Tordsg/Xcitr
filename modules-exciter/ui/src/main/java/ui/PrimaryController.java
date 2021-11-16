@@ -73,7 +73,7 @@ public class PrimaryController implements Initializable {
   private User leftUser;
   private User rightUser;
   // Static since it's shared by the SecondaryController
-  private final ImageController imageController = new ImageController();
+  private final static ImageController imageController = new ImageController();
 
   /**
    * Switching to the profile page from the matching page.
@@ -466,6 +466,10 @@ public class PrimaryController implements Initializable {
 
   public Circle getNotificationCircle() {
     return notification;
+  }
+
+  public static ImageController getImageController() {
+    return imageController;
   }
 
 }
