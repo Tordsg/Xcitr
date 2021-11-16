@@ -107,12 +107,8 @@ public class SignUpController {
    */
 
   private boolean isNumeric(String str) {
-    try {
-      Integer.parseInt(str);
-      return true;
-    } catch (NumberFormatException e) {
-      return false;
-    }
+    String pattern = "^[0-9]*$";
+    return str.matches(pattern);
   }
 
   /**
@@ -144,7 +140,6 @@ public class SignUpController {
       window.setScene(s);
       window.show();
     } catch (IOException e) {
-      e.printStackTrace();
     }
   }
 
@@ -169,7 +164,6 @@ public class SignUpController {
     } catch (IllegalArgumentException | ServerException | ConnectException e) {
       errorLabel.setText(e.getMessage());
     } catch (IOException e) {
-      e.printStackTrace();
     }
   }
 
@@ -184,9 +178,15 @@ public class SignUpController {
     try {
       clientHandler.createAccount(user, password);
     } catch (ServerException | ConnectException e) {
-      e.printStackTrace();
     }
+  }
 
+  public TextField getAgeField() {
+    return age;
+  }
+
+  public TextField getEmailField() {
+    return emailSignup;
   }
 
 }

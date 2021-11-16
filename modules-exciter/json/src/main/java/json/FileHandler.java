@@ -33,7 +33,6 @@ public class FileHandler {
   }
 
   private JSONParser parser = new JSONParser();
-  // the "./" is there to make sure path works on mac
   String path = System.getProperty("user.home") + "/user.json";
 
   /**
@@ -66,13 +65,11 @@ public class FileHandler {
       userData.put("imageId", user.getImageId());
       userArray.add(userData);
     }
-    try {
-      // OutputStreamWriter is used to force UTF-8 encoding since fileWriter is using
-      // wrong encoding on older mac models
-      BufferedWriter fileWriter = new BufferedWriter(
-          new OutputStreamWriter(new FileOutputStream(path), StandardCharsets.UTF_8));
+    // OutputStreamWriter is used to force UTF-8 encoding since fileWriter is using
+    // wrong encoding on older mac models
+    try (BufferedWriter fileWriter = new BufferedWriter(
+      new OutputStreamWriter(new FileOutputStream(path), StandardCharsets.UTF_8))){
       fileWriter.write(userArray.toJSONString());
-      fileWriter.close();
     } catch (FileNotFoundException e) {
       createFile();
       e.printStackTrace();

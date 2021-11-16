@@ -40,7 +40,9 @@ public class MatchControllerTest extends ApplicationTest {
   private static ObjectMapper mapper = new ObjectMapper();
   private static ClientAndServer server;
   private static User matchedUser = new User("matched", 21, "matched@mail.com");
+  private static User matchedUser2 = new User("name", 22, "match@maiil.no");
   private static Chat chat = new Chat(testUser.getEmail(), matchedUser.getEmail());
+  private static Chat chat2 = new Chat(testUser.getEmail(), matchedUser2.getEmail());
 
   @BeforeAll
   public static void setUp() {
@@ -51,7 +53,7 @@ public class MatchControllerTest extends ApplicationTest {
   private static void startMockServer() {
     String responseString;
     try {
-      responseString = mapper.writeValueAsString(List.of(matchedUser));
+      responseString = mapper.writeValueAsString(List.of(matchedUser,matchedUser2));
       server.when(HttpRequest.request().withMethod("GET").withPath("/user/matches"))
           .respond(HttpResponse.response().withStatusCode(200).withBody(responseString));
     } catch (JsonProcessingException e) {
@@ -142,10 +144,40 @@ public class MatchControllerTest extends ApplicationTest {
       Text text2 = (Text) group2.getChildren().get(1);
       Assertions.assertEquals("Hei tilbake", text2.getText());
 
+      server.clear(HttpRequest.request().withMethod("GET").withPath("/message"));
+      try {
+        responseString = mapper.writeValueAsString(chat2);
+        server.when(HttpRequest.request().withMethod("GET").withPath("/message"))
+          .respond(HttpResponse.response().withStatusCode(200).withBody(responseString));
+      } catch (JsonProcessingException e) {
+      }
+
+      clickOn("#chatPic");
+      Assertions.assertTrue(controller.chatPic.isDisable());
+      try {
+        TimeUnit.SECONDS.sleep(1);
+      } catch (InterruptedException e) {
+      }
+
+      clickOn("#chatPic");
+
+      try {
+        TimeUnit.SECONDS.sleep(1);
+      } catch (InterruptedException e) {
+      }
+      Assertions.assertFalse(controller.chatPic.isDisable());
+
+      clickOn(box.getChildren().get(1));
+      try {
+        TimeUnit.SECONDS.sleep(1);
+      } catch (InterruptedException e) {
+      }
+
 
     } else {
       Circle profile = lookup("#profile").query();
       clickOn(profile);
+
     }
   }
 

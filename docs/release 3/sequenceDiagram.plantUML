@@ -1,0 +1,15 @@
+@startuml sequenceDiagram
+
+User -> Client: createAccount(user, password)
+Client -> Server: sendHTTP request of createAccount(user, hashedPassword)
+Server --> Client: success Response of user
+Client --> User: creates user and logs on the account
+
+User -> Client: sendMessage()
+Client -> Server: sendHTTP request of sendMessage(user, receiver, message)
+Server --> Client: success Response of chat and saves chat
+Client --> User: returns hBox with message
+
+
+
+@enduml

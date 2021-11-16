@@ -53,9 +53,21 @@ public class MatchController implements Initializable {
   @FXML
   VBox textBox;
   @FXML
+  Pane cardPane;
+  @FXML
   Pane textPane;
   @FXML
   Pane refresh;
+  @FXML
+  private Label previewName;
+  @FXML
+  private Label previewAge;
+  @FXML
+  private Label previewEmail;
+  @FXML
+  private Text previewBio;
+  @FXML
+  private Rectangle picture;
   @FXML
   TextField textInput;
   @FXML
@@ -77,8 +89,6 @@ public class MatchController implements Initializable {
   private User user = App.getUser();
   private User user1;
   private List<User> matches = new ArrayList<>();
-  private Pane cardPane;
-
 
   /**
    * Method to switch to the match page.
@@ -169,6 +179,9 @@ public class MatchController implements Initializable {
         }
       });
     }
+    previewEmail.widthProperty().addListener((observable, oldValue, newValue) -> {
+      previewEmail.setLayoutX(112.5-previewEmail.getWidth()/2);
+    });
   }
 
   /**
@@ -317,15 +330,7 @@ public class MatchController implements Initializable {
           nameUser.setText(user1.getName());
           textBox.getChildren().clear();
           textBox.setLayoutY(63);
-          if (profilePane.getPrefHeight() == 430) {
-            if (cardPane != null) {
-              profilePane.getChildren().remove(cardPane);
-            }
-            cardPane = SecondaryController.createCard(user1);
-            profilePane.getChildren().add(cardPane);
-            cardPane.setLayoutY(70);
-            cardPane.setLayoutX(45);
-          }
+          updateCardPane(user1);
           fillChat(user, user1);
           textBox.setLayoutY(393);
           textInput.clear();
@@ -347,15 +352,7 @@ public class MatchController implements Initializable {
         nameUser.setText(user1.getName());
         textBox.getChildren().clear();
         textBox.setLayoutY(63);
-        if (profilePane.getPrefHeight() == 430) {
-          if (cardPane != null) {
-            profilePane.getChildren().remove(cardPane);
-          }
-          cardPane = SecondaryController.createCard(user1);
-          profilePane.getChildren().add(cardPane);
-          cardPane.setLayoutY(70);
-          cardPane.setLayoutX(45);
-        }
+        updateCardPane(user1);
         fillChat(user, user1);
         textBox.setLayoutY(393);
         textInput.clear();
@@ -374,7 +371,7 @@ public class MatchController implements Initializable {
     });
   }
 
-  double height = 0;
+  private double height = 0;
 
   /**
    * Creates a match card for a User object.
@@ -425,19 +422,23 @@ public class MatchController implements Initializable {
   /**
    * Method to animate the profile.
    */
-
+  private void updateCardPane(User user1){
+    previewName.setText(user1.getName());
+    previewAge.setText(Integer.toString(user1.getAge()));
+    previewEmail.setText(user1.getEmail());
+    previewEmail.setLayoutX(112.5-previewEmail.getWidth()/2);
+    previewBio.setText(user1.getUserInformation());
+    picture.setFill(imageController.getImage(user1));
+  }
   @FXML
   public void animateProfile() {
     chatPic.setDisable(true);
     if (profilePane.getPrefHeight() != 430) {
       KeyValue kv = new KeyValue(profilePane.prefHeightProperty(), 430, Interpolator.EASE_BOTH);
       Timeline timeline = new Timeline(new KeyFrame(Duration.millis(300), kv));
-      cardPane = SecondaryController.createCard(user1);
-      profilePane.getChildren().add(cardPane);
-      cardPane.setLayoutY(70);
       TranslateTransition tt = new TranslateTransition(Duration.millis(300), cardPane);
-      tt.setFromX(400);
-      tt.setToX(45);
+      tt.setFromX(0);
+      tt.setToX(-355);
       kv = new KeyValue(profilePane.prefHeightProperty(), 430, Interpolator.EASE_BOTH);
       timeline = new Timeline(new KeyFrame(Duration.millis(300), kv));
       SequentialTransition st = new SequentialTransition(timeline, tt);
@@ -446,12 +447,10 @@ public class MatchController implements Initializable {
     } else {
       KeyValue kv = new KeyValue(profilePane.prefHeightProperty(), 62, Interpolator.EASE_BOTH);
       Timeline timeline = new Timeline(new KeyFrame(Duration.millis(300), kv));
-      cardPane = (Pane) profilePane.getChildren().get(1);
       TranslateTransition tt = new TranslateTransition(Duration.millis(300), cardPane);
-      tt.setFromX(45);
-      tt.setToX(400);
+      tt.setFromX(-355);
+      tt.setToX(0);
       tt.setOnFinished(e -> {
-        profilePane.getChildren().remove(cardPane);
         chatPic.setDisable(false);
       });
       kv = new KeyValue(profilePane.prefHeightProperty(), 62, Interpolator.EASE_BOTH);
