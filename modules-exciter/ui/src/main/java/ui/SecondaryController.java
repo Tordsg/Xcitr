@@ -201,16 +201,11 @@ public class SecondaryController implements Initializable {
    */
   @Override
   public void initialize(URL location, ResourceBundle resources) {
-    pane.requestFocus();
     name.setText(user.getName());
     bio.setText(user.getUserInformation());
     age.setText(Integer.toString(user.getAge()));
-    updatePreview();
     TextFormatter<String> tf = new TextFormatter<>(c -> {
       if (c.isContentChange()) {
-        if (c.getControlNewText().endsWith("\n")) {
-          c.setText("");
-        }
         Text text = new Text(c.getControlNewText());
         text.setWrappingWidth(198);
         text.setFont(new Font("Arial",12));
@@ -230,5 +225,7 @@ public class SecondaryController implements Initializable {
       pane.requestFocus();
     });
     updatePreview();
+    previewEmail.setLayoutX(112.5-previewEmail.getWidth()/2);
+    previewEmail.requestFocus();
   }
 }
