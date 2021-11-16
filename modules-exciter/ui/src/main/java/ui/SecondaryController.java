@@ -147,7 +147,7 @@ public class SecondaryController implements Initializable {
     previewName.setText(currentUser.getName());
     previewAge.setText(Integer.toString(currentUser.getAge()));
     previewEmail.setText(currentUser.getEmail());
-    previewEmail.setLayoutX(107.5-previewEmail.getWidth()/2);
+    previewEmail.setLayoutX(112.5-previewEmail.getWidth()/2);
     previewBio.setText(currentUser.getUserInformation());
     picture.setFill(imageController.getImage(currentUser));
     pane.requestFocus();

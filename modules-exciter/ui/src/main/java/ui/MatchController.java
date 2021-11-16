@@ -423,7 +423,7 @@ public class MatchController implements Initializable {
     previewName.setText(user1.getName());
     previewAge.setText(Integer.toString(user1.getAge()));
     previewEmail.setText(user1.getEmail());
-    previewEmail.setLayoutX(107.5-previewEmail.getWidth()/2);
+    previewEmail.setLayoutX(112.5-previewEmail.getWidth()/2);
     previewBio.setText(user1.getUserInformation());
     picture.setFill(imageController.getImage(user1));
   }
