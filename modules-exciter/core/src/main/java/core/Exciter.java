@@ -30,27 +30,10 @@ public class Exciter {
    * @param user on the app
    */
   public void addUser(User user) {
-    if (!allUsers.contains(user)) {
-      allUsers.add(user);
+    if (allUsers.contains(user)) {
+      allUsers.remove(user);
     }
-  }
-
-  /**
-   * Will check that users to be added does not exist in the list already.
-   *
-   * @param users to be added to the list of all users.
-   *
-   * @apiNote primarly used to for testing.
-   */
-
-  public void addUsers(List<User> users) {
-    List<String> userMailList = allUsers.stream().map(User::getEmail).collect(Collectors.toList());
-    for (User user : users) {
-      if (!userMailList.contains(user.getEmail())) {
-        allUsers.add(user);
-        userMailList.add(user.getEmail());
-      }
-    }
+    allUsers.add(user);
   }
 
   /**
@@ -61,12 +44,13 @@ public class Exciter {
    * @apiNote primarly used to add users from json file.
    */
 
-  public void addUsersFromFile(List<User> users) {
+  public void addUsers(List<User> users) {
     List<String> userMailList = allUsers.stream().map(User::getEmail).collect(Collectors.toList());
     for (User user : users) {
       if (userMailList.contains(user.getEmail())) {
         allUsers.remove(getUserByEmail(user.getEmail()));
       }
+      userMailList.add(user.getEmail());
       allUsers.add(user);
     }
   }
