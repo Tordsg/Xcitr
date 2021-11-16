@@ -84,6 +84,9 @@ public class SignUpControllerTest extends ApplicationTest {
 
       clickOn("#age");
       write("-2");
+      TextField ageField = controller.getAgeField();
+      Assertions.assertEquals("-2", ageField.getText());
+      Assertions.assertEquals("#ff9999;", ageField.getStyle().split(" ")[1]);
 
       clickOn("#emailSignup");
       write("Ulf@mail.com");

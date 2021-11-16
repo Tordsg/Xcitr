@@ -182,7 +182,14 @@ public class SignUpController {
     } catch (ServerException | ConnectException e) {
       e.printStackTrace();
     }
+  }
 
+  public TextField getAgeField() {
+    return age;
+  }
+
+  public TextField getEmailField() {
+    return emailSignup;
   }
 
 }
