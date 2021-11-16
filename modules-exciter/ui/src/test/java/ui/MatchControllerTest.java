@@ -152,6 +152,21 @@ public class MatchControllerTest extends ApplicationTest {
       } catch (JsonProcessingException e) {
       }
 
+      clickOn("#chatPic");
+      Assertions.assertTrue(controller.chatPic.isDisable());
+      try {
+        TimeUnit.SECONDS.sleep(1);
+      } catch (InterruptedException e) {
+      }
+
+      clickOn("#chatPic");
+
+      try {
+        TimeUnit.SECONDS.sleep(1);
+      } catch (InterruptedException e) {
+      }
+      Assertions.assertFalse(controller.chatPic.isDisable());
+
       clickOn(box.getChildren().get(1));
       try {
         TimeUnit.SECONDS.sleep(1);
