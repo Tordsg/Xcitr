@@ -196,8 +196,7 @@ public class PrimaryControllerTest extends ApplicationTest {
     clickOn("#refresh");
     try {
       TimeUnit.SECONDS.sleep(2);
-    } catch (Exception e) {
-      System.out.println("here");
+    } catch (InterruptedException e) {
       e.printStackTrace();
     }
     Assertions.assertTrue(controller.getNotificationCircle().isVisible());
