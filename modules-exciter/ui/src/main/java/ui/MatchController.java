@@ -84,18 +84,21 @@ public class MatchController implements Initializable {
    * Method to switch to the match page.
    *
    * @param event MouseEvent
-   *
-   * @throws IOException since MouseEvent is used
    */
 
-  public void switchToPrimary(MouseEvent event) throws IOException {
+  public void switchToPrimary(MouseEvent event) {
     FXMLLoader loader = new FXMLLoader();
     loader.setLocation(getClass().getResource("primary.fxml"));
-    Parent p = loader.load();
-    Scene s = new Scene(p);
-    Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
-    window.setScene(s);
-    window.show();
+    Parent p;
+    try {
+      p = loader.load();
+      Scene s = new Scene(p);
+      Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
+      window.setScene(s);
+      window.show();
+    } catch (IOException e) {
+      e.printStackTrace();
+    }
   }
 
   /**
@@ -336,7 +339,7 @@ public class MatchController implements Initializable {
         });
         ttIn.setFromX(0);
         ttIn.setToX(-320);
-        SequentialTransition st = new SequentialTransition(ttOut, 
+        SequentialTransition st = new SequentialTransition(ttOut,
             new TranslateTransition(Duration.millis(200)), ttIn);
         st.play();
       } else {

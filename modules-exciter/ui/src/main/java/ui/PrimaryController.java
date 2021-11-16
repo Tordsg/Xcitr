@@ -79,35 +79,43 @@ public class PrimaryController implements Initializable {
    * Switching to the profile page from the matching page.
    *
    * @param event MouseEvent object.
-   * @throws IOException exception
    */
   @FXML
-  private void switchToSecondary(MouseEvent event) throws IOException {
+  private void switchToSecondary(MouseEvent event) {
     FXMLLoader loader = new FXMLLoader();
     loader.setLocation(getClass().getResource("profile.fxml"));
-    Parent p = loader.load();
-    Scene s = new Scene(p);
-    Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
-    window.setScene(s);
-    window.show();
+    Parent p;
+    try {
+      p = loader.load();
+      Scene s = new Scene(p);
+      Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
+      window.setScene(s);
+      window.show();
+    } catch (IOException e) {
+      e.printStackTrace();
+    }
   }
 
   /**
    * Switching to the match page from the matching page.
    *
    * @param event MouseEvent object
-   * @throws IOException exception
    */
 
   @FXML
-  private void switchToMatch(MouseEvent event) throws IOException {
+  private void switchToMatch(MouseEvent event) {
     FXMLLoader loader = new FXMLLoader();
     loader.setLocation(getClass().getResource("match.fxml"));
-    Parent p = loader.load();
-    Scene s = new Scene(p);
-    Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
-    window.setScene(s);
-    window.show();
+    Parent p;
+    try {
+      p = loader.load();
+      Scene s = new Scene(p);
+      Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
+      window.setScene(s);
+      window.show();
+    } catch (IOException e) {
+      e.printStackTrace();
+    }
   }
 
   /**
@@ -149,7 +157,6 @@ public class PrimaryController implements Initializable {
       try {
         rightUser = clientHandler.getUser(user, users);
       } catch (ServerException e) {
-        // TODO Auto-generated catch block
         e.printStackTrace();
       }
       cardLiked(rightCard, leftCard);
@@ -190,7 +197,6 @@ public class PrimaryController implements Initializable {
       try {
         leftUser = clientHandler.getUser(user, users);
       } catch (ServerException e) {
-        // TODO Auto-generated catch block
         e.printStackTrace();
       }
       cardLiked(leftCard, rightCard);
@@ -217,7 +223,7 @@ public class PrimaryController implements Initializable {
 
   public void cardLiked(Pane likedcard, Pane discardedcard) {
     TranslateTransition ttScore = new TranslateTransition(Duration
-        .millis(Math.abs(-likedcard.getLayoutX() - 300)), 
+        .millis(Math.abs(-likedcard.getLayoutX() - 300)),
         scorePane);
     ttScore.setFromX(0);
     ttScore.setToX(-likedcard.getLayoutX() - 300);
@@ -234,7 +240,6 @@ public class PrimaryController implements Initializable {
           notification.setVisible(true);
         }
       } catch (ServerException | ConnectException e1) {
-        // TODO Auto-generated catch block
         e1.printStackTrace();
       }
     });
@@ -253,7 +258,7 @@ public class PrimaryController implements Initializable {
       ft.getNode().setTranslateX(0);
       ft.getNode().setLayoutX(-200);
     });
-    TranslateTransition firstTt = translateCardY(discardedcard, 
+    TranslateTransition firstTt = translateCardY(discardedcard,
         discardedcard.getLayoutY() - 55, -400, false);
     firstTt.setOnFinished(e -> e.consume());
     SequentialTransition st = new SequentialTransition(
@@ -274,7 +279,7 @@ public class PrimaryController implements Initializable {
    *
    * @return translate transition
    */
-  public TranslateTransition translateCardY(Pane pane, 
+  public TranslateTransition translateCardY(Pane pane,
       double start, double end, boolean updateOnFinish) {
     TranslateTransition tt = new TranslateTransition(Duration.millis(Math.abs(start - end)), pane);
     tt.setFromY(start);

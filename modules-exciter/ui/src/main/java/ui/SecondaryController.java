@@ -120,14 +120,19 @@ public class SecondaryController implements Initializable {
   private Label errorLabel;
 
   @FXML
-  private void switchToPrimary(MouseEvent event) throws IOException {
+  private void switchToPrimary(MouseEvent event) {
     FXMLLoader loader = new FXMLLoader();
     loader.setLocation(getClass().getResource("primary.fxml"));
-    Parent p = loader.load();
-    Scene s = new Scene(p);
-    Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
-    window.setScene(s);
-    window.show();
+    Parent p;
+    try {
+      p = loader.load();
+      Scene s = new Scene(p);
+      Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
+      window.setScene(s);
+      window.show();
+    } catch (IOException e) {
+      e.printStackTrace();
+    }
   }
 
   private void hoverButton(Group n) {
@@ -272,14 +277,19 @@ public class SecondaryController implements Initializable {
    */
 
   @FXML
-  public void signOut(MouseEvent event) throws IOException {
+  public void signOut(MouseEvent event) {
     FXMLLoader loader = new FXMLLoader();
     loader.setLocation(getClass().getResource("login.fxml"));
-    Parent p = loader.load();
-    Scene s = new Scene(p);
-    Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
-    window.setScene(s);
-    window.show();
+    Parent p;
+    try {
+      p = loader.load();
+      Scene s = new Scene(p);
+      Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
+      window.setScene(s);
+      window.show();
+    } catch (IOException e) {
+      e.printStackTrace();
+    }
   }
 
   @FXML

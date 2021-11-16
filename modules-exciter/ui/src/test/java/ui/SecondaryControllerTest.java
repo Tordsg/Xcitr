@@ -59,7 +59,7 @@ public class SecondaryControllerTest extends ApplicationTest {
     testUser.setId(UUID.randomUUID());
     signupController.addUser(testUser, "test");
     String sendString = null;
-      
+
 
     try {
       sendString = mapper.writeValueAsString(testUser);
@@ -102,7 +102,7 @@ public class SecondaryControllerTest extends ApplicationTest {
 
 
 
-    
+
     String sendString = null;
       try {
         sendString = mapper.writeValueAsString(testUser);
@@ -123,7 +123,6 @@ public class SecondaryControllerTest extends ApplicationTest {
     Assertions.assertEquals("guitar player", App.getUser().getUserInformation());
     Assertions.assertEquals("Ulf Reidar", App.getUser().getName());
     clickOn("#signOut");
-    signupController.deleteUser(testUser);
   }
 
 

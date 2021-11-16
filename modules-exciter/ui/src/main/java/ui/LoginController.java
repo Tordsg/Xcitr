@@ -59,7 +59,6 @@ public class LoginController {
    * Checks that the email belongs to a user and that the password matches the
    * user's password.
    *
-   * @throws IOException for the login button
    */
 
   @FXML
@@ -112,11 +111,11 @@ public class LoginController {
 
   /**
    * Adds user.
-   * 
+   *
    * @param mail
-   * 
+   *
    * @param password
-   * 
+   *
    */
 
   public void addUser(String mail, String password) {

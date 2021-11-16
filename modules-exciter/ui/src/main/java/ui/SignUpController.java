@@ -61,7 +61,7 @@ public class SignUpController {
   void initialize() {
     clearFields();
     name.textProperty().addListener(event -> {
-      if (name.getText().length() > 1 
+      if (name.getText().length() > 1
           && validName(name.getText()) && name.getText().charAt(0) != ' ') {
         name.setStyle("-fx-control-inner-background: white;");
       } else {
@@ -123,7 +123,7 @@ public class SignUpController {
    */
 
   private boolean emailValidator(String email) {
-    String emailRegex = "^[a-zA-Z0-9_+&*-]+(?:\\." 
+    String emailRegex = "^[a-zA-Z0-9_+&*-]+(?:\\."
         + "[a-zA-Z0-9_+&*-]+)*@" + "(?:[a-zA-Z0-9-]+\\.)+[a-z"
         + "A-Z]{2,7}$";
 
@@ -174,20 +174,6 @@ public class SignUpController {
   }
 
   /**
-   * Deletes a user.
-   * @param user
-   * 
-   */
-
-  public void deleteUser(User user) {
-    try {
-      clientHandler.deleteUser(user);
-    } catch (ServerException | ConnectException e) {
-      e.printStackTrace();
-    }
-  }
-
-  /**
    * Adding a new user to the application.
    *
    * @param user User object
@@ -198,7 +184,6 @@ public class SignUpController {
     try {
       clientHandler.createAccount(user, password);
     } catch (ServerException | ConnectException e) {
-      // TODO Auto-generated catch block
       e.printStackTrace();
     }
 

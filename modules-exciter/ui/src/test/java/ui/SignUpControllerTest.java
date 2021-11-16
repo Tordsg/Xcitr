@@ -130,11 +130,10 @@ public class SignUpControllerTest extends ApplicationTest {
 
       clickOn("#createAccount");
 
-    
+
       Assertions.assertEquals(App.getUser().getEmail(), testUser.getEmail());
-      controller.deleteUser(testUser);
     }
 
-  
+
 
 }
