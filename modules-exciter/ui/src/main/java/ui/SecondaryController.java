@@ -152,84 +152,6 @@ public class SecondaryController implements Initializable {
     picture.setFill(imageController.getImage(currentUser));
     pane.requestFocus();
   }
-
-  protected static Pane createCard(User user) {
-    Pane pane = new Pane();
-    pane.setPrefHeight(338);
-    pane.setPrefWidth(245);
-    Rectangle rect = new Rectangle();
-    pane.getChildren().add(rect);
-    rect.setArcHeight(45);
-    rect.setArcWidth(45);
-    rect.setHeight(338);
-    rect.setWidth(225);
-    rect.setStrokeWidth(2);
-    rect.setStroke(Color.BLACK);
-    rect.setStrokeType(StrokeType.INSIDE);
-    rect.setFill(imageController.getImage(user));
-    Pane pane1 = new Pane();
-    pane.getChildren().add(pane1);
-    pane1.setCacheShape(false);
-    pane1.setLayoutY(217);
-    pane1.setPrefHeight(121);
-    pane1.setMinHeight(121);
-    pane1.setPrefWidth(225);
-    pane1.setStyle("""
-        -fx-background-color: rgba(255, 255, 255, .4);
-        -fx-background-radius: 0 0 22 22; -fx-border-radius: 0 0 21 21;
-        -fx-border-width: 0 2 2 2; -fx-border-color: black;
-        """);
-    Label age = new Label();
-    pane1.getChildren().add(age);
-    age.setAlignment(Pos.CENTER);
-    age.setContentDisplay(ContentDisplay.CENTER);
-    age.setLayoutX(170);
-    age.setLayoutY(-3);
-    age.setPrefHeight(45);
-    age.setPrefWidth(58);
-    age.setText(Integer.toString(user.getAge()));
-    age.setFont(new Font(30));
-    Label name = new Label();
-    pane1.getChildren().add(name);
-    name.setLayoutX(5);
-    name.setLayoutY(-3);
-    name.setPrefHeight(17);
-    name.setPrefWidth(160);
-    name.setText(user.getName());
-    name.setFont(new Font(30));
-    name.setOpacity(1);
-    Label email = new Label();
-    pane1.getChildren().add(email);
-    email.setOpacity(1);
-    email.setLayoutX(0);
-    email.setLayoutY(100);
-    email.setPrefHeight(12);
-    email.setPrefWidth(225);
-    email.setText(user.getEmail());
-    email.setFont(new Font(12));
-    email.setAlignment(Pos.CENTER);
-    Line line = new Line();
-    pane1.getChildren().add(line);
-    line.setOpacity(1);
-    line.setStartX(50);
-    line.setEndX(175);
-    line.setLayoutX(0);
-    line.setLayoutY(97);
-    Text text = new Text();
-    pane1.getChildren().add(text);
-    text.setOpacity(1);
-    text.setLayoutX(6);
-    text.setLayoutY(46);
-    text.setWrappingWidth(214);
-    text.setText(user.getUserInformation());
-    DropShadow effect = new DropShadow();
-    effect.setOffsetX(2);
-    effect.setOffsetY(2);
-    effect.setColor(new Color(0, 0, 0, 0.5));
-    pane.setEffect(effect);
-    return pane;
-  }
-
   /**
    * Signs out of the app and goes to the login-page.
    *
@@ -282,6 +204,7 @@ public class SecondaryController implements Initializable {
     name.setText(user.getName());
     bio.setText(user.getUserInformation());
     age.setText(Integer.toString(user.getAge()));
+    updatePreview();
     TextFormatter<String> tf = new TextFormatter<>(c -> {
       if (c.isContentChange()) {
         if (c.getControlNewText().endsWith("\n")) {
@@ -305,6 +228,5 @@ public class SecondaryController implements Initializable {
       pane.requestFocus();
     });
     updatePreview();
-
   }
 }
