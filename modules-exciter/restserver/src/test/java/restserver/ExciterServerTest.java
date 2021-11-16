@@ -211,6 +211,46 @@ public class ExciterServerTest {
   }
 
   @Test
+  public void testUpdateUserPassword(){
+    Request request = null;
+    Response response = null;
+    ResponseBody responseBody = null;
+    String responseBodyString = null;
+    User updatedUser = new User("Oliver", 22, "test@mail.no");
+    updatedUser.setId(UUID.randomUUID());
+    exciter.addUser(updatedUser);
+    User newUser = null;
+    User newUser2 = null;
+    try {
+      String sendString = mapper.writeValueAsString(updatedUser.getPassword());
+      MediaType mediaType = MediaType.parse("application/json");
+      request = new Request.Builder().url("http://localhost:" + port + "/user/update/password")
+          .header("Authorization", updatedUser.getId().toString()).post(RequestBody.create(sendString, mediaType))
+          .build();
+      response = client.newCall(request).execute();
+      responseBody = response.body();
+      responseBodyString = responseBody.string();
+      newUser = mapper.readValue(responseBodyString, User.class);
+      updatedUser.setPassword("Password123");
+      sendString = mapper.writeValueAsString(updatedUser.getPassword());
+      request = new Request.Builder().url("http://localhost:" + port + "/user/update/password")
+          .header("Authorization", updatedUser.getId().toString()).post(RequestBody.create(sendString, mediaType))
+          .build();
+      response = client.newCall(request).execute();
+      responseBody = response.body();
+      responseBodyString = responseBody.string();
+      newUser2 = mapper.readValue(responseBodyString, User.class);
+
+    } catch (IOException e) {
+      e.printStackTrace();
+    }
+    Assertions.assertNull(newUser.getPassword());
+    Assertions.assertNotEquals(newUser.getPassword(), newUser2.getPassword());
+    Assertions.assertEquals("Password123", newUser2.getPassword());
+
+  }
+
+  @Test
   public void testGetMatches() {
     User testUser = new User("Ludde", 19, "Ludde@mail.no");
     testUser.setId(UUID.randomUUID());
