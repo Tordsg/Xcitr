@@ -327,7 +327,7 @@ public class MatchController implements Initializable {
           nameUser.setText(user1.getName());
           textBox.getChildren().clear();
           textBox.setLayoutY(63);
-          if (profilePane.getPrefHeight() == 430) {
+          if (profilePane.getPrefHeight() > 70) {
             updateCardPane();
           }
           fillChat(user, user1);
@@ -351,7 +351,7 @@ public class MatchController implements Initializable {
         nameUser.setText(user1.getName());
         textBox.getChildren().clear();
         textBox.setLayoutY(63);
-        if (profilePane.getPrefHeight() == 430) {
+        if (profilePane.getPrefHeight() > 70) {
           updateCardPane();
         }
         fillChat(user, user1);
@@ -372,7 +372,7 @@ public class MatchController implements Initializable {
     });
   }
 
-  double height = 0;
+  private double height = 0;
 
   /**
    * Creates a match card for a User object.
