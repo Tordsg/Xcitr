@@ -4,30 +4,25 @@ import java.io.IOException;
 import java.net.URL;
 import java.rmi.ServerException;
 import java.util.ResourceBundle;
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.geometry.Pos;
 import javafx.scene.Group;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.ContentDisplay;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.control.TextFormatter;
-import javafx.scene.effect.DropShadow;
 import javafx.scene.effect.Lighting;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
-import javafx.scene.paint.Color;
-import javafx.scene.shape.Line;
 import javafx.scene.shape.Rectangle;
-import javafx.scene.shape.StrokeType;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
@@ -220,12 +215,14 @@ public class SecondaryController implements Initializable {
     hoverButton(backButton);
     hoverButton(signOut);
     hoverButton(save);
-    // when enter is pressed
     pane.setOnMouseClicked(e -> {
       pane.requestFocus();
     });
+    previewEmail.widthProperty().addListener((observable, oldValue, newValue) -> {
+      previewEmail.setLayoutX(112.5-previewEmail.getWidth()/2);
+    });
+    Platform.runLater( () -> pane.requestFocus() );
     updatePreview();
-    previewEmail.setLayoutX(112.5-previewEmail.getWidth()/2);
-    previewEmail.requestFocus();
+
   }
 }
