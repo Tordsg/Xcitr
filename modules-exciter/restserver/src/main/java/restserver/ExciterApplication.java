@@ -11,15 +11,15 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 @SpringBootApplication
 public class ExciterApplication {
 
-  public static final Exciter excite = new Exciter();
-  public static final FileHandler fileHandler = new FileHandler();
+  protected static final Exciter excite = new Exciter();
+  private static final FileHandler fileHandler = new FileHandler();
 
   /**
    * The main method of the ExciterApplication class.
    */
   public static void main(String[] args) {
     if (fileHandler.readUsers() != null) {
-      excite.addUsersFromFile(fileHandler.readUsers());
+      excite.addUsers(fileHandler.readUsers());
     }
     SpringApplication.run(ExciterApplication.class, args);
   }

@@ -33,7 +33,6 @@ public class FileHandler {
   }
 
   private JSONParser parser = new JSONParser();
-  // the "./" is there to make sure path works on mac
   String path = System.getProperty("user.home") + "/user.json";
 
   /**
