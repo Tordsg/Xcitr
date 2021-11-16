@@ -88,7 +88,6 @@ public class SecondaryController implements Initializable {
       window.setScene(s);
       window.show();
     } catch (IOException e) {
-      e.printStackTrace();
     }
   }
 
@@ -127,7 +126,6 @@ public class SecondaryController implements Initializable {
           try {
             App.setUser(clientHandler.updateInformation(user));
           } catch (ServerException e1) {
-            e1.printStackTrace();
           }
           updatePreview();
         });
@@ -165,7 +163,6 @@ public class SecondaryController implements Initializable {
       window.setScene(s);
       window.show();
     } catch (IOException e) {
-      e.printStackTrace();
     }
   }
 

@@ -70,8 +70,8 @@ public class PrimaryController implements Initializable {
   private ClientHandler clientHandler = new ClientHandler();
   private User user = App.getUser();
   private int numMatches = 0;
-  private User leftUser;
-  private User rightUser;
+  private User leftUser = new User();
+  private User rightUser = new User();
   // Static since it's shared by the SecondaryController
   private final static ImageController imageController = new ImageController();
 
@@ -92,7 +92,6 @@ public class PrimaryController implements Initializable {
       window.setScene(s);
       window.show();
     } catch (IOException e) {
-      e.printStackTrace();
     }
   }
 
@@ -114,7 +113,6 @@ public class PrimaryController implements Initializable {
       window.setScene(s);
       window.show();
     } catch (IOException e) {
-      e.printStackTrace();
     }
   }
 
@@ -157,7 +155,6 @@ public class PrimaryController implements Initializable {
       try {
         rightUser = clientHandler.getUser(user, users);
       } catch (ServerException e) {
-        e.printStackTrace();
       }
       cardLiked(rightCard, leftCard);
       return;
@@ -197,7 +194,6 @@ public class PrimaryController implements Initializable {
       try {
         leftUser = clientHandler.getUser(user, users);
       } catch (ServerException e) {
-        e.printStackTrace();
       }
       cardLiked(leftCard, rightCard);
       return;
@@ -240,7 +236,6 @@ public class PrimaryController implements Initializable {
           notification.setVisible(true);
         }
       } catch (ServerException | ConnectException e1) {
-        e1.printStackTrace();
       }
     });
     TranslateTransition ttCard = new TranslateTransition(Duration

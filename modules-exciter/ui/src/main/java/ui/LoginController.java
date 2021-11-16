@@ -83,7 +83,6 @@ public class LoginController {
       passwordLogin.clear();
       emailLogin.clear();
     } catch (IOException e) {
-      e.printStackTrace();
     }
 
   }
@@ -104,7 +103,6 @@ public class LoginController {
       window.setScene(s);
       window.show();
     } catch (IOException e) {
-      e.printStackTrace();
     }
   }
 
@@ -122,7 +120,6 @@ public class LoginController {
     try {
       clientHandler.login(mail, password);
     } catch (ServerException | ConnectException e) {
-      e.printStackTrace();
     }
   }
 

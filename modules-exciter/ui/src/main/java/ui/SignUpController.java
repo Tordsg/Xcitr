@@ -140,7 +140,6 @@ public class SignUpController {
       window.setScene(s);
       window.show();
     } catch (IOException e) {
-      e.printStackTrace();
     }
   }
 
@@ -165,7 +164,6 @@ public class SignUpController {
     } catch (IllegalArgumentException | ServerException | ConnectException e) {
       errorLabel.setText(e.getMessage());
     } catch (IOException e) {
-      e.printStackTrace();
     }
   }
 
@@ -180,7 +178,6 @@ public class SignUpController {
     try {
       clientHandler.createAccount(user, password);
     } catch (ServerException | ConnectException e) {
-      e.printStackTrace();
     }
   }
 

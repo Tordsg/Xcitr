@@ -95,7 +95,6 @@ public class LoginControllerTest extends ApplicationTest {
       try {
         sendString = mapper.writeValueAsString(testUser);
       } catch (JsonProcessingException e) {
-        e.printStackTrace();
       }
       server.when(HttpRequest.request().withMethod("POST")
       .withPath("/login")
