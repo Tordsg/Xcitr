@@ -28,6 +28,7 @@ import okhttp3.ResponseBody;
 import user.BotUser;
 import user.Chat;
 import user.User;
+//import json.MessageHandler;
 
 @ExtendWith(SpringExtension.class)
 @ContextConfiguration(classes = { ExciterApplication.class, ServerController.class })
@@ -39,6 +40,7 @@ public class ExciterServerTest {
   Exciter exciter = ExciterApplication.excite;
   FileHandler fileHandler = new FileHandler();
   User user = new User("test", 22, "test@mail.no");
+  //MessageHandler messageHandler = new MessageHandler();
 
   @LocalServerPort
   int port;
@@ -210,7 +212,7 @@ public class ExciterServerTest {
     Assertions.assertEquals("likes response code 200", newUser2.getUserInformation());
   }
 
- /* @Test
+ @Test
   public void testUpdateUserPassword(){
     Request request = null;
     Response response = null;
@@ -220,9 +222,10 @@ public class ExciterServerTest {
     updatedUser.setId(UUID.randomUUID());
     exciter.addUser(updatedUser);
     User newUser = null;
-    User newUser2 = null;
+    String sendString = null;
+
     try {
-      String sendString = mapper.writeValueAsString(updatedUser.getPassword());
+      sendString = mapper.writeValueAsString("Password123");
       MediaType mediaType = MediaType.parse("application/json");
       request = new Request.Builder().url("http://localhost:" + port + "/user/update/password")
           .header("Authorization", updatedUser.getId().toString()).post(RequestBody.create(sendString, mediaType))
@@ -231,24 +234,14 @@ public class ExciterServerTest {
       responseBody = response.body();
       responseBodyString = responseBody.string();
       newUser = mapper.readValue(responseBodyString, User.class);
-      updatedUser.setPasswordNoHash("Password123");
-      sendString = mapper.writeValueAsString(updatedUser.getPassword());
-      request = new Request.Builder().url("http://localhost:" + port + "/user/update/password")
-          .header("Authorization", updatedUser.getId().toString()).post(RequestBody.create(sendString, mediaType))
-          .build();
-      response = client.newCall(request).execute();
-      responseBody = response.body();
-      responseBodyString = responseBody.string();
-      newUser2 = mapper.readValue(responseBodyString, User.class);
 
     } catch (IOException e) {
       e.printStackTrace();
     }
-    Assertions.assertNull(newUser.getPassword());
-    Assertions.assertNotEquals(newUser.getPassword(), newUser2.getPassword());
-    Assertions.assertEquals("Password123", newUser2.getPassword());
+    Assertions.assertNotNull(newUser.getPassword());
+    Assertions.assertEquals("Password123", newUser.getPassword());
 
-  }*/
+  }
 
   @Test
   public void testGetMatches() {
@@ -402,37 +395,30 @@ public class ExciterServerTest {
 
   }
 
-  @Test
+ /* @Test
   public void testGetChat(){
-    User user1 = new User("Ludde", 19, "LuddeMessage@mail.no");
-    User user2 = new User("Ludde", 19, "LuddeMessage2@mail.no");
-    user1.setId(UUID.randomUUID());
-    String string = "Hej";
-    exciter.addUsers(List.of(user1, user2));
-    Chat chat = null;
-    MediaType mediaType = MediaType.parse("application/json");
-    Response response = null;
-    try {
-      String sendString = mapper.writeValueAsString(string);
-      Request request = new Request.Builder().url("http://localhost:" + port + "/message")
-          .header("Authorization", user1.getId().toString()).header("mail", user2.getEmail())
-          .post(RequestBody.create(sendString, mediaType)).build();
-      response = client.newCall(request).execute();
-      ResponseBody responseBody = response.body();
-      chat = mapper.readValue(responseBody.string(), Chat.class);
-    } catch (IOException e) {
-      e.printStackTrace();
-    }
-    Request requets = new Request.Builder().url("http://localhost:" + port + "/message")
+    User testUser = new User("test", 22, "testnr2@mail.no");
+    User messageUser = new User("message", 23, "message@mail.no");
+    testUser.setId(UUID.randomUUID());
+    exciter.addUsers(List.of(testUser, messageUser));
+    fileHandler.saveUser(exciter.getAllUsers());
+    Chat chat = new Chat(testUser.getEmail())
+    messageHandler.
+
+    Request requets = new Request.Builder().url("http://localhost:" + port + "/user")
         .header("Authorization", getUser.getId().toString()).build();
     User newUser = null;
     try {
       ResponseBody response = client.newCall(requets).execute().body();
       newUser = mapper.readValue(response.string(), User.class);
-
-
-
+    } catch (Exception e) {
+    }
+    Assertions.assertEquals(getUser.getName(), newUser.getName());
   }
+   
+
+
+  }*/
 
   @Test
   public void testDeleteUser() {
