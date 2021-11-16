@@ -45,17 +45,6 @@ public class LoginControllerTest extends ApplicationTest {
     server.stop();
   }
 
-  public void serverRespone() {
-    server.when(HttpRequest.request().withMethod("POST")
-    // .withPath("http://localhost:8080/login")
-    // .withHeader("mail",testUser.getEmail())
-    ).respond(HttpResponse.response().withStatusCode(200).withHeader("Content-Type", "application/json")
-        .withBody("{\n" + "  \"id\": 6ab169ce-31e7-481d-bb6f-fa5dfa95a3b5,\n" + "  \"name\": \"rolf\",\n"
-            + "  \"age\": 22,\n" + "  \"email\": \"test@mail.com\"\n" + "  \"userinformation\": \"\"\n"
-            + "  \"likedUsers\": {}\n" + "  \"matches\": []\n" + "  \"imageId\": 4"));
-
-  }
-
   @Override
   public void start(Stage stage) throws Exception {
     app.start(stage);
