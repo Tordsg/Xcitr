@@ -43,7 +43,7 @@ public class SecondaryController implements Initializable {
 
   private User user = App.getUser();
 
-  private final static ImageController imageController = new ImageController();
+  private final ImageController imageController = PrimaryController.getImageController();
   @FXML
   private Group selectAvatar;
   @FXML
