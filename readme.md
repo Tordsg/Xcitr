@@ -34,11 +34,22 @@ There is also a test class for the Exciter class that tests whether the like-fun
 
 [Link to json](https://gitlab.stud.idi.ntnu.no/it1901/groups-2021/gr2117/gr2117/-/tree/master/modules-exciter/json)
 
-There is only one class within the JSON module, which is a file handler class. This class saves all the users who have created an account in Xcitr, as well as all of the information on who the user has liked on the app and how many times they have liked another user. This is necessary infromation to store so that the users can match with each other. There is also a file test class that makes sure the information is stored in the right place and format.
+There is two classes within thes JSON module, which is the FileHandler and the MessageHandler class.
+
+The former handles saving and reading user objects from file. This will include all the informations such as name, age, mail, matches, and other temporary variables that makes it possible to continue usage of the app due to server crash.
+
+MessageHandler stores all the chats between users. The class supports getting specific chats by specifing which user the chat is between.
+Where the parameters is the mail of users.
+
+```java
+public Chat getChat(String user1, String user2)
+```
 
 ### restserver
 
 [Link to restserver](https://gitlab.stud.idi.ntnu.no/it1901/groups-2021/gr2117/gr2117/-/tree/master/modules-exciter/restserver)
+
+The server is built on the Spring framework.
 
 ### ui
 
