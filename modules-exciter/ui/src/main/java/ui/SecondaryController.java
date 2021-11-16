@@ -53,59 +53,21 @@ public class SecondaryController implements Initializable {
   @FXML
   private Group save;
   @FXML
-  private Group i1;
-  @FXML
-  private Group i2;
-  @FXML
-  private Group i3;
-  @FXML
-  private Group i4;
-  @FXML
-  private Group i5;
-  @FXML
-  private Group i6;
-  @FXML
-  private Group i7;
-  @FXML
-  private Group i8;
-  @FXML
-  private Group i9;
-  @FXML
-  private Group i10;
-  @FXML
-  private Group i11;
-  @FXML
-  private Group i12;
-  @FXML
-  private Group i13;
-  @FXML
-  private Group i14;
-  @FXML
-  private Group i15;
-  @FXML
-  private Group i16;
-  @FXML
-  private Group i17;
-  @FXML
-  private Group i18;
-  @FXML
-  private Group i19;
-  @FXML
-  private Group i20;
-  @FXML
-  private Group i21;
-  @FXML
-  private Group i22;
-  @FXML
-  private Group i23;
-  @FXML
-  private Group i24;
-  @FXML
   private TextArea bio;
   @FXML
   private TextField name;
   @FXML
   private TextField age;
+  @FXML
+  private Label previewName;
+  @FXML
+  private Label previewAge;
+  @FXML
+  private Label previewEmail;
+  @FXML
+  private Text previewBio;
+  @FXML
+  private Rectangle picture;
   @FXML
   private PasswordField password;
   @FXML
@@ -182,14 +144,12 @@ public class SecondaryController implements Initializable {
   @FXML
   void updatePreview() {
     User currentUser = App.getUser();
-    Pane currentPane = createCard(currentUser);
-    if (pane.getChildren().contains(lastPane)) {
-      pane.getChildren().remove(lastPane);
-    }
-    pane.getChildren().add(currentPane);
-    currentPane.setLayoutX(70);
-    currentPane.setLayoutY(70);
-    lastPane = currentPane;
+    previewName.setText(currentUser.getName());
+    previewAge.setText(Integer.toString(currentUser.getAge()));
+    previewEmail.setText(currentUser.getEmail());
+    previewEmail.setLayoutX(107.5-previewEmail.getWidth()/2);
+    previewBio.setText(currentUser.getUserInformation());
+    picture.setFill(imageController.getImage(currentUser));
     pane.requestFocus();
   }
 
