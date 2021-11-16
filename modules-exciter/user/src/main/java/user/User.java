@@ -133,8 +133,6 @@ public class User {
     setUserInformation(userInformation);
   }
 
-
-
   public User() {
   }
 
@@ -156,6 +154,7 @@ public class User {
    *
    * @param name string for the users name
    */
+
   public void setName(String name) {
     if (name.length() < 2) {
       throw new IllegalArgumentException("Name must be at least 2 characters");
@@ -245,8 +244,8 @@ public class User {
   /**
    * This method is used to hash the password.
    *
-   * @param password string.
-   * @return MD5 hash of password.
+   * @param password string
+   * @return MD5 hash of password
    */
 
   public static String md5Hash(String password) {
@@ -279,10 +278,6 @@ public class User {
     return new HashMap<>(likedUsers);
   }
 
-  public void fireOnLike(String match) {
-    this.addUserOnMatch(match);
-  }
-
   public void addMatch(String matches) {
     this.matches.add(matches);
   }
@@ -296,13 +291,13 @@ public class User {
   }
 
   /**
-   * Adds a user to the likedUsers HashMap.
+   * Adds a user to the likedUsers HashMap or updates likecount with 1.
    *
-   * @param match The user to be added.
+   * @param match The user to be added or likecount updated
    *
    */
 
-  public void addUserOnMatch(String match) {
+  public void fireOnLike(String match) {
     if (!likedUsers.containsKey(match)) {
       likedUsers.put(match, 1);
     } else {
@@ -323,7 +318,7 @@ public class User {
   /** 
    * Resets the user match to one.
    *
-   * @param email string for teh users email 
+   * @param email string for the users email 
    */
   public void resetUserMatchToOne(String email) {
     if (likedUsers.containsKey(email)) {
@@ -334,9 +329,9 @@ public class User {
   /**
    * Checks if there is a match between two users.
    *
-   * @param user that this user will check against.
+   * @param user the user that will be check if it is a match
    *
-   * @return true if the user has liked the other user sufficient times.
+   * @return true if the user has liked the other user sufficient times
    */
 
   public boolean checkIfMatch(User user) {
