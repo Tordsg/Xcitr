@@ -45,7 +45,7 @@
       <TextField fx:id="name" layoutX="359.0" layoutY="110.0" prefHeight="35.0" prefWidth="123.0" />
       <TextField fx:id="age" layoutX="515.0" layoutY="110.0" prefHeight="35.0" prefWidth="58.0" />
       <PasswordField fx:id="password" layoutX="358.0" layoutY="179.0" prefHeight="35.0" prefWidth="214.0" />
-      <TextArea fx:id="bio" layoutX="358.0" layoutY="255.0" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="70.0" prefWidth="214.0" promptText="Write about yourself..." styleClass="text-area" wrapText="true">
+      <TextArea fx:id="bio" layoutX="358.0" layoutY="255.0" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="78.0" prefWidth="214.0" promptText="Write about yourself..." styleClass="text-area" text="sldksøjf lkjl kfjaslø dkfjsadl fkjdøalf kjdfa ldksøfj lskfj aslødfkj asdklføj asdløkfj asdølfkj ajslkødfj alksdfj asldkfj aøsldfkj asdkløfj adsølkfj " wrapText="true">
          <font>
             <Font name="Arial" size="12.0" />
          </font>
@@ -579,7 +579,7 @@
                   <Font size="30.0" />
                </font>
             </Label>
-            <Text fx:id="previewBio" layoutX="13.0" layoutY="263.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="198.0">
+            <Text fx:id="previewBio" layoutX="13.0" layoutY="261.0" strokeType="OUTSIDE" strokeWidth="0.0" text="sldksøjf lkjl kfjaslø dkfjsadl fkjdøalf kjdfa ldksøfj lskfj aslødfkj asdklføj asdløkfj asdølfkj ajslkødfj alksdfj asldkfj aøsldfkj asdkløfj adsølkfj " wrappingWidth="198.0">
                <font>
                   <Font name="Arial" size="12.0" />
                </font></Text>

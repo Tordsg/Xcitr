@@ -201,6 +201,7 @@ public class SecondaryController implements Initializable {
    */
   @Override
   public void initialize(URL location, ResourceBundle resources) {
+    pane.requestFocus();
     name.setText(user.getName());
     bio.setText(user.getUserInformation());
     age.setText(Integer.toString(user.getAge()));
@@ -213,7 +214,7 @@ public class SecondaryController implements Initializable {
         Text text = new Text(c.getControlNewText());
         text.setWrappingWidth(198);
         text.setFont(new Font("Arial",12));
-        if (text.getLayoutBounds().getHeight() > 69) {
+        if (text.getLayoutBounds().getHeight() > 64) {
           c.setText("");
         }
       }
