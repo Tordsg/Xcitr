@@ -84,7 +84,7 @@ public class MatchController implements Initializable {
   Text nameUser;
 
   private int chatId;
-  private final static ImageController imageController = new ImageController();
+  private final static ImageController imageController = PrimaryController.getImageController();
   private ClientHandler clientHandler = new ClientHandler();
   private User user = App.getUser();
   private User user1;
