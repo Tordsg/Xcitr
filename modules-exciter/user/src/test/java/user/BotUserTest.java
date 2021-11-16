@@ -4,10 +4,18 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+/**
+ * Test class for BotUser class.
+ */
+
 public class BotUserTest {
 
     private BotUser botUser;
     private BotUser botUser2;
+
+    /**
+     * Makes two botusers before each test.
+     */
 
     @BeforeEach
     public void setUp() {
