@@ -58,7 +58,7 @@ public class ServerController {
   /**
    * Create a new account.
    *
-   * @param user userobject to be create
+   * @param user userobject to be created
    * @param pass password of the user
    *
    * @return User object
@@ -151,7 +151,7 @@ public class ServerController {
   }
 
   /**
-   * Update password of the user.
+   * Update the password of the user.
    *
    * @param id       UUID of the user
    * @param password new password
@@ -171,7 +171,7 @@ public class ServerController {
   }
 
   /**
-   * illegalAccessError if client tries to do illegal request.
+   * illegalAccessError if the client tries to do illegal request.
    */
   @ExceptionHandler(IllegalAccessError.class)
   @ResponseStatus(value = org.springframework.http.HttpStatus.FORBIDDEN)
@@ -180,20 +180,20 @@ public class ServerController {
   }
 
   /**
-   * Like another user and discard another.
+   * Like one user and discard another.
    *
    * @param id    UUID of the user
    * @param users client creates a list of users
    *
    * @return new user
    * @apiNote the first user in the list is the one who is liked and the second is
-   *          the one who is discarded. This is to ensure the user is return isn't
-   *          anyone of them
+   *          the one who is discarded. This is to ensure the returned user isn't
+   *          any of them
    */
   @PostMapping(value = "/like")
   public User likeUser(@RequestHeader("Authorization") UUID id, @RequestBody List<User> users) {
     User thisUser = excite.getUserById(id);
-    if (excite.getUserByEmail(users.get(0).getEmail()) == null 
+    if (excite.getUserByEmail(users.get(0).getEmail()) == null
         || excite.getUserByEmail(users.get(1).getEmail()) == null
         || excite.getUserByEmail(thisUser.getEmail()) == null) {
       throw new IllegalArgumentException("User does not exist");
@@ -252,7 +252,7 @@ public class ServerController {
    * @param id    UUID of the user
    * @param users list of users to avoid
    *
-   * @return new user that is not in the list or the sender
+   * @return new user that is unique from the sender and the list of users
    * @apiNote this method is used to get new users without doing a like action
    */
   @PostMapping(value = "/user/new")
