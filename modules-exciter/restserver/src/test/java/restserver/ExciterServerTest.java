@@ -19,16 +19,18 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import core.Exciter;
 import json.FileHandler;
+import json.MessageHandler;
 import okhttp3.MediaType;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.RequestBody;
 import okhttp3.Response;
 import okhttp3.ResponseBody;
+import okhttp3.Request.Builder;
 import user.BotUser;
 import user.Chat;
 import user.User;
-//import json.MessageHandler;
+
 
 @ExtendWith(SpringExtension.class)
 @ContextConfiguration(classes = { ExciterApplication.class, ServerController.class })
@@ -40,7 +42,7 @@ public class ExciterServerTest {
   Exciter exciter = ExciterApplication.excite;
   FileHandler fileHandler = new FileHandler();
   User user = new User("test", 22, "test@mail.no");
-  //MessageHandler messageHandler = new MessageHandler();
+  MessageHandler messageHandler = new MessageHandler();
 
   @LocalServerPort
   int port;
@@ -395,30 +397,29 @@ public class ExciterServerTest {
 
   }
 
- /* @Test
-  public void testGetChat(){
+ @Test
+  public void testGetChat() {
     User testUser = new User("test", 22, "testnr2@mail.no");
     User messageUser = new User("message", 23, "message@mail.no");
     testUser.setId(UUID.randomUUID());
     exciter.addUsers(List.of(testUser, messageUser));
     fileHandler.saveUser(exciter.getAllUsers());
-    Chat chat = new Chat(testUser.getEmail())
-    messageHandler.
-
-    Request requets = new Request.Builder().url("http://localhost:" + port + "/user")
-        .header("Authorization", getUser.getId().toString()).build();
-    User newUser = null;
+    Chat chat = new Chat(testUser.getEmail(), messageUser.getEmail());
+    chat.sendMessage(testUser.getEmail(), "Hei, hva skjer?");
+    messageHandler.saveChat(chat);
+    Request request = new Request.Builder().url("http://localhost:" + port + "/message")
+          .header("Authorization", testUser.getId().toString()).header("mail", messageUser.getEmail())
+          .build();
+    Chat newChat = null;
     try {
-      ResponseBody response = client.newCall(requets).execute().body();
-      newUser = mapper.readValue(response.string(), User.class);
-    } catch (Exception e) {
+      ResponseBody response = client.newCall(request).execute().body();
+      newChat = mapper.readValue(response.string(), Chat.class);
+    } catch (IOException e) {
+      e.printStackTrace();
     }
-    Assertions.assertEquals(getUser.getName(), newUser.getName());
+    Assertions.assertNotNull(newChat);
+    Assertions.assertEquals(chat.getMessages(), newChat.getMessages());
   }
-   
-
-
-  }*/
 
   @Test
   public void testDeleteUser() {
