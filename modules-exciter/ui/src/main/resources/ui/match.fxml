@@ -161,7 +161,7 @@
                </effect>
                <children>
                   <Rectangle fx:id="picture" arcHeight="45.0" arcWidth="45.0" fill="DODGERBLUE" height="338.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="2.0" width="225.0" />
-                  <Pane layoutY="217.0" minWidth="-Infinity" prefHeight="121.0" prefWidth="225.0" style="-fx-background-color: rgba(255,255,255,0.4); -fx-border-radius: 0 0 21 21; -fx-border-width: 0 2 2 2; -fx-border-color: black; -fx-background-radius: 0 0 22 22;" />
+                  <Pane layoutY="217.0" minWidth="-Infinity" prefHeight="121.0" prefWidth="225.0" style="-fx-background-color: rgba(255,255,255,0.6); -fx-border-radius: 0 0 21 21; -fx-border-width: 0 2 2 2; -fx-border-color: black; -fx-background-radius: 0 0 22 22;" />
                   <Line endX="175.0" layoutY="314.0" startX="50.0" />
                   <Label fx:id="previewAge" alignment="BOTTOM_CENTER" focusTraversable="false" layoutX="165.0" layoutY="214.0" prefHeight="17.0" prefWidth="58.0" text="age">
                      <font>
