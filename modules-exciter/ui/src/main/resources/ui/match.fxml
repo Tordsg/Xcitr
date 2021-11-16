@@ -2,6 +2,7 @@
 
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.Group?>
+<?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.effect.DropShadow?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -84,7 +85,7 @@
                </children>
             </Group>
             <TextField fx:id="textInput" layoutX="10.0" layoutY="398.0" prefHeight="26.0" prefWidth="266.0" style="-fx-background-color: #e6e6e6e6;" />
-            <AnchorPane fx:id="profilePane" maxHeight="-Infinity" minHeight="-Infinity" prefHeight="62.0" prefWidth="320.0" style="-fx-background-color: white;">
+            <AnchorPane fx:id="profilePane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="62.0" prefWidth="320.0" style="-fx-background-color: white;">
                <children>
                   <HBox alignment="CENTER_LEFT" layoutX="-1.0" layoutY="7.0" spacing="15.0">
                      <children>
@@ -110,6 +111,40 @@
                         <Insets left="10.0" />
                      </padding>
                   </HBox>
+                  <Pane fx:id="cardPane" layoutX="400.0" layoutY="70.0" prefHeight="338.0" prefWidth="245.0">
+                     <effect>
+                        <DropShadow offsetX="2.0" offsetY="2.0">
+                           <color>
+                              <Color opacity="0.5" />
+                           </color>
+                        </DropShadow>
+                     </effect>
+                     <children>
+                        <Rectangle fx:id="picture" arcHeight="45.0" arcWidth="45.0" fill="DODGERBLUE" height="338.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="2.0" width="225.0" />
+                        <Pane layoutY="217.0" minWidth="-Infinity" prefHeight="121.0" prefWidth="225.0" style="-fx-background-color: rgba(255,255,255,0.4); -fx-border-radius: 0 0 21 21; -fx-border-width: 0 2 2 2; -fx-border-color: black; -fx-background-radius: 0 0 22 22;" />
+                        <Line endX="175.0" layoutY="314.0" startX="50.0" />
+                        <Label fx:id="previewAge" alignment="BOTTOM_CENTER" focusTraversable="false" layoutX="165.0" layoutY="214.0" prefHeight="17.0" prefWidth="58.0" text="age">
+                           <font>
+                              <Font size="30.0" />
+                           </font>
+                        </Label>
+                        <Text fx:id="previewBio" layoutX="6.0" layoutY="263.0" strokeType="OUTSIDE" strokeWidth="0.0" text="bio" wrappingWidth="214.0">
+                           <font>
+                              <Font size="12.0" />
+                           </font>
+                        </Text>
+                        <Label fx:id="previewEmail" alignment="CENTER" focusTraversable="false" layoutX="100.0" layoutY="317.0" text="email">
+                           <font>
+                              <Font size="12.0" />
+                           </font>
+                        </Label>
+                        <Label fx:id="previewName" alignment="BOTTOM_LEFT" focusTraversable="false" layoutX="5.0" layoutY="214.0" prefHeight="17.0" prefWidth="160.0" text="name">
+                           <font>
+                              <Font size="30.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </Pane>
                </children>
                <effect>
                   <DropShadow offsetY="5.0" radius="4.75" width="0.0">
