@@ -107,12 +107,8 @@ public class SignUpController {
    */
 
   private boolean isNumeric(String str) {
-    try {
-      Integer.parseInt(str);
-      return true;
-    } catch (NumberFormatException e) {
-      return false;
-    }
+    String pattern = "^[0-9]*$";
+    return str.matches(pattern);
   }
 
   /**
