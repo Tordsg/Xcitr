@@ -9,18 +9,18 @@ import java.util.List;
 public class BotUser extends User {
   private boolean likeBack;
   private List<String> replies = List.of(
-      "Heisann",
-      "Hei",
-      "Hva skjer?",
-      "Hmm, er egentlig opptatt....",
-      "Tar du med kikkert så vi kan se på damer? ;P",
-      "Wow det å matche med deg gjorde dagen min!",
-      "Gjorde det vondt når du falt ned fra himmelen",
-      "Jeg har ost og vin, hva med fredag?",
-      "Du, meg, rumba med gunn?",
-      "Der intet er, er selv keiserens krav forgjeves",
-      "Melk?",
-      "Er du et jordskjelv? For du ristet verden min"
+      "Hello",
+      "Heyyy cutie",
+      "Whats up?",
+      "Hmm, I´m kinda busy rn....",
+      "Can you bring some binoculars so we can look at people? ;P",
+      "Wow matching with you made my day!",
+      "Did it hurt when you fell from heaven?",
+      "I have red wine and cheese, are free friday?",
+      "Wanna go dancing?",
+      "What a lovely day to be alive",
+      "Paint and sip?",
+      "Woah is that an earthquake? or did you just rock my world?"
   );
 
   /**
