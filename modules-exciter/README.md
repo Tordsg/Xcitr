@@ -15,3 +15,36 @@ Because the users have to like a person over someone else three times it adds so
 The application has been developed based on 9 different userstories, that are outlined and summerized in [userstories.md](https://gitlab.stud.idi.ntnu.no/it1901/groups-2021/gr2117/gr2117/-/tree/master/userstories.md). The requirements set by the users for the user interface and functionality are outlined in the app illustration below:
 
 ## Illustration of how to use Xcitr
+
+1. First step to start using the Xcitr application is to create a user. To do this you must sign up with a name, your age, an email address, and a password. If you already have an account, you can begin by logging in with your email and password.
+![signup](/uploads/87cb0b24f8852802b9fb91e145469260/signup.png) ![login](/uploads/7822dd7e2a51b28a5dd9db676bafdba0/login.png)
+
+2. After you have signed up or logged in the first page that appears is the swiping-page. Here you will be presented with two people through their “profile cards”. You can only choose to like one of these two people and must swipe the person you like the least upwards. T
+![swipe_opp](/uploads/b46a3696a85a5f372b1e039b1172d63e/swipe_opp.png)
+
+3. If you don´t like any of them you can press the refresh button, in the bottom right corner, and two new people appear.
+![refresh](/uploads/316acd065ce179461b01bdecd288a979/refresh.png)
+
+4. When you have “discarded” the person you were the least interested in a new card will appear alongside the profile card of the person you liked the most in the previous comparison. And you´ll see how many times out of three in a row you´ve chosen to keep this person on the page.
+![nytt_kort_likecount](/uploads/5ae66b3bd9aa1479a926a0c366cbcce3/nytt_kort_likecount.png)
+
+5. When you get a match, a red notification icon will appear on the blue Xcitr logo on the right side of the swiping-page.
+![notification](/uploads/765d031d49de6fec20cbb817ebfb0539/notification.png)
+
+6. When you press this button, you will be led to the match-page. Here you will find an overview of all of you matches. You can press their icon and start a conversation with them in the chat.
+![match_oversikt](/uploads/48205c357a24fb678953ef0178af8f46/match_oversikt.png)
+
+7. In the chat window it´s also possible to click on their avatar to view their full profile.
+![match_profil](/uploads/bafef3ae229b069d684e8878aa5f9764/match_profil.png)
+
+8. To go back to the swiping-page you press the left pointing arrow in the top left corner on the match page.
+![gå_swiping](/uploads/548e2b32f5db287f9e176ceeaca0657a/gå_swiping.png)
+
+9. To view and edit your profile you press the top right icon with your chosen avatar, or default profile silhouette if you haven´t chosen one yet.
+![gå_profil](/uploads/a0b0bad6fa510762ca618072e3da9893/gå_profil.png)
+
+10. On the profile page you can edit your name, age, biographical information and change your password.
+![loggut_gå_tilbake](/uploads/03b41c6c4ba6c06d322bed02ed999818/loggut_gå_tilbake.png)
+
+11. Because the application focuses on meaningful connections it does not operate with personal pictures of the users, instead one can choose an avatar to operate with on the app.
+![velge_avatar](/uploads/5a2de4f22bd77c61edc237b770514bde/velge_avatar.png)
