@@ -142,7 +142,7 @@ public class SecondaryController implements Initializable {
     previewName.setText(currentUser.getName());
     previewAge.setText(Integer.toString(currentUser.getAge()));
     previewEmail.setText(currentUser.getEmail());
-    previewEmail.setLayoutX(112.5-previewEmail.getWidth()/2);
+    previewEmail.setLayoutX(112.5 - previewEmail.getWidth() / 2);
     previewBio.setText(currentUser.getUserInformation());
     picture.setFill(imageController.getImage(currentUser));
     pane.requestFocus();
@@ -203,7 +203,7 @@ public class SecondaryController implements Initializable {
       if (c.isContentChange()) {
         Text text = new Text(c.getControlNewText());
         text.setWrappingWidth(198);
-        text.setFont(new Font("Arial",12));
+        text.setFont(new Font("Arial", 12));
         if (text.getLayoutBounds().getHeight() > 64) {
           c.setText("");
         }
@@ -219,9 +219,9 @@ public class SecondaryController implements Initializable {
       pane.requestFocus();
     });
     previewEmail.widthProperty().addListener((observable, oldValue, newValue) -> {
-      previewEmail.setLayoutX(112.5-previewEmail.getWidth()/2);
+      previewEmail.setLayoutX(112.5 - previewEmail.getWidth() / 2);
     });
-    Platform.runLater( () -> pane.requestFocus() );
+    Platform.runLater(() -> pane.requestFocus());
     updatePreview();
 
   }

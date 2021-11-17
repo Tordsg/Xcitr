@@ -73,7 +73,7 @@ public class PrimaryController implements Initializable {
   private User leftUser;
   private User rightUser;
   // Static since it's shared by the SecondaryController
-  private final static ImageController imageController = new ImageController();
+  private static final ImageController imageController = new ImageController();
 
   /**
    * Switching to the profile page from the matching page.
@@ -223,10 +223,10 @@ public class PrimaryController implements Initializable {
 
   public void cardLiked(Pane likedcard, Pane discardedcard) {
     TranslateTransition ttScore = new TranslateTransition(Duration
-        .millis(Math.abs(-likedcard.getLayoutX() - 300)),
+        .millis(Math.abs(- likedcard.getLayoutX() - 300)),
         scorePane);
     ttScore.setFromX(0);
-    ttScore.setToX(-likedcard.getLayoutX() - 300);
+    ttScore.setToX(- likedcard.getLayoutX() - 300);
     ttScore.setCycleCount(1);
     ttScore.setAutoReverse(true);
     TranslateTransition tt = translateCardY(likedcard, 400, 0, false);
@@ -457,7 +457,7 @@ public class PrimaryController implements Initializable {
         }
         dragged = false;
       }
-    } );
+    });
   }
 
   public List<User> getOnScreenUsers() {
