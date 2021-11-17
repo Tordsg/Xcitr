@@ -1,0 +1,25 @@
+class FileHandler{
+    String url
+    -JSONParser ParticipantStereotypeFontColor
+    +void saveUser(List<User>)
+    +void createFile()
+    +List<User> readUsers()
+    +List<String> parseJsonList(JSONArray)
+    +Map<String, Integer> parseJsonMap(JSONObject)
+    +User getUser(String)
+    +User getUserById(UUID)
+    +Map<String, Integer> getLikedUsers(UUID)
+
+}
+
+class MessageHandler{
+    String url
+    -JSONParser parser
+    +void createFile()
+    +void saveChat(Chat)
+    +List<Chat> getChats()
+    -List<Map<String, String>> getMessages(JSONObject)
+    -void removeFromChat(String, String, List<Chat>)
+    +Chat getChat(String, String)
+}
+

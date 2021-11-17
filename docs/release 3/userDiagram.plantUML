@@ -1,0 +1,37 @@
+@startuml userDiagram
+class User{
+    -UUID id
+    -String name
+    -int age
+    -String userInformation
+    -String email
+    -Map<String, Integer> likedUser
+    -List<String> matches
+    -String password
+    -int imageId
+    +boolean containsPreviousMatch(String)
+    +void fireOnLike(String)
+    +void resetUserMatch(String)
+    +void resetUserMatchToOne(String)
+    +void checkIfMatch(User)
+    +boolean haveLikedUser(String)
+}
+
+class BotUser{
+    -boolean likeBack
+    -List<String> replies
+    + String reply()
+
+}
+
+class Chat{
+    -String user1
+    -String user2
+    -List<Map<String, String>> messages
+    +void sendMessage(String, String)
+
+}
+BotUser --|> User
+Chat--> User
+
+@enduml
