@@ -34,8 +34,7 @@ public class BotUser extends User {
    */
 
   public BotUser(String name, int age, String email, boolean likeback, int imageId) {
-    super(name, age, email);
-    this.likeBack = likeback;
+    this(name, age, email, likeback);
     super.setImageId(imageId);
   }
 
@@ -64,10 +63,10 @@ public class BotUser extends User {
    * @param imageId int for the image id that the bot user uses
    */
 
-  public BotUser(String name, int age, String userInformation, String email, boolean likeback, int imageId) {
-    super(name, age, userInformation, email);
-    this.likeBack = likeback;
-    super.setImageId(imageId);
+  public BotUser(String name, int age, String userInformation, 
+      String email, boolean likeback, int imageId) {
+    this(name, age, email, likeback, imageId);
+    this.setUserInformation(userInformation);
   }
 
   @Override

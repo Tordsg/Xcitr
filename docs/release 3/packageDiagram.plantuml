@@ -1,4 +1,4 @@
-@startuml 
+@startuml packageDiagram
 
 component core{
     package exciter.core
@@ -9,9 +9,7 @@ component ui{
 }
 
 component json{
-    package json.jsimple
-    package exciter.core
-    package exciter.user
+    package exciter.json
     
 }
 
@@ -21,14 +19,16 @@ component javafx{
 }
 
 component restserver{
-    package exciter.core
-    package exciter.json
-    package exciter.user
+    package exciter.restserver
 
 }
 
 component user {
     package jackson
+    package exciter.user
+
+}
+component json.simple{
 
 }
 
@@ -45,17 +45,21 @@ exciter.springboot.restserver ..> exciter.json
 component "spring boot" as springboot {
 }
 
-springboot.restserver ..> springboot
+component okHTTP {
 
+}
+exciter.restserver ..> okHTTP
+springboot.restserver ..> springboot
+exciter.restserver ..> exciter.json
+exciter.restserver ..>exciter.core
 exciter.ui ..> exciter.core
-exciter.ui ..> json.jsimple
 exciter.ui ..> javafx.controls
 exciter.ui ..> javafx.fxml
 exciter.ui ..> exciter.user
 
 
-json.jsimple ..> exciter.core
 exciter.ui ..> jackson
+exciter.json ..> json.simple
 
 
 

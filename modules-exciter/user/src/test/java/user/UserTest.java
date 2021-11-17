@@ -8,10 +8,18 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+/**
+ * Test class for User class.
+ */
+
 public class UserTest {
 
     private User user;
     private BotUser botUser;
+
+    /**
+     * Sets up one user and one botuser before each test.
+     */
 
     @BeforeEach
     public void setUp() {

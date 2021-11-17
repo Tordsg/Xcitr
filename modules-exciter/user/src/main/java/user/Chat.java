@@ -17,7 +17,7 @@ public class Chat {
   private List<Map<String, String>> messages = new ArrayList<>();
 
   /**
-   * Constructor.
+   * Constructor for Chat class.
    *
    * @param string1 user1
    * @param string2 user2
@@ -25,13 +25,12 @@ public class Chat {
    */
 
   public Chat(String string1, String string2, List<Map<String, String>> messages) {
-    this.user1 = string1;
-    this.user2 = string2;
+    this(string1, string2);
     this.messages = messages;
   }
 
   /**
-   * Constructor.
+   * Constructor for Chat Class.
    *
    * @param user1 who sends messages on the chat
    * @param user2 who sends messages in the chats back

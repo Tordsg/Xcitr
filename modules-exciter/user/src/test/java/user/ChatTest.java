@@ -8,13 +8,19 @@ import java.util.Map;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-
+/**
+ * Test class for Chat class.
+ */
 
 public class ChatTest {
 
     User user1 = new User("user", 22, "user@mail.no");
     User user2 = new User("userTo", 22, "user2@mail.no");
     Chat chat = new Chat(user1.getEmail(), user2.getEmail());
+
+    /**
+     * Sets up two users and one chat before each test.
+     */
 
     @BeforeEach
     public void setUp() {

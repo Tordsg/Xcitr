@@ -26,7 +26,21 @@ public class User {
   private List<String> matches = new ArrayList<>();
   @JsonIgnore
   private String password = null;
-  private int imageId = 0;
+  private int imageId = 0;  
+  
+  /**
+   * Constructor for User class.
+   *
+   * @param name string of users name
+   * @param age int of users age
+   * @param email string of users email
+   */
+
+  public User(String name, int age, String email) {
+    setName(name);
+    setAge(age);
+    setEmail(email);
+  }
 
   /**
    * Constructor for User class.
@@ -43,16 +57,10 @@ public class User {
    * @apiNote This constructor is to only be used by the filehandler class.
    */
 
-  public User(UUID id, String name, int age, String userInformation, List<String> matches, String email,
+  public User(UUID id, String name, int age, 
+      String userInformation, List<String> matches, String email,
       String password, Map<String, Integer> likedUsers, int imageId) {
-    this.userInformation = userInformation;
-    this.matches = matches;
-    setId(id);
-    setName(name);
-    setEmail(email);
-    this.password = password;
-    setAge(age);
-    this.likedUsers = likedUsers;
+    this(id, name, age, userInformation, matches, email, password, likedUsers);
     this.imageId = imageId;
   }
 
@@ -70,15 +78,11 @@ public class User {
    * @apiNote This constructor is to only be used by the filehandler class.
    */
 
-  public User(UUID id, String name, int age, String userInformation, List<String> matches, String email,
+  public User(UUID id, String name, int age, 
+      String userInformation, List<String> matches, String email,
       String password, Map<String, Integer> likedUsers) {
-    this.userInformation = userInformation;
-    this.matches = matches;
+    this(name, age, userInformation, matches, email, password);
     setId(id);
-    setName(name);
-    setEmail(email);
-    this.password = password;
-    setAge(age);
     this.likedUsers = likedUsers;
   }
 
@@ -94,13 +98,10 @@ public class User {
    * @apiNote This constructor is to only be used by the filehandler class.
    */
 
-  public User(String name, int age, String userInformation, List<String> matches, String email, String password) {
-    this.userInformation = userInformation;
-    this.matches = matches;
-    setName(name);
-    setEmail(email);
+  public User(String name, int age, String userInformation, 
+      List<String> matches, String email, String password) {
+    this(name, age, userInformation, matches, email);
     this.password = password;
-    setAge(age);
   }
 
   /**
@@ -114,11 +115,8 @@ public class User {
    */
 
   public User(String name, int age, String userInformation, List<String> matches, String email) {
-    this.userInformation = userInformation;
+    this(name, age, userInformation, email);
     this.matches = matches;
-    setName(name);
-    setEmail(email);
-    setAge(age);
   }
 
   /**
@@ -131,23 +129,8 @@ public class User {
    */
 
   public User(String name, int age, String userInformation, String email) {
-    this.userInformation = userInformation;
-    setName(name);
-    setEmail(email);
-    setAge(age);
-  }
-
-  /**
-   * Constructor for User class.
-   *
-   * @param name string of users name
-   * @param age int of users age
-   * @param email string of users email
-   */
-  public User(String name, int age, String email) {
-    setName(name);
-    setAge(age);
-    setEmail(email);
+    this(name, age, email);
+    setUserInformation(userInformation);
   }
 
   public User() {
@@ -171,6 +154,7 @@ public class User {
    *
    * @param name string for the users name
    */
+
   public void setName(String name) {
     if (name.length() < 2) {
       throw new IllegalArgumentException("Name must be at least 2 characters");
@@ -216,7 +200,8 @@ public class User {
    * @return true if email is valid
    */
   private boolean emailValidator(String email) {
-    String emailRegex = "^[a-zA-Z0-9_+&*-]+(?:\\." + "[a-zA-Z0-9_+&*-]+)*@" + "(?:[a-zA-Z0-9-]+\\.)+[a-z"
+    String emailRegex = "^[a-zA-Z0-9_+&*-]+(?:\\." 
+        + "[a-zA-Z0-9_+&*-]+)*@" + "(?:[a-zA-Z0-9-]+\\.)+[a-z"
         + "A-Z]{2,7}$";
 
     java.util.regex.Pattern pat = java.util.regex.Pattern.compile(emailRegex);
@@ -259,8 +244,8 @@ public class User {
   /**
    * This method is used to hash the password.
    *
-   * @param password string.
-   * @return MD5 hash of password.
+   * @param password string
+   * @return MD5 hash of password
    */
 
   public static String md5Hash(String password) {
@@ -293,10 +278,6 @@ public class User {
     return new HashMap<>(likedUsers);
   }
 
-  public void fireOnLike(String match) {
-    this.addUserOnMatch(match);
-  }
-
   public void addMatch(String matches) {
     this.matches.add(matches);
   }
@@ -310,13 +291,13 @@ public class User {
   }
 
   /**
-   * Adds a user to the likedUsers HashMap.
+   * Adds a user to the likedUsers HashMap or updates likecount with 1.
    *
-   * @param match The user to be added.
+   * @param match The user to be added or likecount updated
    *
    */
 
-  public void addUserOnMatch(String match) {
+  public void fireOnLike(String match) {
     if (!likedUsers.containsKey(match)) {
       likedUsers.put(match, 1);
     } else {
@@ -337,7 +318,7 @@ public class User {
   /** 
    * Resets the user match to one.
    *
-   * @param email string for teh users email 
+   * @param email string for the users email 
    */
   public void resetUserMatchToOne(String email) {
     if (likedUsers.containsKey(email)) {
@@ -348,13 +329,14 @@ public class User {
   /**
    * Checks if there is a match between two users.
    *
-   * @param user that this user will check against.
+   * @param user the user that will be check if it is a match
    *
-   * @return true if the user has liked the other user sufficient times.
+   * @return true if the user has liked the other user sufficient times
    */
 
   public boolean checkIfMatch(User user) {
-    if (haveLikedUser(user.getEmail()) && user.haveLikedUser(this.getEmail()) && !matches.contains(user.getEmail())) {
+    if (haveLikedUser(user.getEmail()) 
+        && user.haveLikedUser(this.getEmail()) && !matches.contains(user.getEmail())) {
       matches.add(user.getEmail());
       user.matches.add(this.getEmail());
     }
