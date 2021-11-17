@@ -35,12 +35,6 @@ component json.simple{
 component jackson {
 }
 
-component "springboot/restserver" as springboot.restserver {
-	package exciter.springboot.restserver
-}
-
-exciter.springboot.restserver ..> exciter.core
-exciter.springboot.restserver ..> exciter.json
 
 component "spring boot" as springboot {
 }
@@ -48,18 +42,27 @@ component "spring boot" as springboot {
 component okHTTP {
 
 }
-exciter.restserver ..> okHTTP
-springboot.restserver ..> springboot
-exciter.restserver ..> exciter.json
+
+
+exciter.restserver ..> exciter.ui
+exciter.ui ..> exciter.restserver
 exciter.restserver ..>exciter.core
-exciter.ui ..> javafx.controls
-exciter.ui ..> javafx.fxml
-exciter.ui ..> exciter.user
-exciter.core ..>exciter.user
-exciter.json ..> exciter.ui
+exciter.restserver ..> springboot
 
 
 exciter.ui ..> jackson
+exciter.restserver ..> jackson
+
+
+exciter.ui ..> javafx.controls
+javafx.controls ..> javafx.fxml
+exciter.ui ..> okHTTP
+exciter.ui ..> exciter.user
+exciter.core ..>exciter.user
+exciter.json ..> exciter.user
+exciter.restserver ..> exciter.json
+
+
 exciter.json ..> json.simple
 
 
