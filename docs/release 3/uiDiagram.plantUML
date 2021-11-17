@@ -1,8 +1,5 @@
 @startuml uiDiagram
 
-class App{
-}
-
 class ClientHandler{
     OkHttpClient client
     ObjectMappper mapper
@@ -104,11 +101,18 @@ class MatchController{
     +VBox getMatchBox()
     +VBox gettextBox()
 }
-
 LoginController --> ClientHandler
 SignUpController --> ClientHandler
 PrimaryController --> ClientHandler
 SecondaryController --> ClientHandler
 MatchController --> ClientHandler
+
+
+LoginController --> PrimaryController
+SignUpController --> PrimaryController
+PrimaryController <--> SecondaryController
+PrimaryController <--> MatchController
+SecondaryController --> LoginController
+
 
 @enduml
