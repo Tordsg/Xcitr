@@ -78,7 +78,7 @@ public class SecondaryControllerTest extends ApplicationTest {
 
   @ParameterizedTest
   @MethodSource
-  public void testController(boolean excpected) {
+  public void testController(boolean excpected) throws JsonProcessingException {
     checkResult(excpected);
 
   }
@@ -87,7 +87,7 @@ public class SecondaryControllerTest extends ApplicationTest {
     return Stream.of(Arguments.of(true));
   }
 
-  private void checkResult(boolean excpected) {
+  private void checkResult(boolean excpected) throws JsonProcessingException {
 
     TextArea textField = lookup("#bio").query();
     textField.clear();
@@ -103,19 +103,24 @@ public class SecondaryControllerTest extends ApplicationTest {
 
 
     String sendString = null;
-      try {
-        sendString = mapper.writeValueAsString(testUser);
-      } catch (JsonProcessingException e) {
-        e.printStackTrace();
-      }
-      server.when(HttpRequest.request().withMethod("POST")
-      .withPath("/user/update")
-      .withHeader("Authorization",testUser.getId().toString())
-      ).respond(HttpResponse.response().withStatusCode(200)
-          .withHeader("Content-Type", "application/json").withBody(sendString));
+    sendString = mapper.writeValueAsString(testUser);
 
-      server.when(HttpRequest.request().withMethod("GET")).respond(HttpResponse.response().withStatusCode(200)
-      .withHeader("Content-Type", "application/json").withBody(sendString));
+    server.when(HttpRequest
+          .request().withMethod("POST")
+          .withPath("/user/update")
+          .withHeader("Authorization",testUser.getId().toString()))
+        .respond(HttpResponse.response().withStatusCode(200)
+          .withHeader("Content-Type", "application/json")
+          .withBody(sendString));
+
+    server.when(HttpRequest
+          .request()
+          .withMethod("GET"))
+        .respond(HttpResponse
+          .response()
+          .withStatusCode(200)
+          .withHeader("Content-Type", "application/json")
+          .withBody(sendString));
 
     clickOn("#save");
     Assertions.assertEquals("guitar player", App.getUser().getUserInformation());

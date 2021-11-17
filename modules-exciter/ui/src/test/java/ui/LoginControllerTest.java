@@ -60,7 +60,7 @@ public class LoginControllerTest extends ApplicationTest {
 
   @ParameterizedTest
   @MethodSource
-  public void testController(boolean excpected) {
+  public void testController(boolean excpected) throws JsonProcessingException {
     checkResult(excpected);
 
   }
@@ -71,7 +71,7 @@ public class LoginControllerTest extends ApplicationTest {
 
   @ParameterizedTest
   @MethodSource
-  public void testControllerFail(boolean excpected) {
+  public void testControllerFail(boolean excpected) throws JsonProcessingException {
   checkResult(excpected);
 
   }
@@ -80,7 +80,7 @@ public class LoginControllerTest extends ApplicationTest {
   return Stream.of(Arguments.of(false));
   }
 
-  private void checkResult(boolean excpected) {
+  private void checkResult(boolean excpected) throws JsonProcessingException {
     if (excpected) {
       TextField email = lookup("#emailLogin").query();
       clickOn(email);
@@ -92,10 +92,9 @@ public class LoginControllerTest extends ApplicationTest {
       String sendString = null;
 
 
-      try {
-        sendString = mapper.writeValueAsString(testUser);
-      } catch (JsonProcessingException e) {
-      }
+
+      sendString = mapper.writeValueAsString(testUser);
+
       server.when(HttpRequest.request().withMethod("POST")
       .withPath("/login")
       .withHeader("mail",testUser.getEmail())
@@ -103,11 +102,9 @@ public class LoginControllerTest extends ApplicationTest {
           .withHeader("Content-Type", "application/json").withBody(sendString));
           BotUser botUser = new BotUser("name", 22, "bot@mail.com", true);
           BotUser botUser2 = new BotUser("name", 22, "bot2@mail.com", true);
-          try {
-        sendString = mapper.writeValueAsString(List.of(botUser, botUser2));
-      } catch (JsonProcessingException e) {
-        e.printStackTrace();
-      }
+
+      sendString = mapper.writeValueAsString(List.of(botUser, botUser2));
+
       server.when(HttpRequest.request().withMethod("GET")).respond(HttpResponse.response().withStatusCode(200)
       .withHeader("Content-Type", "application/json").withBody(sendString));
 
