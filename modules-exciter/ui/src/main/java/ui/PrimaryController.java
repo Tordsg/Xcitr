@@ -223,10 +223,10 @@ public class PrimaryController implements Initializable {
 
   public void cardLiked(Pane likedcard, Pane discardedcard) {
     TranslateTransition ttScore = new TranslateTransition(Duration
-        .millis(Math.abs(-likedcard.getLayoutX() - 300)),
+        .millis(Math.abs(- likedcard.getLayoutX() - 300)),
         scorePane);
     ttScore.setFromX(0);
-    ttScore.setToX(-likedcard.getLayoutX() - 300);
+    ttScore.setToX(- likedcard.getLayoutX() - 300);
     ttScore.setCycleCount(1);
     ttScore.setAutoReverse(true);
     TranslateTransition tt = translateCardY(likedcard, 400, 0, false);

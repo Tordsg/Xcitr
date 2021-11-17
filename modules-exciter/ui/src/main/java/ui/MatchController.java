@@ -16,6 +16,7 @@ import javafx.animation.TranslateTransition;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.geometry.Bounds;
 import javafx.geometry.Pos;
 import javafx.scene.Group;
 import javafx.scene.Node;
@@ -25,6 +26,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.effect.DropShadow;
 import javafx.scene.effect.Lighting;
+import javafx.scene.image.Image;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
@@ -84,7 +86,7 @@ public class MatchController implements Initializable {
   Text nameUser;
 
   private int chatId;
-  private final static ImageController imageController = new ImageController();
+  private static final ImageController imageController = PrimaryController.getImageController();
   private ClientHandler clientHandler = new ClientHandler();
   private User user = App.getUser();
   private User user1;
@@ -120,8 +122,7 @@ public class MatchController implements Initializable {
     try {
       matches = clientHandler.getMatches(user);
     } catch (IOException e) {
-      Label label = new Label();
-      label.setText(e.getMessage());
+      Label label = new Label(e.getMessage());
       label.setFont(new Font(20));
       label.setAlignment(Pos.CENTER);
       label.setLayoutX(48);
@@ -145,8 +146,7 @@ public class MatchController implements Initializable {
       }
     }
     if (matchBox.getChildren().size() == 0) {
-      Label label = new Label();
-      label.setText("You have not matches, yet.");
+      Label label = new Label("You have not matches, yet.");
       label.setFont(new Font(20));
       label.setAlignment(Pos.CENTER);
       label.setLayoutX(48);
@@ -219,8 +219,7 @@ public class MatchController implements Initializable {
     try {
       clientHandler.sendMessage(user, matches.get(chatId), textInput.getText());
     } catch (IOException e) {
-      Label label = new Label();
-      label.setText(e.getMessage());
+      Label label = new Label(e.getMessage());
       label.setFont(new Font(20));
       label.setAlignment(Pos.CENTER);
       label.setLayoutX(48);
@@ -243,17 +242,15 @@ public class MatchController implements Initializable {
 
   private HBox createMessage(String string, Boolean isCurrentUser) {
     Group group = new Group();
-    Rectangle rectangle = new Rectangle();
-    Text text = new Text();
-    group.getChildren().add(rectangle);
+    Text text = new Text(string);
     group.getChildren().add(text);
-    rectangle.setFill(Color.rgb(220, 220, 220));
-    text.setText(string);
     if (text.getLayoutBounds().getWidth() > 150) {
       text.setWrappingWidth(150);
     }
-    rectangle.setWidth(text.getLayoutBounds().getWidth() + 20);
-    rectangle.setHeight(text.getLayoutBounds().getHeight() + 20);
+    Bounds b = text.getLayoutBounds();
+    Color c = Color.rgb(220, 220, 220);
+    Rectangle rectangle = new Rectangle(b.getWidth() + 20, b.getHeight() + 20, c);
+    group.getChildren().add(rectangle);
     height = text.getLayoutBounds().getHeight() + 35;
     if (rectangle.getHeight() < 45) {
       rectangle.setArcHeight(25);
@@ -384,38 +381,24 @@ public class MatchController implements Initializable {
   protected static Group createMatchCard(User user) {
     Group group = new Group();
     group.setTranslateX(-5);
-    Rectangle rectangle = new Rectangle();
-    Circle circle = new Circle();
-    Text text = new Text();
-    Label label = new Label();
+    Rectangle rectangle = new Rectangle(296, 70, Color.WHITE);
+    Image image = imageController.getImage(user).getImage();
+    ImagePattern ip = new ImagePattern(image, 0, 0, 1, 1.4, true);
+    Circle circle = new Circle(24, ip);
+    Text text = new Text(user.getName());
     group.getChildren().add(rectangle);
     group.getChildren().add(circle);
     group.getChildren().add(text);
-    group.getChildren().add(label);
-    rectangle.setWidth(296);
-    rectangle.setHeight(70);
     rectangle.setArcHeight(70);
     rectangle.setArcWidth(70);
     rectangle.setStroke(Color.GREY);
     rectangle.setStrokeWidth(0);
-    rectangle.setFill(javafx.scene.paint.Color.WHITE);
-    DropShadow dropShadow = new DropShadow();
-    dropShadow.setOffsetX(5);
-    dropShadow.setOffsetY(5);
-    dropShadow.setColor(Color.rgb(0, 0, 0, 0.5));
-    circle.setEffect(dropShadow);
-    circle.setRadius(24);
+    circle.setEffect(new DropShadow(10, 5, 5, Color.rgb(0, 0, 0, 0.5)));
     circle.setLayoutX(38);
     circle.setLayoutY(34);
-    circle.setFill(new ImagePattern(imageController.getImage(user).getImage(), 0, 0, 1, 1.4, true));
     text.setLayoutX(73);
     text.setLayoutY(32);
-    text.setText(user.getName());
     text.setFont(Font.font("System", 19));
-    label.setLayoutX(73);
-    label.setLayoutY(43);
-    label.setPrefWidth(200);
-    label.setMaxWidth(label.getPrefWidth());
     return group;
   }
 
@@ -437,27 +420,23 @@ public class MatchController implements Initializable {
   public void animateProfile() {
     chatPic.setDisable(true);
     if (profilePane.getPrefHeight() != 430) {
-      KeyValue kv = new KeyValue(profilePane.prefHeightProperty(), 430, Interpolator.EASE_BOTH);
       TranslateTransition tt = new TranslateTransition(Duration.millis(300), cardPane);
       tt.setFromX(0);
       tt.setToX(-355);
+      KeyValue kv = new KeyValue(profilePane.prefHeightProperty(), 430, Interpolator.EASE_BOTH);
       Timeline timeline = new Timeline(new KeyFrame(Duration.millis(300), kv));
-      kv = new KeyValue(profilePane.prefHeightProperty(), 430, Interpolator.EASE_BOTH);
-      timeline = new Timeline(new KeyFrame(Duration.millis(300), kv));
       SequentialTransition st = new SequentialTransition(timeline, tt);
       st.setOnFinished(e -> chatPic.setDisable(false));
       st.play();
     } else {
-      KeyValue kv = new KeyValue(profilePane.prefHeightProperty(), 62, Interpolator.EASE_BOTH);
       TranslateTransition tt = new TranslateTransition(Duration.millis(300), cardPane);
-      tt.setFromX(-355);
+      tt.setFromX(- 355);
       tt.setToX(0);
       tt.setOnFinished(e -> {
         chatPic.setDisable(false);
       });
+      KeyValue kv = new KeyValue(profilePane.prefHeightProperty(), 62, Interpolator.EASE_BOTH);
       Timeline timeline = new Timeline(new KeyFrame(Duration.millis(300), kv));
-      kv = new KeyValue(profilePane.prefHeightProperty(), 62, Interpolator.EASE_BOTH);
-      timeline = new Timeline(new KeyFrame(Duration.millis(300), kv));
       SequentialTransition st = new SequentialTransition(tt, timeline);
       st.play();
     }
@@ -469,20 +448,14 @@ public class MatchController implements Initializable {
       Chat messages = clientHandler.getChat(user, user1);
       for (Map<String, String> map : messages.getMessages()) {
         if (map.containsKey(user1.getEmail())) {
-          String string = map.get(user1.getEmail());
-          String string2 = stringFormatter(string);
-          HBox hbox = createMessage(string2, false);
-          textBox.getChildren().add(hbox);
+          String s = stringFormatter(map.get(user1.getEmail()));
+          textBox.getChildren().add(createMessage(s, false));
         } else {
-          String string = map.get(user.getEmail());
-          String string2 = stringFormatter(string);
-          HBox hbox = createMessage(string2, true);
-          textBox.getChildren().add(hbox);
+          textBox.getChildren().add(createMessage(stringFormatter(map.get(user.getEmail())), true));
         }
       }
     } catch (IOException e) {
-      Label label = new Label();
-      label.setText(e.getMessage());
+      Label label = new Label(e.getMessage());
       label.setFont(new Font(20));
       label.setAlignment(Pos.CENTER);
       label.setLayoutX(48);
