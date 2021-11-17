@@ -73,7 +73,7 @@ public class PrimaryController implements Initializable {
   private User leftUser = new User();
   private User rightUser = new User();
   // Static since it's shared by the SecondaryController
-  private final static ImageController imageController = new ImageController();
+  private static final ImageController imageController = new ImageController();
 
   /**
    * Switching to the profile page from the matching page.
@@ -92,6 +92,7 @@ public class PrimaryController implements Initializable {
       window.setScene(s);
       window.show();
     } catch (IOException e) {
+      System.err.println("Error loading profile.fxml");
     }
   }
 
@@ -113,6 +114,7 @@ public class PrimaryController implements Initializable {
       window.setScene(s);
       window.show();
     } catch (IOException e) {
+      System.err.println("Error loading match.fxml");
     }
   }
 
@@ -155,6 +157,7 @@ public class PrimaryController implements Initializable {
       try {
         rightUser = clientHandler.getUser(user, users);
       } catch (ServerException e) {
+        errorLabel.setText(e.getMessage());
       }
       cardLiked(rightCard, leftCard);
       return;
@@ -194,6 +197,7 @@ public class PrimaryController implements Initializable {
       try {
         leftUser = clientHandler.getUser(user, users);
       } catch (ServerException e) {
+        errorLabel.setText(e.getMessage());
       }
       cardLiked(leftCard, rightCard);
       return;
@@ -236,6 +240,7 @@ public class PrimaryController implements Initializable {
           notification.setVisible(true);
         }
       } catch (ServerException | ConnectException e1) {
+        errorLabel.setText(e1.getMessage());
       }
     });
     TranslateTransition ttCard = new TranslateTransition(Duration
@@ -452,7 +457,7 @@ public class PrimaryController implements Initializable {
         }
         dragged = false;
       }
-    }) ;
+    });
   }
 
   public List<User> getOnScreenUsers() {
