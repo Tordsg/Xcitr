@@ -89,11 +89,8 @@ public class LoginControllerTest extends ApplicationTest {
       TextField password = lookup("#passwordLogin").query();
       clickOn(password);
       write("test");
-      String sendString = null;
 
-
-
-      sendString = mapper.writeValueAsString(testUser);
+      String sendString = mapper.writeValueAsString(testUser);
 
       server.when(HttpRequest.request().withMethod("POST")
       .withPath("/login")

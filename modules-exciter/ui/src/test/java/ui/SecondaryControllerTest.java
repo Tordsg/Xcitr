@@ -55,24 +55,29 @@ public class SecondaryControllerTest extends ApplicationTest {
   }
 
   @BeforeEach
-  public void setUp(){
+  public void setUp() throws JsonProcessingException{
     testUser.setId(UUID.randomUUID());
     signupController.addUser(testUser, "test");
-    String sendString = null;
 
 
-    try {
-      sendString = mapper.writeValueAsString(testUser);
-    } catch (JsonProcessingException e) {
-      e.printStackTrace();
-    }
+
+    String sendString = mapper.writeValueAsString(testUser);
+
     server.when(HttpRequest.request().withMethod("POST")
-    .withPath("/login")
-    .withHeader("mail",testUser.getEmail())
-    ).respond(HttpResponse.response().withStatusCode(200)
-        .withHeader("Content-Type", "application/json").withBody(sendString));
-    server.when(HttpRequest.request().withMethod("GET")).respond(HttpResponse.response().withStatusCode(200)
-    .withHeader("Content-Type", "application/json").withBody(sendString));
+          .withPath("/login")
+          .withHeader("mail",testUser.getEmail()))
+        .respond(HttpResponse
+          .response().withStatusCode(200)
+          .withHeader("Content-Type", "application/json")
+          .withBody(sendString));
+    server.when(HttpRequest
+          .request()
+          .withMethod("GET"))
+        .respond(HttpResponse
+          .response()
+          .withStatusCode(200)
+          .withHeader("Content-Type", "application/json")
+          .withBody(sendString));
   }
 
 
@@ -99,11 +104,7 @@ public class SecondaryControllerTest extends ApplicationTest {
     clickOn("#name");
     write("Ulf Reidar");
 
-
-
-
-    String sendString = null;
-    sendString = mapper.writeValueAsString(testUser);
+    String sendString = mapper.writeValueAsString(testUser);
 
     server.when(HttpRequest
           .request().withMethod("POST")

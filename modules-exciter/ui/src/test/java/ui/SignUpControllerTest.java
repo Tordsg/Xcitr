@@ -118,9 +118,7 @@ public class SignUpControllerTest extends ApplicationTest {
 
       testUser.setId(UUID.randomUUID());
 
-      String sendString = null;
-
-      sendString = mapper.writeValueAsString(testUser);
+      String sendString = mapper.writeValueAsString(testUser);
 
       server.when(HttpRequest
             .request()
