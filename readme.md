@@ -1,7 +1,7 @@
 [![Gitpod Ready-to-Code](https://img.shields.io/badge/Gitpod-Ready--to--Code-blue?logo=gitpod)](https://amethyst-impala-87u6ryfm.ws.gitpod.stud.ntnu.no)
 
 # Group gr2117 repository
-This is the coding project called Xcitr for group 2117´s application in the course IT1901. The project is git modified and will open in gitpod if you press the gitpod label above. Note that the application takes about 5-10 minutes to start up in gitpod due to applications animations, this process is much more efficient when the application is run from a local IDE. 
+This is the coding project called Xcitr for group 2117´s application in the course IT1901. The project is git modified and will open in gitpod if you press the gitpod label above. Note that the application takes about 5-10 minutes to start up in gitpod due to the applications animations, this process is much more efficient when the application is run from a local IDE. 
 
 ## Running, Building and Testing the Project
 The project uses maven configuration, with the spring boot framework to run the application from a server. To run the application one can choose one of two options:
