@@ -17,7 +17,7 @@ The application has been developed based on 9 different userstories, that are ou
 ## Illustration of how to use Xcitr
 
 1. First step to start using the Xcitr application is to create a user. To do this you must sign up with a name, your age, an email address, and a password. If you already have an account, you can begin by logging in with your email and password.
-![[signup](/uploads/87cb0b24f8852802b9fb91e145469260/signup.png)| width = 100] ![login](/uploads/7822dd7e2a51b28a5dd9db676bafdba0/login.png)
+![signup](/uploads/87cb0b24f8852802b9fb91e145469260/signup.png) ![login](/uploads/7822dd7e2a51b28a5dd9db676bafdba0/login.png)
 
 2. After you have signed up or logged in the first page that appears is the swiping-page. Here you will be presented with two people through their “profile cards”. You can only choose to like one of these two people and must swipe the person you like the least upwards. T
 ![swipe_opp](/uploads/b46a3696a85a5f372b1e039b1172d63e/swipe_opp.png)
