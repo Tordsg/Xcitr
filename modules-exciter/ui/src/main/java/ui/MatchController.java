@@ -243,7 +243,6 @@ public class MatchController implements Initializable {
   private HBox createMessage(String string, Boolean isCurrentUser) {
     Group group = new Group();
     Text text = new Text(string);
-    group.getChildren().add(text);
     if (text.getLayoutBounds().getWidth() > 150) {
       text.setWrappingWidth(150);
     }
@@ -251,6 +250,7 @@ public class MatchController implements Initializable {
     Color c = Color.rgb(220, 220, 220);
     Rectangle rectangle = new Rectangle(b.getWidth() + 20, b.getHeight() + 20, c);
     group.getChildren().add(rectangle);
+    group.getChildren().add(text);
     height = text.getLayoutBounds().getHeight() + 35;
     if (rectangle.getHeight() < 45) {
       rectangle.setArcHeight(25);
