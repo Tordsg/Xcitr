@@ -68,7 +68,7 @@ public class FileHandler {
     // OutputStreamWriter is used to force UTF-8 encoding since fileWriter is using
     // wrong encoding on older mac models
     try (BufferedWriter fileWriter = new BufferedWriter(
-      new OutputStreamWriter(new FileOutputStream(path), StandardCharsets.UTF_8))){
+        new OutputStreamWriter(new FileOutputStream(path), StandardCharsets.UTF_8))) {
       fileWriter.write(userArray.toJSONString());
     } catch (FileNotFoundException e) {
       createFile();
