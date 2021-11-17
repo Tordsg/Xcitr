@@ -166,6 +166,7 @@ public class SecondaryController implements Initializable {
       window.setScene(s);
       window.show();
     } catch (IOException e) {
+      System.err.println("Error loading login.fxml");
     }
   }
 

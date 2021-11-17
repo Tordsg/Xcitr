@@ -416,6 +416,7 @@ public class MatchController implements Initializable {
   /**
    * Shows the matched users card when chatPic is clicked on.
    */
+
   @FXML
   public void animateProfile() {
     chatPic.setDisable(true);
