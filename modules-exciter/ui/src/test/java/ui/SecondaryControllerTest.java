@@ -30,8 +30,6 @@ import org.testfx.framework.junit5.ApplicationTest;
 
 public class SecondaryControllerTest extends ApplicationTest {
 
-  private SignUpController signupController = new SignUpController();
-
   private User testUser = new User("rolf", 22, "test@mail.com");
   private ObjectMapper mapper = new ObjectMapper();
   private static ClientAndServer server;
@@ -48,6 +46,7 @@ public class SecondaryControllerTest extends ApplicationTest {
   }
   @Override
   public void start(final Stage stage) throws Exception {
+    App.setUser(testUser);
     final FXMLLoader loader = new FXMLLoader(getClass().getResource("profile.fxml"));
     final Parent root = loader.load();
     stage.setScene(new Scene(root));
@@ -57,27 +56,6 @@ public class SecondaryControllerTest extends ApplicationTest {
   @BeforeEach
   public void setUp() throws JsonProcessingException{
     testUser.setId(UUID.randomUUID());
-    signupController.addUser(testUser, "test");
-
-
-
-    String sendString = mapper.writeValueAsString(testUser);
-
-    server.when(HttpRequest.request().withMethod("POST")
-          .withPath("/login")
-          .withHeader("mail",testUser.getEmail()))
-        .respond(HttpResponse
-          .response().withStatusCode(200)
-          .withHeader("Content-Type", "application/json")
-          .withBody(sendString));
-    server.when(HttpRequest
-          .request()
-          .withMethod("GET"))
-        .respond(HttpResponse
-          .response()
-          .withStatusCode(200)
-          .withHeader("Content-Type", "application/json")
-          .withBody(sendString));
   }
 
 
@@ -104,6 +82,8 @@ public class SecondaryControllerTest extends ApplicationTest {
     clickOn("#name");
     write("Ulf Reidar");
 
+    testUser.setName("Ulf Reidar");
+    testUser.setUserInformation("guitar player");
     String sendString = mapper.writeValueAsString(testUser);
 
     server.when(HttpRequest

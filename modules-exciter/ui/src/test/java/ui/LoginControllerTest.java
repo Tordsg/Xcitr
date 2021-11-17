@@ -19,6 +19,9 @@ import org.mockserver.model.HttpRequest;
 import org.mockserver.model.HttpResponse;
 import org.testfx.framework.junit5.ApplicationTest;
 
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.TextField;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
@@ -29,8 +32,6 @@ import user.User;
 
 public class LoginControllerTest extends ApplicationTest {
 
-  private LoginController controller = new LoginController();
-  private App app = new App();
   private User testUser = new User("rolf", 22, "test@mail.com");
   private ObjectMapper mapper = new ObjectMapper();
   private static ClientAndServer server;
@@ -47,15 +48,16 @@ public class LoginControllerTest extends ApplicationTest {
 
   @Override
   public void start(Stage stage) throws Exception {
-    app.start(stage);
+    final FXMLLoader loader = new FXMLLoader(getClass().getResource("login.fxml"));
+    final Parent root = loader.load();
+    stage.setScene(new Scene(root));
+    stage.show();
   }
 
   @BeforeEach
   public void setUp() {
-    app = new App();
     testUser.setPassword("test");
     testUser.setId(UUID.randomUUID());
-    controller.addUser("testUser", "test");
   }
 
   @ParameterizedTest
