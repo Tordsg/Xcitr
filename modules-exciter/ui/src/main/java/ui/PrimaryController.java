@@ -156,7 +156,7 @@ public class PrimaryController implements Initializable {
       users.add(rightUser);
       try {
         rightUser = clientHandler.getUser(user, users);
-      } catch (ServerException e) {
+      } catch (ServerException | ConnectException e) {
         errorLabel.setText(e.getMessage());
       }
       cardLiked(rightCard, leftCard);
@@ -196,7 +196,7 @@ public class PrimaryController implements Initializable {
       users.add(rightUser);
       try {
         leftUser = clientHandler.getUser(user, users);
-      } catch (ServerException e) {
+      } catch (ServerException | ConnectException e) {
         errorLabel.setText(e.getMessage());
       }
       cardLiked(leftCard, rightCard);
