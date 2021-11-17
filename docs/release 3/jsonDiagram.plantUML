@@ -1,3 +1,5 @@
+@startuml jsonDiagram
+
 class FileHandler{
     String url
     -JSONParser ParticipantStereotypeFontColor
@@ -22,4 +24,6 @@ class MessageHandler{
     -void removeFromChat(String, String, List<Chat>)
     +Chat getChat(String, String)
 }
+
+@enduml
 

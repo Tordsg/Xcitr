@@ -52,10 +52,11 @@ exciter.restserver ..> okHTTP
 springboot.restserver ..> springboot
 exciter.restserver ..> exciter.json
 exciter.restserver ..>exciter.core
-exciter.ui ..> exciter.core
 exciter.ui ..> javafx.controls
 exciter.ui ..> javafx.fxml
 exciter.ui ..> exciter.user
+exciter.core ..>exciter.user
+exciter.json ..> exciter.ui
 
 
 exciter.ui ..> jackson
