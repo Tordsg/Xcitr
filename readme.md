@@ -6,13 +6,13 @@ This is the coding project called Xcitr for group 2117´s application in the cou
 
 ## Running, Building and Testing the Project
 
-The project uses maven configuration, with the spring boot framework to run the application from a server. To build the project go to **modules-exciter** with `cd modules-exciter` and run 'mvn clean install'. It is also possible to run 'mvn install' instead, but 'mvn clean install' decreases the chances of getting a bug during building. To run the application one can choose one of two options:
+The project uses maven configuration, with the spring boot framework to run the application from a server. To build the project go to **modules-exciter** with `cd modules-exciter` and run `mvn clean install`. It is also possible to run 'mvn install' instead, but `mvn clean install` decreases the chances of getting a bug during building. To run the application one can choose one of two options:
 
-In the first option go from **modules-exciter**, start by going into the **restserver** module by entering 'cd restserver' and then 'cd target'. Write 'java -jar server-standalone.jar' in the terminal to start the server. Open a new terminal and go from **modules-exciter** and go into the **ui** module by entering 'cd ui' and then 'cd target' to get to the target folder. To run the application write 'java -jar Xcitr.jar' in the terminal. 
+In the first option go from **modules-exciter**, start by going into the **restserver** module by entering `cd restserver` and then `cd target`. Write `java -jar server-standalone.jar` in the terminal to start the server. Open a new terminal and go from **modules-exciter** and go into the **ui** module by entering 'cd ui' and then 'cd target' to get to the target folder. To run the application write `java -jar Xcitr.jar` in the terminal. 
 
-The second option is to go from **modules-exciter** and go to the **restserver** module by entering 'cd restserver'. In the terminal write 'mvn spring-boot:run' to start up the server. Afterwards open a new terminal and from **modules-exciter** and go to the **ui** module by entering 'cd ui' in the terminal. To start the application enter 'mvn javafx:run' in the terminal. 
+The second option is to go from **modules-exciter** and go to the **restserver** module by entering `cd restserver`. In the terminal write `mvn spring-boot:run` to start up the server. Afterwards open a new terminal and from **modules-exciter** and go to the **ui** module by entering 'cd ui' in the terminal. To start the application enter 'mvn javafx:run' in the terminal. 
 
-To run the tests go into **modules-exciter** and enter 'mvn test' into the terminal to run the tests in every module. To run the tests in only one module go into the module and run 'mvn test' here.
+To run the tests go into **modules-exciter** and enter `mvn test` into the terminal to run the tests in every module. To run the tests in only one module go into the module and run 'mvn test' here.
 
 ## Tools for code-quality
 
@@ -21,9 +21,9 @@ We configure three tools related to code quality:
 2. Spotbugs - analyzes the code for common mistakes
 3. Jacoco - collects and presents information and test-coverage
 
-All these can be run by entering 'mvn verify' in the terminal from **modules-exciter**. 
+All these can be run by entering `mvn verify` in the terminal from **modules-exciter**. 
 
-To determine the test coverage of our code, Jacoco has been implemented to test how much of the different classes and modules have been tested. After running 'mvn verify' one can view these under target for each module. The quality of the code is also checked using spotbugs and checkstyle. To only check spotbugs enter 'mvn spotbugs:spotbugs' in **modules-exciter**. To only check checkstyle enter 'mvn checkstyle::check' in the terminal from **modules-exciter** for all modules or go into the module and run 'mvn checkstyle::check' in the terminal.
+To determine the test coverage of our code, Jacoco has been implemented to test how much of the different classes and modules have been tested. After running `mvn verify` one can view these under target for each module. The quality of the code is also checked using spotbugs and checkstyle. To only check spotbugs enter `mvn spotbugs:spotbugs` in **modules-exciter**. To only check checkstyle enter `mvn checkstyle::check` in the terminal from **modules-exciter** for all modules or go into the module and run `mvn checkstyle::check` in the terminal.
 
 ## Modules-Exciter
 
