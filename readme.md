@@ -6,7 +6,7 @@ This is the coding project called Xcitr for group 2117´s application in the cou
 
 ## Running, Building and Testing the Project
 
-The project uses maven configuration, with the spring boot framework to run the application from a server. To build the project go to **modules-exciter** with 'cd modules-exciter' and run 'mvn clean install'. It is also possible to run 'mvn install' instead, but 'mvn clean install' decreases the chances of getting a bug during building. To run the application one can choose one of two options:
+The project uses maven configuration, with the spring boot framework to run the application from a server. To build the project go to **modules-exciter** with `cd modules-exciter` and run 'mvn clean install'. It is also possible to run 'mvn install' instead, but 'mvn clean install' decreases the chances of getting a bug during building. To run the application one can choose one of two options:
 
 In the first option go from **modules-exciter**, start by going into the **restserver** module by entering 'cd restserver' and then 'cd target'. Write 'java -jar server-standalone.jar' in the terminal to start the server. Open a new terminal and go from **modules-exciter** and go into the **ui** module by entering 'cd ui' and then 'cd target' to get to the target folder. To run the application write 'java -jar Xcitr.jar' in the terminal. 
 
