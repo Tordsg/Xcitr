@@ -49,4 +49,4 @@ A final goal for the release is to implement testing for all the modules includi
 
 ## Work habits, work flow and code quality
 
-
+For the third release we divided the group into two teams: one REST server team and one REST client team. Both used pair programming to a great extent as well as smaller individual tasks based on what problems arised and indivudal interests.
