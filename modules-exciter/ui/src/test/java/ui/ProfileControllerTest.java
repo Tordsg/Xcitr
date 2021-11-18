@@ -28,7 +28,7 @@ import org.testfx.framework.junit5.ApplicationTest;
 
 /*TestFx App Test*/
 
-public class SecondaryControllerTest extends ApplicationTest {
+public class ProfileControllerTest extends ApplicationTest {
 
   private User testUser = new User("rolf", 22, "test@mail.com");
   private ObjectMapper mapper = new ObjectMapper();

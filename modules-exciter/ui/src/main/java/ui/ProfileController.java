@@ -33,7 +33,7 @@ import user.User;
  * Controller for secondary.fxml.
  */
 
-public class SecondaryController implements Initializable {
+public class ProfileController implements Initializable {
 
   private ClientHandler clientHandler = new ClientHandler();
 
