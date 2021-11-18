@@ -4,7 +4,13 @@ The aim of this release is to make a minimal viable product of the Xcitr dating 
 
 ## User stories
 
-The goals for the first release are linked to three user stories: us-1, us-2 and us-3. These are more thoroughly explained in [userstories.md](https://gitlab.stud.idi.ntnu.no/it1901/groups-2021/gr2117/gr2117/-/tree/master/userstories.md), but in short they set three requirements for the release: being able to compare to people against each other, 
+The goals for the first release are linked to three user stories: us-1, us-2 and us-3. These are more thoroughly explained in [userstories.md](https://gitlab.stud.idi.ntnu.no/it1901/groups-2021/gr2117/gr2117/-/tree/master/userstories.md), but in short they set three requirements that must be met for the release:
+
+1. being able to compare to people against each other
+
+2. like someone three times in a row before they can match with that user
+
+3. have a profile page on the app
 
 ## Work plan for the release
 
@@ -24,9 +30,9 @@ The goal for the ui is to have a matching page where Ulf Reidar can be presented
 
 ## Illustration
 
-Below are three figma frames roughly describing how the applications matching page is going to look like after it is finished. 
+Below are three figma frames roughly describing how the applications matching page is going to look like after it is finished.
 
-1. First the user is presented with two profile cards, where only the profile picture, the name and the age is displayed. In the top right corner is a small profile picture of the user. If this is pressed the user will be directed to their profile where they can edit their information, pictures, preferences, etc. The Xcitr-icon in the bottom right corner can be pressed to get an overview of all the people the user has matched with. 
+1. First the user is presented with two profile cards, where only the profile picture, the name and the age is displayed. In the top right corner is a small profile picture of the user. If this is pressed the user will be directed to their profile where they can edit their information, pictures, preferences, etc. The Xcitr-icon in the bottom right corner can be pressed to get an overview of all the people the user has matched with.
 
 ![pic1](/uploads/ee0e85422ef1d66505f52fc82cdee24e/pic1.png)
 

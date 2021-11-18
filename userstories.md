@@ -10,7 +10,7 @@ As a user, Ulf Reidar wants to be able to compare two people against each other 
 
 ### Meaningful connection (us-2)
 
-As a user, Dani wants to prefer a person over someone else multiple times before she gives this person a proper “like” so that there is a bigger guarantee that she likes that person and vice versa.
+As a user, Dani wants to a person three times in a row before she can match with this person so that there is a larger guarantee for mutual interest.
 
 ### Profile (us-3)
 
@@ -60,7 +60,7 @@ As a user, Mia wants to be able to be able to log in to the app with her email a
 
 ### Avatar (us-7)
 
-As an introvert, Bob doesn´t want to use his own picture in the app and instead be able to choose an avatar for himself, so that his personality is the reason behind a match and not just his looks.
+As a user, Bob wants to be able to choose an avatar as his profile picture, so that he doesn´t have to use his own picture and let his personality be the reason behind a match.
 
 ### Notifications (us-8)
 
