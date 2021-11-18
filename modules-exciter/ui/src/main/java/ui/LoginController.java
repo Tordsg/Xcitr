@@ -83,6 +83,7 @@ public class LoginController {
       passwordLogin.clear();
       emailLogin.clear();
     } catch (IOException e) {
+      System.err.println("Error loading primary.fxml");
     }
 
   }
@@ -103,23 +104,7 @@ public class LoginController {
       window.setScene(s);
       window.show();
     } catch (IOException e) {
-    }
-  }
-
-  /**
-   * Adds user.
-   *
-   * @param mail
-   *
-   * @param password
-   *
-   */
-
-  public void addUser(String mail, String password) {
-
-    try {
-      clientHandler.login(mail, password);
-    } catch (ServerException | ConnectException e) {
+      System.err.println("Error loading signup.fxml");
     }
   }
 

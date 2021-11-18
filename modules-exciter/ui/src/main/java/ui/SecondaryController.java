@@ -1,6 +1,7 @@
 package ui;
 
 import java.io.IOException;
+import java.net.ConnectException;
 import java.net.URL;
 import java.rmi.ServerException;
 import java.util.ResourceBundle;
@@ -126,7 +127,7 @@ public class SecondaryController implements Initializable {
           user.setImageId(Integer.parseInt(g.getId().substring(1)));
           try {
             App.setUser(clientHandler.updateInformation(user));
-          } catch (ServerException e1) {
+          } catch (ServerException | ConnectException e1) {
             errorLabel.setText(e1.getMessage());
           }
           updatePreview();
@@ -165,6 +166,7 @@ public class SecondaryController implements Initializable {
       window.setScene(s);
       window.show();
     } catch (IOException e) {
+      System.err.println("Error loading login.fxml");
     }
   }
 

@@ -73,7 +73,7 @@ public class PrimaryControllerTest extends ApplicationTest {
 
   @ParameterizedTest
   @MethodSource
-  public void testMatch(boolean match) {
+  public void testMatch(boolean match) throws JsonProcessingException {
     checkResult(match);
 
   }
@@ -82,7 +82,7 @@ public class PrimaryControllerTest extends ApplicationTest {
     return Stream.of(Arguments.of(true));
   }
 
-  private void checkResult(boolean excpected) {
+  private void checkResult(boolean excpected) throws JsonProcessingException {
 
     // Should be true after the first match
     Assertions.assertFalse(controller.getNotificationCircle().isVisible());
@@ -90,68 +90,97 @@ public class PrimaryControllerTest extends ApplicationTest {
     server.clear(HttpRequest.request().withPath("/user/matches"));
     server.clear(HttpRequest.request().withMethod("GET").withPath("/two"));
 
-    try {
-      server.when(HttpRequest.request().withMethod("POST").withPath("/like"))
-          .respond(HttpResponse.response().withStatusCode(200).withBody(mapper.writeValueAsString(botUser)));
-    } catch (JsonProcessingException e) {
-    }
-    try {
-      server.when(HttpRequest.request().withPath("/user/likes"))
-          .respond(HttpResponse.response().withStatusCode(200).withBody(mapper.writeValueAsString(1)));
-    } catch (JsonProcessingException e1) {
-    }
-    drag("#rightCard").moveBy(0, -100).drop();
-    server.clear(HttpRequest.request().withMethod("POST").withPath("/like"));
-    server.clear(HttpRequest.request().withPath("/user/likes"));
-    try {
-      TimeUnit.SECONDS.sleep(2);
-    } catch (InterruptedException e) {
-    }
-    try {
-      server.when(HttpRequest.request().withMethod("POST").withPath("/like"))
-          .respond(HttpResponse.response().withStatusCode(200).withBody(mapper.writeValueAsString(botUser)));
-    } catch (JsonProcessingException e) {
-      e.printStackTrace();
-    }
-    try {
-      server.when(HttpRequest.request().withPath("/user/likes"))
-          .respond(HttpResponse.response().withStatusCode(200).withBody(mapper.writeValueAsString(2)));
-    } catch (JsonProcessingException e1) {
-      e1.printStackTrace();
-    }
-    drag("#rightCard").moveBy(0, -100).drop();
-    server.clear(HttpRequest.request().withMethod("POST").withPath("/like"));
-    server.clear(HttpRequest.request().withPath("/user/likes"));
-    try {
-      TimeUnit.SECONDS.sleep(2);
-    } catch (InterruptedException e) {
-      e.printStackTrace();
-    }
-    try {
-      server.when(HttpRequest.request().withMethod("POST").withPath("/like"))
-          .respond(HttpResponse.response().withStatusCode(200).withBody(mapper.writeValueAsString(botUser)));
-    } catch (JsonProcessingException e) {
-      e.printStackTrace();
-    }
-    try {
-      server.when(HttpRequest.request().withPath("/user/likes"))
-          .respond(HttpResponse.response().withStatusCode(200).withBody(mapper.writeValueAsString(3)));
-    } catch (JsonProcessingException e1) {
-      e1.printStackTrace();
-    }
-    try {
-      server.when(HttpRequest.request().withMethod("POST").withPath("/user/new"))
-          .respond(HttpResponse.response().withStatusCode(200).withHeader("Content-Type", "application/json")
-              .withBody(mapper.writeValueAsString(botUser)));
-    } catch (JsonProcessingException e) {
-    }
-    try {
-      server.when(HttpRequest.request().withPath("/user/matches"))
-          .respond(HttpResponse.response().withStatusCode(200).withBody(mapper.writeValueAsString(List.of(botUser))));
-    } catch (JsonProcessingException e2) {
-    }
+      server.when(HttpRequest
+                .request()
+                .withMethod("POST")
+                .withPath("/like"))
+          .respond(HttpResponse
+                .response()
+                .withStatusCode(200)
+                .withBody(mapper.writeValueAsString(botUser)));
+
+      server.when(HttpRequest
+                .request()
+                .withPath("/user/likes"))
+          .respond(HttpResponse
+                .response()
+                .withStatusCode(200)
+                .withBody(mapper.writeValueAsString(1)));
 
     drag("#rightCard").moveBy(0, -100).drop();
+
+    server.clear(HttpRequest.request().withMethod("POST").withPath("/like"));
+    server.clear(HttpRequest.request().withPath("/user/likes"));
+
+    try {
+      TimeUnit.SECONDS.sleep(2);
+    } catch (InterruptedException e) {
+    }
+
+      server.when(HttpRequest
+                .request()
+                .withMethod("POST")
+                .withPath("/like"))
+          .respond(HttpResponse
+                .response()
+                .withStatusCode(200)
+                .withBody(mapper.writeValueAsString(botUser)));
+
+
+      server.when(HttpRequest
+            .request()
+            .withPath("/user/likes"))
+          .respond(HttpResponse
+            .response()
+            .withStatusCode(200)
+            .withBody(mapper.writeValueAsString(2)));
+
+    drag("#rightCard").moveBy(0, -100).drop();
+    server.clear(HttpRequest.request().withMethod("POST").withPath("/like"));
+    server.clear(HttpRequest.request().withPath("/user/likes"));
+    try {
+      TimeUnit.SECONDS.sleep(2);
+    } catch (InterruptedException e) {
+      e.printStackTrace();
+    }
+      server.when(HttpRequest
+              .request()
+              .withMethod("POST")
+              .withPath("/like"))
+          .respond(HttpResponse
+              .response()
+              .withStatusCode(200)
+              .withBody(mapper.writeValueAsString(botUser)));
+
+      server.when(HttpRequest
+            .request()
+            .withPath("/user/likes"))
+          .respond(HttpResponse
+            .response()
+            .withStatusCode(200)
+            .withBody(mapper.writeValueAsString(3)));
+
+      server.when(HttpRequest
+            .request()
+            .withMethod("POST")
+            .withPath("/user/new"))
+          .respond(HttpResponse
+            .response()
+            .withStatusCode(200)
+            .withHeader("Content-Type", "application/json")
+            .withBody(mapper.writeValueAsString(botUser)));
+
+      server.when(HttpRequest
+            .request()
+            .withPath("/user/matches"))
+          .respond(HttpResponse
+            .response()
+            .withStatusCode(200)
+            .withBody(mapper.writeValueAsString(List.of(botUser))));
+
+
+    drag("#rightCard").moveBy(0, -100).drop();
+
     server.clear(HttpRequest.request().withMethod("POST").withPath("/like"));
     server.clear(HttpRequest.request().withPath("/user/likes"));
 
@@ -162,19 +191,26 @@ public class PrimaryControllerTest extends ApplicationTest {
     }
     server.clear(HttpRequest.request().withMethod("POST").withPath("/user/new"));
     server.clear(HttpRequest.request().withPath("/user/matches"));
-    try {
-      server.when(HttpRequest.request().withMethod("POST").withPath("/like"))
-          .respond(HttpResponse.response().withStatusCode(200).withBody(mapper.writeValueAsString(botUser)));
-    } catch (JsonProcessingException e) {
-      e.printStackTrace();
-    }
-    try {
-      server.when(HttpRequest.request().withPath("/user/likes"))
-          .respond(HttpResponse.response().withStatusCode(200).withBody(mapper.writeValueAsString(1)));
-    } catch (JsonProcessingException e1) {
-      e1.printStackTrace();
-    }
+
+      server.when(HttpRequest
+            .request()
+            .withMethod("POST")
+            .withPath("/like"))
+          .respond(HttpResponse
+            .response()
+            .withStatusCode(200)
+            .withBody(mapper.writeValueAsString(botUser)));
+
+      server.when(HttpRequest
+            .request()
+            .withPath("/user/likes"))
+          .respond(HttpResponse
+            .response()
+            .withStatusCode(200)
+            .withBody(mapper.writeValueAsString(1)));
+
     drag("#leftCard").moveBy(0, -100).drop();
+
     server.clear(HttpRequest.request().withMethod("POST").withPath("/like"));
     server.clear(HttpRequest.request().withPath("/user/likes"));
     try {
@@ -182,13 +218,16 @@ public class PrimaryControllerTest extends ApplicationTest {
     } catch (InterruptedException e) {
     }
 
-    try {
-      server.when(HttpRequest.request().withMethod("GET").withPath("/two"))
-          .respond(HttpResponse.response().withStatusCode(200).withHeader("Content-Type", "application/json")
-              .withBody(mapper.writeValueAsString(List.of(botUser, botUser2))));
-    } catch (JsonProcessingException e) {
-      e.printStackTrace();
-    }
+      server.when(HttpRequest
+            .request()
+            .withMethod("GET")
+            .withPath("/two"))
+          .respond(HttpResponse
+            .response()
+            .withStatusCode(200)
+            .withHeader("Content-Type", "application/json")
+            .withBody(mapper.writeValueAsString(List.of(botUser, botUser2))));
+
     clickOn("#refresh");
     try {
       TimeUnit.SECONDS.sleep(2);

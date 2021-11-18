@@ -25,7 +25,6 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
-import javafx.scene.shape.Circle;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import user.Chat;
@@ -84,7 +83,7 @@ public class MatchControllerTest extends ApplicationTest {
 
   @ParameterizedTest
   @MethodSource
-  public void testMatch(boolean match) {
+  public void testMatch(boolean match) throws JsonProcessingException {
     checkResult(match);
 
   }
@@ -93,7 +92,7 @@ public class MatchControllerTest extends ApplicationTest {
     return Stream.of(Arguments.of(true));
   }
 
-  private void checkResult(boolean excpected) {
+  private void checkResult(boolean excpected) throws JsonProcessingException {
     if (excpected) {
       server.clear(HttpRequest.request().withMethod("POST").withPath("/message"));
       VBox box = controller.getMatchBox();
@@ -104,30 +103,45 @@ public class MatchControllerTest extends ApplicationTest {
       }
       clickOn("#textInput");
       String responseString;
-      try {
-        responseString = mapper.writeValueAsString(chat);
-        server.when(HttpRequest.request().withMethod("POST").withPath("/message"))
-            .respond(HttpResponse.response().withStatusCode(200).withBody(responseString));
-      } catch (JsonProcessingException e) {
-      }
+
+      responseString = mapper.writeValueAsString(chat);
+      server.when(HttpRequest
+            .request()
+            .withMethod("POST")
+            .withPath("/message"))
+          .respond(HttpResponse
+            .response()
+            .withStatusCode(200)
+            .withBody(responseString));
+
       chat.sendMessage(testUser.getEmail(), "Hei");
       write("Hei");
       server.clear(HttpRequest.request().withMethod("POST").withPath("/message"));
-      try {
-        responseString = mapper.writeValueAsString(chat);
-        server.when(HttpRequest.request().withMethod("POST").withPath("/message"))
-        .respond(HttpResponse.response().withStatusCode(200).withBody(responseString));
-      } catch (JsonProcessingException e) {
-      }
+
+      responseString = mapper.writeValueAsString(chat);
+      server.when(HttpRequest
+            .request()
+            .withMethod("POST")
+            .withPath("/message"))
+          .respond(HttpResponse
+            .response()
+            .withStatusCode(200)
+            .withBody(responseString));
+
       clickOn("#sendButton");
       server.clear(HttpRequest.request().withPath("/message"));
       chat.sendMessage(matchedUser.getEmail(), "Hei tilbake");
-      try {
-        responseString = mapper.writeValueAsString(chat);
-        server.when(HttpRequest.request().withMethod("GET").withPath("/message"))
-          .respond(HttpResponse.response().withStatusCode(200).withBody(responseString));
-      } catch (JsonProcessingException e) {
-      }
+
+      responseString = mapper.writeValueAsString(chat);
+      server.when(HttpRequest
+            .request()
+            .withMethod("GET")
+            .withPath("/message"))
+          .respond(HttpResponse
+            .response()
+            .withStatusCode(200)
+            .withBody(responseString));
+
       clickOn("#refresh");
       try {
         TimeUnit.SECONDS.sleep(2);
@@ -145,12 +159,16 @@ public class MatchControllerTest extends ApplicationTest {
       Assertions.assertEquals("Hei tilbake", text2.getText());
 
       server.clear(HttpRequest.request().withMethod("GET").withPath("/message"));
-      try {
-        responseString = mapper.writeValueAsString(chat2);
-        server.when(HttpRequest.request().withMethod("GET").withPath("/message"))
-          .respond(HttpResponse.response().withStatusCode(200).withBody(responseString));
-      } catch (JsonProcessingException e) {
-      }
+
+      responseString = mapper.writeValueAsString(chat2);
+      server.when(HttpRequest
+            .request()
+            .withMethod("GET")
+            .withPath("/message"))
+          .respond(HttpResponse
+            .response()
+            .withStatusCode(200)
+            .withBody(responseString));
 
       clickOn("#chatPic");
       Assertions.assertTrue(controller.chatPic.isDisable());
@@ -173,10 +191,6 @@ public class MatchControllerTest extends ApplicationTest {
       } catch (InterruptedException e) {
       }
 
-
-    } else {
-      Circle profile = lookup("#profile").query();
-      clickOn(profile);
 
     }
   }
