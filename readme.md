@@ -17,9 +17,9 @@ To run the tests go into **modules-exciter** and enter `mvn test` into the termi
 ## Tools for code-quality
 
 We configure three tools related to code quality:
-1. Checkstyle - checks more superficial and stylistic properties of the code as text
-2. Spotbugs - analyzes the code for common mistakes
-3. Jacoco - collects and presents information and test-coverage
+1. **Checkstyle** - checks more superficial and stylistic properties of the code as text
+2. **Spotbugs** - analyzes the code for common mistakes
+3. **Jacoco** - collects and presents information and test-coverage
 
 All these can be run by entering `mvn verify` in the terminal from **modules-exciter**. 
 
