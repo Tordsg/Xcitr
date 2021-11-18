@@ -38,6 +38,20 @@ The group did not appoint a scrum master, however prior to each srum meeting eac
 
 ### Structural choices on git
 
+The project is version controlled using git. This means that we as a group actively use git to set up milestones and issues for the project, as well as we create multiple branches to be able to work on different aspects of the code simoultenously.
+
+#### Branches
+
+The *default* branch on the Xcitr project is the **master** branch, which is protected and its only the dev branch that can be merged into the master branch. The **dev** branch is also protected, but where all working branches are created from. When working on a new aspect or issue on the project a branch is created from dev. The name conventions for branches are all lower case letters with a hyphen between each word (ex. ui-testing). Note: this convetion was implented after the first release, meaning that some of the early branches do not follow this rule.
+
+#### Issues
+
+Before we begin working on each release the group sits down to write down goals and issues for each group member for the deliverable. The name convetion for the issues is that they are in english and are descriptive. Issues are also added once a new problem arises during the work process.
+
+#### Commit messages
+
+When committing changes in the code the commit messages must be concise, descriptive and in english, starting with a capital letter.
+
 ## Modules-Exciter
 
 The project is organized in the following structre. Code and modules can be found under modules-exciter. Within this folder one can find all of the core logic that makes up the backend of the app, along with the code for the frontend user interface and the file storage. Within modules-exciter there is also a README-file with a complete app description.
