@@ -1,33 +1,29 @@
 package ui;
 
 import java.io.IOException;
+import java.net.ConnectException;
 import java.net.URL;
 import java.rmi.ServerException;
 import java.util.ResourceBundle;
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.geometry.Pos;
 import javafx.scene.Group;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.ContentDisplay;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.control.TextFormatter;
-import javafx.scene.effect.DropShadow;
 import javafx.scene.effect.Lighting;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
-import javafx.scene.paint.Color;
-import javafx.scene.shape.Line;
 import javafx.scene.shape.Rectangle;
-import javafx.scene.shape.StrokeType;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
@@ -43,33 +39,58 @@ public class SecondaryController implements Initializable {
 
   private User user = App.getUser();
 
-  private static ImageController imageController = PrimaryController.imageController;
+  private final ImageController imageController = PrimaryController.getImageController();
   @FXML
-  private Group selectAvatar, backButton, signOut, save, i1, i2, i3, i4, i5, i6, i7, i8, i9, i10, i11, i12, i13, i14,
-      i15, i16, i17, i18, i19, i20, i21, i22, i23, i24;
+  private Group selectAvatar;
+  @FXML
+  private Group backButton;
+  @FXML
+  private Group signOut;
+  @FXML
+  private Group save;
   @FXML
   private TextArea bio;
   @FXML
-  private TextField name, age;
+  private TextField name;
+  @FXML
+  private TextField age;
+  @FXML
+  private Label previewName;
+  @FXML
+  private Label previewAge;
+  @FXML
+  private Label previewEmail;
+  @FXML
+  private Text previewBio;
+  @FXML
+  private Rectangle picture;
   @FXML
   private PasswordField password;
   @FXML
-  private Pane pane, avatarPane;
+  private Pane pane;
   @FXML
-  private VBox avatarVBox;
+  private Pane avatarPane;
+  @FXML
+  private VBox avatarVbox;
+  @FXML
   private Pane lastPane = null;
   @FXML
   private Label errorLabel;
 
   @FXML
-  private void switchToPrimary(MouseEvent event) throws IOException {
+  private void switchToPrimary(MouseEvent event) {
     FXMLLoader loader = new FXMLLoader();
     loader.setLocation(getClass().getResource("primary.fxml"));
-    Parent p = loader.load();
-    Scene s = new Scene(p);
-    Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
-    window.setScene(s);
-    window.show();
+    Parent p;
+    try {
+      p = loader.load();
+      Scene s = new Scene(p);
+      Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
+      window.setScene(s);
+      window.show();
+    } catch (IOException e) {
+      errorLabel.setText(e.getMessage());
+    }
   }
 
   private void hoverButton(Group n) {
@@ -88,16 +109,16 @@ public class SecondaryController implements Initializable {
     } else {
       avatarPane.setVisible(true);
     }
-    avatarVBox.setOnScroll(e -> {
-      if (avatarVBox.getLayoutY() + avatarVBox.getHeight() + e.getDeltaY() < 406 - 80) {
-        avatarVBox.setLayoutY(406 - 80 - avatarVBox.getHeight());
-      } else if (avatarVBox.getLayoutY() + e.getDeltaY() > 0) {
-        avatarVBox.setLayoutY(0);
+    avatarVbox.setOnScroll(e -> {
+      if (avatarVbox.getLayoutY() + avatarVbox.getHeight() + e.getDeltaY() < 406 - 80) {
+        avatarVbox.setLayoutY(406 - 80 - avatarVbox.getHeight());
+      } else if (avatarVbox.getLayoutY() + e.getDeltaY() > 0) {
+        avatarVbox.setLayoutY(0);
       } else {
-        avatarVBox.setLayoutY(e.getDeltaY() + avatarVBox.getLayoutY());
+        avatarVbox.setLayoutY(e.getDeltaY() + avatarVbox.getLayoutY());
       }
     });
-    avatarVBox.getChildren().forEach(e -> {
+    avatarVbox.getChildren().forEach(e -> {
       HBox box = (HBox) e;
       box.getChildren().forEach(k -> {
         Group g = (Group) k;
@@ -106,8 +127,8 @@ public class SecondaryController implements Initializable {
           user.setImageId(Integer.parseInt(g.getId().substring(1)));
           try {
             App.setUser(clientHandler.updateInformation(user));
-          } catch (ServerException e1) {
-            e1.printStackTrace();
+          } catch (ServerException | ConnectException e1) {
+            errorLabel.setText(e1.getMessage());
           }
           updatePreview();
         });
@@ -119,109 +140,34 @@ public class SecondaryController implements Initializable {
   @FXML
   void updatePreview() {
     User currentUser = App.getUser();
-    Pane currentPane = createCard(currentUser);
-    if (pane.getChildren().contains(lastPane)) {
-      pane.getChildren().remove(lastPane);
-    }
-    pane.getChildren().add(currentPane);
-    currentPane.setLayoutX(70);
-    currentPane.setLayoutY(70);
-    lastPane = currentPane;
+    previewName.setText(currentUser.getName());
+    previewAge.setText(Integer.toString(currentUser.getAge()));
+    previewEmail.setText(currentUser.getEmail());
+    previewEmail.setLayoutX(112.5 - previewEmail.getWidth() / 2);
+    previewBio.setText(currentUser.getUserInformation());
+    picture.setFill(imageController.getImage(currentUser));
     pane.requestFocus();
   }
-
-  protected static Pane createCard(User user) {
-    Pane pane = new Pane();
-    pane.setPrefHeight(338);
-    pane.setPrefWidth(245);
-    Rectangle rect = new Rectangle();
-    pane.getChildren().add(rect);
-    rect.setArcHeight(45);
-    rect.setArcWidth(45);
-    rect.setHeight(338);
-    rect.setWidth(225);
-    rect.setStrokeWidth(2);
-    rect.setStroke(Color.BLACK);
-    rect.setStrokeType(StrokeType.INSIDE);
-    rect.setFill(imageController.getImage(user));
-    Pane pane1 = new Pane();
-    pane.getChildren().add(pane1);
-    pane1.setCacheShape(false);
-    pane1.setLayoutY(217);
-    pane1.setPrefHeight(121);
-    pane1.setMinHeight(121);
-    pane1.setPrefWidth(225);
-    pane1.setStyle("""
-        -fx-background-color: rgba(255, 255, 255, .4);
-        -fx-background-radius: 0 0 22 22; -fx-border-radius: 0 0 21 21;
-        -fx-border-width: 0 2 2 2; -fx-border-color: black;
-        """);
-    Label age = new Label();
-    pane1.getChildren().add(age);
-    age.setAlignment(Pos.CENTER);
-    age.setContentDisplay(ContentDisplay.CENTER);
-    age.setLayoutX(170);
-    age.setLayoutY(-3);
-    age.setPrefHeight(45);
-    age.setPrefWidth(58);
-    age.setText(Integer.toString(user.getAge()));
-    age.setFont(new Font(30));
-    Label name = new Label();
-    pane1.getChildren().add(name);
-    name.setLayoutX(5);
-    name.setLayoutY(-3);
-    name.setPrefHeight(17);
-    name.setPrefWidth(160);
-    name.setText(user.getName());
-    name.setFont(new Font(30));
-    name.setOpacity(1);
-    Label email = new Label();
-    pane1.getChildren().add(email);
-    email.setOpacity(1);
-    email.setLayoutX(0);
-    email.setLayoutY(100);
-    email.setPrefHeight(12);
-    email.setPrefWidth(225);
-    email.setText(user.getEmail());
-    email.setFont(new Font(12));
-    email.setAlignment(Pos.CENTER);
-    Line line = new Line();
-    pane1.getChildren().add(line);
-    line.setOpacity(1);
-    line.setStartX(50);
-    line.setEndX(175);
-    line.setLayoutX(0);
-    line.setLayoutY(97);
-    Text text = new Text();
-    pane1.getChildren().add(text);
-    text.setOpacity(1);
-    text.setLayoutX(6);
-    text.setLayoutY(46);
-    text.setWrappingWidth(214);
-    text.setText(user.getUserInformation());
-    DropShadow effect = new DropShadow();
-    effect.setOffsetX(2);
-    effect.setOffsetY(2);
-    effect.setColor(new Color(0, 0, 0, 0.5));
-    pane.setEffect(effect);
-    return pane;
-  }
-
   /**
    * Signs out of the app and goes to the login-page.
    *
-   * @throws IOException
+   * @throws IOException exception
    */
 
   @FXML
-  public void signOut(MouseEvent event) throws IOException {
+  public void signOut(MouseEvent event) {
     FXMLLoader loader = new FXMLLoader();
     loader.setLocation(getClass().getResource("login.fxml"));
-    Parent p = loader.load();
-    Scene s = new Scene(p);
-    Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
-    window.setScene(s);
-    window.show();
+    Parent p;
+    try {
+      p = loader.load();
+      Scene s = new Scene(p);
+      Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
+      window.setScene(s);
+      window.show();
+    } catch (IOException e) {
+      System.err.println("Error loading login.fxml");
+    }
   }
 
   @FXML
@@ -256,12 +202,10 @@ public class SecondaryController implements Initializable {
     age.setText(Integer.toString(user.getAge()));
     TextFormatter<String> tf = new TextFormatter<>(c -> {
       if (c.isContentChange()) {
-        if (c.getControlNewText().endsWith("\n")) {
-          c.setText("");
-        }
         Text text = new Text(c.getControlNewText());
-        text.setWrappingWidth(214);
-        if (text.getLayoutBounds().getHeight() > 69) {
+        text.setWrappingWidth(198);
+        text.setFont(new Font("Arial", 12));
+        if (text.getLayoutBounds().getHeight() > 64) {
           c.setText("");
         }
       }
@@ -272,10 +216,13 @@ public class SecondaryController implements Initializable {
     hoverButton(backButton);
     hoverButton(signOut);
     hoverButton(save);
-    // when enter is pressed
     pane.setOnMouseClicked(e -> {
       pane.requestFocus();
     });
+    previewEmail.widthProperty().addListener((observable, oldValue, newValue) -> {
+      previewEmail.setLayoutX(112.5 - previewEmail.getWidth() / 2);
+    });
+    Platform.runLater(() -> pane.requestFocus());
     updatePreview();
 
   }

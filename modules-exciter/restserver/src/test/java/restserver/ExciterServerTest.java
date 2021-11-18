@@ -19,6 +19,7 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import core.Exciter;
 import json.FileHandler;
+import json.MessageHandler;
 import okhttp3.MediaType;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
@@ -28,6 +29,7 @@ import okhttp3.ResponseBody;
 import user.BotUser;
 import user.Chat;
 import user.User;
+
 
 @ExtendWith(SpringExtension.class)
 @ContextConfiguration(classes = { ExciterApplication.class, ServerController.class })
@@ -39,6 +41,7 @@ public class ExciterServerTest {
   Exciter exciter = ExciterApplication.excite;
   FileHandler fileHandler = new FileHandler();
   User user = new User("test", 22, "test@mail.no");
+  MessageHandler messageHandler = new MessageHandler();
 
   @LocalServerPort
   int port;
@@ -105,7 +108,7 @@ public class ExciterServerTest {
     ResponseBody responseBody = null;
     String responseBodyString = null;
     User newUser = new User("Nottest", 22, "Nottest@mail.no");
-    String password = User.MD5Hash("test");
+    String password = User.md5Hash("test");
     try {
       String sendString = mapper.writeValueAsString(user);
       MediaType mediaType = MediaType.parse("application/json");
@@ -151,7 +154,7 @@ public class ExciterServerTest {
     User addUser = new User("Per", 17, "Per@mail.no");
     addUser.setId(UUID.randomUUID());
     addUser.setPassword("test");
-    String password = User.MD5Hash("test");
+    String password = User.md5Hash("test");
     exciter.addUser(addUser);
     try {
       String sendString = mapper.writeValueAsString(password);
@@ -208,6 +211,43 @@ public class ExciterServerTest {
     Assertions.assertNull(newUser.getUserInformation());
     Assertions.assertNotEquals(newUser.getUserInformation(), newUser2.getUserInformation());
     Assertions.assertEquals("likes response code 200", newUser2.getUserInformation());
+  }
+
+ @Test
+  public void testUpdateUserPassword(){
+    Request request = null;
+    Response response = null;
+    ResponseBody responseBody = null;
+    String responseBodyString = null;
+    User updatedUser = new User("Oliver", 22, "test@mail.no");
+    updatedUser.setId(UUID.randomUUID());
+    exciter.addUser(updatedUser);
+    User newUser = null;
+    String sendString = null;
+
+    try {
+      sendString = mapper.writeValueAsString("Password123");
+      MediaType mediaType = MediaType.parse("application/json");
+      request = new Request.Builder().url("http://localhost:" + port + "/user/update/password")
+          .header("Authorization", updatedUser.getId().toString()).post(RequestBody.create(sendString, mediaType))
+          .build();
+      response = client.newCall(request).execute();
+
+      request = new Request.Builder().url("http://localhost:" + port + "/login")
+          .header("mail", updatedUser.getEmail()).post(RequestBody.create(sendString, mediaType))
+          .build();
+      response = client.newCall(request).execute();
+      responseBody = response.body();
+      responseBodyString = responseBody.string();
+      newUser = mapper.readValue(responseBodyString, User.class);
+
+    } catch (IOException e) {
+      e.printStackTrace();
+    }
+    Assertions.assertEquals(200, response.code());
+    Assertions.assertEquals(updatedUser.getId(), newUser.getId());
+    Assertions.assertEquals(updatedUser.getEmail(), newUser.getEmail());
+
   }
 
   @Test
@@ -275,7 +315,6 @@ public class ExciterServerTest {
       users = mapper.readValue(response.body().string(),
           mapper.getTypeFactory().constructCollectionType(List.class, User.class));
     } catch (Exception e) {
-      // TODO: handle exception
     }
     Assertions.assertNotNull(users.get(0).getEmail());
     Assertions.assertNotNull(users.get(1).getEmail());
@@ -362,6 +401,31 @@ public class ExciterServerTest {
     Assertions.assertNotNull(chat);
 
   }
+
+ @Test
+  public void testGetChat() {
+    User testUser = new User("test", 22, "testnr2@mail.no");
+    User messageUser = new User("message", 23, "message@mail.no");
+    testUser.setId(UUID.randomUUID());
+    exciter.addUsers(List.of(testUser, messageUser));
+    fileHandler.saveUser(exciter.getAllUsers());
+    Chat chat = new Chat(testUser.getEmail(), messageUser.getEmail());
+    chat.sendMessage(testUser.getEmail(), "Hei, hva skjer?");
+    messageHandler.saveChat(chat);
+    Request request = new Request.Builder().url("http://localhost:" + port + "/message")
+          .header("Authorization", testUser.getId().toString()).header("mail", messageUser.getEmail())
+          .build();
+    Chat newChat = null;
+    try {
+      ResponseBody response = client.newCall(request).execute().body();
+      newChat = mapper.readValue(response.string(), Chat.class);
+    } catch (IOException e) {
+      e.printStackTrace();
+    }
+    Assertions.assertNotNull(newChat);
+    Assertions.assertEquals(chat.getMessages(), newChat.getMessages());
+  }
+
 
   @Test
   public void testDeleteUser() {

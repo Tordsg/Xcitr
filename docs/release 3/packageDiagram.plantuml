@@ -1,0 +1,71 @@
+@startuml packageDiagram
+
+component core{
+    package exciter.core
+}
+
+component ui{
+    package exciter.ui
+}
+
+component json{
+    package exciter.json
+    
+}
+
+component javafx{
+    package javafx.controls
+    package javafx.fxml
+}
+
+component restserver{
+    package exciter.restserver
+
+}
+
+component user {
+    package jackson
+    package exciter.user
+
+}
+component json.simple{
+
+}
+
+component jackson {
+}
+
+
+component "spring boot" as springboot {
+}
+
+component okHTTP {
+
+}
+
+
+exciter.restserver ..> exciter.ui
+exciter.ui ..> exciter.restserver
+exciter.restserver ..>exciter.core
+exciter.restserver ..> springboot
+
+
+exciter.ui ..> jackson
+exciter.restserver ..> jackson
+
+
+exciter.ui ..> javafx.controls
+javafx.controls ..> javafx.fxml
+exciter.ui ..> okHTTP
+exciter.ui ..> exciter.user
+exciter.core ..>exciter.user
+exciter.json ..> exciter.user
+exciter.restserver ..> exciter.json
+
+
+exciter.json ..> json.simple
+
+
+
+
+@enduml

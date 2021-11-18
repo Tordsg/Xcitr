@@ -13,9 +13,12 @@ import javafx.animation.RotateTransition;
 import javafx.animation.SequentialTransition;
 import javafx.animation.TranslateTransition;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Group;
 import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.effect.Lighting;
 import javafx.scene.input.MouseEvent;
@@ -24,56 +27,102 @@ import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
-import javafx.util.Duration;
 import javafx.stage.Stage;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
+import javafx.util.Duration;
 import user.User;
+
+/**
+ * Controller class for primary.fxml.
+ */
 
 public class PrimaryController implements Initializable {
   @FXML
-  private Rectangle leftPicture, rightPicture;
+  private Rectangle leftPicture;
   @FXML
-  private Circle profile, notification;
+  private Rectangle rightPicture;
   @FXML
-  private Label Name1, Age1, Name2, Age2, errorLabel;
+  private Circle profile;
+  @FXML
+  private Circle notification;
+  @FXML
+  private Label name1;
+  @FXML
+  private Label age1;
+  @FXML
+  private Label name2;
+  @FXML
+  private Label age2;
+  @FXML
+  private Label errorLabel;
   @FXML
   private Text scoreNumber;
   @FXML
   private Group matchButton;
   @FXML
-  private Pane leftCard, rightCard, refresh, scorePane;
+  private Pane leftCard;
+  @FXML
+  private Pane rightCard;
+  @FXML
+  private Pane refresh;
+  @FXML
+  private Pane scorePane;
 
   private ClientHandler clientHandler = new ClientHandler();
   private User user = App.getUser();
   private int numMatches = 0;
-  private User leftUser;
-  private User rightUser;
+  private User leftUser = new User();
+  private User rightUser = new User();
   // Static since it's shared by the SecondaryController
-  protected final static ImageController imageController = new ImageController();
+  private static final ImageController imageController = new ImageController();
 
+  /**
+   * Switching to the profile page from the matching page.
+   *
+   * @param event MouseEvent object.
+   */
   @FXML
-  private void switchToSecondary(MouseEvent event) throws IOException {
-    FXMLLoader Loader = new FXMLLoader();
-    Loader.setLocation(getClass().getResource("profile.fxml"));
-    Parent p = Loader.load();
-    Scene s = new Scene(p);
-    Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
-    window.setScene(s);
-    window.show();
+  private void switchToSecondary(MouseEvent event) {
+    FXMLLoader loader = new FXMLLoader();
+    loader.setLocation(getClass().getResource("profile.fxml"));
+    Parent p;
+    try {
+      p = loader.load();
+      Scene s = new Scene(p);
+      Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
+      window.setScene(s);
+      window.show();
+    } catch (IOException e) {
+      System.err.println("Error loading profile.fxml");
+    }
   }
 
+  /**
+   * Switching to the match page from the matching page.
+   *
+   * @param event MouseEvent object
+   */
+
   @FXML
-  private void switchToMatch(MouseEvent event) throws IOException {
+  private void switchToMatch(MouseEvent event) {
     FXMLLoader loader = new FXMLLoader();
     loader.setLocation(getClass().getResource("match.fxml"));
-    Parent p = loader.load();
-    Scene s = new Scene(p);
-    Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
-    window.setScene(s);
-    window.show();
+    Parent p;
+    try {
+      p = loader.load();
+      Scene s = new Scene(p);
+      Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
+      window.setScene(s);
+      window.show();
+    } catch (IOException e) {
+      System.err.println("Error loading match.fxml");
+    }
   }
+
+  /**
+   * Adds lighting effect when hovering a button with the mouse.
+   *
+   * @param n node object
+   */
 
   private void hoverButton(Node n) {
     n.setOnMouseEntered(e -> {
@@ -83,6 +132,10 @@ public class PrimaryController implements Initializable {
       n.setEffect(null);
     });
   }
+
+  /**
+   * Method to describe what happens when the left card gets swiped away.
+   */
 
   void onDiscardLeftCard() {
     int likeCount = 0;
@@ -103,9 +156,8 @@ public class PrimaryController implements Initializable {
       users.add(rightUser);
       try {
         rightUser = clientHandler.getUser(user, users);
-      } catch (ServerException e) {
-        // TODO Auto-generated catch block
-        e.printStackTrace();
+      } catch (ServerException | ConnectException e) {
+        errorLabel.setText(e.getMessage());
       }
       cardLiked(rightCard, leftCard);
       return;
@@ -122,6 +174,9 @@ public class PrimaryController implements Initializable {
     st.play();
   }
 
+  /**
+   * Method to describe what happens when the right card gets swiped away.
+   */
   void onDiscardRightCard() {
     int likeCount = 0;
     User user2 = rightUser;
@@ -141,9 +196,8 @@ public class PrimaryController implements Initializable {
       users.add(rightUser);
       try {
         leftUser = clientHandler.getUser(user, users);
-      } catch (ServerException e) {
-        // TODO Auto-generated catch block
-        e.printStackTrace();
+      } catch (ServerException | ConnectException e) {
+        errorLabel.setText(e.getMessage());
       }
       cardLiked(leftCard, rightCard);
       return;
@@ -160,11 +214,19 @@ public class PrimaryController implements Initializable {
     st.play();
   }
 
+  /**
+   * Indication for what card is liked.
+   *
+   * @param likedcard Pane object
+   * @param discardedcard Pane object
+   */
+
   public void cardLiked(Pane likedcard, Pane discardedcard) {
-    TranslateTransition ttScore = new TranslateTransition(Duration.millis(Math.abs(-likedcard.getLayoutX() - 300)),
+    TranslateTransition ttScore = new TranslateTransition(Duration
+        .millis(Math.abs(- likedcard.getLayoutX() - 300)),
         scorePane);
     ttScore.setFromX(0);
-    ttScore.setToX(-likedcard.getLayoutX() - 300);
+    ttScore.setToX(- likedcard.getLayoutX() - 300);
     ttScore.setCycleCount(1);
     ttScore.setAutoReverse(true);
     TranslateTransition tt = translateCardY(likedcard, 400, 0, false);
@@ -178,11 +240,11 @@ public class PrimaryController implements Initializable {
           notification.setVisible(true);
         }
       } catch (ServerException | ConnectException e1) {
-        // TODO Auto-generated catch block
-        e1.printStackTrace();
+        errorLabel.setText(e1.getMessage());
       }
     });
-    TranslateTransition ttCard = new TranslateTransition(Duration.millis(Math.abs(-likedcard.getLayoutX() - 300)),
+    TranslateTransition ttCard = new TranslateTransition(Duration
+        .millis(Math.abs(-likedcard.getLayoutX() - 300)),
         likedcard);
     ttCard.setFromX(0);
     ttCard.setToX(-likedcard.getLayoutX() - 300);
@@ -196,17 +258,29 @@ public class PrimaryController implements Initializable {
       ft.getNode().setTranslateX(0);
       ft.getNode().setLayoutX(-200);
     });
-    TranslateTransition firstTT = translateCardY(discardedcard, discardedcard.getLayoutY() - 55, -400, false);
-    firstTT.setOnFinished(e -> e.consume());
+    TranslateTransition firstTt = translateCardY(discardedcard,
+        discardedcard.getLayoutY() - 55, -400, false);
+    firstTt.setOnFinished(e -> e.consume());
     SequentialTransition st = new SequentialTransition(
-        new ParallelTransition(firstTT, animateScore(discardedcard.getId(), true)),
+        new ParallelTransition(firstTt, animateScore(discardedcard.getId(), true)),
         new ParallelTransition(ttScore, ttCard),
         new ParallelTransition(translateCardY(discardedcard, 400, 0, false), tt, ft));
     scoreNumber.setText("3");
     st.play();
   }
 
-  public TranslateTransition translateCardY(Pane pane, double start, double end, boolean updateOnFinish) {
+  /**
+   * Moving card along the y-axis.
+   *
+   * @param pane pane object
+   * @param start double
+   * @param end double
+   * @param updateOnFinish boolean
+   *
+   * @return translate transition
+   */
+  public TranslateTransition translateCardY(Pane pane,
+      double start, double end, boolean updateOnFinish) {
     TranslateTransition tt = new TranslateTransition(Duration.millis(Math.abs(start - end)), pane);
     tt.setFromY(start);
     tt.setToY(end);
@@ -225,6 +299,14 @@ public class PrimaryController implements Initializable {
     return tt;
   }
 
+  /**
+   * Fading transition for swiping the cards on the match page.
+   *
+   * @param discardedCard string
+   * @param begin boolean
+   *
+   * @return fade transition
+   */
   public FadeTransition animateScore(String discardedCard, boolean begin) {
     FadeTransition ft = new FadeTransition(Duration.millis(100), scorePane);
     if (discardedCard.equals("rightCard")) {
@@ -237,8 +319,9 @@ public class PrimaryController implements Initializable {
       } catch (IOException e) {
         errorLabel.setText(e.getMessage());
       }
-      if (count != null)
+      if (count != null) {
         scoreNumber.setText(count.toString());
+      }
     } else {
       ft.getNode().setLayoutX(352.5);
       Integer count = null;
@@ -247,8 +330,9 @@ public class PrimaryController implements Initializable {
       } catch (ServerException | ConnectException e) {
         errorLabel.setText(e.getMessage());
       }
-      if (count != null)
+      if (count != null) {
         scoreNumber.setText(count.toString());
+      }
     }
     if (begin) {
       ft.setFromValue(0);
@@ -304,10 +388,10 @@ public class PrimaryController implements Initializable {
   public void setNextUsers() {
     leftPicture.setFill(imageController.getImage(leftUser));
     rightPicture.setFill(imageController.getImage(rightUser));
-    Name1.setText(leftUser.getName());
-    Age1.setText(String.valueOf(leftUser.getAge()));
-    Name2.setText(rightUser.getName());
-    Age2.setText(String.valueOf(rightUser.getAge()));
+    name1.setText(leftUser.getName());
+    age1.setText(String.valueOf(leftUser.getAge()));
+    name2.setText(rightUser.getName());
+    age2.setText(String.valueOf(rightUser.getAge()));
   }
 
   @Override
@@ -326,7 +410,8 @@ public class PrimaryController implements Initializable {
     }
     leftPicture.setFill(imageController.getImage(leftUser));
     rightPicture.setFill(imageController.getImage(rightUser));
-    profile.setFill(new ImagePattern(imageController.getImage(user).getImage(), 0, 0, 1, 1.4, true));
+    profile.setFill(new ImagePattern(imageController
+        .getImage(user).getImage(), 0, 0, 1, 1.4, true));
     dragY(leftCard);
     dragY(rightCard);
     hoverButton(refresh);
@@ -335,9 +420,9 @@ public class PrimaryController implements Initializable {
     setNextUsers();
   }
 
-  double dY = 0;
+  double variabledY = 0;
   Boolean dragged = false;
-  double y = 0;
+  double yvariable = 0;
   double lastY = 0;
 
   private void dragY(Pane e) {
@@ -346,15 +431,15 @@ public class PrimaryController implements Initializable {
 
     });
     e.setOnMouseDragged(k -> {
-      y = k.getSceneY();
-      dY = y - lastY;
-      lastY = y;
-      double cardPosition = dY + e.getLayoutY();
+      yvariable = k.getSceneY();
+      variabledY = yvariable - lastY;
+      lastY = yvariable;
+      double cardPosition = variabledY + e.getLayoutY();
       dragged = true;
-      if (cardPosition > 55 && dY > 0) {
+      if (cardPosition > 55 && variabledY > 0) {
         double posY = e.getLayoutY() - 55;
-        dY = dY * (1 / (1 + posY * posY));
-        e.setLayoutY(e.getLayoutY() + dY);
+        variabledY = variabledY * (1 / (1 + posY * posY));
+        e.setLayoutY(e.getLayoutY() + variabledY);
       } else {
         e.setLayoutY(cardPosition);
       }
@@ -373,6 +458,18 @@ public class PrimaryController implements Initializable {
         dragged = false;
       }
     });
+  }
+
+  public List<User> getOnScreenUsers() {
+    return List.of(leftUser, rightUser);
+  }
+
+  public Circle getNotificationCircle() {
+    return notification;
+  }
+
+  public static ImageController getImageController() {
+    return imageController;
   }
 
 }

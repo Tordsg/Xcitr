@@ -42,6 +42,7 @@ public class JsonTest {
 
   @Test
   public void readMatches() {
+    user.setId(UUID.randomUUID());
     for (int i = 0; i < 3; i++) {
       exciter.likePerson(user, botUser);
     }
@@ -49,6 +50,7 @@ public class JsonTest {
     User userReadFromFile = fileHandler.readUsers().get(0);
     Assertions.assertEquals(userReadFromFile.getMatches(), user.getMatches());
     Assertions.assertTrue(userReadFromFile.getMatches().contains(botUser.getEmail()));
+    Assertions.assertEquals(3, fileHandler.getLikedUsers(user.getId()).get(botUser.getEmail()));
 
   }
 
@@ -97,7 +99,15 @@ public class JsonTest {
     idUser.fireOnLike(botUser.getEmail());
     fileHandler.saveUser(exciter.getAllUsers());
     Assertions.assertEquals(1, fileHandler.getUserById(idUser.getId()).getLikedUsers().get(botUser.getEmail()));
+  }
 
+  @Test
+  public void testFindUserByUuid(){
+    user.setId(UUID.randomUUID());
+    exciter.addUser(user);
+    fileHandler.saveUser(exciter.getAllUsers());
+    Assertions.assertEquals(user.getName(), fileHandler.getUserById(user.getId()).getName());
+    Assertions.assertNull(fileHandler.getUserById(UUID.randomUUID()));
   }
 
 }

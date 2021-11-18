@@ -1,0 +1,28 @@
+@startuml sequenceDiagram of match
+
+User -> Client: onDiscardLeftCard()
+Client -> Server: send HTTP request of post to /like likeUser(user.getId(), List.of(rightUser, leftUser)) 
+Client -> Server: send HTTP request of post to /user/likes getLikes(user.getId(), rightUser.getMail())
+Server --> Client: success Response of new random user
+Server --> Client: success Response of likeCount
+Client --> User: returns new userCard to the leftUser
+
+User -> Client: onDiscardLeftCard()
+Client -> Server: send HTTP request of post to /like likeUser(user.getId(), List.of(rightUser, leftUser)) 
+Client -> Server: send HTTP request of post to /user/likes getLikes(user.getId(), rightUser.getMail())
+Server --> Client: success Response of new random user
+Server --> Client: success Response of likeCount
+Client --> User: returns new userCard to the leftUser
+
+User -> Client: onDiscardLeftCard()
+Client -> Server: send HTTP request of post to /like likeUser(user.getId(), List.of(rightUser, leftUser)) 
+Client -> Server: send HTTP request of post to /user/likes getLikes(user.getId(), rightUser.getMail())
+Server -> Server: addes checks if rightUser has liked user and adds to match if rightUser has
+Server --> Client: success Response of new random user
+Server --> Client: success Response of likeCount
+Client -> Server: likeCount == 3, send HTTP request of post to /user/new  postMethodName(user.getId(), List.of(rightUser, leftUser))
+Server --> Client: gets a new userCard for rightUser
+Client --> User: returns new userCard to the leftUser
+
+
+@enduml

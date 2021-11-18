@@ -6,6 +6,7 @@ import java.rmi.ServerException;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -15,7 +16,6 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
-import javafx.scene.Node;
 import user.User;
 
 /**
@@ -47,6 +47,7 @@ public class LoginController {
   /**
    * Sets field clear when fxml file starts to run.
    **/
+
   @FXML
   public void initialize() {
     passwordLogin.clear();
@@ -58,11 +59,10 @@ public class LoginController {
    * Checks that the email belongs to a user and that the password matches the
    * user's password.
    *
-   * @throws IOException
    */
 
   @FXML
-  public void handleLogin(ActionEvent event) throws IOException {
+  public void handleLogin(ActionEvent event) {
     String email = emailLogin.getText();
     String password = passwordLogin.getText();
 
@@ -82,6 +82,8 @@ public class LoginController {
       errorMessage.setVisible(true);
       passwordLogin.clear();
       emailLogin.clear();
+    } catch (IOException e) {
+      System.err.println("Error loading primary.fxml");
     }
 
   }
@@ -91,14 +93,19 @@ public class LoginController {
   }
 
   @FXML
-  void onSwitchToSignup(MouseEvent event) throws IOException {
+  void onSwitchToSignup(MouseEvent event) {
     FXMLLoader loader = new FXMLLoader();
     loader.setLocation(getClass().getResource("signup.fxml"));
-    Parent p = loader.load();
-    Scene s = new Scene(p);
-    Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
-    window.setScene(s);
-    window.show();
+    Parent p;
+    try {
+      p = loader.load();
+      Scene s = new Scene(p);
+      Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
+      window.setScene(s);
+      window.show();
+    } catch (IOException e) {
+      System.err.println("Error loading signup.fxml");
+    }
   }
 
 }

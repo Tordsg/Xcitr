@@ -1,4 +1,4 @@
-module exciter.ui {
+open module exciter.ui {
     requires okhttp3;
     requires transitive exciter.user;
     requires transitive javafx.controls;
@@ -10,6 +10,5 @@ module exciter.ui {
     requires org.apache.commons.io;
     requires com.fasterxml.jackson.databind;
     requires com.fasterxml.jackson.core;
-    opens ui to javafx.graphics, javafx.fxml;
     exports ui;
 }

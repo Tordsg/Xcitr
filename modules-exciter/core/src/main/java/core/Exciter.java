@@ -5,7 +5,6 @@ import java.util.Collections;
 import java.util.List;
 import java.util.UUID;
 import java.util.stream.Collectors;
-
 import user.BotUser;
 import user.User;
 
@@ -18,55 +17,46 @@ public class Exciter {
   private List<User> allUsers = new ArrayList<>();
 
   /**
-   * Constructor in the class.
+   * Constructor for the class.
    */
 
   public Exciter() {
     addSomePlaceholderUsers();
   }
 
+  /**
+   * Adds a user to the list of people who have an account on the app.
+   *
+   * @param user on the app
+   */
   public void addUser(User user) {
-    if (!allUsers.contains(user)) {
-      allUsers.add(user);
+    if (allUsers.contains(user)) {
+      allUsers.remove(user);
     }
-    // Should this throw exception?
+    allUsers.add(user);
   }
 
   /**
-   * Will check that users to be added does not exist in the list.
+   * This method is there to override exisiting users.
    *
-   * @param users to be added to the list of all users.
+   * @param users
    *
-   * @apiNote primarly used to for testing.
+   * @apiNote primarly used to add users from json file.
    */
 
   public void addUsers(List<User> users) {
     List<String> userMailList = allUsers.stream().map(User::getEmail).collect(Collectors.toList());
     for (User user : users) {
-      if (!userMailList.contains(user.getEmail())) {
-        allUsers.add(user);
-        userMailList.add(user.getEmail());
-      }
-    }
-  }
-  /**
-   * This method is there to override exisiting users.
-   * @param users
-   *
-   * @apiNote primarly used to add users from json file.
-   */
-  public void addUsersFromFile(List<User> users) {
-    List<String> userMailList = allUsers.stream().map(User::getEmail).collect(Collectors.toList());
-    for (User user : users) {
       if (userMailList.contains(user.getEmail())) {
         allUsers.remove(getUserByEmail(user.getEmail()));
       }
+      userMailList.add(user.getEmail());
       allUsers.add(user);
     }
   }
 
   /**
-   * adds botUsers
+   * Adds botUsers.
    */
 
   public void addSomePlaceholderUsers() {
@@ -80,26 +70,31 @@ public class Exciter {
   }
 
   /**
+   * Finds a random new user that is going to appear on the matching page.
+   *
    * @return new user that is not on screen
    */
+
   public User getNextRandomUser(List<User> users) {
-    List<User> tmp = allUsers.stream().filter(user -> !users.contains(user)).collect(Collectors.toList());
+    List<User> tmp = allUsers.stream().filter(user
+        -> !users.contains(user)).collect(Collectors.toList());
     return tmp.get((int) (Math.random() * tmp.size()));
   }
 
   public List<User> getTwoUniqueUsers(User user) {
     List<User> tmp = allUsers.stream().filter(u -> !u.equals(user)).collect(Collectors.toList());
-    return pickNRandom(tmp, 2);
+    return pickNrandom(tmp, 2);
   }
 
-  private static List<User> pickNRandom(List<User> lst, int n) {
+  private static List<User> pickNrandom(List<User> lst, int n) {
     List<User> copy = new ArrayList<>(lst);
     Collections.shuffle(copy);
     return n > copy.size() ? copy.subList(0, copy.size()) : copy.subList(0, n);
   }
 
   public List<User> getUsersFromList(List<String> emails) {
-    return allUsers.stream().filter(user -> emails.contains(user.getEmail())).collect(Collectors.toList());
+    return allUsers.stream().filter(user
+        -> emails.contains(user.getEmail())).collect(Collectors.toList());
   }
 
   public User getUserByEmail(String email) {
@@ -107,21 +102,26 @@ public class Exciter {
   }
 
   public User getUserById(UUID id) {
-    return allUsers.stream().filter(u -> u.getId() != null && u.getId().equals(id)).findFirst().orElse(null);
+    return allUsers.stream().filter(u
+        -> u.getId() != null && u.getId().equals(id)).findFirst().orElse(null);
   }
 
   public void clearUser(User user) {
-    allUsers.remove(allUsers.stream().filter(u -> u.getEmail().equals(user.getEmail())).findFirst().orElse(null));
+    allUsers.remove(allUsers.stream().filter(u
+        -> u.getEmail().equals(user.getEmail())).findFirst().orElse(null));
   }
 
   /**
-   * @param user
-   * @return number of likes in a row by current user
+   * Finds how many times in a row user has liked another user.
    *
+   * @param user
+   *
+   * @return number of likes in a row by current user
    */
 
   public int getLikeCount(User user, User userToCheckAgainst) {
-    if (user.getLikedUsers().containsKey(this.getUserByEmail(userToCheckAgainst.getEmail()).getEmail())) {
+    if (user.getLikedUsers()
+        .containsKey(this.getUserByEmail(userToCheckAgainst.getEmail()).getEmail())) {
       return user.getLikedUsers().size();
     }
     return 0;
@@ -141,7 +141,7 @@ public class Exciter {
 
   /**
    * Core logic of exciter class. It discards one user and checks if the current
-   * user has liked the other user
+   * user has liked the other user.
    *
    * @return true if the user liked the other user three times in a row
    */

@@ -1,0 +1,118 @@
+@startuml uiDiagram
+
+class ClientHandler{
+    OkHttpClient client
+    ObjectMappper mapper
+    String url
+    +boolean pingServer()
+    +User discardCard(User, User, User)
+    +User createAccount(User, String)
+    +User login(String, String)
+    +List<User> getMatches(User)
+    +User updateInformation(User)
+    +User updatePassword(User, String)
+    +List<User> getTwoUsers(User)
+    +int getUserLikeCount(User, User)
+    +User getUser(User, List<User>)
+    +Chat sendMessage(User, User, String)
+    +Chat getChat(User, User)
+    +boolean deleteUser(User)
+}
+
+class LoginController{
+    -ClientHandler clientHandler
+    +void initialize()
+    +void handleLogin(ActionEvent event)
+    -void changeUser(User)
+    void onSwitchToSignUp(MouseEvent event)
+    +void addUser(String, String)
+
+}
+
+class SignUpController{
+     -ClientHandler clientHandler
+     void initialize()
+     +void clearFields()
+     -boolean validName(String)
+     -boolean isNumeric(String)
+     -boolean emailValidator(String)
+     void onSwitchToLogin(MouseEvent event)
+     void handleCreateAccount(ActionEvent event)
+     +void addUser(User, String)
+
+
+}
+
+class PrimaryController{
+    -ClientHandler clientHandler
+    -User user
+    -int NumMatches
+    -User leftUser
+    -User rightUser
+    -ImageController imageController
+    -void switchToSecondary(MouseEvent event)
+    -void switchToMatch(MouseEvent event)
+    -void hoverButton(Node)
+    void onDiscardLeftCard()
+    void onDiscardRightCard
+    +void cardLiked(Pane, Pane)
+    +TranslateTransition translateCardY(Pane, double, boolean)
+    +FadeTransistion animateScore(String, boolean)
+    void refresh()
+    +void setNextUsers()
+    -void dragY(Pane)
+    +List<User> getOnScreenUsers()
+    +Circle getNotificationCircle()
+    +ImageController getImageController()
+}
+class SecondaryController{
+    -ClientHandler clientHandler
+    -User user
+    -ImageController imageController
+    +void switchToPrimary(MouseEvent event)
+    -void hoberButton(Group)
+    -void selectAvatar()
+    void updatePreview()
+    +void signOut(MouseEvent event)
+    void save()
+    void initialize(URL, ResourceBundle)
+
+}
+class MatchController{
+    -int chatId
+    -ImageController imageController
+    -ClientHandler clientHandler
+    -User user
+    -User user1
+    -double height
+    -List<User> matches
+    +void switchToPrimary(MouseEvent)
+    +void initialize(URL, ResourceBundle
+    +void refresh()
+    +void sendMessage()
+    -HBox createMessage(String, Boolean)
+    -void hoverButton(Node)
+    -void clickButton(Group, User, int)
+    #Group createMatchCard(User)
+    -void updateCardPane(User)
+    +void animateProfile()
+    -void fillChat(User, User)
+    -String stringFormatter(String)
+    +VBox getMatchBox()
+    +VBox gettextBox()
+}
+LoginController --> ClientHandler
+SignUpController --> ClientHandler
+PrimaryController --> ClientHandler
+SecondaryController --> ClientHandler
+MatchController --> ClientHandler
+
+
+LoginController --> PrimaryController
+SignUpController --> PrimaryController
+PrimaryController <--> SecondaryController
+PrimaryController <--> MatchController
+SecondaryController --> LoginController
+
+
+@enduml

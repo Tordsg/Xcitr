@@ -8,6 +8,7 @@ import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -17,7 +18,6 @@ import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
-import javafx.scene.Node;
 import user.User;
 
 /**
@@ -59,12 +59,10 @@ public class SignUpController {
 
   @FXML
   void initialize() {
-    name.clear();
-    age.clear();
-    emailSignup.clear();
-    passwordSignup.clear();
+    clearFields();
     name.textProperty().addListener(event -> {
-      if (name.getText().length() > 1 && validName(name.getText()) && name.getText().charAt(0) != ' ') {
+      if (name.getText().length() > 1
+          && validName(name.getText()) && name.getText().charAt(0) != ' ') {
         name.setStyle("-fx-control-inner-background: white;");
       } else {
         name.setStyle("-fx-control-inner-background: #ff9999;");
@@ -86,6 +84,16 @@ public class SignUpController {
     });
 
   }
+  /**
+   * Clears the textfields.
+   */
+
+  public void clearFields() {
+    name.clear();
+    age.clear();
+    emailSignup.clear();
+    passwordSignup.clear();
+  }
 
   private boolean validName(String str) {
     return str.matches("[a-zA-Z ]+");
@@ -94,16 +102,13 @@ public class SignUpController {
   /**
    * Checks if number is numeric.
    *
-   * @param str
+   * @param str number as a string
    * @return boolean
    */
+
   private boolean isNumeric(String str) {
-    try {
-      Integer.parseInt(str);
-      return true;
-    } catch (NumberFormatException e) {
-      return false;
-    }
+    String pattern = "^[0-9]*$";
+    return str.matches(pattern);
   }
 
   /**
@@ -112,8 +117,10 @@ public class SignUpController {
    * @param email email to validate
    * @return true if email is valid
    */
+
   private boolean emailValidator(String email) {
-    String emailRegex = "^[a-zA-Z0-9_+&*-]+(?:\\." + "[a-zA-Z0-9_+&*-]+)*@" + "(?:[a-zA-Z0-9-]+\\.)+[a-z"
+    String emailRegex = "^[a-zA-Z0-9_+&*-]+(?:\\."
+        + "[a-zA-Z0-9_+&*-]+)*@" + "(?:[a-zA-Z0-9-]+\\.)+[a-z"
         + "A-Z]{2,7}$";
 
     java.util.regex.Pattern pat = java.util.regex.Pattern.compile(emailRegex);
@@ -122,18 +129,23 @@ public class SignUpController {
   }
 
   @FXML
-  void onSwitchToLogin(MouseEvent event) throws IOException {
+  void onSwitchToLogin(MouseEvent event) {
     FXMLLoader loader = new FXMLLoader();
     loader.setLocation(getClass().getResource("login.fxml"));
-    Parent p = loader.load();
-    Scene s = new Scene(p);
-    Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
-    window.setScene(s);
-    window.show();
+    Parent p;
+    try {
+      p = loader.load();
+      Scene s = new Scene(p);
+      Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
+      window.setScene(s);
+      window.show();
+    } catch (IOException e) {
+      System.err.println("Error loading login.fxml");
+    }
   }
 
   @FXML
-  void handleCreateAccount(ActionEvent event) throws IOException {
+  void handleCreateAccount(ActionEvent event) {
     String nameReg = name.getText();
     String ageReg = age.getText();
     String emailReg = emailSignup.getText();
@@ -143,16 +155,41 @@ public class SignUpController {
       userXcitr = new User(nameReg, Integer.parseInt(ageReg), emailReg);
       User user = clientHandler.createAccount(userXcitr, passwordReg);
       App.setUser(user);
-      FXMLLoader Loader = new FXMLLoader();
-      Loader.setLocation(getClass().getResource("primary.fxml"));
-      Parent p = Loader.load();
+      FXMLLoader loader = new FXMLLoader();
+      loader.setLocation(getClass().getResource("primary.fxml"));
+      Parent p = loader.load();
       Scene s = new Scene(p);
       Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
       window.setScene(s);
       window.show();
     } catch (IllegalArgumentException | ServerException | ConnectException e) {
       errorLabel.setText(e.getMessage());
+    } catch (IOException e) {
+      errorLabel.setText("Something went wrong");
     }
+  }
+
+  /**
+   * Adding a new user to the application.
+   *
+   * @param user User object
+   * @param password string for the users password
+   */
+
+  public void addUser(User user, String password) {
+    try {
+      clientHandler.createAccount(user, password);
+    } catch (ServerException | ConnectException e) {
+      errorLabel.setText(e.getMessage());
+    }
+  }
+
+  public TextField getAgeField() {
+    return age;
+  }
+
+  public TextField getEmailField() {
+    return emailSignup;
   }
 
 }
