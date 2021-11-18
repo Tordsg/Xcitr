@@ -1,1 +1,0 @@
-# Readme for core module
