@@ -68,7 +68,7 @@ public class SignUpControllerTest extends ApplicationTest {
 
   @ParameterizedTest
   @MethodSource
-  public void testSignup(boolean age) throws JsonProcessingException {
+  public void testSignup(boolean age) {
     checkResult(age);
 
   }
@@ -77,7 +77,7 @@ public class SignUpControllerTest extends ApplicationTest {
     return Stream.of(Arguments.of(true));
   }
 
-  private void checkResult(boolean excpected) throws JsonProcessingException {
+  private void checkResult(boolean excpected) {
 
       clickOn("#name");
       write("Ulf Reidar");
@@ -118,18 +118,17 @@ public class SignUpControllerTest extends ApplicationTest {
 
       testUser.setId(UUID.randomUUID());
 
-      String sendString = mapper.writeValueAsString(testUser);
-
-      server.when(HttpRequest
-            .request()
-            .withMethod("POST")
-            .withPath("/createAccount")
-            .withHeader("Pass", testUser.getPassword()))
-          .respond(HttpResponse
-            .response()
-            .withStatusCode(200)
-            .withHeader("Content-Type", "application/json")
-            .withBody(sendString));
+      String sendString = null;
+      try {
+        sendString = mapper.writeValueAsString(testUser);
+      } catch (JsonProcessingException e) {
+        e.printStackTrace();
+      }
+      server.when(HttpRequest.request().withMethod("POST")
+      .withPath("/createAccount")
+      .withHeader("Pass", testUser.getPassword())
+      ).respond(HttpResponse.response().withStatusCode(200)
+          .withHeader("Content-Type", "application/json").withBody(sendString));
 
       clickOn("#createAccount");
 

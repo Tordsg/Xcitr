@@ -1,0 +1,112 @@
+@startuml restserver
+
+class ServerController {
+    -Exciter excite
+    -FileHandler fileHandler
+    -MessageHandler messageHandler
+    +String index()
+
+
+}
+
+class ExciterApplication{
+    #Exciter excite
+    -FileHandler fileHandler
+    +main(String[])
+
+}
+
+class User{
+    -UUID id
+    -String name
+    -int age
+    -String userInformation
+    -String email
+    -Map<String, Integer> likedUser
+    -List<String> matches
+    -String password
+    -int imageId
+    +boolean containsPreviousMatch(String)
+    +void fireOnLike(String)
+    +void resetUserMatch(String)
+    +void resetUserMatchToOne(String)
+    +void checkIfMatch(User)
+    +boolean haveLikedUser(String)
+}
+
+class BotUser{
+    -boolean likeBack
+    -List<String> replies
+    + String reply()
+
+}
+
+class Exciter{
+    -List<User> allUsers
+    +void addUser(User)
+    +void addUsers(List<User>)
+    +void addSomePlaceHolderUsers()
+    +User getNextRandomUser(List<User>)
+    +List<User> getTwoUniqueUsers(User)
+    -List<User> pickNrandom(List<User>, int)
+    +List<User> getUsersFromList(List<String>)
+    +User getUserByEmail(String)
+    +User getUserById(UUID)
+    +void clearUser(User)
+    +int getLikeCount(User, User)
+    +void removeFromAllUsers(User)
+    +void settAllUsers(ArrayList<User>)
+    +boolean likePerson(User, User)
+    +void resetLikes(User, User)
+    +List<String> getUserMatches(User)
+
+}
+
+class FileHandler{
+    String url
+    -JSONParser ParticipantStereotypeFontColor
+    +void saveUser(List<User>)
+    +void createFile()
+    +List<User> readUsers()
+    +List<String> parseJsonList(JSONArray)
+    +Map<String, Integer> parseJsonMap(JSONObject)
+    +User getUser(String)
+    +User getUserById(UUID)
+    +Map<String, Integer> getLikedUsers(UUID)
+
+}
+
+class MessageHandler{
+    String url
+    -JSONParser parser
+    +void createFile()
+    +void saveChat(Chat)
+    +List<Chat> getChats()
+    -List<Map<String, String>> getMessages(JSONObject)
+    -void removeFromChat(String, String, List<Chat>)
+    +Chat getChat(String, String)
+}
+
+
+class Chat{
+    -String user1
+    -String user2
+    -List<Map<String, String>> messages
+    +void sendMessage(String, String)
+
+}
+
+BotUser --|> User
+Exciter --> User
+FileHandler --> User
+Chat--> User
+MessageHandler --> Chat
+ExciterApplication --> Exciter
+ServerController --> FileHandler
+ServerController --> MessageHandler
+ServerController --> Exciter
+
+
+
+
+@enduml
