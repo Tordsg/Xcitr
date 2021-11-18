@@ -125,7 +125,7 @@
 
 
     <build>
-        <finalName>Exciter</finalName>
+        <finalName>Xcitr</finalName>
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
