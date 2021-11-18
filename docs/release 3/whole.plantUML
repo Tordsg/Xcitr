@@ -97,13 +97,13 @@ class Chat{
 }
 
 BotUser --|> User
-Exciter --> User
-FileHandler --> User
-Chat--> User
-MessageHandler --> Chat
+Exciter --> User: uses User-objects 
+FileHandler --> User: saves user-objects to file
+Chat--> User: creates chats between users
+MessageHandler --> Chat: saves messages to file
 ExciterApplication --> Exciter
-ServerController --> FileHandler
-ServerController --> MessageHandler
+ServerController --> FileHandler: gets information
+ServerController --> MessageHandler: gets information
 ServerController --> Exciter
 
 
