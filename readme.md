@@ -25,6 +25,10 @@ All these can be run by entering `mvn verify` in the terminal from **modules-exc
 
 To determine the test coverage of our code, Jacoco has been implemented to test how much of the different classes and modules have been tested. After running `mvn verify` one can view these under target for each module. The quality of the code is also checked using spotbugs and checkstyle. To only check spotbugs enter `mvn spotbugs:spotbugs` in **modules-exciter**. To only check checkstyle enter `mvn checkstyle::check` in the terminal from **modules-exciter** for all modules or go into the module and run `mvn checkstyle::check` in the terminal.
 
+## Work habits and work flow
+
+To develop the Xcitr application our group have based our work process throughout the project on the Scrum framework. Instead of daily sprints with the whole group we have had two weekly sprints where we updated each other on our progress and set new goals and plans for the nest sprint. Before we start working on a release we have start meeting where we set the overall goals with additional sub-goals for the deliverable, as well as divided
+
 ## Modules-Exciter
 
 The project is organized in the following structre. Code and modules can be found under modules-exciter. Within this folder one can find all of the core logic that makes up the backend of the app, along with the code for the frontend user interface and the file storage. Within modules-exciter there is also a README-file with a complete app description.

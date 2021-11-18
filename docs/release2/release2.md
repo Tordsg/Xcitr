@@ -1,8 +1,8 @@
 # Release 2
 
-The aim of this release is to make the app more functional with more sufficient persistence and a more sophisticated ui. The core logic will be expanded to support a greater input of user information, including an appropriate hash for the users password. For this release there will not be implemented cloud-based storage so that real users can use the app simoultaneously, meaning that there will be added a BotUser class to make sure some of the profiles the user likes also can like the user back to simulate matches. There will also be added a login and signup page, together with a match page where the user will be able to see all the people he or she has matched with. 
+The aim of this release is to make the app more functional with more sufficient persistence and a more sophisticated ui. The core logic will be expanded to support a greater input of user information, including an appropriate hash for the users password. For this release there will not be implemented cloud-based storage so that real users can use the app simoultaneously, meaning that there will be added a BotUser class to make sure some of the profiles the user likes also can like the user back to simulate matches. There will also be added a login and signup page, together with a match page where the user will be able to see all the people he or she has matched with.
 
-## User Stories
+## User stories
 
 The goals and milestones for this second release are implemented from us-4, us-5 and us-6, more thoroughly explained in [userstories.md](https://gitlab.stud.idi.ntnu.no/it1901/groups-2021/gr2117/gr2117/-/tree/master/userstories.md). In short they set three main requirements for this release:
 
@@ -29,5 +29,3 @@ For release 2 the goal is to expand the ui substantially with a login page, sign
 ### Testing
 
 Another goal for this release is to implement more testing coverage for both the persistence and the ui. This expansion is natural considering the additional functionality and complexity that will be added to the application.
-
-
