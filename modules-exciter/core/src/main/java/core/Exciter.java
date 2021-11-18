@@ -92,6 +92,13 @@ public class Exciter {
     return n > copy.size() ? copy.subList(0, copy.size()) : copy.subList(0, n);
   }
 
+  /**
+   * Gets specific users by emails.
+   * 
+   * @param emails
+   * 
+   * @return
+   */
   public List<User> getUsersFromList(List<String> emails) {
     return allUsers.stream().filter(user
         -> emails.contains(user.getEmail())).collect(Collectors.toList());
@@ -105,6 +112,11 @@ public class Exciter {
     return allUsers.stream().filter(u
         -> u.getId() != null && u.getId().equals(id)).findFirst().orElse(null);
   }
+
+  /**
+   * Removes a user.
+   * @param user
+   */
 
   public void clearUser(User user) {
     allUsers.remove(allUsers.stream().filter(u
@@ -129,10 +141,6 @@ public class Exciter {
 
   public List<User> getAllUsers() {
     return new ArrayList<>(allUsers);
-  }
-
-  public void removeFromAllUsers(User user) {
-    allUsers.remove(user);
   }
 
   public void setAllUsers(ArrayList<User> allUsers) {

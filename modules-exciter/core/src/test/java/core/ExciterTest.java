@@ -11,6 +11,10 @@ import user.User;
 
 public class ExciterTest {
 
+  /**
+   * Test class for Exciter class.
+   */
+
   private Exciter exciter;
   private User user = new User("test", 22, "test@mail.no");
   private BotUser botUser = new BotUser("Sofie", 23, "sofie@mail.no", true, 1);
@@ -90,15 +94,6 @@ public class ExciterTest {
     Assertions.assertEquals(1, user.getLikedUsers().get(botUser.getEmail()));
     exciter.resetLikes(user, botUser);
     Assertions.assertEquals(0, user.getLikedUsers().get(botUser.getEmail()));
-  }
-
-  @Test
-  public void removeUser() {
-    exciter.addUser(user);
-    exciter.addUser(botUser);
-    exciter.removeFromAllUsers(user);
-    Assertions.assertFalse(exciter.getAllUsers().contains(user));
-    Assertions.assertTrue(exciter.getAllUsers().contains(botUser));
   }
 
   @Test
