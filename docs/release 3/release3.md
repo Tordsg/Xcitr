@@ -27,7 +27,7 @@ The exciter class will have to be altered so that it is compatible with the REST
 
 Due to the added functionality of the chat, a new class has to be created in the json module. The MessageHandler class will be responsible for reading and writing the chat messages that are being sent between the user and their matches (i.e. bot users).
 
-Both the FileHandler class and the MessageHandler class have to be edited so that they are compatible with the REST API.
+Both the UserHandler class and the MessageHandler class have to be edited so that they are compatible with the REST API.
 
 ### Restserver
 
@@ -45,8 +45,8 @@ The user module is a module that both the REST client and the REST server needs 
 
 ### Testing
 
-A final goal for the release is to implement a minimum test coverage at 70% for all the modules including the restserver. To test the ui we are also implementing a mock server to complete the testing with the REST API.
+A final goal for the release is to implement testing for all the modules including the restserver. To test the ui we are also implementing a mock server to complete the testing with the REST API.
 
-## Work habits and work flow 
+## Work habits, work flow and code quality
 
 
