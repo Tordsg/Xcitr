@@ -105,22 +105,4 @@ public class LoginController {
     } catch (IOException e) {
     }
   }
-
-  /**
-   * Adds user.
-   *
-   * @param mail
-   *
-   * @param password
-   *
-   */
-
-  public void addUser(String mail, String password) {
-
-    try {
-      clientHandler.login(mail, password);
-    } catch (ServerException | ConnectException e) {
-    }
-  }
-
 }
