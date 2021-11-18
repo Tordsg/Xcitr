@@ -200,9 +200,9 @@ public class User {
    * @return true if email is valid
    */
   private boolean emailValidator(String email) {
-    String emailRegex = "^[a-zA-Z0-9_+&*-]+(?:\\." 
-        + "[a-zA-Z0-9_+&*-]+)*@" + "(?:[a-zA-Z0-9-]+\\.)+[a-z"
-        + "A-Z]{2,7}$";
+    String emailRegex = "^[a-zA-ZæøåÆØÅ0-9_+&*-]+(?:\\." 
+        + "[a-zA-ZæøåÆØÅ0-9_+&*-]+)*@" + "(?:[a-zA-ZæøåÆØÅ0-9-]+\\.)+[a-z"
+        + "A-ZæøåÆØÅ]{2,7}$";
 
     java.util.regex.Pattern pat = java.util.regex.Pattern.compile(emailRegex);
     java.util.regex.Matcher mat = pat.matcher(email);
