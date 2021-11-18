@@ -19,6 +19,9 @@ import org.mockserver.model.HttpRequest;
 import org.mockserver.model.HttpResponse;
 import org.testfx.framework.junit5.ApplicationTest;
 
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.TextField;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
@@ -29,9 +32,14 @@ import user.User;
 
 public class LoginControllerTest extends ApplicationTest {
 
+<<<<<<< HEAD
   private App app = new App();
   private static User testUser = new User("rolf", 22, "test@mail.com");
   private static ObjectMapper mapper = new ObjectMapper();
+=======
+  private User testUser = new User("rolf", 22, "test@mail.com");
+  private ObjectMapper mapper = new ObjectMapper();
+>>>>>>> 54abf9f21b3c85fe17d8c1b4b2c8bc0b02f7e018
   private static ClientAndServer server;
 
   @BeforeAll
@@ -61,18 +69,26 @@ public class LoginControllerTest extends ApplicationTest {
 
   @Override
   public void start(Stage stage) throws Exception {
-    app.start(stage);
+    final FXMLLoader loader = new FXMLLoader(getClass().getResource("login.fxml"));
+    final Parent root = loader.load();
+    stage.setScene(new Scene(root));
+    stage.show();
   }
 
   @BeforeEach
   public void setUp() {
+<<<<<<< HEAD
     app = new App();
 
+=======
+    testUser.setPassword("test");
+    testUser.setId(UUID.randomUUID());
+>>>>>>> 54abf9f21b3c85fe17d8c1b4b2c8bc0b02f7e018
   }
 
   @ParameterizedTest
   @MethodSource
-  public void testController(boolean excpected) {
+  public void testController(boolean excpected) throws JsonProcessingException {
     checkResult(excpected);
 
   }
@@ -83,7 +99,7 @@ public class LoginControllerTest extends ApplicationTest {
 
   @ParameterizedTest
   @MethodSource
-  public void testControllerFail(boolean excpected) {
+  public void testControllerFail(boolean excpected) throws JsonProcessingException {
   checkResult(excpected);
 
   }
@@ -92,7 +108,7 @@ public class LoginControllerTest extends ApplicationTest {
   return Stream.of(Arguments.of(false));
   }
 
-  private void checkResult(boolean excpected) {
+  private void checkResult(boolean excpected) throws JsonProcessingException {
     if (excpected) {
       TextField email = lookup("#emailLogin").query();
       clickOn(email);
@@ -101,13 +117,9 @@ public class LoginControllerTest extends ApplicationTest {
       TextField password = lookup("#passwordLogin").query();
       clickOn(password);
       write("test");
-      String sendString = null;
 
+      String sendString = mapper.writeValueAsString(testUser);
 
-      try {
-        sendString = mapper.writeValueAsString(testUser);
-      } catch (JsonProcessingException e) {
-      }
       server.when(HttpRequest.request().withMethod("POST")
       .withPath("/login")
       .withHeader("mail",testUser.getEmail())
@@ -115,11 +127,9 @@ public class LoginControllerTest extends ApplicationTest {
           .withHeader("Content-Type", "application/json").withBody(sendString));
           BotUser botUser = new BotUser("name", 22, "bot@mail.com", true);
           BotUser botUser2 = new BotUser("name", 22, "bot2@mail.com", true);
-          try {
-        sendString = mapper.writeValueAsString(List.of(botUser, botUser2));
-      } catch (JsonProcessingException e) {
-        e.printStackTrace();
-      }
+
+      sendString = mapper.writeValueAsString(List.of(botUser, botUser2));
+
       server.when(HttpRequest.request().withMethod("GET")).respond(HttpResponse.response().withStatusCode(200)
       .withHeader("Content-Type", "application/json").withBody(sendString));
 

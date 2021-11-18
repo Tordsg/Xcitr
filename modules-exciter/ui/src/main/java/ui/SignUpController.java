@@ -140,6 +140,7 @@ public class SignUpController {
       window.setScene(s);
       window.show();
     } catch (IOException e) {
+      System.err.println("Error loading login.fxml");
     }
   }
 
@@ -164,6 +165,7 @@ public class SignUpController {
     } catch (IllegalArgumentException | ServerException | ConnectException e) {
       errorLabel.setText(e.getMessage());
     } catch (IOException e) {
+      errorLabel.setText("Something went wrong");
     }
   }
 
@@ -178,6 +180,7 @@ public class SignUpController {
     try {
       clientHandler.createAccount(user, password);
     } catch (ServerException | ConnectException e) {
+      errorLabel.setText(e.getMessage());
     }
   }
 

@@ -30,8 +30,6 @@ import org.testfx.framework.junit5.ApplicationTest;
 
 public class SecondaryControllerTest extends ApplicationTest {
 
-  private SignUpController signupController = new SignUpController();
-
   private User testUser = new User("rolf", 22, "test@mail.com");
   private ObjectMapper mapper = new ObjectMapper();
   private static ClientAndServer server;
@@ -48,6 +46,7 @@ public class SecondaryControllerTest extends ApplicationTest {
   }
   @Override
   public void start(final Stage stage) throws Exception {
+    App.setUser(testUser);
     final FXMLLoader loader = new FXMLLoader(getClass().getResource("profile.fxml"));
     final Parent root = loader.load();
     stage.setScene(new Scene(root));
@@ -55,30 +54,14 @@ public class SecondaryControllerTest extends ApplicationTest {
   }
 
   @BeforeEach
-  public void setUp(){
+  public void setUp() throws JsonProcessingException{
     testUser.setId(UUID.randomUUID());
-    signupController.addUser(testUser, "test");
-    String sendString = null;
-
-
-    try {
-      sendString = mapper.writeValueAsString(testUser);
-    } catch (JsonProcessingException e) {
-      e.printStackTrace();
-    }
-    server.when(HttpRequest.request().withMethod("POST")
-    .withPath("/login")
-    .withHeader("mail",testUser.getEmail())
-    ).respond(HttpResponse.response().withStatusCode(200)
-        .withHeader("Content-Type", "application/json").withBody(sendString));
-    server.when(HttpRequest.request().withMethod("GET")).respond(HttpResponse.response().withStatusCode(200)
-    .withHeader("Content-Type", "application/json").withBody(sendString));
   }
 
 
   @ParameterizedTest
   @MethodSource
-  public void testController(boolean excpected) {
+  public void testController(boolean excpected) throws JsonProcessingException {
     checkResult(excpected);
 
   }
@@ -87,7 +70,7 @@ public class SecondaryControllerTest extends ApplicationTest {
     return Stream.of(Arguments.of(true));
   }
 
-  private void checkResult(boolean excpected) {
+  private void checkResult(boolean excpected) throws JsonProcessingException {
 
     TextArea textField = lookup("#bio").query();
     textField.clear();
@@ -99,23 +82,26 @@ public class SecondaryControllerTest extends ApplicationTest {
     clickOn("#name");
     write("Ulf Reidar");
 
+    testUser.setName("Ulf Reidar");
+    testUser.setUserInformation("guitar player");
+    String sendString = mapper.writeValueAsString(testUser);
 
+    server.when(HttpRequest
+          .request().withMethod("POST")
+          .withPath("/user/update")
+          .withHeader("Authorization",testUser.getId().toString()))
+        .respond(HttpResponse.response().withStatusCode(200)
+          .withHeader("Content-Type", "application/json")
+          .withBody(sendString));
 
-
-    String sendString = null;
-      try {
-        sendString = mapper.writeValueAsString(testUser);
-      } catch (JsonProcessingException e) {
-        e.printStackTrace();
-      }
-      server.when(HttpRequest.request().withMethod("POST")
-      .withPath("/user/update")
-      .withHeader("Authorization",testUser.getId().toString())
-      ).respond(HttpResponse.response().withStatusCode(200)
-          .withHeader("Content-Type", "application/json").withBody(sendString));
-
-      server.when(HttpRequest.request().withMethod("GET")).respond(HttpResponse.response().withStatusCode(200)
-      .withHeader("Content-Type", "application/json").withBody(sendString));
+    server.when(HttpRequest
+          .request()
+          .withMethod("GET"))
+        .respond(HttpResponse
+          .response()
+          .withStatusCode(200)
+          .withHeader("Content-Type", "application/json")
+          .withBody(sendString));
 
     clickOn("#save");
     Assertions.assertEquals("guitar player", App.getUser().getUserInformation());

@@ -36,7 +36,8 @@ public class ClientHandler {
       if (response.code() == 200 && response.body() != null) {
         return true;
       }
-    } catch (Exception e) {
+    } catch (IOException e) {
+      System.err.println("Server not online");
     }
     return false;
   }
@@ -107,6 +108,7 @@ public class ClientHandler {
     } catch (ConnectException e) {
       throw new ConnectException("Server is not on");
     } catch (IOException e) {
+      System.err.println("Error" + e.getMessage());
     }
     throw new ServerException("Could not create account");
   }
@@ -141,6 +143,7 @@ public class ClientHandler {
     } catch (ConnectException e) {
       throw new ConnectException("Server is not on");
     } catch (IOException e) {
+      System.err.println("Error" + e.getMessage());
     }
     throw new ServerException("Could not login");
   }
@@ -183,9 +186,10 @@ public class ClientHandler {
    * @return a user with updated bio
    *
    * @throws ServerException IOException
+   * @throws ConnectException IOException
    */
 
-  public User updateInformation(User user) throws ServerException {
+  public User updateInformation(User user) throws ServerException, ConnectException {
     MediaType mediaType = MediaType.parse("application/json");
     try {
       String sendString = mapper.writeValueAsString(user);
@@ -201,6 +205,7 @@ public class ClientHandler {
         }
       }
     } catch (IOException e) {
+      throw new ConnectException("Could not connect to server");
     }
     throw new ServerException("Could not update information");
   }
@@ -310,8 +315,9 @@ public class ClientHandler {
    * @return user
    *
    * @throws ServerException IOException
+   * @throws connectException IOException
    */
-  public User getUser(User user, List<User> users) throws ServerException {
+  public User getUser(User user, List<User> users) throws ServerException, ConnectException {
     try {
       MediaType mediaType = MediaType.parse("application/json");
       String sendString = mapper.writeValueAsString(users);
@@ -327,6 +333,7 @@ public class ClientHandler {
         }
       }
     } catch (IOException e) {
+      throw new ConnectException("Can not connect to server");
     }
     throw new ServerException("Could not get user");
   }
