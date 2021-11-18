@@ -65,7 +65,7 @@ class PrimaryController{
     +Circle getNotificationCircle()
     +ImageController getImageController()
 }
-class SecondaryController{
+class ProfileController{
     -ClientHandler clientHandler
     -User user
     -ImageController imageController
@@ -104,15 +104,15 @@ class MatchController{
 LoginController --> ClientHandler
 SignUpController --> ClientHandler
 PrimaryController --> ClientHandler
-SecondaryController --> ClientHandler
+ProfileController --> ClientHandler
 MatchController --> ClientHandler
 
 
 LoginController --> PrimaryController
 SignUpController --> PrimaryController
-PrimaryController <--> SecondaryController
+PrimaryController <--> ProfileController
 PrimaryController <--> MatchController
-SecondaryController --> LoginController
+ProfileController --> LoginController
 
 
 @enduml
