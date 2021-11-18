@@ -109,3 +109,7 @@ The user module contains a class that defines a user in the application, a class
 - [ChatDeserializer](https://gitlab.stud.idi.ntnu.no/it1901/groups-2021/gr2117/gr2117/-/tree/master/modules-exciter/user/ChatDeserializer)
 - [User](https://gitlab.stud.idi.ntnu.no/it1901/groups-2021/gr2117/gr2117/-/tree/master/modules-exciter/user/User)
 - [UserDeserializer](https://gitlab.stud.idi.ntnu.no/it1901/groups-2021/gr2117/gr2117/-/tree/master/modules-exciter/user/UserDeserializer)
+
+## Package diagram for Xcitr
+
+![packageDiagram](/uploads/015f81e926d12e097a2f0314c3553016/packageDiagram.png)
