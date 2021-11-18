@@ -1,3 +1,52 @@
 # Release 3
-The aim of release 3 is divided into two parts:
-1. Create a REST-API 
+
+The aim of release 3 is to further develop the Xcitr application in two ways:
+
+1. Building a REST-API.
+2. Expansion of the JavaFX application according to three new user stories.
+
+## User stories
+
+The requirements for the improved app functionality in the third release are set by three user stories: Bob (us-7), James (us-8) and Phyllis (us-9). These are explained in further detail in [userstories.md](https://gitlab.stud.idi.ntnu.no/it1901/groups-2021/gr2117/gr2117/-/tree/master/userstories.md), but are summerized by the following three points:
+
+1. being able to choose an avatar as a profile picture
+
+2. match notification
+
+3. chat between logged in user and their matches
+
+## Progress plan
+
+### Core
+
+The goal for the core module is to modify it so that it can communicate and run with a REST server. This means that all of the back-end code associated with the user and bot user will be removed from the core and become its own module. This is to provide the REST client and REST server with equal access to the code that defines a user and a bot user on the application.
+
+The exciter class will have to be altered so that it is compatible with the REST server. Instead of directly communicating with the applications user interface, the exciter class recieves requests and information from the REST server according to the user activity. Based on this, the exciter class decides what functions should be called and what information is going to be stored to have a fully developed back-end.
+
+### JSON
+
+Due to the added functionality of the chat, a new class has to be created in the json module. The MessageHandler class will be responsible for reading and writing the chat messages that are being sent between the user and their matches (i.e. bot users).
+
+Both the FileHandler class and the MessageHandler class have to be edited so that they are compatible with the REST API.
+
+### Restserver
+
+In order to build a functioning REST API a new restserver module has to be created. This module has to contain two classes, one that initalizes the Xcitr application and another that controls the server. The ServerController contains all the necessary methods and functions so that it can understand the HTTP requests from the REST client and communicate these to the core and persistence and then obtain the requested functionality from the core and send a HTTP response back to the REST client.
+
+### User interface
+
+In the ui module our goal is to implement the REST client that can send requests to the server and view its response. This means that we have to add two new classes in this module: an app class that makes the client application packable to a single jar and a ClientHandler class that can function as a bridge between the ui and the server.
+
+In order to support the chat requirement set by Phyllis (us-9) and James (us-8), the MatchController class has to be extended to support this additional functionality.
+
+### User
+
+The user module is a module that both the REST client and the REST server needs to have equal access to. The module sets up the framework for a user and the bot users in the application, as well as it needs to implement the back-end logic for the new functionality in the app: the Chat. Also to store and retrieve the information in the json files it it necessary to add two deserialization classes for the User.java and BotUser.java, so that the json stored strings can be converted to User and BotUser objects.
+
+### Testing
+
+A final goal for the release is to implement testing for all the modules including the restserver. To test the ui we are also implementing a mock server to complete the testing with the REST API.
+
+## Work habits, work flow and code quality
+
+To develop the Xcitr application our group have based our work process on the Scrum framework. Instead of daily sprints with the whole group we have had two weekly sprints where we updated each other on our progress and set new goals and plans for the nest sprint. In
