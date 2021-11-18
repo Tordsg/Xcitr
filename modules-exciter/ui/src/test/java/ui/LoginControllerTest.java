@@ -10,7 +10,6 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
@@ -32,14 +31,8 @@ import user.User;
 
 public class LoginControllerTest extends ApplicationTest {
 
-<<<<<<< HEAD
-  private App app = new App();
   private static User testUser = new User("rolf", 22, "test@mail.com");
   private static ObjectMapper mapper = new ObjectMapper();
-=======
-  private User testUser = new User("rolf", 22, "test@mail.com");
-  private ObjectMapper mapper = new ObjectMapper();
->>>>>>> 54abf9f21b3c85fe17d8c1b4b2c8bc0b02f7e018
   private static ClientAndServer server;
 
   @BeforeAll
@@ -75,16 +68,6 @@ public class LoginControllerTest extends ApplicationTest {
     stage.show();
   }
 
-  @BeforeEach
-  public void setUp() {
-<<<<<<< HEAD
-    app = new App();
-
-=======
-    testUser.setPassword("test");
-    testUser.setId(UUID.randomUUID());
->>>>>>> 54abf9f21b3c85fe17d8c1b4b2c8bc0b02f7e018
-  }
 
   @ParameterizedTest
   @MethodSource
