@@ -73,7 +73,7 @@ public class PrimaryController implements Initializable {
   private User leftUser = new User();
   private User rightUser = new User();
   // Static since it's shared by the SecondaryController
-  private final static ImageController imageController = new ImageController();
+  private static final ImageController imageController = new ImageController();
 
   /**
    * Switching to the profile page from the matching page.
@@ -92,6 +92,7 @@ public class PrimaryController implements Initializable {
       window.setScene(s);
       window.show();
     } catch (IOException e) {
+      System.err.println("Error loading profile.fxml");
     }
   }
 
@@ -113,6 +114,7 @@ public class PrimaryController implements Initializable {
       window.setScene(s);
       window.show();
     } catch (IOException e) {
+      System.err.println("Error loading match.fxml");
     }
   }
 
@@ -154,7 +156,8 @@ public class PrimaryController implements Initializable {
       users.add(rightUser);
       try {
         rightUser = clientHandler.getUser(user, users);
-      } catch (ServerException e) {
+      } catch (ServerException | ConnectException e) {
+        errorLabel.setText(e.getMessage());
       }
       cardLiked(rightCard, leftCard);
       return;
@@ -193,7 +196,8 @@ public class PrimaryController implements Initializable {
       users.add(rightUser);
       try {
         leftUser = clientHandler.getUser(user, users);
-      } catch (ServerException e) {
+      } catch (ServerException | ConnectException e) {
+        errorLabel.setText(e.getMessage());
       }
       cardLiked(leftCard, rightCard);
       return;
@@ -219,10 +223,10 @@ public class PrimaryController implements Initializable {
 
   public void cardLiked(Pane likedcard, Pane discardedcard) {
     TranslateTransition ttScore = new TranslateTransition(Duration
-        .millis(Math.abs(-likedcard.getLayoutX() - 300)),
+        .millis(Math.abs(- likedcard.getLayoutX() - 300)),
         scorePane);
     ttScore.setFromX(0);
-    ttScore.setToX(-likedcard.getLayoutX() - 300);
+    ttScore.setToX(- likedcard.getLayoutX() - 300);
     ttScore.setCycleCount(1);
     ttScore.setAutoReverse(true);
     TranslateTransition tt = translateCardY(likedcard, 400, 0, false);
@@ -236,6 +240,7 @@ public class PrimaryController implements Initializable {
           notification.setVisible(true);
         }
       } catch (ServerException | ConnectException e1) {
+        errorLabel.setText(e1.getMessage());
       }
     });
     TranslateTransition ttCard = new TranslateTransition(Duration
@@ -452,7 +457,7 @@ public class PrimaryController implements Initializable {
         }
         dragged = false;
       }
-    }) ;
+    });
   }
 
   public List<User> getOnScreenUsers() {
