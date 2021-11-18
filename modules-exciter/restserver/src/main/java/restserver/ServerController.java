@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 import java.util.stream.Collectors;
-import json.FileHandler;
+import json.UserHandler;
 import json.MessageHandler;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -26,7 +26,7 @@ import user.User;
 public class ServerController {
 
   private final Exciter excite = ExciterApplication.excite;
-  private final FileHandler fileHandler = new FileHandler();
+  private final UserHandler userHandler = new UserHandler();
   private final MessageHandler messageHandler = new MessageHandler();
 
   /**
@@ -71,7 +71,7 @@ public class ServerController {
     user.setPasswordNoHash(pass);
     user.setId(UUID.randomUUID());
     excite.addUser(user);
-    fileHandler.saveUser(excite.getAllUsers());
+    userHandler.saveUser(excite.getAllUsers());
     return user;
   }
 
@@ -145,7 +145,7 @@ public class ServerController {
     thisUser.setName(user.getName());
     thisUser.setAge(user.getAge());
     thisUser.setUserInformation(user.getUserInformation());
-    fileHandler.saveUser(excite.getAllUsers());
+    userHandler.saveUser(excite.getAllUsers());
 
     return thisUser;
   }
@@ -166,7 +166,7 @@ public class ServerController {
     }
     User thisUser = excite.getUserById(id);
     thisUser.setPasswordNoHash(password.replace("\"", ""));
-    fileHandler.saveUser(excite.getAllUsers());
+    userHandler.saveUser(excite.getAllUsers());
     return thisUser;
   }
 
@@ -337,8 +337,8 @@ public class ServerController {
       throw new Exception("User not found on :: " + mail);
     }
     excite.clearUser(user);
-    fileHandler.saveUser(excite.getAllUsers());
-    if (fileHandler.getUser(mail) == null) {
+    userHandler.saveUser(excite.getAllUsers());
+    if (userHandler.getUser(mail) == null) {
       return true;
     }
     return false;

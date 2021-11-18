@@ -18,7 +18,7 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import core.Exciter;
-import json.FileHandler;
+import json.UserHandler;
 import json.MessageHandler;
 import okhttp3.MediaType;
 import okhttp3.OkHttpClient;
@@ -39,7 +39,7 @@ public class ExciterServerTest {
   OkHttpClient client = new OkHttpClient();
   ObjectMapper mapper = new ObjectMapper();
   Exciter exciter = ExciterApplication.excite;
-  FileHandler fileHandler = new FileHandler();
+  UserHandler userHandler = new UserHandler();
   User user = new User("test", 22, "test@mail.no");
   MessageHandler messageHandler = new MessageHandler();
 
@@ -67,8 +67,8 @@ public class ExciterServerTest {
     exciter.clearUser(new BotUser("Bot", 18, "Boten@mail.no", true, 7));
     exciter.clearUser(new User("Ludde", 19, "LuddeMessage@mail.no"));
     exciter.clearUser(new User("Ludde", 19, "LuddeMessage2@mail.no"));
-    FileHandler fileHandler = new FileHandler();
-    fileHandler.saveUser(exciter.getAllUsers());
+    UserHandler userHandler = new UserHandler();
+    userHandler.saveUser(exciter.getAllUsers());
   }
 
   @Test
@@ -89,7 +89,7 @@ public class ExciterServerTest {
     User getUser = new User("test", 22, "testnr2@mail.no");
     getUser.setId(UUID.randomUUID());
     exciter.addUser(getUser);
-    fileHandler.saveUser(exciter.getAllUsers());
+    userHandler.saveUser(exciter.getAllUsers());
     Request requets = new Request.Builder().url("http://localhost:" + port + "/user")
         .header("Authorization", getUser.getId().toString()).build();
     User newUser = null;
@@ -408,7 +408,7 @@ public class ExciterServerTest {
     User messageUser = new User("message", 23, "message@mail.no");
     testUser.setId(UUID.randomUUID());
     exciter.addUsers(List.of(testUser, messageUser));
-    fileHandler.saveUser(exciter.getAllUsers());
+    userHandler.saveUser(exciter.getAllUsers());
     Chat chat = new Chat(testUser.getEmail(), messageUser.getEmail());
     chat.sendMessage(testUser.getEmail(), "Hei, hva skjer?");
     messageHandler.saveChat(chat);

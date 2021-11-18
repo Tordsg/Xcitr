@@ -87,7 +87,7 @@ public class MessageHandler {
   }
 
   /**
-   *  Method to acces a chat between two users.
+   *  Method to access a chat between two users.
    *
    * @return a chat object with the users messages.
    */

@@ -26,9 +26,9 @@ import user.User;
  * Main class for file handling.
  */
 
-public class FileHandler {
+public class UserHandler {
 
-  public FileHandler() {
+  public UserHandler() {
     createFile();
   }
 

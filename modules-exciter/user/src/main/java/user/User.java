@@ -54,7 +54,7 @@ public class User {
    * @param password string of  users password
    * @param likedUsers map of the user and how many times they´ve liked other users
    * @param imageId string of users chosen image´s id
-   * @apiNote This constructor is to only be used by the filehandler class.
+   * @apiNote This constructor is to only be used by the userhandler class.
    */
 
   public User(UUID id, String name, int age, 
@@ -75,7 +75,7 @@ public class User {
    * @param email string of users email
    * @param password string of users password
    * @param likedUsers map of the user and how many times they´ve liked other users
-   * @apiNote This constructor is to only be used by the filehandler class.
+   * @apiNote This constructor is to only be used by the userhandler class.
    */
 
   public User(UUID id, String name, int age, 
@@ -95,7 +95,7 @@ public class User {
    * @param matches list of the users matches
    * @param email string of the users email
    * @param password string of the users password
-   * @apiNote This constructor is to only be used by the filehandler class.
+   * @apiNote This constructor is to only be used by the userhandler class.
    */
 
   public User(String name, int age, String userInformation, 

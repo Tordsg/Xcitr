@@ -22,7 +22,7 @@ There must also be a main class for the app logic. For the first release this cl
 
 ### persistence
 
-For the persistence a JSON module is implemented to make sure matches and likes are saved and stored in a local file. Only one FileHandler class is needed to make sure the app can save and read users, as well as creating a file to store this information.
+For the persistence a JSON module is implemented to make sure matches and likes are saved and stored in a local file. Only one UserHandler class is needed to make sure the app can save and read users, as well as creating a file to store this information.
 
 ### ui
 
