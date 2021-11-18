@@ -47,7 +47,7 @@
             <TextField fx:id="age" layoutX="66.0" layoutY="253.0" prefHeight="46.0" prefWidth="234.0" />
             <TextField fx:id="emailSignup" layoutX="66.0" layoutY="330.0" prefHeight="46.0" prefWidth="234.0" />
             <PasswordField fx:id="passwordSignup" layoutX="66.0" layoutY="405.0" prefHeight="46.0" prefWidth="234.0" />
-            <Button fx:id="createAccount" defaultButton="true" layoutX="119.0" layoutY="468.0" mnemonicParsing="false" onAction="#handleCreateAccount" text="CREATE CCOUNT" />
+            <Button fx:id="createAccount" defaultButton="true" layoutX="119.0" layoutY="468.0" mnemonicParsing="false" onAction="#handleCreateAccount" text="CREATE ACCOUNT" />
             <Label layoutX="65.0" layoutY="160.0" text="Name" textFill="#6a6c73">
                <font>
                   <Font name="Apple Braille" size="12.0" />
