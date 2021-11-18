@@ -14,9 +14,12 @@ The second option is to go from **modules-exciter** and go to the **restserver**
 
 To run the tests go into **modules-exciter** and enter `mvn test` into the terminal to run the tests in every module. To run the tests in only one module go into the module and run 'mvn test' here.
 
-## Tools for code-quality
+## Work habits, work flow and code quality
+
+### Tools for code-quality
 
 We configure three tools related to code quality:
+
 1. **Checkstyle** - checks more superficial and stylistic properties of the code as text
 2. **Spotbugs** - analyzes the code for common mistakes
 3. **Jacoco** - collects and presents information and test-coverage
@@ -25,9 +28,15 @@ All these can be run by entering `mvn verify` in the terminal from **modules-exc
 
 To determine the test coverage of our code, Jacoco has been implemented to test how much of the different classes and modules have been tested. After running `mvn verify` one can view these under target for each module. The quality of the code is also checked using spotbugs and checkstyle. To only check spotbugs enter `mvn spotbugs:spotbugs` in **modules-exciter**. To only check checkstyle enter `mvn checkstyle::check` in the terminal from **modules-exciter** for all modules or go into the module and run `mvn checkstyle::check` in the terminal.
 
-## Work habits and work flow
+### Scrum and work flow
 
-To develop the Xcitr application our group have based our work process throughout the project on the Scrum framework. Instead of daily sprints with the whole group we have had two weekly sprints where we updated each other on our progress and set new goals and plans for the nest sprint. Before we start working on a release we have start meeting where we set the overall goals with additional sub-goals for the deliverable, as well as divided
+To develop the Xcitr application our group have based our work process throughout the project on the Scrum framework. Instead of daily scrums, the group has had two weekly scrums where we updated each other on our progress and set new goals and plans for the current and next sprint. Due to some differences in coding experience the group has also operated with pair programming to a great extent during the entire developing process.
+
+Before we started working on a release we had a sprint review where we reflected on the projects progress and what work needed to be completed and by whom to reach the goals for the release. We also had a planning sprint meeting where we set the overall goals with additional sub-goals for the deliverable. The group communication during the rest of the week included a combination of work sessions with the whole group or in pairs, video calls on discord and a messenger chat where we communicated problems and successes during the week. We also used these mediums to plan meeting times with our learning assistant.
+
+The group did not appoint a scrum master, however prior to each srum meeting each group member wrote down issues, goals or other important points that the group had to be informed about or needed to be discussed. There was a collective responsibility to make sure that we worked effectively and within the scrum framework.
+
+### Structural choices on git
 
 ## Modules-Exciter
 
@@ -86,5 +95,3 @@ The user module contains a class that defines a user in the application, a class
 - [ChatDeserializer](https://gitlab.stud.idi.ntnu.no/it1901/groups-2021/gr2117/gr2117/-/tree/master/modules-exciter/user/ChatDeserializer)
 - [User](https://gitlab.stud.idi.ntnu.no/it1901/groups-2021/gr2117/gr2117/-/tree/master/modules-exciter/user/User)
 - [UserDeserializer](https://gitlab.stud.idi.ntnu.no/it1901/groups-2021/gr2117/gr2117/-/tree/master/modules-exciter/user/UserDeserializer)
-
-

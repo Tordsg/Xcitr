@@ -45,8 +45,8 @@ The user module is a module that both the REST client and the REST server needs 
 
 ### Testing
 
-A final goal for the release is to implement testing for all the modules including the restserver. To test the ui we are also implementing a mock server to complete the testing with the REST API.
+A final goal for the release is to implement a minimum test coverage at 70% for all the modules including the restserver. To test the ui we are also implementing a mock server to complete the testing with the REST API.
 
-## Work habits, work flow and code quality
+## Work habits and work flow 
 
 
