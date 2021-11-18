@@ -29,20 +29,34 @@ import user.User;
 
 public class LoginControllerTest extends ApplicationTest {
 
-  private LoginController controller = new LoginController();
   private App app = new App();
-  private User testUser = new User("rolf", 22, "test@mail.com");
-  private ObjectMapper mapper = new ObjectMapper();
+  private static User testUser = new User("rolf", 22, "test@mail.com");
+  private static ObjectMapper mapper = new ObjectMapper();
   private static ClientAndServer server;
 
   @BeforeAll
-  public static void startMockServer() {
+  public static void setUpMock() {
     server = ClientAndServer.startClientAndServer(8080);
+    startMockServer();
   }
 
   @AfterAll
   public static void stopMockServer() {
     server.stop();
+  }
+
+  private static void startMockServer(){
+    testUser.setPassword("test");
+    testUser.setId(UUID.randomUUID());
+    try {
+      server.when(HttpRequest.request().withMethod("POST").withPath("/createAccount"))
+          .respond(HttpResponse.response().withStatusCode(200).withHeader("Content-Type", "application/json")
+              .withBody(mapper.writeValueAsString(testUser)));
+
+
+    } catch (JsonProcessingException e) {
+    }
+
   }
 
   @Override
@@ -53,9 +67,7 @@ public class LoginControllerTest extends ApplicationTest {
   @BeforeEach
   public void setUp() {
     app = new App();
-    testUser.setPassword("test");
-    testUser.setId(UUID.randomUUID());
-    controller.addUser("testUser", "test");
+
   }
 
   @ParameterizedTest
