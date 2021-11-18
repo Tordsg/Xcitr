@@ -49,4 +49,4 @@ A final goal for the release is to implement testing for all the modules includi
 
 ## Work habits, work flow and code quality
 
-To develop the Xcitr application our group have based our work process on the Scrum framework. Instead of daily sprints with the whole group we have had two weekly sprints where we updated each other on our progress and set new goals and plans for the nest sprint. In
+
