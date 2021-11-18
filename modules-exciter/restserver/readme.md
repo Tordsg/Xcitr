@@ -1,4 +1,4 @@
-# Readme for restserver module
+# Restserver
 
 ## PlantUML diagram for how the restserver module interacts with the rest of the application
 

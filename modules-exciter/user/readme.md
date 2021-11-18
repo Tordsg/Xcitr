@@ -1,4 +1,4 @@
-# Readme for user module
+# User 
 
 ## Sequence diagram for a match on the app
 

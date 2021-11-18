@@ -1,4 +1,4 @@
-# Readme for ui module
+# User Interface
 
 ## PlantUML diagram for the ui module
 
