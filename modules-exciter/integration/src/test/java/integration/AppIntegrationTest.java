@@ -5,8 +5,6 @@ import java.rmi.ServerException;
 import java.util.concurrent.TimeUnit;
 import java.util.stream.Stream;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -18,6 +16,7 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.testfx.framework.junit5.ApplicationTest;
 
+import javafx.scene.shape.Circle;
 import javafx.stage.Stage;
 import restserver.ExciterApplication;
 import restserver.ServerController;
@@ -41,6 +40,7 @@ public class AppIntegrationTest extends ApplicationTest {
   @Override
   public void start(Stage stage) throws Exception {
     app.start(stage);
+
   }
 
   @ParameterizedTest
@@ -75,6 +75,8 @@ public class AppIntegrationTest extends ApplicationTest {
       TimeUnit.SECONDS.sleep(2);
     } catch (Exception e) {
     }
+    Circle circle = lookup("#notification").query();
+    Assertions.assertFalse(circle.isVisible());
     clickOn("#refresh");
     try {
       TimeUnit.SECONDS.sleep(2);
@@ -99,7 +101,9 @@ public class AppIntegrationTest extends ApplicationTest {
     clickOn("#passwordLogin");
     write("test");
     clickOn("#login");
-    Assertions.assertTrue(true);
+    //Should have gone to primary and this queries the samme element again.
+    circle = lookup("#notification").query();
+    Assertions.assertFalse(circle.isVisible());
 
     try {
       clientHandler.deleteUser(testUser);
