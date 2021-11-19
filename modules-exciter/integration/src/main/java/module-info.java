@@ -7,5 +7,6 @@ open module integration {
     requires spring.context;
     requires spring.web;
     requires spring.beans;
+    requires java.rmi;
 
 }
