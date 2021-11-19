@@ -94,8 +94,9 @@ public class LoginController {
 
   /**
    * Method to switches to signup.fxml.
-   * 
-   * @param event
+   *
+   * @param event when the text Sign Up is clicked on.
+   *
    */
 
   @FXML

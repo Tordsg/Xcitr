@@ -94,10 +94,11 @@ public class Exciter {
 
   /**
    * Gets specific users by emails.
-   * 
+   *
    * @param emails
-   * 
+   *
    * @return
+   * 
    */
   public List<User> getUsersFromList(List<String> emails) {
     return allUsers.stream().filter(user
@@ -115,7 +116,9 @@ public class Exciter {
 
   /**
    * Removes a user.
+   *
    * @param user
+   *
    */
 
   public void clearUser(User user) {

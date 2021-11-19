@@ -79,7 +79,9 @@ public class ProfileController implements Initializable {
 
   /**
    * Method for switching to primary.fxml.
-   * @param event
+   *
+   * @param event clicked on the back button
+   *
    */
 
   @FXML
