@@ -412,8 +412,6 @@ public class PrimaryController implements Initializable {
       info1.setPrefHeight(45 + bio1.getLayoutBounds().getHeight());
       Platform.runLater(()-> group1.setLayoutY(338-info1.getHeight()));
     }
-    info1.setPrefHeight(bio1.getLayoutBounds().getHeight() + 50);
-    info1.setLayoutY(leftPicture.getHeight() - info1.getHeight());
     name2.setText(rightUser.getName());
     age2.setText(String.valueOf(rightUser.getAge()));
     bio2.setText(rightUser.getUserInformation());
