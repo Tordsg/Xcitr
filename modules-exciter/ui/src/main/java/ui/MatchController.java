@@ -416,10 +416,8 @@ public class MatchController implements Initializable {
       emailGroup.setLayoutY(40);
     } else {
       info.setPrefHeight(70 + previewBio.getLayoutBounds().getHeight());
-      emailGroup.setLayoutY(50 + previewBio.getLayoutBounds().getHeight());
-      Platform.runLater(() -> 
-        group.setLayoutY(338 - info.getHeight())
-      );
+      emailGroup.setLayoutY(45 + previewBio.getLayoutBounds().getHeight());
+      Platform.runLater(() -> group.setLayoutY(338 - info.getHeight()));
     }
     picture.setFill(imageController.getImage(user1));
     previewEmail.widthProperty().addListener((observable, oldValue, newValue) -> {
