@@ -240,6 +240,7 @@ public class ProfileController implements Initializable {
   
   @Override
   public void initialize(URL location, ResourceBundle resources) {
+    Platform.setImplicitExit(false);
     name.setText(user.getName());
     bio.setText(user.getUserInformation());
     age.setText(Integer.toString(user.getAge()));

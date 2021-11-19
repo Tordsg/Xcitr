@@ -3,6 +3,8 @@ package ui;
 import java.io.IOException;
 import java.net.ConnectException;
 import java.rmi.ServerException;
+
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -50,6 +52,7 @@ public class LoginController {
 
   @FXML
   public void initialize() {
+    Platform.setImplicitExit(false);
     passwordLogin.clear();
     emailLogin.clear();
     errorMessage.setVisible(false);
@@ -63,6 +66,9 @@ public class LoginController {
 
   @FXML
   public void handleLogin(ActionEvent event) {
+    if(Thread.currentThread().getContextClassLoader() == null) {
+      Thread.currentThread().setContextClassLoader(ClassLoader.getSystemClassLoader());
+    }
     String email = emailLogin.getText();
     String password = passwordLogin.getText();
 

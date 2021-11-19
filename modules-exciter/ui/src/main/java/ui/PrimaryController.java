@@ -430,7 +430,7 @@ public class PrimaryController implements Initializable {
     }
   }
 
-  @Override
+  @FXML
   public void initialize(URL location, ResourceBundle resources) {
     user = App.getUser();
     if (imageController.getListSize() < 25) {

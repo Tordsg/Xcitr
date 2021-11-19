@@ -5,6 +5,7 @@ import java.rmi.ServerException;
 import java.util.concurrent.TimeUnit;
 import java.util.stream.Stream;
 
+import org.junit.Rule;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -14,8 +15,10 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.web.server.LocalServerPort;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
+import org.testfx.framework.junit.TestFXRule;
 import org.testfx.framework.junit5.ApplicationTest;
 
+import javafx.application.Platform;
 import javafx.scene.control.Label;
 import javafx.scene.shape.Circle;
 import javafx.stage.Stage;
@@ -31,6 +34,8 @@ import user.User;
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.DEFINED_PORT)
 public class AppIntegrationTest extends ApplicationTest {
 
+  @Rule public TestFXRule testFXRule = new TestFXRule();
+
   @LocalServerPort
   int port = 8080;
 
@@ -40,6 +45,7 @@ public class AppIntegrationTest extends ApplicationTest {
 
   @Override
   public void start(Stage stage) throws Exception {
+    Platform.setImplicitExit(false);
     app.start(stage);
 
   }
@@ -57,6 +63,7 @@ public class AppIntegrationTest extends ApplicationTest {
 
 
   private void checkResult(boolean excpected) {
+    
     clickOn("#fromLoginToSignup");
     clickOn("#name");
     write(testUser.getName());
@@ -117,11 +124,18 @@ public class AppIntegrationTest extends ApplicationTest {
     //Should have gone to primary and this queries the samme element again.
     circle = lookup("#notification").query();
     Assertions.assertFalse(circle.isVisible());
+    Platform.setImplicitExit(false);
 
     try {
       clientHandler.deleteUser(testUser);
     } catch (ServerException | ConnectException e) {
       System.err.println("unable to delete user. Please do so manualy before running test again");
+    }
+    try {
+      app.stop();
+    } catch (Exception e) {
+      // TODO Auto-generated catch block
+      e.printStackTrace();
     }
   }
 }

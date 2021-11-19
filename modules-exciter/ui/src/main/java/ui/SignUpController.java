@@ -5,6 +5,8 @@ import java.net.ConnectException;
 import java.net.URL;
 import java.rmi.ServerException;
 import java.util.ResourceBundle;
+
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -59,6 +61,7 @@ public class SignUpController {
 
   @FXML
   void initialize() {
+    Platform.setImplicitExit(false);
     clearFields();
     name.textProperty().addListener(event -> {
       if (name.getText().length() > 1
@@ -163,6 +166,9 @@ public class SignUpController {
 
   @FXML
   void handleCreateAccount(ActionEvent event) {
+    if(Thread.currentThread().getContextClassLoader() == null) {
+      Thread.currentThread().setContextClassLoader(ClassLoader.getSystemClassLoader());
+    }
     String nameReg = name.getText();
     String ageReg = age.getText();
     String emailReg = emailSignup.getText();
