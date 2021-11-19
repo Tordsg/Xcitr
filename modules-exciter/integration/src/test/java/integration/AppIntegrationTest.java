@@ -16,6 +16,7 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.testfx.framework.junit5.ApplicationTest;
 
+import javafx.scene.control.Label;
 import javafx.scene.shape.Circle;
 import javafx.stage.Stage;
 import restserver.ExciterApplication;
@@ -89,11 +90,23 @@ public class AppIntegrationTest extends ApplicationTest {
     }
     clickOn("#backButton");
     clickOn("#profile");
+
+    Label labelName = lookup("#previewName").query();
+    Label labelMail = lookup("#previewEmail").query();
+    Assertions.assertEquals(testUser.getName(), labelName.getText());
+    Assertions.assertEquals(testUser.getEmail(), labelMail.getText());
+
     doubleClickOn("#name");
     write("Damian");
     doubleClickOn("#bio");
     write("I am a test");
     clickOn("#save");
+
+    labelName = lookup("#previewName").query();
+    labelMail = lookup("#previewEmail").query();
+    Assertions.assertEquals("Damian", labelName.getText());
+    Assertions.assertEquals(testUser.getEmail(), labelMail.getText());
+
     clickOn("#signOut");
 
     clickOn("#emailLogin");
