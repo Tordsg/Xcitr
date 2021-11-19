@@ -2,7 +2,7 @@
 
 ## PlantUML diagram for the ui module
 
-![uiDiagram](/uploads/377314bb8d4c40e91331c96a6cd98b21/uiDiagram.png)
+![uiDiagram](/uploads/377314bb8d4c40e91331c96a6cd98b21/uiDiagram.png =250x250)
 </p>
 
 ## Notes
