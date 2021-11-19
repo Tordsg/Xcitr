@@ -139,18 +139,6 @@
 </argLine>
                 </configuration>
             </plugin>
-
-            <plugin>
-                <groupId>org.openjfx</groupId>
-                <artifactId>javafx-maven-plugin</artifactId>
-                <version>0.0.6</version>
-                <!-- Default configuration for running -->
-                <!-- Usage: mvn javafx:run -->
-                <configuration>
-                    <!-- syntax: module-name/full-app-class-name -->
-                    <mainClass>exciter.ui/ui.App</mainClass>
-                </configuration>
-            </plugin>
         </plugins>
     </build>
 </project>
