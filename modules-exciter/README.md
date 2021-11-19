@@ -16,26 +16,26 @@ The application has been developed based on 9 different userstories, that are ou
 
 ## Illustration of how to use Xcitr
 
-1. First step to start using the Xcitr application is to create a user. To do this you must sign up with a name, your age, an email address, and a password. If you already have an account, you can begin by logging in with your email and password.
+1. First step to start using the Xcitr application is to create a user. To do this you must sign up with your name, age, email address, and a password. If you already have an account, you can begin by logging in with your email and password.
 
 <div align="center">
     <img width="350" src = "/uploads/7822dd7e2a51b28a5dd9db676bafdba0/login.png">
     <img width="350" src = "/uploads/87cb0b24f8852802b9fb91e145469260/signup.png">
 </div>
 
-2. After you have signed up or logged in the first page that appears is the swiping-page. Here you will be presented with two people through their “profile cards”. You can only choose to like one of these two people and must swipe the person you like the least upwards.
+2. After you have signed up or logged in, the first page that appears is the swiping-page. Here you will be presented with two people through their “profile cards”. You can only choose to like one of these two people and must swipe the person you like the least upwards.
 
 <div align="center">
     <img width="600" src = "/uploads/b46a3696a85a5f372b1e039b1172d63e/swipe_opp.png">
 </div>
 
-3. If you don´t like any of them you can press the refresh button, in the bottom right corner, and two new people appear.
+3. If you do not like any of them you can press the refresh button, in the bottom right corner, and two new people appear.
 
 <div align="center">
     <img width="600" src="/uploads/316acd065ce179461b01bdecd288a979/refresh.png">
 </div>
 
-4. When you have “discarded” the person you were the least interested in a new card will appear alongside the profile card of the person you liked the most in the previous comparison. And you´ll see how many times out of three in a row you´ve chosen to keep this person on the page.
+4. When you have “discarded” the person you were the least interested in a new card will appear alongside the profile card of the person you liked the most in the previous comparison. And you will see how many times out of three in a row you have chosen to keep this person on the page. If you have liked them 3/3 times you might get a match, if that person has liked you 3/3 times back.
 
 <div align="center">
     <img width="600" src="/uploads/5ae66b3bd9aa1479a926a0c366cbcce3/nytt_kort_likecount.png">
@@ -53,7 +53,7 @@ The application has been developed based on 9 different userstories, that are ou
     <img width="600" src="/uploads/48205c357a24fb678953ef0178af8f46/match_oversikt.png">
 </div>
 
-7. In the chat window it´s also possible to click on their avatar to view their full profile.
+7. In the chat window it is also possible to click on their avatar to view their full profile.
 
 <div align="center">
     <img width="600" src="/uploads/bafef3ae229b069d684e8878aa5f9764/match_profil.png">
@@ -65,7 +65,7 @@ The application has been developed based on 9 different userstories, that are ou
     <img width="600" src="/uploads/548e2b32f5db287f9e176ceeaca0657a/gå_swiping.png">
 </div>
 
-9. To view and edit your profile you press the top right icon with your chosen avatar, or default profile silhouette if you haven´t chosen one yet.
+9. To view and edit your profile you press the top right icon with your chosen avatar, or default profile silhouette if you have not chosen one yet.
 
 <div align="center">
     <img width="600" src="/uploads/a0b0bad6fa510762ca618072e3da9893/gå_profil.png">
