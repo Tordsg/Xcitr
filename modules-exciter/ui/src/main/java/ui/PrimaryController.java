@@ -400,10 +400,12 @@ public class PrimaryController implements Initializable {
     age1.setText(String.valueOf(leftUser.getAge()));
     bio1.setText(leftUser.getUserInformation());
     info1.setPrefHeight(bio1.getLayoutBounds().getHeight() + 50);
+    info1.setLayoutY(leftPicture.getHeight()-info1.getHeight());
     name2.setText(rightUser.getName());
     age2.setText(String.valueOf(rightUser.getAge()));
     bio2.setText(rightUser.getUserInformation());
     info2.setPrefHeight(bio2.getLayoutBounds().getHeight() + 50);
+    info2.setLayoutY(rightPicture.getHeight()-info2.getHeight());
   }
 
   @Override
