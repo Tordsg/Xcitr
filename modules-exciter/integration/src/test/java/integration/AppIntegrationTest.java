@@ -121,6 +121,7 @@ public class AppIntegrationTest extends ApplicationTest {
     try {
       clientHandler.deleteUser(testUser);
     } catch (ServerException | ConnectException e) {
+      System.err.println("unable to delete user. Please do so manualy before running test again");
     }
   }
 }
