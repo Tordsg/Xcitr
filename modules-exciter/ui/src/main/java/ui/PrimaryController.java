@@ -53,6 +53,10 @@ public class PrimaryController implements Initializable {
   @FXML
   private Label age2;
   @FXML
+  private Label bio1;
+  @FXML
+  private Label bio2;
+  @FXML
   private Label errorLabel;
   @FXML
   private Text scoreNumber;
@@ -391,8 +395,10 @@ public class PrimaryController implements Initializable {
     rightPicture.setFill(imageController.getImage(rightUser));
     name1.setText(leftUser.getName());
     age1.setText(String.valueOf(leftUser.getAge()));
+    bio1.setText(leftUser.getUserInformation());
     name2.setText(rightUser.getName());
     age2.setText(String.valueOf(rightUser.getAge()));
+    bio2.setText(rightUser.getUserInformation());
   }
 
   @Override

@@ -60,9 +60,13 @@ public class Exciter {
    */
 
   public void addSomePlaceholderUsers() {
-    allUsers.add(new BotUser("John", 22, "John@mail.no", true, 1));
-    allUsers.add(new BotUser("Jane", 31, "Jane@mail.no", true, 3));
-    allUsers.add(new BotUser("Joe", 19, "Joe@mail.no", false, 4));
+    allUsers.add(new BotUser("John", 22, "Likes to take long hikes every sunday",
+         "John@mail.no", true, 1));
+    allUsers.add(new BotUser("Jane", 31, "Loves a good wine with some good company",
+         "Jane@mail.no", true, 3));
+    allUsers.add(new BotUser("Joe", 19, 
+        "Superman is the best movie ever and I am searching for someone to share it with", 
+        "Joe@mail.no", false, 4));
     allUsers.add(new BotUser("Derik", 27, "Derik@mail.no", false, 5));
     allUsers.add(new BotUser("Diana", 23, "Diana@mail.no", false, 6));
     allUsers.add(new BotUser("Dani", 25, "Dani@mail.no", true, 8));

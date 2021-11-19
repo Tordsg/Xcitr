@@ -43,17 +43,20 @@
       <Pane fx:id="leftCard" layoutX="40.0" layoutY="55.0" prefHeight="338.0" prefWidth="225.0">
          <children>
             <Rectangle fx:id="leftPicture" arcHeight="45.0" arcWidth="45.0" fill="DODGERBLUE" height="338.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="2.0" width="225.0" />
-            <Pane cacheShape="false" layoutY="286.0" opacity="0.39" prefHeight="52.0" prefWidth="225.0" style="-fx-background-color: white; -fx-background-radius: 0 0 22 22; -fx-border-radius: 0 0 21 21; -fx-border-width: 0 2 2 2; -fx-border-color: black;" />
-            <Label fx:id="name1" focusTraversable="false" layoutX="13.0" layoutY="296.0" prefHeight="17.0" prefWidth="119.0">
-               <font>
-                  <Font size="26.0" />
-               </font>
-            </Label>
-            <Label fx:id="age1" contentDisplay="CENTER" focusTraversable="false" layoutX="175.0" layoutY="293.0" prefHeight="24.0" prefWidth="51.0">
-               <font>
-                  <Font size="30.0" />
-               </font>
-            </Label>
+            <Pane cacheShape="false" layoutY="207.0" opacity="0.39" prefHeight="131.0" prefWidth="225.0" style="-fx-background-color: white; -fx-background-radius: 0 0 22 22; -fx-border-radius: 0 0 21 21; -fx-border-width: 0 2 2 2; -fx-border-color: black;">
+               <children>
+                  <Label fx:id="name1" focusTraversable="false" layoutX="4.0" layoutY="4.0" prefHeight="17.0" prefWidth="119.0">
+                     <font>
+                        <Font size="26.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="age1" contentDisplay="CENTER" focusTraversable="false" layoutX="148.0" layoutY="4.0" prefHeight="24.0" prefWidth="51.0">
+                     <font>
+                        <Font size="30.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="bio1" layoutX="14.0" layoutY="41.0" prefHeight="80.0" prefWidth="202.0" />
+               </children></Pane>
          </children>
          <effect>
             <DropShadow blurType="TWO_PASS_BOX" offsetX="2.0" offsetY="2.0">
@@ -66,17 +69,20 @@
       <Pane fx:id="rightCard" layoutX="310.0" layoutY="55.0" prefHeight="338.0" prefWidth="225.0">
          <children>
             <Rectangle fx:id="rightPicture" arcHeight="45.0" arcWidth="45.0" fill="DODGERBLUE" height="338.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="2.0" width="225.0" />
-            <Pane cacheShape="false" layoutY="286.0" opacity="0.39" prefHeight="52.0" prefWidth="225.0" style="-fx-background-color: white; -fx-background-radius: 0 0 22 22; -fx-border-radius: 0 0 21 21; -fx-border-width: 0 2 2 2; -fx-border-color: black;" />
-            <Label fx:id="age2" contentDisplay="CENTER" layoutX="175.0" layoutY="293.0" prefHeight="24.0" prefWidth="51.0">
-               <font>
-                  <Font size="30.0" />
-               </font>
-            </Label>
-            <Label fx:id="name2" layoutX="13.0" layoutY="296.0" prefHeight="17.0" prefWidth="119.0">
-               <font>
-                  <Font size="26.0" />
-               </font>
-            </Label>
+            <Pane cacheShape="false" layoutY="207.0" opacity="0.39" prefHeight="131.0" prefWidth="225.0" style="-fx-background-color: white; -fx-background-radius: 0 0 22 22; -fx-border-radius: 0 0 21 21; -fx-border-width: 0 2 2 2; -fx-border-color: black;">
+               <children>
+                  <Label fx:id="name2" layoutX="4.0" layoutY="4.0" prefHeight="17.0" prefWidth="119.0">
+                     <font>
+                        <Font size="26.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="age2" contentDisplay="CENTER" layoutX="148.0" layoutY="4.0" prefHeight="24.0" prefWidth="51.0">
+                     <font>
+                        <Font size="30.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="bio2" layoutX="14.0" layoutY="41.0" prefHeight="80.0" prefWidth="202.0" />
+               </children></Pane>
          </children>
          <effect>
             <DropShadow blurType="TWO_PASS_BOX" offsetX="2.0" offsetY="2.0">
