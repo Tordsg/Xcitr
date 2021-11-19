@@ -30,7 +30,3 @@ On the page /user/likes there is a GET-method with header "Authorization" of a u
 On the page /user/new there is a POST-method with header "Authorization" of a users UUID and a list of User objects as body. Returns a new random User object as long as there are more User objects.
 
 On the page /message there is a POST-method and a GET-method. In the POST-method there is a header "Autorization" of users UUID and a header "mail" of a mail-string. The method returns a chat if there is a chat between the two User objects. In the GET-method there is a header "Authorization" of users UUID and a header "mail" of a mail-string. The method returns a chat if there is a chat between the two User objects.
-
-
-
-
