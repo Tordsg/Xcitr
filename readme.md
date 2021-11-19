@@ -56,11 +56,19 @@ When committing changes in the code the commit messages must be concise, descrip
 
 The project is organized in the following structure. Code and modules can be found under the modules-exciter folder. Within this folder one can find all of the core logic and persistence that makes up the backend of the app, along with the code for the frontend user interface, the restserver and the integration testing. Within modules-exciter there is also a README-file with a complete app description and an illustration for how to use the app.
 
+### [clientpackager](https://gitlab.stud.idi.ntnu.no/it1901/groups-2021/gr2117/gr2117/-/tree/master/modules-exciter/clientpackager)
+
+This module contains only one class, this is the AppStarter class that makes client application packable to single uber jar file.
+
 ### [core](https://gitlab.stud.idi.ntnu.no/it1901/groups-2021/gr2117/gr2117/-/tree/master/modules-exciter/core)
 
 The core module contains only one class for the applications core functionality, the Exciter class.
 
 There is also a test class for the Exciter class that tests whether the like-function and match-function works how we intend it to.
+
+### [integration](https://gitlab.stud.idi.ntnu.no/it1901/groups-2021/gr2117/gr2117/-/tree/master/modules-exciter/integration)
+
+Test class for integration testing for the application.
 
 ### [json](https://gitlab.stud.idi.ntnu.no/it1901/groups-2021/gr2117/gr2117/-/tree/master/modules-exciter/json)
 
