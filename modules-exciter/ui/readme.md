@@ -2,8 +2,7 @@
 
 ## PlantUML diagram for the ui module
 
-<p align="center">
-    <img width="700" src="/uploads/9e52e16cf21ec74895ada0b4d5e9c645/uiDiagram.plantUML">
+![uiDiagram](/uploads/377314bb8d4c40e91331c96a6cd98b21/uiDiagram.png)
 </p>
 
 ## Notes
