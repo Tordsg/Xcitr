@@ -6,9 +6,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.ResourceBundle;
-
-import javax.swing.plaf.synth.SynthSeparatorUI;
-
 import javafx.animation.Interpolator;
 import javafx.animation.KeyFrame;
 import javafx.animation.KeyValue;
@@ -16,7 +13,6 @@ import javafx.animation.RotateTransition;
 import javafx.animation.SequentialTransition;
 import javafx.animation.Timeline;
 import javafx.animation.TranslateTransition;
-import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -413,14 +409,14 @@ public class MatchController implements Initializable {
     previewEmail.setText(user1.getEmail());
     previewEmail.setLayoutX(112.5 - previewEmail.getWidth() / 2);
     previewBio.setText(user1.getUserInformation());
-    if(previewBio.getText().isEmpty()){
+    if(previewBio.getText().isEmpty()) {
       info.setPrefHeight(65);
       group.setLayoutY(273);
       emailGroup.setLayoutY(35);
     } else {
       info.setPrefHeight(70 + previewBio.getLayoutBounds().getHeight());
       emailGroup.setLayoutY(45 + previewBio.getLayoutBounds().getHeight());
-      group.setLayoutY(338 - 70 - previewBio.getLayoutBounds().getHeight());
+      group.setLayoutY(338 - info.getHeight());
     }
     picture.setFill(imageController.getImage(user1));
     previewEmail.widthProperty().addListener((observable, oldValue, newValue) -> {

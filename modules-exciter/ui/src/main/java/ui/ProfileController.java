@@ -50,6 +50,10 @@ public class ProfileController implements Initializable {
   @FXML
   private Group save;
   @FXML
+  private Group group;
+  @FXML
+  private Group emailGroup;
+  @FXML
   private TextArea bio;
   @FXML
   private TextField name;
@@ -75,6 +79,8 @@ public class ProfileController implements Initializable {
   private VBox avatarVbox;
   @FXML
   private Pane lastPane = null;
+  @FXML
+  private Pane info;
   @FXML
   private Label errorLabel;
 
@@ -161,6 +167,15 @@ public class ProfileController implements Initializable {
     previewEmail.setText(currentUser.getEmail());
     previewEmail.setLayoutX(112.5 - previewEmail.getWidth() / 2);
     previewBio.setText(currentUser.getUserInformation());
+    if(previewBio.getText().isEmpty()) {
+      info.setPrefHeight(65);
+      group.setLayoutY(273);
+      emailGroup.setLayoutY(35);
+    } else {
+      info.setPrefHeight(70 + previewBio.getLayoutBounds().getHeight());
+      emailGroup.setLayoutY(45 + previewBio.getLayoutBounds().getHeight());
+      group.setLayoutY(338 - info.getHeight());
+    }
     picture.setFill(imageController.getImage(currentUser));
     pane.requestFocus();
   }
