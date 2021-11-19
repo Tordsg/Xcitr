@@ -170,7 +170,7 @@ public class ProfileController implements Initializable {
     if(previewBio.getText().isEmpty()) {
       info.setPrefHeight(65);
       group.setLayoutY(273);
-      emailGroup.setLayoutY(35);
+      emailGroup.setLayoutY(37);
     } else {
       info.setPrefHeight(70 + previewBio.getLayoutBounds().getHeight());
       emailGroup.setLayoutY(45 + previewBio.getLayoutBounds().getHeight());
