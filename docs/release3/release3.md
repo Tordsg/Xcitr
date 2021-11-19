@@ -19,11 +19,19 @@ The requirements for the improved app functionality in the third release are set
 
 ## Progress plan
 
+### Clientpackager
+
+In order to make the client application packable to single uber jar file, there needs to be added a new modules to do this that is independent from the ui.
+
 ### Core
 
 The goal for the core module is to modify it so that it can communicate and run with a REST server. This means that all of the back-end code associated with the user and bot user will be removed from the core and become its own module. This is to provide the REST client and REST server with equal access to the code that defines a User and a BotUser, which would be difficult otherwise.
 
 The Exciter class will have to be altered so that it is compatible with the REST server. Instead of directly communicating with the applications user interface, the Exciter class recieves requests and information from the REST server according to the user activity. Based on this, the Exciter class decides what functions should be called on, and what information is going to be stored to have a fully developed back-end.
+
+### Integration
+
+To implement proper integration testing for the entire application, a new module that has access to all of the application modules needs to be created with sufficient testing methods.
 
 ### JSON
 
