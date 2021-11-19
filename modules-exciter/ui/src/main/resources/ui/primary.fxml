@@ -40,22 +40,6 @@
             </LinearGradient>
          </fill>
       </Rectangle>
-      <Pane fx:id="scorePane" layoutX="-200.0" layoutY="150.0" opacity="0.0" prefHeight="140.0" prefWidth="140.0">
-         <children>
-            <Rectangle arcHeight="20.0" arcWidth="20.0" fill="WHITE" height="140.0" opacity="0.2" stroke="WHITE" strokeType="INSIDE" strokeWidth="0.0" width="140.0" />
-            <Line endX="135.0" endY="5.0" startX="5.0" startY="135.0" stroke="WHITE" strokeLineCap="ROUND" strokeWidth="10.0" />
-            <Text fill="WHITE" layoutX="80.0" layoutY="132.0" strokeType="OUTSIDE" strokeWidth="0.0" text="3">
-               <font>
-                  <Font size="96.0" />
-               </font>
-            </Text>
-            <Text fx:id="scoreNumber" fill="WHITE" layoutX="4.0" layoutY="75.0" strokeType="OUTSIDE" strokeWidth="0.0" text="1">
-               <font>
-                  <Font size="96.0" />
-               </font>
-            </Text>
-         </children>
-      </Pane>
       <Group fx:id="matchButton" layoutX="560.0" layoutY="186.0" onMouseClicked="#switchToMatch">
          <children>
 
@@ -95,7 +79,7 @@
       </Group>
       <Group layoutX="583.0" layoutY="49.0">
          <children>
-            <Circle fx:id="profile" fill="#1f93ff" layoutX="4.0" layoutY="4.0" onMouseClicked="#switchToProfile" radius="28.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" />
+            <Circle fx:id="profile" fill="#1f93ff" layoutX="4.0" layoutY="4.0" onMouseClicked="#switchToSecondary" radius="28.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" />
          </children>
          <effect>
             <DropShadow offsetX="2.0" offsetY="2.0">
@@ -190,6 +174,22 @@
                   </Label>
                </children>
             </Group>
+         </children>
+      </Pane>
+      <Pane fx:id="scorePane" layoutX="-200.0" layoutY="150.0" opacity="0.0" prefHeight="140.0" prefWidth="140.0">
+         <children>
+            <Rectangle arcHeight="20.0" arcWidth="20.0" fill="WHITE" height="140.0" opacity="0.2" stroke="WHITE" strokeType="INSIDE" strokeWidth="0.0" width="140.0" />
+            <Line endX="135.0" endY="5.0" startX="5.0" startY="135.0" stroke="WHITE" strokeLineCap="ROUND" strokeWidth="10.0" />
+            <Text fill="WHITE" layoutX="80.0" layoutY="132.0" strokeType="OUTSIDE" strokeWidth="0.0" text="3">
+               <font>
+                  <Font size="96.0" />
+               </font>
+            </Text>
+            <Text fx:id="scoreNumber" fill="WHITE" layoutX="4.0" layoutY="75.0" strokeType="OUTSIDE" strokeWidth="0.0" text="1">
+               <font>
+                  <Font size="96.0" />
+               </font>
+            </Text>
          </children>
       </Pane>
    </children>

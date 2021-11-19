@@ -415,7 +415,7 @@ public class MatchController implements Initializable {
     previewBio.setText(user1.getUserInformation());
     if(previewBio.getText().isEmpty()){
       info.setPrefHeight(65);
-      group.setLayoutY(313);
+      group.setLayoutY(273);
       emailGroup.setLayoutY(45);
     } else {
       info.setPrefHeight(70 + previewBio.getLayoutBounds().getHeight());
