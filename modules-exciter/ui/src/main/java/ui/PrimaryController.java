@@ -12,6 +12,7 @@ import javafx.animation.ParallelTransition;
 import javafx.animation.RotateTransition;
 import javafx.animation.SequentialTransition;
 import javafx.animation.TranslateTransition;
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -74,12 +75,17 @@ public class PrimaryController implements Initializable {
   private Pane info1;
   @FXML
   private Pane info2;
+  @FXML
+  private Group group1;
+  @FXML
+  private Group group2;
+
   private ClientHandler clientHandler = new ClientHandler();
   private User user = App.getUser();
   private int numMatches = 0;
   private User leftUser = new User();
   private User rightUser = new User();
-  // Static since it's shared by the SecondaryController
+  // Static since it's shared by the ProfileController
   private static final ImageController imageController = new ImageController();
 
   /**
@@ -89,7 +95,7 @@ public class PrimaryController implements Initializable {
    */
 
   @FXML
-  private void switchToSecondary(MouseEvent event) {
+  private void switchToProfile(MouseEvent event) {
     FXMLLoader loader = new FXMLLoader();
     loader.setLocation(getClass().getResource("profile.fxml"));
     Parent p;
@@ -399,13 +405,23 @@ public class PrimaryController implements Initializable {
     name1.setText(leftUser.getName());
     age1.setText(String.valueOf(leftUser.getAge()));
     bio1.setText(leftUser.getUserInformation());
-    info1.setPrefHeight(bio1.getLayoutBounds().getHeight() + 50);
-    info1.setLayoutY(leftPicture.getHeight()-info1.getHeight());
+    if(bio1.getText().isEmpty()){
+      info1.setPrefHeight(40);
+      group1.setLayoutY(298);
+    } else {
+      info1.setPrefHeight(45 + bio1.getLayoutBounds().getHeight());
+      Platform.runLater(()-> group1.setLayoutY(338-info1.getHeight()));
+    }
     name2.setText(rightUser.getName());
     age2.setText(String.valueOf(rightUser.getAge()));
     bio2.setText(rightUser.getUserInformation());
-    info2.setPrefHeight(bio2.getLayoutBounds().getHeight() + 50);
-    info2.setLayoutY(rightPicture.getHeight()-info2.getHeight());
+    if(bio2.getText().isEmpty()){
+      info2.setPrefHeight(40);
+      group2.setLayoutY(298);
+    } else {
+      info2.setPrefHeight(45 + bio2.getLayoutBounds().getHeight());
+      Platform.runLater(()-> group2.setLayoutY(338-info2.getHeight()));
+    }
   }
 
   @Override
@@ -425,8 +441,6 @@ public class PrimaryController implements Initializable {
       errorLabel.setText(e.getMessage());
 
     }
-    leftPicture.setFill(imageController.getImage(leftUser));
-    rightPicture.setFill(imageController.getImage(rightUser));
     profile.setFill(new ImagePattern(imageController
         .getImage(user).getImage(), 0, 0, 1, 1.4, true));
     dragY(leftCard);
