@@ -18,7 +18,7 @@ The application has been developed based on 9 different userstories, that are ou
 
 1. First step to start using the Xcitr application is to create a user. To do this you must sign up with a name, your age, an email address, and a password. If you already have an account, you can begin by logging in with your email and password.
 
-<img width="400" src = "uploads/7822dd7e2a51b28a5dd9db676bafdba0/login.png">
+<img width="400" src = "/uploads/7822dd7e2a51b28a5dd9db676bafdba0/login.png">
 
 <img width="400" src = "/uploads/87cb0b24f8852802b9fb91e145469260/signup.png">
 
