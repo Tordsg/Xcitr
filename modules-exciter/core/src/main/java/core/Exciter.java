@@ -67,10 +67,16 @@ public class Exciter {
     allUsers.add(new BotUser("Joe", 19, 
         "Superman is the best movie ever and I am searching for someone to share it with", 
         "Joe@mail.no", false, 4));
-    allUsers.add(new BotUser("Derik", 27, "Derik@mail.no", false, 5));
-    allUsers.add(new BotUser("Diana", 23, "Diana@mail.no", false, 6));
-    allUsers.add(new BotUser("Dani", 25, "Dani@mail.no", true, 8));
-    allUsers.add(new User("Roger", 25, "Roger@mail.no"));
+    allUsers.add(new BotUser("Derik", 27,
+         "Looking for someone to snuggle with in front of the fireplace with a cup of hot chocolate.", 
+         "Derik@mail.no", false, 5));
+    allUsers.add(new BotUser("Diana", 23, 
+        "I love to work out, wanna be my workout partner?", 
+        "Diana@mail.no", false, 6));
+    allUsers.add(new BotUser("Dani", 25, 
+        "Favourite thing to do: travel!", "Dani@mail.no", true, 8));
+    allUsers.add(new User("Roger", 25,
+        "Swimming in the ocean is my all time favourite past time.", "Roger@mail.no"));
   }
 
   /**
