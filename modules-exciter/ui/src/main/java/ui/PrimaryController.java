@@ -409,8 +409,8 @@ public class PrimaryController implements Initializable {
       info1.setPrefHeight(40);
       group1.setLayoutY(298);
     } else {
-      info1.setPrefHeight(45 + bio1.getLayoutBounds().getHeight());
-      Platform.runLater(() -> group1.setLayoutY(338 - info1.getHeight()));
+      info1.setPrefHeight(50 + bio1.getLayoutBounds().getHeight());
+      Platform.runLater(() -> group1.setLayoutY(333 - info1.getHeight()));
     }
     name2.setText(rightUser.getName());
     age2.setText(String.valueOf(rightUser.getAge()));
@@ -419,8 +419,8 @@ public class PrimaryController implements Initializable {
       info2.setPrefHeight(40);
       group2.setLayoutY(298);
     } else {
-      info2.setPrefHeight(45 + bio2.getLayoutBounds().getHeight());
-      Platform.runLater(() -> group2.setLayoutY(338 - info2.getHeight()));
+      info2.setPrefHeight(50 + bio2.getLayoutBounds().getHeight());
+      Platform.runLater(() -> group2.setLayoutY(333 - info2.getHeight()));
     }
   }
 
