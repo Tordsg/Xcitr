@@ -25,7 +25,6 @@ import user.User;
 /**
  * Main class for file handling.
  */
-
 public class UserHandler {
 
   public UserHandler() {
@@ -41,7 +40,6 @@ public class UserHandler {
    *
    * @param users to be saved
    */
-
   @SuppressWarnings("unchecked") // Type safety can't be avoided with simple-json
   public void saveUser(List<User> users) {
     JSONArray userArray = new JSONArray();
@@ -81,7 +79,6 @@ public class UserHandler {
   /**
    * Creates a new file.
    */
-
   public void createFile() {
     try {
       File file = new File(path);
@@ -100,7 +97,6 @@ public class UserHandler {
    *
    * @return list of users
    */
-
   public List<User> readUsers() {
 
     try (BufferedReader fileReader = new BufferedReader(
@@ -162,7 +158,6 @@ public class UserHandler {
    *
    * @return List of user Emails
    */
-
   public static List<String> parseJsonList(JSONArray jsonArray) {
     List<String> list = new ArrayList<>();
     for (Object object : jsonArray) {
@@ -178,7 +173,6 @@ public class UserHandler {
    *
    * @return a map of liked users, null otherwise
    */
-
   @SuppressWarnings("unchecked")
   public static Map<String, Integer> parseJsonMap(JSONObject jsonObj) {
     Map<String, Object> map = (HashMap<String, Object>) jsonObj;
@@ -197,7 +191,6 @@ public class UserHandler {
    *
    * @return user if mail exists in JSON file, null otherwise
    */
-
   public User getUser(String mail) {
     List<User> users = readUsers();
     for (User user : users) {
@@ -215,7 +208,6 @@ public class UserHandler {
    *
    * @return user from their userID, null otherwise
    */
-
   public User getUserById(UUID id) {
     List<User> users = readUsers();
     for (User user : users) {
@@ -236,7 +228,6 @@ public class UserHandler {
    *
    * @return liked users of user with id
    */
-
   public Map<String, Integer> getLikedUsers(UUID id) {
     User user = getUserById(id);
     return user.getLikedUsers();
