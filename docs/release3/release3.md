@@ -27,28 +27,28 @@ The Exciter class will have to be altered so that it is compatible with the REST
 
 ### JSON
 
-Due to the added functionality of the chat, a new class has to be created in the json module. The MessageHandler class will be responsible for reading and writing the chat messages that are being sent between the user and their matches (i.e. bot users).
+Due to the added functionality of the chat, a new class has to be created in the json module. A new MessageHandler class will be responsible for reading and writing the chat messages that are being sent between the user and their matches (i.e. bot users).
 
 Both the UserHandler class and the MessageHandler class have to be edited so that they are compatible with the REST API.
 
 ### Restserver
 
-In order to build a functioning REST API a new restserver module has to be created. This module has to contain two classes, one that initalizes the Xcitr application and another that controls the server. The ServerController contains all the necessary methods and functions so that it can understand the HTTP requests from the REST client and communicate these to the core and persistence and then obtain the requested functionality from the core and send a HTTP response back to the REST client.
+In order to build a functioning REST API a new restserver module has to be created. This module has to contain two classes, one that initalizes the Xcitr application and another that controls the server. A ServerController will contain all the necessary methods and functions needed so that the class can understand the HTTP requests from the REST client and communicate these to the core and persistence and then obtain the requested functionality from the core and send a HTTP response back to the REST client.
 
 ### User interface
 
-In the ui module our goal is to implement the REST client that can send requests to the server and view its response. This means that we have to add two new classes in this module: an app class that makes the client application packable to a single jar and a ClientHandler class that can function as a bridge between the ui and the server.
+In the ui module our goal is to implement a REST client that can send requests to the server and view its response. This means that we have to add two new classes in this module: an AppStarter class that makes the client application packable to a single jar and a ClientHandler class that can function as a bridge between the ui and the server.
 
-In order to support the chat requirement set by Phyllis (us-9) and James (us-8), the MatchController class has to be extended to support this additional functionality.
+In order to support the chat requirements set by Phyllis (us-9) and James (us-8), the MatchController class has to be extended to support this additional functionality. To support the requirement set by Bob (us-7) the ImageController has to be extended also. 
 
 ### User
 
-The user module is a module that both the REST client and the REST server needs to have equal access to. The module sets up the framework for a user and the bot users in the application, as well as it needs to implement the back-end logic for the new functionality in the app: the Chat. Also to store and retrieve the information in the json files it it necessary to add two deserialization classes for the User.java and BotUser.java, so that the json stored strings can be converted to User and BotUser objects.
+The User module is a module that both the REST client and the REST server needs to have equal access to. The module sets up the framework for a user and the bot users in the application, as well as this module needs to implement the back-end logic for the new chat function in the app. Also to store and retrieve the information in the json files it it necessary to add two deserialization classes for User.java and BotUser.java, so that the json stored strings can be converted to User and BotUser objects.
 
 ### Testing
 
-A final goal for the release is to implement testing for all the modules including the restserver. To test the ui we are also implementing a mock server to complete the testing with the REST API.
+A final goal for the release is to implement sufficient testing coverage for all the modules including the restserver. To test the ui we are also implementing a mock server to test the endpoints for the application. As well as we need to add integration testing to the application to test the all of the modules as a group.
 
 ## Work habits, work flow and code quality
 
-For the third release we divided the group into two teams: one REST server team and one REST client team. Both used pair programming to a great extent as well as smaller individual tasks based on what problems arised and indivudal interests.
+For the third release we divided the group into two teams: one REST server team and one REST client team. Both teams used pair programming to a great extent when coding the server and client, while we delegated smaller individual tasks to each other based on what problems arised during the process and indivudal interests.
