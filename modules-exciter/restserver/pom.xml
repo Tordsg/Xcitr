@@ -9,7 +9,7 @@
 	</parent>
 
 	<groupId>GR2117</groupId>
-	<artifactId>module-restServer</artifactId>
+	<artifactId>modules-restserver</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<description>REST server Spring Boot</description>
 	<properties>

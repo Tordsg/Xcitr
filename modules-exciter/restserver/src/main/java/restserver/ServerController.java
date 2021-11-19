@@ -334,7 +334,7 @@ public class ServerController {
   public boolean deleteUser(@RequestHeader("mail") String mail) throws Exception {
     User user = excite.getUserByEmail(mail);
     if (user == null) {
-      throw new Exception("User not found on :: " + mail);
+      throw new IllegalArgumentException("User not found on :: " + mail);
     }
     excite.clearUser(user);
     userHandler.saveUser(excite.getAllUsers());

@@ -178,5 +178,7 @@
         <module>json</module>
         <module>restserver</module>
         <module>user</module>
+        <module>integration</module>
+        <module>clientpackager</module>
     </modules>
 </project>

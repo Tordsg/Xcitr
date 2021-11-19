@@ -1,4 +1,6 @@
-package ui;
+package clientpackager;
+
+import ui.App;
 
 /**
  * This class makes client application packable to single uber jar file.
