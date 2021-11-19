@@ -150,6 +150,7 @@
                 <configuration>
                     <argLine>
                      --add-exports javafx.graphics/com.sun.javafx.application=ALL-UNNAMED
+                     --add-opens exciter.ui/ui=ALL-UNNAMED
 </argLine>
                 </configuration>
             </plugin>
