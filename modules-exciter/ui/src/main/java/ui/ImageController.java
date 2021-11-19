@@ -23,8 +23,9 @@ public class ImageController {
    * Fills pictures in to RAM.
    *
    * @throws NullPointerException
+   *
    */
-  public void fillUpPicture() throws NullPointerException{
+  public void fillUpPicture() throws NullPointerException {
     for (int i = 0; i < 25; i++) {
       InputStream input = getClass().getResourceAsStream("Images/" + i + ".jpg");
       if (input == null) {
@@ -41,7 +42,7 @@ public class ImageController {
     }
   }
 
-  public int getListSize(){
+  public int getListSize() {
     return images.size();
   }
 
