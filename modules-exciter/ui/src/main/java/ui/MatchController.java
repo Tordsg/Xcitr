@@ -6,6 +6,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.ResourceBundle;
+
+import javax.swing.plaf.synth.SynthSeparatorUI;
+
 import javafx.animation.Interpolator;
 import javafx.animation.KeyFrame;
 import javafx.animation.KeyValue;
@@ -417,7 +420,7 @@ public class MatchController implements Initializable {
     } else {
       info.setPrefHeight(70 + previewBio.getLayoutBounds().getHeight());
       emailGroup.setLayoutY(45 + previewBio.getLayoutBounds().getHeight());
-      group.setLayoutY(338 - info.getHeight());
+      group.setLayoutY(338 - 70 - previewBio.getLayoutBounds().getHeight());
     }
     picture.setFill(imageController.getImage(user1));
     previewEmail.widthProperty().addListener((observable, oldValue, newValue) -> {
