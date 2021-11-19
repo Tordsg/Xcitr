@@ -181,9 +181,6 @@ public class MatchController implements Initializable {
         }
       });
     }
-    previewEmail.widthProperty().addListener((observable, oldValue, newValue) -> {
-      previewEmail.setLayoutX(112.5 - previewEmail.getWidth() / 2);
-    });
   }
 
   /**
@@ -424,6 +421,9 @@ public class MatchController implements Initializable {
       });
     }
     picture.setFill(imageController.getImage(user1));
+    previewEmail.widthProperty().addListener((observable, oldValue, newValue) -> {
+      previewEmail.setLayoutX(112.5 - previewEmail.getWidth() / 2);
+    });
   }
   /**
    * Shows the matched users card when chatPic is clicked on.
