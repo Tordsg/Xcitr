@@ -47,4 +47,7 @@ The application has been developed based on 9 different userstories, that are ou
 ![loggut_gå_tilbake](/uploads/03b41c6c4ba6c06d322bed02ed999818/loggut_gå_tilbake.png)
 
 11. Because the application focuses on meaningful connections it does not operate with personal pictures of the users, instead one can choose an avatar to operate with on the app.
+
+<img src = "/uploads/5a2de4f22bd77c61edc237b770514bde/velge_avatar.png" width="300">
+
 ![velge_avatar](/uploads/5a2de4f22bd77c61edc237b770514bde/velge_avatar.png)
