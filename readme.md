@@ -8,9 +8,9 @@ This is the coding project called Xcitr for group 2117´s application in the cou
 
 The project uses maven configuration, with the spring boot framework to run the application from a server. To build the project go to **modules-exciter** by entering `cd modules-exciter` in the terminal and run `mvn clean install`. It is also possible to run `mvn install` instead, but `mvn clean install` decreases the chances of getting a bug during building. There are two ways to run the application:
 
-1. In the first option, from **modules-exciter** folder, go into the **restserver** module by entering `cd restserver` and then `cd target` in the terminal. Then write `java -jar server-standalone.jar` to start the server. Open a new terminal and go to the **modules-exciter** folder and then `cd ui` to go to the **ui** module. Enter `cd target` to get to the target folder. Lastly, to run the entire application write `java -jar Xcitr.jar` in the terminal. The application will now start up.
+1. In the first option, from **modules-exciter** folder, go into the **restserver** module by entering `cd restserver` and then `cd target` in the terminal. Then write `java -jar server-standalone.jar` to start the server. Open a new terminal and go to the **modules-exciter** folder and then `cd ui` to go to the **clientpackager** module. Enter `cd target` to get to the target folder. Lastly, to run the entire application write `java -jar Xcitr.jar` in the terminal. The application will now start up.
 
-2. In the second option, go from  the **modules-exciter** folder and into the **restserver** module by entering `cd restserver` in the terminal. Then write `mvn spring-boot:run` to start up the server. Afterwards open a new terminal and from the **modules-exciter** folder, go to the **ui** module by entering `cd ui` in the terminal. To start the application enter `mvn javafx:run` in the terminal. The application will now start up.
+2. In the second option, go from  the **modules-exciter** folder and into the **restserver** module by entering `cd restserver` in the terminal. Then write `mvn spring-boot:run` to start up the server. Afterwards open a new terminal and from the **modules-exciter** folder, go to the **clientpackager** module by entering `cd ui` in the terminal. To start the application enter `mvn javafx:run` in the terminal. The application will now start up.
 
 To run the tests go into **modules-exciter** and enter `mvn test` in the terminal to run the tests for every module. To run isolated tests for a individual module go into the module that should be tested and run `mvn test` here.
 
@@ -112,4 +112,4 @@ The user module contains a class that defines a user in the application, a class
 
 ## Architecture
 
-![packageDiagram](/uploads/015f81e926d12e097a2f0314c3553016/packageDiagram.png)
+![packageDiagram](/uploads/a82ce1e96d23c6d8e787218ed2ba2d68/packageDiagram.png)
