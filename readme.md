@@ -8,11 +8,11 @@ This is the coding project called Xcitr for group 2117´s application in the cou
 
 The project uses maven configuration, with the spring boot framework to run the application from a server. To build the project go to **modules-exciter** by entering `cd modules-exciter` in the terminal and run `mvn clean install`. It is also possible to run `mvn install` instead, but `mvn clean install` decreases the chances of getting a bug during building. There are two ways to run the application:
 
-1. In the first option, from **modules-exciter** folder, go into the **restserver** module by entering `cd restserver` and then `cd target` in the terminal. Then write `java -jar server-standalone.jar` to start the server. Open a new terminal and enter `cd ..` to go back to the **modules-exciter** folder and then `cd ui` to go to the **ui** module. Enter `cd target` to get to the target folder. Lastly, to run the entire application write `java -jar Xcitr.jar` in the terminal.
+1. In the first option, from **modules-exciter** folder, go into the **restserver** module by entering `cd restserver` and then `cd target` in the terminal. Then write `java -jar server-standalone.jar` to start the server. Open a new terminal and go to the **modules-exciter** folder and then `cd ui` to go to the **ui** module. Enter `cd target` to get to the target folder. Lastly, to run the entire application write `java -jar Xcitr.jar` in the terminal. The application will now start up.
 
-2. In the second option, go from  the **modules-exciter** folder and into the **restserver** module by entering `cd restserver` in the terminal. Then write `mvn spring-boot:run` to start up the server. Afterwards open a new terminal and from the **modules-exciter** folder, go to the **ui** module by entering `cd ui` in the terminal. To start the application enter `mvn javafx:run` in the terminal.
+2. In the second option, go from  the **modules-exciter** folder and into the **restserver** module by entering `cd restserver` in the terminal. Then write `mvn spring-boot:run` to start up the server. Afterwards open a new terminal and from the **modules-exciter** folder, go to the **ui** module by entering `cd ui` in the terminal. To start the application enter `mvn javafx:run` in the terminal. The application will now start up.
 
-To run the tests go into **modules-exciter** and enter `mvn test` in the terminal to run the tests in every module. To run isolated tests for individual modules go into the module that should be teste and run `mvn test` here.
+To run the tests go into **modules-exciter** and enter `mvn test` in the terminal to run the tests for every module. To run isolated tests for a individual module go into the module that should be tested and run `mvn test` here.
 
 ## Work habits, work flow and code quality
 
@@ -50,11 +50,11 @@ Before we begin working on each release the group meets to set milestones, goals
 
 #### Commit messages
 
-When committing changes in the code the commit messages must be concise, descriptive and in English, starting with a capital letter.
+When committing changes in the code the commit messages must be concise, descriptive and in English.
 
 ## Modules-Exciter
 
-The project is organized in the following structre. Code and modules can be found under the modules-exciter folder. Within this folder one can find all of the core logic and persistence that makes up the backend of the app, along with the code for the frontend user interface, the restserver and the integration testing. Within modules-exciter there is also a README-file with a complete app description and an illustration for how to use the app.
+The project is organized in the following structure. Code and modules can be found under the modules-exciter folder. Within this folder one can find all of the core logic and persistence that makes up the backend of the app, along with the code for the frontend user interface, the restserver and the integration testing. Within modules-exciter there is also a README-file with a complete app description and an illustration for how to use the app.
 
 ### [core](https://gitlab.stud.idi.ntnu.no/it1901/groups-2021/gr2117/gr2117/-/tree/master/modules-exciter/core)
 
@@ -64,7 +64,7 @@ There is also a test class for the Exciter class that tests whether the like-fun
 
 ### [json](https://gitlab.stud.idi.ntnu.no/it1901/groups-2021/gr2117/gr2117/-/tree/master/modules-exciter/json)
 
-There is two classes within thes JSON module, which is the [FileHandler](https://gitlab.stud.idi.ntnu.no/it1901/groups-2021/gr2117/gr2117/-/tree/master/modules-exciter/json/FileHandler) and the [MessageHandler](https://gitlab.stud.idi.ntnu.no/it1901/groups-2021/gr2117/gr2117/-/tree/master/modules-exciter/json/MessageHandler) class.
+There is two classes within thes JSON module, which is the [UserHandler](https://gitlab.stud.idi.ntnu.no/it1901/groups-2021/gr2117/gr2117/-/tree/master/modules-exciter/json/UserHandler) and the [MessageHandler](https://gitlab.stud.idi.ntnu.no/it1901/groups-2021/gr2117/gr2117/-/tree/master/modules-exciter/json/MessageHandler) class.
 
 The former handles saving and reading user objects from file. This will include all the informations such as name, age, mail, matches, and other temporary variables that makes it possible to continue usage of the app due to server crash.
 
@@ -81,13 +81,13 @@ The server is built on the Spring framework. The module consist of two classes, 
 
 ### [ui](https://gitlab.stud.idi.ntnu.no/it1901/groups-2021/gr2117/gr2117/-/tree/master/modules-exciter/ui)
 
-The ui module contains all of the front-end development of the app. This includes the App class which provides the framework for managing the JavaFX application, the AppStarter class that makes the client application packable to a single jar and the ClientHandler that handles the applications´ REST Client. Further there are six controller classes that implements the core and user modules to assemble the user interface.
+The ui module contains all of the front-end development of the application. This includes the App class which provides the framework for managing the JavaFX application, the AppStarter class that makes the client application packable to a single jar and the ClientHandler that handles the applications´ REST Client. Further there are six controller classes that implements the core and user modules to assemble the user interface.
 
 - [ImageController](https://gitlab.stud.idi.ntnu.no/it1901/groups-2021/gr2117/gr2117/-/tree/master/modules-exciter/ui/ImageController): handles the images that are being swiped
 - [LoginController](https://gitlab.stud.idi.ntnu.no/it1901/groups-2021/gr2117/gr2117/-/tree/master/modules-exciter/ui/LoginController): connected to login.fxml and enables a user to log in on the Xcitr-application
 - [SignUpController](https://gitlab.stud.idi.ntnu.no/it1901/groups-2021/gr2117/gr2117/-/tree/master/modules-exciter/ui/SignUpController): connected to signup.fxml and manages the signup window where a new user can create a new account on the application
 - [PrimaryController](https://gitlab.stud.idi.ntnu.no/it1901/groups-2021/gr2117/gr2117/-/tree/master/modules-exciter/ui/PrimaryController): connected to primary.fxml and manages the swiping-page where the user can like and match with other users
-- [SecondaryController](https://gitlab.stud.idi.ntnu.no/it1901/groups-2021/gr2117/gr2117/-/tree/master/modules-exciter/ui/SecondaryController): connected to profile.fxml and manages the user information as a profile page
+- [ProfileController](https://gitlab.stud.idi.ntnu.no/it1901/groups-2021/gr2117/gr2117/-/tree/master/modules-exciter/ui/ProfileController): connected to profile.fxml and manages the user information as a profile page
 - [MatchController](https://gitlab.stud.idi.ntnu.no/it1901/groups-2021/gr2117/gr2117/-/tree/master/modules-exciter/ui/MatchController): connected to match.fxml and manages the users matches and communication with them
 
 ### [user](https://gitlab.stud.idi.ntnu.no/it1901/groups-2021/gr2117/gr2117/-/tree/master/modules-exciter/user)
