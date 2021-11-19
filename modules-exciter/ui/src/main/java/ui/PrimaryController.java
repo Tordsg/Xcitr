@@ -79,7 +79,7 @@ public class PrimaryController implements Initializable {
   private int numMatches = 0;
   private User leftUser = new User();
   private User rightUser = new User();
-  // Static since it's shared by the SecondaryController
+  // Static since it's shared by the ProfileController
   private static final ImageController imageController = new ImageController();
 
   /**
@@ -89,7 +89,7 @@ public class PrimaryController implements Initializable {
    */
 
   @FXML
-  private void switchToSecondary(MouseEvent event) {
+  private void switchToProfile(MouseEvent event) {
     FXMLLoader loader = new FXMLLoader();
     loader.setLocation(getClass().getResource("profile.fxml"));
     Parent p;
