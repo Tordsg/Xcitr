@@ -46,7 +46,7 @@ public class LoginController {
 
   /**
    * Sets field clear when fxml file starts to run.
-   **/
+   */
 
   @FXML
   public void initialize() {
@@ -91,6 +91,12 @@ public class LoginController {
   private static void changeUser(User user) {
     App.setUser(user);
   }
+
+  /**
+   * Method to switches to signup.fxml.
+   * 
+   * @param event
+   */
 
   @FXML
   void onSwitchToSignup(MouseEvent event) {

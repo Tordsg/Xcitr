@@ -128,6 +128,12 @@ public class SignUpController {
     return mat.matches();
   }
 
+  /**
+   * Method for switching to login.fxml.
+   * 
+   * @param event
+   */
+
   @FXML
   void onSwitchToLogin(MouseEvent event) {
     FXMLLoader loader = new FXMLLoader();
@@ -143,6 +149,12 @@ public class SignUpController {
       System.err.println("Error loading login.fxml");
     }
   }
+
+  /**
+   * Creates an account.
+   * 
+   * @param event
+   */
 
   @FXML
   void handleCreateAccount(ActionEvent event) {

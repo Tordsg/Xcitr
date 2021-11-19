@@ -77,6 +77,11 @@ public class ProfileController implements Initializable {
   @FXML
   private Label errorLabel;
 
+  /**
+   * Method for switching to primary.fxml.
+   * @param event
+   */
+
   @FXML
   private void switchToPrimary(MouseEvent event) {
     FXMLLoader loader = new FXMLLoader();
@@ -101,6 +106,10 @@ public class ProfileController implements Initializable {
       n.setEffect(null);
     });
   }
+  
+  /**
+   * Opens the avatar-selection when the select avatar button is pushed.
+   */
 
   @FXML
   private void selectAvatar() {
@@ -137,6 +146,10 @@ public class ProfileController implements Initializable {
     });
   }
 
+  /**
+   * Updates the user.
+   */
+
   @FXML
   void updatePreview() {
     User currentUser = App.getUser();
@@ -148,8 +161,9 @@ public class ProfileController implements Initializable {
     picture.setFill(imageController.getImage(currentUser));
     pane.requestFocus();
   }
+
   /**
-   * Signs out of the app and goes to the login-page.
+   * Signs out of the app and goes to the login.fxml.
    *
    * @throws IOException exception
    */
@@ -169,6 +183,10 @@ public class ProfileController implements Initializable {
       System.err.println("Error loading login.fxml");
     }
   }
+
+  /**
+   * Saves the updates done on the user profile.
+   */
 
   @FXML
   void save() {
@@ -195,6 +213,7 @@ public class ProfileController implements Initializable {
   /**
    * Puts in the user info when the page opens.
    */
+  
   @Override
   public void initialize(URL location, ResourceBundle resources) {
     name.setText(user.getName());

@@ -93,7 +93,7 @@ public class MatchController implements Initializable {
   private List<User> matches = new ArrayList<>();
 
   /**
-   * Method to switch to the match page.
+   * Method to switch to match.fxml.
    *
    * @param event MouseEvent
    */

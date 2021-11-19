@@ -76,10 +76,11 @@ public class PrimaryController implements Initializable {
   private static final ImageController imageController = new ImageController();
 
   /**
-   * Switching to the profile page from the matching page.
+   * Method for switching to the profile.fxml.
    *
    * @param event MouseEvent object.
    */
+
   @FXML
   private void switchToSecondary(MouseEvent event) {
     FXMLLoader loader = new FXMLLoader();
@@ -97,7 +98,7 @@ public class PrimaryController implements Initializable {
   }
 
   /**
-   * Switching to the match page from the matching page.
+   * Method for switching to the match.fxml.
    *
    * @param event MouseEvent object
    */
