@@ -75,6 +75,8 @@ Where the parameters is the mail of users.
 public Chat getChat(String user1, String user2)
 ```
 
+The application utilizes both explicit and implicit storage. The user excplicitly stores their name, email, age and password when they create an account. Also on the profile page the user explicity chooses to save updated information about themselves. Otherwise the app stores imformation implicitly, for example when a user likes someone, a match occurs or when the user chats with their matches.
+
 ### [restserver](https://gitlab.stud.idi.ntnu.no/it1901/groups-2021/gr2117/gr2117/-/tree/master/modules-exciter/restserver)
 
 The server is built on the Spring framework. The module consist of two classes, [ExciterApplication](https://gitlab.stud.idi.ntnu.no/it1901/groups-2021/gr2117/gr2117/-/tree/master/modules-exciter/restserver/ExciterApplication), and [ServerController](https://gitlab.stud.idi.ntnu.no/it1901/groups-2021/gr2117/gr2117/-/tree/master/modules-exciter/restserver/ServerController). The former starts up the server on localhost with default port 8080, while the latter is the controller that handles requests from clients.

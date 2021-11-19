@@ -4,21 +4,21 @@ The aim of this release is to make a minimal viable product of the Xcitr dating 
 
 ## User stories
 
-The goals for the first release are linked to three user stories: us-1, us-2 and us-3. These are more thoroughly explained in [userstories.md](https://gitlab.stud.idi.ntnu.no/it1901/groups-2021/gr2117/gr2117/-/tree/master/userstories.md), but in short they set three requirements that must be met for the release:
+The goals for the first release are linked to three user stories: Ulf Reidar (us-1), Dani (us-2) and John (us-3). These are more thoroughly explained in [userstories.md](https://gitlab.stud.idi.ntnu.no/it1901/groups-2021/gr2117/gr2117/-/tree/master/userstories.md), but in short they set three requirements for functionality that must be implemented in the release:
 
-1. being able to compare to people against each other
+1. us-1: being able to compare to people against each other
 
-2. like someone three times in a row before they can match with that user
+2. us-2: like someone three times in a row before they can match with that user
 
-3. have a profile page on the app
+3. us-3: have a profile page on the app
 
 ## Work plan for the release
 
 ### core logic
 
-The goal for the core is to make a class that can represent a user and all of the information that will be available for them to input when they in the future sign up to use the application. This class should also implement logic to check how many matches and likes this user has. To do this there will be an implementation of a listener interface that can check if the user has a match and wheter the user likes another person.
+The goal for the core is to make a class that can represent a user and all of the information that will be available for them to input when they in the future sign up to use the application. This class should also implement logic to meet the requirements from us-1 and us-2. It needs to check how many matches and likes this user has. To do this there will be an implementation of a listener interface that can check if the user has a match and wheter the user likes another person.
 
-There must also be a main class for the app logic. For the first release this class will contain some placeholder users to make sure we can test the minimal function, which includes mostly set- and get-functions regarding the different users that appear on the primary window of the app. This class must also implement some like-function so that the user object can be "informed" on how many times they have liked someone.
+There must also be a main class for the app logic. For the first release this class will contain some placeholder users to make sure we can test the minimal function, which includes mostly set- and get-functions regarding the different users that appear on the primary window of the app, to fullfill the us-3 requirement. This class must also implement some like-function so that the user object can be "informed" on how many times they have liked someone.
 
 ### persistence
 
@@ -26,7 +26,7 @@ For the persistence a JSON module is implemented to make sure matches and likes 
 
 ### ui
 
-The goal for the ui is to have a matching page where Ulf Reidar can be presented with different persons and choose which one he likes best. This page will also have a profile button where one should get access to the profile page. Hence there will only be made two fxml and controller classes for this release together with an App-class.
+The goal for the ui is to have a matching page where Ulf Reidar can be presented with different persons and choose which one he likes best. This page will also have a profile button where one should get access to the profile page. Hence there will only be made two fxml and controller classes for this release together with the App class.
 
 ## Illustration
 
