@@ -21,13 +21,48 @@ All requested bodies must be in a application/json format. Many of the mapping-m
 
 More variables can be added to the User object.
 
+In the bodies that requests a string should have a format with brackets and the the string as here:
+{
+    "123abc"
+}
+
+This applies to where the body is a password-string or mail-string.
+
+In the bodies that requests a list of users the format should be like this:
+
+[
+    {
+        "id": null,
+        "name": "Derik",
+        "age": 27,
+        "userInformation": "",
+        "email": "Derik@mail.no",
+        "likedUsers": {},
+        "matches": [],
+        "imageId": 5,
+        "likeBack": false
+    },
+    {
+        "id": null,
+        "name": "Joe",
+        "age": 19,
+        "userInformation": "Superman is the best movie ever and I am searching for someone to share it with",
+        "email": "Joe@mail.no",
+        "likedUsers": {},
+        "matches": [],
+        "imageId": 4,
+        "likeBack": false
+    }
+]
+
+
 - On the page **/user** there is a GET-method and a DELETE-method. The GET-method takes in a header "Authorization" of a users UUID and returns the current user of the application. In the DELETE-method there is a header "mail" with a mail-string. The method returns true if the User object is deleted, and false otherwise.
 
 - On the page **/createAccount** there is a POST-method which takes in a User object as a body, and a header "Pass" as string. The method returns the User object if a new account is made.
 
 - On the page **/user/matches** there is a GET-method which takes in the header "Authorization" of a users UUID. The method returns the users matches.
 
-- On the page **/login** there is a POST-method which takes in the header "mail" with an email, and a body of a password string. The methods returns the user if the user excists.
+- On the page **/login** there is a POST-method which takes in the header "mail" with an email, and a body of a password-string. The methods returns the user if the user excists.
 
 - On the page **/user/update** there is a POST-method with header "Authorization" of a user UUID, and a User object as body. The method returns the updated User object.
 
