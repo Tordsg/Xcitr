@@ -398,6 +398,7 @@ public class PrimaryController implements Initializable {
   @Override
   public void initialize(URL location, ResourceBundle resources) {
     user = App.getUser();
+    imageController.fillUpPicture();
     try {
       numMatches = clientHandler.getMatches(user).size();
       List<User> users = clientHandler.getTwoUsers(user);

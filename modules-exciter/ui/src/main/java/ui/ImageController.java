@@ -25,7 +25,11 @@ public class ImageController {
    *
    * @throws NullPointerException if no image is found
    */
-  public ImageController() throws NullPointerException {
+  public ImageController() {
+   
+  }
+
+  public void fillUpPicture() throws NullPointerException{
     for (int i = 0; i < 25; i++) {
       InputStream input = getClass().getResourceAsStream("Images/" + i + ".jpg");
       if (input == null) {
@@ -40,6 +44,7 @@ public class ImageController {
         e.printStackTrace();
       }
     } 
+
   }
 
   public ImagePattern getImage(User user) {
