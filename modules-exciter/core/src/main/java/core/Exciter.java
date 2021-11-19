@@ -64,7 +64,7 @@ public class Exciter {
         "Superman is the best movie ever and I am searching for someone to share it with", 
         "Joe@mail.no", false, 4));
     allUsers.add(new BotUser("Derik", 27,
-         "Looking for someone to snuggle with in front of the fireplace with a cup of hot chocolate.", 
+         "Looking for someone to snuggle with in front of the fireplace and drink hot chocolate.", 
          "Derik@mail.no", false, 5));
     allUsers.add(new BotUser("Diana", 23, 
         "I love to work out, wanna be my workout partner?", 
