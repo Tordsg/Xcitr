@@ -8,13 +8,14 @@ import org.junit.jupiter.api.Test;
 
 import user.BotUser;
 import user.User;
-
+/**
+ * Test class for the class Exciter.
+ */
 public class ExciterTest {
 
   /**
    * Test class for Exciter class.
    */
-
   private Exciter exciter;
   private User user = new User("test", 22, "test@mail.no");
   private BotUser botUser = new BotUser("Sofie", 23, "sofie@mail.no", true, 1);
@@ -68,12 +69,10 @@ public class ExciterTest {
     Assertions.assertTrue(exciter.getAllUsers().contains(user));
     exciter.clearUser(user);
     Assertions.assertFalse(exciter.getAllUsers().contains(user));
-
   }
 
   @Test
-  public void testPickRandom()
-  {
+  public void testPickRandom() {
     exciter.addUser(user);
     exciter.addUser(botUser);
     Assertions.assertTrue(exciter.getAllUsers().contains(user));
@@ -86,7 +85,7 @@ public class ExciterTest {
   }
 
   @Test
-  public void testResestLike(){
+  public void testResestLike() {
     exciter.addUser(user);
     exciter.addUser(botUser);
     exciter.likePerson(user, botUser);
@@ -106,5 +105,4 @@ public class ExciterTest {
     exciter.addUser(newUser);
     Assertions.assertEquals(0, exciter.getLikeCount(user, newUser));
   }
-
 }

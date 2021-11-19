@@ -11,7 +11,6 @@ import org.junit.jupiter.api.Test;
 /**
  * Test class for User class.
  */
-
 public class UserTest {
 
     private User user;
@@ -20,7 +19,6 @@ public class UserTest {
     /**
      * Sets up one user and one botuser before each test.
      */
-
     @BeforeEach
     public void setUp() {
         user = new User("Roger",22,"roger@mail.no");
@@ -61,19 +59,18 @@ public class UserTest {
     }
 
     @Test
-    public void testIllegalEmail(){
+    public void testIllegalEmail() {
         Assertions.assertThrows(IllegalArgumentException.class, () -> user.setEmail("noe.mail"));
     }
 
     @Test
-    public void testLikeUser(){
+    public void testLikeUser() {
         user.fireOnLike(botUser.getEmail());
         user.fireOnLike(botUser.getEmail());
         user.fireOnLike(botUser.getEmail());
         HashMap<String, Integer> likedUser = new HashMap<>();
         likedUser.put(botUser.getEmail(), 3);
         Assertions.assertEquals(likedUser, user.getLikedUsers());
-
     }
 
     @Test
@@ -114,7 +111,7 @@ public class UserTest {
     }
 
     @Test
-    public void testMatchFalse(){
+    public void testMatchFalse() {
         User user = new User("jon", 22, "jon@mail.no");
         User user2 = new User("silje", 20, "silje@mail.no");
         Assertions.assertFalse(user.checkIfMatch(user2));

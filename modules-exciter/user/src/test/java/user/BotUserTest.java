@@ -7,7 +7,6 @@ import org.junit.jupiter.api.Test;
 /**
  * Test class for BotUser class.
  */
-
 public class BotUserTest {
 
     private BotUser botUser;
@@ -16,7 +15,6 @@ public class BotUserTest {
     /**
      * Makes two botusers before each test.
      */
-
     @BeforeEach
     public void setUp() {
         botUser = new BotUser("test", 22, "userInformation", "bot@mail.no", true, 1);

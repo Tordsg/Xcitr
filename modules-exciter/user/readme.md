@@ -12,4 +12,4 @@ Below is a sequence diagram that illustrates how a user gets a match with anothe
 
 - User modules cannot be tested if the server is running.
 
-- The user has a setAge() method to give the user the opportunity to edit their age. The reason for it is that if the user sets in wrong age when signing up.
+- The user has a setAge() method to give the user the opportunity to edit their age. The reason for this is that if the user sets in wrong age when signing up it is possible to edit.

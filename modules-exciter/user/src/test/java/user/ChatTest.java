@@ -11,7 +11,6 @@ import org.junit.jupiter.api.Test;
 /**
  * Test class for Chat class.
  */
-
 public class ChatTest {
 
     User user1 = new User("user", 22, "user@mail.no");
@@ -21,7 +20,6 @@ public class ChatTest {
     /**
      * Sets up two users and one chat before each test.
      */
-
     @BeforeEach
     public void setUp() {
         user1 = new User("user", 22, "user@mail.no");
@@ -30,7 +28,7 @@ public class ChatTest {
     }
 
     @Test
-    public void testSendMessage(){
+    public void testSendMessage() {
         chat.sendMessage(user1.getEmail(), "Hej");
         chat.sendMessage(user2.getEmail(), "Hej");
         Assertions.assertEquals(chat.getMessages().size(), 2);
@@ -66,15 +64,14 @@ public class ChatTest {
     }
 
     @Test
-    public void testLargeConstructor()
-    {
+    public void testLargeConstructor() {
         Chat chat = new Chat(user1.getEmail(), user2.getEmail(), List.of(Map.of(
                 user1.getEmail(), "Hej"), Map.of(user2.getEmail(), "Hej")));
         Assertions.assertEquals(chat.getMessages().size(), 2);
     }
 
     @Test
-    public void testSetUsers(){
+    public void testSetUsers() {
         chat.setUser1(new User("ny", 22, "ny@mail.com").getEmail());
         chat.setUser2(new User("ny", 22, "nyTo@mail.com").getEmail());
         Assertions.assertEquals(chat.getUser1(), "ny@mail.com");
