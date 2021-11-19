@@ -2,8 +2,9 @@
 
 ## PlantUML diagram for how the restserver module interacts with the rest of the application
 
-![restserver](/uploads/d032c8773b7bd7bcd3418d50935bcd80/restserver.png)
-
+<p align="center">
+    <img width="700" src="/uploads/d032c8773b7bd7bcd3418d50935bcd80/restserver.png">
+</p>
 
 ## RESt-api
 
