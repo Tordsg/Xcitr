@@ -35,7 +35,6 @@ public class User {
    * @param age int of users age
    * @param email string of users email
    */
-
   public User(String name, int age, String email) {
     setName(name);
     setAge(age);
@@ -56,7 +55,6 @@ public class User {
    * @param imageId string of users chosen image´s id
    * @apiNote This constructor is to only be used by the userhandler class.
    */
-
   public User(UUID id, String name, int age, 
       String userInformation, List<String> matches, String email,
       String password, Map<String, Integer> likedUsers, int imageId) {
@@ -77,7 +75,6 @@ public class User {
    * @param likedUsers map of the user and how many times they´ve liked other users
    * @apiNote This constructor is to only be used by the userhandler class.
    */
-
   public User(UUID id, String name, int age, 
       String userInformation, List<String> matches, String email,
       String password, Map<String, Integer> likedUsers) {
@@ -97,7 +94,6 @@ public class User {
    * @param password string of the users password
    * @apiNote This constructor is to only be used by the userhandler class.
    */
-
   public User(String name, int age, String userInformation, 
       List<String> matches, String email, String password) {
     this(name, age, userInformation, matches, email);
@@ -113,7 +109,6 @@ public class User {
    * @param matches list of users matches
    * @param email string of users email
    */
-
   public User(String name, int age, String userInformation, List<String> matches, String email) {
     this(name, age, userInformation, email);
     this.matches = matches;
@@ -127,7 +122,6 @@ public class User {
    * @param userInformation string of users bio
    * @param email string of users email
    */
-
   public User(String name, int age, String userInformation, String email) {
     this(name, age, email);
     setUserInformation(userInformation);
@@ -154,7 +148,6 @@ public class User {
    *
    * @param name string for the users name
    */
-
   public void setName(String name) {
     if (name.length() < 2) {
       throw new IllegalArgumentException("Name must be at least 2 characters");
@@ -247,7 +240,6 @@ public class User {
    * @param password string
    * @return MD5 hash of password
    */
-
   public static String md5Hash(String password) {
     String outString = null;
     try {
@@ -296,7 +288,6 @@ public class User {
    * @param match The user to be added or likecount updated
    *
    */
-
   public void fireOnLike(String match) {
     if (!likedUsers.containsKey(match)) {
       likedUsers.put(match, 1);
@@ -308,7 +299,6 @@ public class User {
   /**
    * If a user is liked sufficiently, like count resets to 0.
    */
-
   public void resetUserMatch(String email) {
     if (likedUsers.containsKey(email)) {
       likedUsers.put(email, 0);
@@ -333,7 +323,6 @@ public class User {
    *
    * @return true if the user has liked the other user sufficient times
    */
-
   public boolean checkIfMatch(User user) {
     if (haveLikedUser(user.getEmail()) 
         && user.haveLikedUser(this.getEmail()) && !matches.contains(user.getEmail())) {
@@ -350,7 +339,6 @@ public class User {
    *
    * @return true if the user has liked the other user more than 3 times
    */
-
   public boolean haveLikedUser(String email) {
     if (!likedUsers.containsKey(email)) {
       return false;

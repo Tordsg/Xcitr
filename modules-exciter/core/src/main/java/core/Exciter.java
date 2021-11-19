@@ -11,7 +11,6 @@ import user.User;
 /**
  * The main logic class.
  */
-
 public class Exciter {
 
   private List<User> allUsers = new ArrayList<>();
