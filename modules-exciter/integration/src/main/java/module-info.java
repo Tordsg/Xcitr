@@ -1,6 +1,5 @@
 open module integration {
     requires exciter.ui;
-    requires exciter.core;
     requires restserver;
     requires spring.boot;
     requires spring.boot.autoconfigure;
@@ -8,5 +7,4 @@ open module integration {
     requires spring.web;
     requires spring.beans;
     requires java.rmi;
-
 }
