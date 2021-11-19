@@ -63,7 +63,7 @@ public class AppIntegrationTest extends ApplicationTest {
 
 
   private void checkResult(boolean excpected) {
-    
+
     clickOn("#fromLoginToSignup");
     clickOn("#name");
     write(testUser.getName());
@@ -130,12 +130,6 @@ public class AppIntegrationTest extends ApplicationTest {
       clientHandler.deleteUser(testUser);
     } catch (ServerException | ConnectException e) {
       System.err.println("unable to delete user. Please do so manualy before running test again");
-    }
-    try {
-      app.stop();
-    } catch (Exception e) {
-      // TODO Auto-generated catch block
-      e.printStackTrace();
     }
   }
 }
