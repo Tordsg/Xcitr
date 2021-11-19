@@ -578,7 +578,7 @@
                   <Group fx:id="emailGroup" layoutY="100.0">
                      <children>
                         <Line endX="125.0" layoutX="50.0" />
-                        <Label fx:id="previewEmail1" alignment="CENTER" focusTraversable="false" layoutX="50.5" layoutY="3.5" text="email">
+                        <Label fx:id="previewEmail" alignment="CENTER" focusTraversable="false" layoutX="50.5" layoutY="3.5" text="email">
                            <font>
                               <Font size="12.0" />
                            </font>
