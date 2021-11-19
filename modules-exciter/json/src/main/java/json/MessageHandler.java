@@ -55,7 +55,6 @@ public class MessageHandler {
    *
    * @param chat between two users
    */
-
   @SuppressWarnings("unchecked")
   public void saveChat(Chat chat) {
     JSONArray userArray = new JSONArray();
@@ -91,7 +90,6 @@ public class MessageHandler {
    *
    * @return a chat object with the users messages.
    */
-
   public List<Chat> getChats() {
     try (BufferedReader fileReader = new BufferedReader(
           new InputStreamReader(new FileInputStream(path), "UTF-8"))) {
@@ -128,7 +126,6 @@ public class MessageHandler {
    *
    * @return a list of messages.
    */
-
   @SuppressWarnings("unchecked")
   private List<Map<String, String>> getMessages(JSONObject chat) {
     JSONArray messages = (JSONArray) chat.get("message");
@@ -149,7 +146,6 @@ public class MessageHandler {
    *
    * @param chats between user1 and user2
    */
-
   private void removeFromChat(String user1, String user2, List<Chat> chats) {
     if (chats == null || chats.isEmpty()) {
       return;
@@ -171,7 +167,6 @@ public class MessageHandler {
    *
    * @return chat between user1 and user2
    */
-
   public Chat getChat(String user1, String user2) {
     List<Chat> chats = this.getChats();
     if (chats == null || chats.isEmpty()) {

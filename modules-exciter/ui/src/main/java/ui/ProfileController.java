@@ -93,6 +93,9 @@ public class ProfileController implements Initializable {
 
   @FXML
   private void switchToPrimary(MouseEvent event) {
+    if(Thread.currentThread().getContextClassLoader() == null) {
+      Thread.currentThread().setContextClassLoader(ClassLoader.getSystemClassLoader());
+    }
     FXMLLoader loader = new FXMLLoader();
     loader.setLocation(getClass().getResource("primary.fxml"));
     Parent p;
@@ -188,6 +191,9 @@ public class ProfileController implements Initializable {
 
   @FXML
   public void signOut(MouseEvent event) {
+    if(Thread.currentThread().getContextClassLoader() == null) {
+      Thread.currentThread().setContextClassLoader(ClassLoader.getSystemClassLoader());
+    }
     FXMLLoader loader = new FXMLLoader();
     loader.setLocation(getClass().getResource("login.fxml"));
     Parent p;
