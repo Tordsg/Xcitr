@@ -13,6 +13,7 @@ import javafx.animation.RotateTransition;
 import javafx.animation.SequentialTransition;
 import javafx.animation.Timeline;
 import javafx.animation.TranslateTransition;
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -416,7 +417,7 @@ public class MatchController implements Initializable {
     } else {
       info.setPrefHeight(70 + previewBio.getLayoutBounds().getHeight());
       emailGroup.setLayoutY(45 + previewBio.getLayoutBounds().getHeight());
-      group.setLayoutY(338 - info.getHeight());
+      Platform.runLater(() -> group.setLayoutY(338 - info.getHeight()));
     }
     picture.setFill(imageController.getImage(user1));
     previewEmail.widthProperty().addListener((observable, oldValue, newValue) -> {
