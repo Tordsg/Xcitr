@@ -202,6 +202,7 @@ public class ServerController {
     excite.resetLikes(thisUser, excite.getUserByEmail(users.get(1).getEmail()));
     List<User> tmp = List.of(thisUser, excite.getUserByEmail(users.get(0).getEmail()),
         excite.getUserByEmail(users.get(1).getEmail()));
+    userHandler.saveUser(excite.getAllUsers());
     return excite.getNextRandomUser(tmp);
 
   }
