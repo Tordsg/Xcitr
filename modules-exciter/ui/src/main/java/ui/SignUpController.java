@@ -130,8 +130,9 @@ public class SignUpController {
 
   /**
    * Method for switching to login.fxml.
-   * 
-   * @param event
+   *
+   * @param event when clicked on the login text.
+   *
    */
 
   @FXML
@@ -152,8 +153,9 @@ public class SignUpController {
 
   /**
    * Creates an account.
-   * 
-   * @param event
+   *
+   * @param event when the button Create Account is pushed.
+   *
    */
 
   @FXML
