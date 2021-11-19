@@ -562,7 +562,7 @@
             </Text>
          </children>
       </Group>
-      <Pane fx:id="cardPane" layoutX="70.0" layoutY="70.0" prefHeight="338.0" prefWidth="225.0">
+      <Pane layoutX="70.0" layoutY="70.0" prefHeight="338.0" prefWidth="225.0">
          <effect>
             <DropShadow offsetX="2.0" offsetY="2.0">
                <color>
