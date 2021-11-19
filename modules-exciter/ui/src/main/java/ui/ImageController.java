@@ -19,16 +19,11 @@ public class ImageController {
 
   private List<ImagePattern> images = new ArrayList<>();
 
-
   /**
-   * Constructor.
+   * Fills pictures in to RAM.
    *
-   * @throws NullPointerException if no image is found
+   * @throws NullPointerException
    */
-  public ImageController() {
-   
-  }
-
   public void fillUpPicture() throws NullPointerException{
     for (int i = 0; i < 25; i++) {
       InputStream input = getClass().getResourceAsStream("Images/" + i + ".jpg");
@@ -43,8 +38,7 @@ public class ImageController {
       } catch (IOException e) {
         e.printStackTrace();
       }
-    } 
-
+    }
   }
 
   public ImagePattern getImage(User user) {
