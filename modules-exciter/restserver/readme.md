@@ -6,9 +6,20 @@
     <img width="700" src="/uploads/d032c8773b7bd7bcd3418d50935bcd80/restserver.png">
 </p>
 
-## RESt-api
+## REST-api
 
-The REST-api consists of different POST, GET and DELETE methods.
+The REST-api consists of different pages which uses POST, GET and DELETE methods.
+
+All requested bodies must be in a application/json format. Many of the mapping-methods requires a body of a User object. The User object should be in this format:
+
+{
+    "name" : "Name",
+    "age" : 17,
+    "email" : "name@mail.no"
+    
+}
+
+More variables can be added to the User object.
 
 - On the page **/user** there is a GET-method and a DELETE-method. The GET-method takes in a header "Authorization" of a users UUID and returns the current user of the application. In the DELETE-method there is a header "mail" with a mail-string. The method returns true if the User object is deleted, and false otherwise.
 
