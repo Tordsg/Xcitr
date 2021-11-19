@@ -9,3 +9,5 @@ Below is a sequence diagram that illustrates how a user gets a match with anothe
 ## Notes for the user module
 
 - Testing: The deserializing classes are not tested directly in the user module, but is rather indirectly tested by all of the other test classes because of the nature of a deserializing class. We know that these classes are well functioning because the only way to read, write and retrieve information through the REST API regarding a user and the chats are by converting the json strings to objects using deserialization.
+
+- User modules cannot be tested if the server is running.
