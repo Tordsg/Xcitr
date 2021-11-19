@@ -105,6 +105,9 @@ public class MatchController implements Initializable {
    */
 
   public void switchToPrimary(MouseEvent event) {
+    if(Thread.currentThread().getContextClassLoader() == null) {
+      Thread.currentThread().setContextClassLoader(ClassLoader.getSystemClassLoader());
+    }
     FXMLLoader loader = new FXMLLoader();
     loader.setLocation(getClass().getResource("primary.fxml"));
     Parent p;

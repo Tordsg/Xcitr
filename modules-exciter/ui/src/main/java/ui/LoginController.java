@@ -101,6 +101,9 @@ public class LoginController {
 
   @FXML
   void onSwitchToSignup(MouseEvent event) {
+    if(Thread.currentThread().getContextClassLoader() == null) {
+      Thread.currentThread().setContextClassLoader(ClassLoader.getSystemClassLoader());
+    }
     FXMLLoader loader = new FXMLLoader();
     loader.setLocation(getClass().getResource("signup.fxml"));
     Parent p;

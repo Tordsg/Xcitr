@@ -13,6 +13,7 @@ import javafx.animation.RotateTransition;
 import javafx.animation.SequentialTransition;
 import javafx.animation.TranslateTransition;
 import javafx.application.Platform;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -96,6 +97,9 @@ public class PrimaryController implements Initializable {
 
   @FXML
   private void switchToProfile(MouseEvent event) {
+    if(Thread.currentThread().getContextClassLoader() == null) {
+      Thread.currentThread().setContextClassLoader(ClassLoader.getSystemClassLoader());
+    }
     FXMLLoader loader = new FXMLLoader();
     loader.setLocation(getClass().getResource("profile.fxml"));
     Parent p;
@@ -118,6 +122,9 @@ public class PrimaryController implements Initializable {
 
   @FXML
   private void switchToMatch(MouseEvent event) {
+    if(Thread.currentThread().getContextClassLoader() == null) {
+      Thread.currentThread().setContextClassLoader(ClassLoader.getSystemClassLoader());
+    }
     FXMLLoader loader = new FXMLLoader();
     loader.setLocation(getClass().getResource("match.fxml"));
     Parent p;
