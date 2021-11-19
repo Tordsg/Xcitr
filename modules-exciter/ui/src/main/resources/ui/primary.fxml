@@ -95,7 +95,7 @@
       </Group>
       <Group layoutX="583.0" layoutY="49.0">
          <children>
-            <Circle fx:id="profile" fill="#1f93ff" layoutX="4.0" layoutY="4.0" onMouseClicked="#switchToProfile" radius="28.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" />
+            <Circle fx:id="profile" fill="#1f93ff" layoutX="4.0" layoutY="4.0" onMouseClicked="#switchToSecondary" radius="28.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" />
          </children>
          <effect>
             <DropShadow offsetX="2.0" offsetY="2.0">
@@ -140,7 +140,7 @@
             <Rectangle fx:id="leftPicture" arcHeight="45.0" arcWidth="45.0" fill="DODGERBLUE" height="338.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="2.0" width="225.0" />
             <Group fx:id="group1" layoutY="214.0">
                <children>
-                  <Pane fx:id="info1" layoutY="3.0" minWidth="-Infinity" prefHeight="121.0" prefWidth="225.0" style="-fx-background-color: rgba(255,255,255,0.6); -fx-border-radius: 0 0 21 21; -fx-border-width: 0 2 2 2; -fx-border-color: black; -fx-background-radius: 0 0 22 22;" />
+                  <Pane fx:id="info1" minWidth="-Infinity" prefHeight="121.0" prefWidth="225.0" style="-fx-background-color: rgba(255,255,255,0.6); -fx-border-radius: 0 0 21 21; -fx-border-width: 0 2 2 2; -fx-border-color: black; -fx-background-radius: 0 0 22 22;" />
                   <Label fx:id="age1" alignment="BOTTOM_CENTER" focusTraversable="false" layoutX="165.0" prefHeight="17.0" prefWidth="58.0" text="age">
                      <font>
                         <Font size="30.0" />
@@ -172,7 +172,7 @@
             <Rectangle fx:id="rightPicture" arcHeight="45.0" arcWidth="45.0" fill="DODGERBLUE" height="338.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="2.0" width="225.0" />
             <Group fx:id="group2" layoutY="214.0">
                <children>
-                  <Pane fx:id="info2" layoutY="3.0" minWidth="-Infinity" prefHeight="121.0" prefWidth="225.0" style="-fx-background-color: rgba(255,255,255,0.6); -fx-border-radius: 0 0 21 21; -fx-border-width: 0 2 2 2; -fx-border-color: black; -fx-background-radius: 0 0 22 22;" />
+                  <Pane fx:id="info2" minWidth="-Infinity" prefHeight="121.0" prefWidth="225.0" style="-fx-background-color: rgba(255,255,255,0.6); -fx-border-radius: 0 0 21 21; -fx-border-width: 0 2 2 2; -fx-border-color: black; -fx-background-radius: 0 0 22 22;" />
                   <Label fx:id="age2" alignment="BOTTOM_CENTER" focusTraversable="false" layoutX="165.0" prefHeight="17.0" prefWidth="58.0" text="age">
                      <font>
                         <Font size="30.0" />

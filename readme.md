@@ -83,7 +83,7 @@ Where the parameters is the mail of users.
 public Chat getChat(String user1, String user2)
 ```
 
-The application utilizes both explicit and implicit storage. The user excplicitly stores their name, email, age and password when they create an account. Also on the profile page the user explicity chooses to save updated information about themselves. Otherwise the app stores imformation implicitly, for example when a user likes someone, a match occurs or when the user chats with their matches.
+The application utilizes both explicit and implicit storage. The user excplicitly stores their name, email, age and password when they create an account. Also on the profile page the user chooses to save updated information about themselves. The reason for why we use explicit storage in these two cases is because the user themselves can choose what information will be saved or updated, it does not happen automatically. Otherwise the app stores imformation implicitly because the stored information reflects user activity, for example liking someone, matching or chatting.
 
 ### [restserver](https://gitlab.stud.idi.ntnu.no/it1901/groups-2021/gr2117/gr2117/-/tree/master/modules-exciter/restserver)
 
