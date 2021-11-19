@@ -58,7 +58,7 @@ The project is organized in the following structure. Code and modules can be fou
 
 ### [clientpackager](https://gitlab.stud.idi.ntnu.no/it1901/groups-2021/gr2117/gr2117/-/tree/master/modules-exciter/clientpackager)
 
-This module contains only one class, this is the AppStarter class that makes client application packable to single uber jar file.
+This module exists because the shaded class can not be depended upon by another module. Since the integration module needs to see both ui and restserver, the AppStarter to be shaded has to exist in its own module.
 
 ### [core](https://gitlab.stud.idi.ntnu.no/it1901/groups-2021/gr2117/gr2117/-/tree/master/modules-exciter/core)
 
