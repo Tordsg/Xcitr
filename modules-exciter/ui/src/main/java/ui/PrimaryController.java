@@ -53,9 +53,9 @@ public class PrimaryController implements Initializable {
   @FXML
   private Label age2;
   @FXML
-  private Label bio1;
+  private Text bio1;
   @FXML
-  private Label bio2;
+  private Text bio2;
   @FXML
   private Label errorLabel;
   @FXML
@@ -70,7 +70,10 @@ public class PrimaryController implements Initializable {
   private Pane refresh;
   @FXML
   private Pane scorePane;
-
+  @FXML
+  private Pane info1;
+  @FXML
+  private Pane info2;
   private ClientHandler clientHandler = new ClientHandler();
   private User user = App.getUser();
   private int numMatches = 0;
@@ -396,9 +399,11 @@ public class PrimaryController implements Initializable {
     name1.setText(leftUser.getName());
     age1.setText(String.valueOf(leftUser.getAge()));
     bio1.setText(leftUser.getUserInformation());
+    info1.setPrefHeight(bio1.getLayoutBounds().getHeight() + 50);
     name2.setText(rightUser.getName());
     age2.setText(String.valueOf(rightUser.getAge()));
     bio2.setText(rightUser.getUserInformation());
+    info2.setPrefHeight(bio2.getLayoutBounds().getHeight() + 50);
   }
 
   @Override
