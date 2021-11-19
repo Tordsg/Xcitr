@@ -5,23 +5,25 @@ The aim of release 3 is to further develop the Xcitr application in two ways:
 1. Building a REST-API.
 2. Expansion of the JavaFX application according to three new user stories.
 
+This translated into four milestones that the team set for the third release. For the first two milestones, setting up the REST server and setting up the REST client, we set the due date for completion the 12th of November. For the third milestones, complete testing coverage, we set a due date on the 15th of November. Then the final milestones is the release3 milestone where the whole project is to be delivered, due the 19th of November. We set these milestones for ourselves to make sure that the workload was evenly distributed, also the due date for the first three milestones were set quite early so that there was sufficient time remaining before the final deliverable to fix documentation, javadoc and code refinement. 
+
 ## User stories
 
 The requirements for the improved app functionality in the third release are set by three user stories: Bob (us-7), James (us-8) and Phyllis (us-9). These are explained in further detail in [userstories.md](https://gitlab.stud.idi.ntnu.no/it1901/groups-2021/gr2117/gr2117/-/tree/master/userstories.md), but are summerized by the following three points:
 
-1. being able to choose an avatar as a profile picture
+1. us-7: being able to choose an avatar as a profile picture
 
-2. match notification
+2. us-8: match notification
 
-3. chat between logged in user and their matches
+3. us-9: chat between logged in user and their matches
 
 ## Progress plan
 
 ### Core
 
-The goal for the core module is to modify it so that it can communicate and run with a REST server. This means that all of the back-end code associated with the user and bot user will be removed from the core and become its own module. This is to provide the REST client and REST server with equal access to the code that defines a user and a bot user on the application.
+The goal for the core module is to modify it so that it can communicate and run with a REST server. This means that all of the back-end code associated with the user and bot user will be removed from the core and become its own module. This is to provide the REST client and REST server with equal access to the code that defines a User and a BotUser, which would be difficult otherwise.
 
-The exciter class will have to be altered so that it is compatible with the REST server. Instead of directly communicating with the applications user interface, the exciter class recieves requests and information from the REST server according to the user activity. Based on this, the exciter class decides what functions should be called and what information is going to be stored to have a fully developed back-end.
+The Exciter class will have to be altered so that it is compatible with the REST server. Instead of directly communicating with the applications user interface, the Exciter class recieves requests and information from the REST server according to the user activity. Based on this, the Exciter class decides what functions should be called on, and what information is going to be stored to have a fully developed back-end.
 
 ### JSON
 
