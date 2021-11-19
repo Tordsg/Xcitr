@@ -5,11 +5,9 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
 /**
  * Methods for the chat.
  */
-
 @JsonDeserialize(using = ChatDeserializer.class)
 public class Chat {
   private String user1;
@@ -23,7 +21,6 @@ public class Chat {
    * @param string2 user2
    * @param messages that are sent between the two users
    */
-
   public Chat(String string1, String string2, List<Map<String, String>> messages) {
     this(string1, string2);
     this.messages = messages;
@@ -35,7 +32,6 @@ public class Chat {
    * @param user1 who sends messages on the chat
    * @param user2 who sends messages in the chats back
    */
-
   public Chat(String user1, String user2) {
     this.user1 = user1;
     this.user2 = user2;

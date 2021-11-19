@@ -11,7 +11,6 @@ import user.User;
 /**
  * The main logic class.
  */
-
 public class Exciter {
 
   private List<User> allUsers = new ArrayList<>();
@@ -19,7 +18,6 @@ public class Exciter {
   /**
    * Constructor for the class.
    */
-
   public Exciter() {
     addSomePlaceholderUsers();
   }
@@ -43,7 +41,6 @@ public class Exciter {
    *
    * @apiNote primarly used to add users from json file.
    */
-
   public void addUsers(List<User> users) {
     List<String> userMailList = allUsers.stream().map(User::getEmail).collect(Collectors.toList());
     for (User user : users) {
@@ -58,7 +55,6 @@ public class Exciter {
   /**
    * Adds botUsers.
    */
-
   public void addSomePlaceholderUsers() {
     allUsers.add(new BotUser("John", 22, "Likes to take long hikes every sunday",
          "John@mail.no", true, 1));
@@ -84,7 +80,6 @@ public class Exciter {
    *
    * @return new user that is not on screen
    */
-
   public User getNextRandomUser(List<User> users) {
     List<User> tmp = allUsers.stream().filter(user
         -> !users.contains(user)).collect(Collectors.toList());
@@ -130,7 +125,6 @@ public class Exciter {
    * @param user
    *
    */
-
   public void clearUser(User user) {
     allUsers.remove(allUsers.stream().filter(u
         -> u.getEmail().equals(user.getEmail())).findFirst().orElse(null));
@@ -143,7 +137,6 @@ public class Exciter {
    *
    * @return number of likes in a row by current user
    */
-
   public int getLikeCount(User user, User userToCheckAgainst) {
     if (user.getLikedUsers()
         .containsKey(this.getUserByEmail(userToCheckAgainst.getEmail()).getEmail())) {
@@ -166,7 +159,6 @@ public class Exciter {
    *
    * @return true if the user liked the other user three times in a row
    */
-
   public boolean likePerson(User userWhoLikes, User userWhoIsLiked) {
     userWhoLikes.fireOnLike(userWhoIsLiked.getEmail());
     if (userWhoIsLiked instanceof BotUser) {

@@ -1,11 +1,9 @@
 package user;
 
 import java.util.List;
-
 /**
  * This class makes randomusers that are shown as matches.
  */
-
 public class BotUser extends User {
   private boolean likeBack;
   private List<String> replies = List.of(
@@ -51,7 +49,6 @@ public class BotUser extends User {
    * @param likeback boolean value for whether they like the user back or not
    * @param imageId int id for the image the BotUser uses
    */
-
   public BotUser(String name, int age, String email, boolean likeback, int imageId) {
     this(name, age, email, likeback);
     super.setImageId(imageId);
@@ -65,7 +62,6 @@ public class BotUser extends User {
    * @param email string for the BotUsers email
    * @param likeback boolean value for whether they like the user back or not
    */
-
   public BotUser(String name, int age, String email, boolean likeback) {
     super(name, age, email);
     this.likeBack = likeback;
@@ -74,14 +70,13 @@ public class BotUser extends User {
   /**
    * Constructor for BotUser class.
    *
-   * @param name string for the BotUsers name
-   * @param age int for the BotUsers age
+   * @param name string for the botUsers name
+   * @param age int for the botUsers age
    * @param userInformation string for the BotUsers bio
-   * @param email string for the BotUsers email
+   * @param email string for the botUsers email
    * @param likeback boolean value for whether they like the user back or not
-   * @param imageId int for the image id that the bot user uses
+   * @param imageId int for the image id that the botUser uses
    */
-
   public BotUser(String name, int age, String userInformation, 
       String email, boolean likeback, int imageId) {
     this(name, age, email, likeback, imageId);

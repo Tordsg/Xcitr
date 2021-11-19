@@ -171,7 +171,7 @@ public class ServerController {
   }
 
   /**
-   * illegalAccessError if the client tries to do illegal request.
+   * IllegalAccessError if the client tries to do illegal request.
    */
   @ExceptionHandler(IllegalAccessError.class)
   @ResponseStatus(value = org.springframework.http.HttpStatus.FORBIDDEN)
@@ -229,7 +229,6 @@ public class ServerController {
    * Get number of likes.
    *
    * @param id   UUID of the user
-   *
    * @param mail email of the user to check likecount against
    *
    * @return number of likes
