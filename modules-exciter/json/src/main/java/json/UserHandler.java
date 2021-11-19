@@ -35,7 +35,7 @@ public class UserHandler {
   String path = System.getProperty("user.home") + "/user.json";
 
   /**
-   * Saves users to the JSON file. Will makes necessary checks for bot users to
+   * Saves users to the JSON file. Will make necessary checks for bot users to
    * differentiate between normal users and bot users.
    *
    * @param users to be saved
