@@ -13,6 +13,7 @@ import javafx.animation.RotateTransition;
 import javafx.animation.SequentialTransition;
 import javafx.animation.Timeline;
 import javafx.animation.TranslateTransition;
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -59,6 +60,8 @@ public class MatchController implements Initializable {
   @FXML
   Pane textPane;
   @FXML
+  Pane info;
+  @FXML
   Pane refresh;
   @FXML
   private Label previewName;
@@ -76,6 +79,10 @@ public class MatchController implements Initializable {
   Group backButton;
   @FXML
   Group sendButton;
+  @FXML
+  Group group;
+  @FXML
+  Group emailGroup;
   @FXML
   AnchorPane anchorPane;
   @FXML
@@ -133,11 +140,6 @@ public class MatchController implements Initializable {
     hoverButton(sendButton);
     hoverButton(chatPic);
     hoverButton(refresh);
-    if (matches != null && !matches.isEmpty()) {
-      fillChat(user, matches.get(0));
-      nameUser.setText(matches.get(0).getName());
-    }
-
     if (matches != null && !matches.isEmpty()) {
       matches.forEach(e -> matchBox.getChildren().add(createMatchCard(e)));
       matchBox.getChildren().forEach(e -> hoverButton(e));
@@ -411,6 +413,16 @@ public class MatchController implements Initializable {
     previewEmail.setText(user1.getEmail());
     previewEmail.setLayoutX(112.5 - previewEmail.getWidth() / 2);
     previewBio.setText(user1.getUserInformation());
+    if(previewBio.getText().isEmpty()){
+      info.setPrefHeight(65);
+      group.setLayoutY(313);
+      emailGroup.setLayoutY(45);
+    } else {
+      info.setPrefHeight(70 + previewBio.getLayoutBounds().getHeight());
+      Platform.runLater(() -> {group.setLayoutY(338 - info.getHeight());
+      emailGroup.setLayoutY(group.getLayoutBounds().getHeight()-20);
+      });
+    }
     picture.setFill(imageController.getImage(user1));
   }
   /**

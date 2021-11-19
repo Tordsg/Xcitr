@@ -151,7 +151,7 @@
                   </DropShadow>
                </effect>
             </VBox>
-            <Pane fx:id="cardPane" layoutX="400.0" layoutY="70.0" prefHeight="338.0" prefWidth="245.0">
+            <Pane fx:id="cardPane" layoutX="400.0" layoutY="70.0" prefHeight="338.0" prefWidth="225.0">
                <effect>
                   <DropShadow offsetX="2.0" offsetY="2.0">
                      <color>
@@ -161,28 +161,36 @@
                </effect>
                <children>
                   <Rectangle fx:id="picture" arcHeight="45.0" arcWidth="45.0" fill="DODGERBLUE" height="338.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="2.0" width="225.0" />
-                  <Pane layoutY="217.0" minWidth="-Infinity" prefHeight="121.0" prefWidth="225.0" style="-fx-background-color: rgba(255,255,255,0.6); -fx-border-radius: 0 0 21 21; -fx-border-width: 0 2 2 2; -fx-border-color: black; -fx-background-radius: 0 0 22 22;" />
-                  <Line endX="175.0" layoutY="314.0" startX="50.0" />
-                  <Label fx:id="previewAge" alignment="BOTTOM_CENTER" focusTraversable="false" layoutX="165.0" layoutY="214.0" prefHeight="17.0" prefWidth="58.0" text="age">
-                     <font>
-                        <Font size="30.0" />
-                     </font>
-                  </Label>
-                  <Text fx:id="previewBio" layoutX="13.0" layoutY="261.0" strokeType="OUTSIDE" strokeWidth="0.0" text="bio" wrappingWidth="198.0">
-                     <font>
-                        <Font name="Arial" size="12.0" />
-                     </font>
-                  </Text>
-                  <Label fx:id="previewEmail" alignment="CENTER" focusTraversable="false" layoutX="100.0" layoutY="317.0" text="email">
-                     <font>
-                        <Font size="12.0" />
-                     </font>
-                  </Label>
-                  <Label fx:id="previewName" alignment="BOTTOM_LEFT" focusTraversable="false" layoutX="5.0" layoutY="214.0" prefHeight="17.0" prefWidth="160.0" text="name">
-                     <font>
-                        <Font size="30.0" />
-                     </font>
-                  </Label>
+                  <Group fx:id="group" layoutY="217.0">
+                     <children>
+                        <Pane fx:id="info" minWidth="-Infinity" prefHeight="121.0" prefWidth="225.0" style="-fx-background-color: rgba(255,255,255,0.6); -fx-border-radius: 0 0 21 21; -fx-border-width: 0 2 2 2; -fx-border-color: black; -fx-background-radius: 0 0 22 22;" />
+                        <Group fx:id="emailGroup" layoutX="50.0" layoutY="100.0">
+                           <children>
+                              <Line endX="125.0" />
+                              <Label fx:id="previewEmail" alignment="CENTER" focusTraversable="false" layoutX="50.5" layoutY="3.5" text="email">
+                                 <font>
+                                    <Font size="12.0" />
+                                 </font>
+                              </Label>
+                           </children>
+                        </Group>
+                        <Label fx:id="previewAge" alignment="BOTTOM_CENTER" focusTraversable="false" layoutX="165.0" prefHeight="17.0" prefWidth="58.0" text="age">
+                           <font>
+                              <Font size="30.0" />
+                           </font>
+                        </Label>
+                        <Text fx:id="previewBio" layoutX="13.0" layoutY="50.0" strokeType="OUTSIDE" strokeWidth="0.0" text="bio" wrappingWidth="198.0">
+                           <font>
+                              <Font name="Arial" size="12.0" />
+                           </font>
+                        </Text>
+                        <Label fx:id="previewName" alignment="BOTTOM_LEFT" focusTraversable="false" layoutX="13.0" prefHeight="37.0" prefWidth="154.0" text="name">
+                           <font>
+                              <Font size="30.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </Group>
                </children>
             </Pane>
          </children>
