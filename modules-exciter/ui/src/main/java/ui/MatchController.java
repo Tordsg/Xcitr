@@ -146,7 +146,7 @@ public class MatchController implements Initializable {
       }
     }
     if (matchBox.getChildren().size() == 0) {
-      Label label = new Label("You have not matches, yet.");
+      Label label = new Label("You have no matches, yet.");
       label.setFont(new Font(20));
       label.setAlignment(Pos.CENTER);
       label.setLayoutX(48);
