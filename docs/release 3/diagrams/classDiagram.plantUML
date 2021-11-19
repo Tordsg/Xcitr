@@ -97,8 +97,8 @@ class Chat{
 }
 
 BotUser --|> User
-Exciter --> User: uses User-objects 
-UserHandler --> User: saves user-objects to file
+Exciter --> User: uses User objects 
+UserHandler --> User: saves User objects to file
 Chat--> User: creates chats between users
 MessageHandler --> Chat: saves messages to file
 ExciterApplication --> Exciter
