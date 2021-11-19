@@ -30,7 +30,7 @@ import javafx.stage.Stage;
 import user.User;
 
 /**
- * Controller for secondary.fxml.
+ * Controller for profile.fxml.
  */
 
 public class ProfileController implements Initializable {

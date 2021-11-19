@@ -50,7 +50,7 @@ class PrimaryController{
     -User leftUser
     -User rightUser
     -ImageController imageController
-    -void switchToSecondary(MouseEvent event)
+    -void switchToProfile(MouseEvent event)
     -void switchToMatch(MouseEvent event)
     -void hoverButton(Node)
     void onDiscardLeftCard()
