@@ -222,7 +222,6 @@ public class ProfileController implements Initializable {
     name.setText(user.getName());
     bio.setText(user.getUserInformation());
     age.setText(Integer.toString(user.getAge()));
-    imageController.fillUpPicture();
     TextFormatter<String> tf = new TextFormatter<>(c -> {
       if (c.isContentChange()) {
         Text text = new Text(c.getControlNewText());

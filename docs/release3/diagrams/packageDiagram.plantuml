@@ -43,6 +43,16 @@ component okHTTP {
 
 }
 
+component clientpackager{
+    package exciter.clientpackager
+
+}
+
+component integration{
+    package exciter.integration
+
+}
+
 
 exciter.restserver ..> exciter.ui
 exciter.ui ..> exciter.restserver
@@ -61,9 +71,12 @@ exciter.ui ..> exciter.user
 exciter.core ..>exciter.user
 exciter.json ..> exciter.user
 exciter.restserver ..> exciter.json
+exciter.clientpackager ..> exciter.ui
 
 
 exciter.json ..> json.simple
+exciter.integration ..> exciter.restserver
+exciter.integration ..> exciter.ui
 
 
 

@@ -41,6 +41,10 @@ public class ImageController {
     }
   }
 
+  public int getListSize(){
+    return images.size();
+  }
+
   public ImagePattern getImage(User user) {
     return images.get(user.getImageId());
   }
