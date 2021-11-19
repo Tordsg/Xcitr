@@ -72,7 +72,7 @@ Test class for integration testing for the application.
 
 ### [json](https://gitlab.stud.idi.ntnu.no/it1901/groups-2021/gr2117/gr2117/-/tree/master/modules-exciter/json)
 
-There is two classes within thes JSON module, which is the [UserHandler](https://gitlab.stud.idi.ntnu.no/it1901/groups-2021/gr2117/gr2117/-/tree/master/modules-exciter/json/UserHandler) and the [MessageHandler](https://gitlab.stud.idi.ntnu.no/it1901/groups-2021/gr2117/gr2117/-/tree/master/modules-exciter/json/MessageHandler) class.
+There is two classes within thes JSON module, which is the [UserHandler](https://gitlab.stud.idi.ntnu.no/it1901/groups-2021/gr2117/gr2117/-/tree/master/modules-exciter/json/UserHandler) and the [MessageHandler](https://gitlab.stud.idi.ntnu.no/it1901/groups-2021/gr2117/gr2117/-/tree/master/modules-exciter/json/MessageHandler) class. These two classes stores data in an open standard file format and data interchange format that uses human-readable text to store and transmit the user data.
 
 The former handles saving and reading user objects from file. This will include all the informations such as name, age, mail, matches, and other temporary variables that makes it possible to continue usage of the app due to server crash.
 

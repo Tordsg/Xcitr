@@ -95,7 +95,7 @@
       </Group>
       <Group layoutX="583.0" layoutY="49.0">
          <children>
-            <Circle fx:id="profile" fill="#1f93ff" layoutX="4.0" layoutY="4.0" onMouseClicked="#switchToSecondary" radius="28.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" />
+            <Circle fx:id="profile" fill="#1f93ff" layoutX="4.0" layoutY="4.0" onMouseClicked="#switchToProfile" radius="28.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" />
          </children>
          <effect>
             <DropShadow offsetX="2.0" offsetY="2.0">
